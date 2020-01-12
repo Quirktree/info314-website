@@ -1,0 +1,19 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+mkdocs = "*"
+pymdown-extensions = "*"
+pygments = "*"
+mkdocs-bootswatch = "*"
+
+[requires]
+python_version = "3.7"
+
+[scripts]
+serve = "mkdocs serve"
+push = "mkdocs gh-deploy --clean"

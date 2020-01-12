@@ -1,0 +1,29 @@
+# Project Information
+site_name: INFO 314 Course Resources
+site_description: Documentation and Resources for INFO 314
+site_author: Clinton Campbell
+site_url: https://info314.tcpip.dev
+
+# Repository
+repo_name: quirktree/info314-website
+repo_url: https://github.com/quirktree/info314-website
+edit_uri: ""
+
+# Configuration
+theme: yeti
+
+# Site Layout
+nav:
+  - Weclome:
+      - Welcome: index.md
+        #      - Asking for help: contact.md
+        #- Intro to Markdown: markdown.md
+        #- Intro to Bash: bash.md
+        #- Resources:
+        #- Pi Materials: resources/pi-materials.md
+        #- Asking for help: contact.md
+        #- Intro to Markdown: markdown.md
+        #- Intro to Bash: bash.md
+        #- Assignments:
+        #- Projects:
+        #- Labs:
