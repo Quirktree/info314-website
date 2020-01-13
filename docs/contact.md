@@ -1,5 +1,5 @@
 
-![question logo](img/welcome/conversation.png)
+![question logo](/img/welcome/conversation.png)
 
 **Asking teaching staff for help**
 

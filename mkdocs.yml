@@ -9,21 +9,55 @@ repo_name: quirktree/info314-website
 repo_url: https://github.com/quirktree/info314-website
 edit_uri: ""
 
-# Configuration
-theme: yeti
-
 # Site Layout
 nav:
-  - Weclome:
-      - Welcome: index.md
+  - Home: index.md
+  - Labs:
+    - Lab 2: assignments/lab2.md
+  - Reference:
+    - Intro to Markdown: resources/markdown.md
+    - Intro to Bash: resources/bash.md
+    - Mac/Win/Linux Networking: resources/host-config.md
+
         #      - Asking for help: contact.md
-        #- Intro to Markdown: markdown.md
-        #- Intro to Bash: bash.md
         #- Resources:
         #- Pi Materials: resources/pi-materials.md
         #- Asking for help: contact.md
-        #- Intro to Markdown: markdown.md
-        #- Intro to Bash: bash.md
         #- Assignments:
         #- Projects:
         #- Labs:
+
+# Configuration
+theme: yeti
+
+# Extensions
+markdown_extensions:
+- admonition
+- codehilite:
+    guess_lang: false
+    linenums: true
+- attr_list
+- def_list
+- footnotes
+- meta
+- sane_lists
+- toc:
+    permalink: true
+- pymdownx.arithmatex
+- pymdownx.betterem:
+    smart_enable: all
+- pymdownx.caret
+- pymdownx.critic
+- pymdownx.details
+- pymdownx.emoji:
+    emoji_generator: !!python/name:pymdownx.emoji.to_svg
+- pymdownx.inlinehilite
+- pymdownx.keys
+- pymdownx.magiclink
+- pymdownx.mark
+- pymdownx.smartsymbols
+- pymdownx.tasklist:
+    custom_checkbox: true
+- pymdownx.tilde
+
+copyright: 'Copyright &copy; 2020 Clinton Campbell'

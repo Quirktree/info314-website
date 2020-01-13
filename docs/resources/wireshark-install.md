@@ -1,5 +1,5 @@
 
-![wireshark](../img/course-prep/shark.jpg) 
+![wireshark](/img/course-prep/shark.jpg) 
 [source](https://www.cbtnuggets.com/blog/2014/11/5-reasons-learn-wireshark/.).
 
 > Install Wireshark using the instructions linked below and attempt to run a packet capture over your current wireless connection:
