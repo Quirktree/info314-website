@@ -6,12 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Clinton Campbell">
-        <link rel="canonical" href="https://info314.tcpip.dev/bash/">
-        <link rel="shortcut icon" href="../img/favicon.ico">
+        <link rel="canonical" href="https://info314.tcpip.dev/resources/bash/">
+        <link rel="shortcut icon" href="../../img/favicon.ico">
         <title>Intro to Bash - INFO 314 Course Resources</title>
-        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="../css/font-awesome.min.css" rel="stylesheet">
-        <link href="../css/base.css" rel="stylesheet">
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/color-brewer.min.css">
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        <script src="../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> 
     </head>
@@ -39,11 +39,43 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="..">INFO 314 Course Resources</a>
+                    <a class="navbar-brand" href="../..">INFO 314 Course Resources</a>
                 </div>
 
                 <!-- Expanded navigation -->
                 <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../assignments/lab2/">Lab 2</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../markdown/">Intro to Markdown</a>
+</li>
+                                    
+<li class="active">
+    <a href="./">Intro to Bash</a>
+</li>
+                                    
+<li >
+    <a href="../host-config/">Mac/Win/Linux Networking</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
@@ -51,6 +83,16 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
+                            <li >
+                                <a rel="next" href="../markdown/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../host-config/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
                             <li>
                                 <a href="https://github.com/quirktree/info314-website">quirktree/info314-website</a>
                             </li>
@@ -63,31 +105,38 @@
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#intro-to-bash">Intro to Bash</a></li>
+            <li><a href="#directories">Directories</a></li>
+            <li><a href="#editing-files">Editing files</a></li>
+            <li><a href="#command-documentation">Command documentation</a></li>
+            <li><a href="#services-starting-stopping-status">Services: starting, stopping, status</a></li>
+            <li><a href="#copying-files-across-servers-with-scp">Copying Files Across Servers with scp</a></li>
+            <li><a href="#local-vs-remote">Local vs Remote</a></li>
         <li class="main "><a href="#hostname-macbook-pro">hostname = macbook-pro</a></li>
         <li class="main "><a href="#this-tells-me-im-on-my-laptop">This tells me  I'm on my laptop.</a></li>
+            <li><a href="#logs">Logs</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="intro-to-bash">Intro to Bash</h1>
+<h1 id="intro-to-bash">Intro to Bash<a class="headerlink" href="#intro-to-bash" title="Permanent link">&para;</a></h1>
 <blockquote>
 <p>Bash command, terminal command, command line command, for the purpose of our class these all mean the same things. You should already be familiar with bash from INFO 201 and INFO 340. This following section will help you refresh some of the basics.</p>
 </blockquote>
-<p><br></p>
-<p>!!! info "Huh, Bash?"
-        If you feel completely lost and have never seen terminal commands we recommend watching these two videos:</p>
-<pre><code>    - &lt;a href="https://www.youtube.com/watch?v=oxuRxtrO2Ag" target="_blank"&gt;Beginner's Guide to the Bash Terminal&lt;/a&gt;
-    - &lt;a href="https://www.udacity.com/course/shell-workshop--ud206" target="_blank"&gt;Udacity Shell Workshop&lt;/a&gt;
-</code></pre>
-<p><br></p>
-<p><strong>Directories</strong></p>
+<div class="admonition info">
+<p class="admonition-title">Huh, Bash?<p>If you feel completely lost and have never seen terminal commands we recommend watching these two videos:</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=oxuRxtrO2Ag" target="_blank">Beginner's Guide to the Bash Terminal</a></li>
+<li><a href="https://www.udacity.com/course/shell-workshop--ud206" target="_blank">Udacity Shell Workshop</a></li>
+</ul>
+</p>
+</div>
+<h3 id="directories">Directories<a class="headerlink" href="#directories" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>cd</code> to change directories</li>
 <li><code>ls</code> to show files and directories at your current path</li>
 <li><code>ls -a</code> to also show hidden files</li>
 </ul>
-<p><br></p>
-<p><strong>Editing files</strong> </p>
+<h3 id="editing-files">Editing files<a class="headerlink" href="#editing-files" title="Permanent link">&para;</a></h3>
 <p>If you are editing a file on a remote server such as your Pi, you will not have the luxury of using a nice editor such as VS Code, Atom, or Sublime. Nevertheless, there are many powerful terminal editors.
 Use <code>nano</code> or <code>vim</code> to edit files through your terminal.</p>
 <p>How to edit a file that's on a linux server/your Pi:</p>
@@ -96,58 +145,59 @@ Use <code>nano</code> or <code>vim</code> to edit files through your terminal.</
 <li>Nano is beginner friendly. 
 If you are unfamiliar with these I recommend looking up a nano tutorial.</li>
 </ul>
-<p><br></p>
-<p><strong>Command documentation</strong> <br>
-If you don't know what a command does or how to use it simply use the <code>man</code> command! 
+<h3 id="command-documentation">Command documentation<a class="headerlink" href="#command-documentation" title="Permanent link">&para;</a></h3>
+<p>If you don't know what a command does or how to use it simply use the <code>man</code> command! 
 <code>man &lt;commandName&gt;</code> will print out an documentation. Once you're done reading hit <code>q</code> on your keyboard to quit out.  In the following screenshots I enter <code>man nslookup</code> which provides me with more information on what <code>nslookup</code> does and how it's used.</p>
 <p><img alt="man command" src="img/welcome/man1.png" /></p>
 <p><img alt="man result" src="img/welcome/man2.png" /></p>
-<p><br></p>
-<p><strong>Services: starting, stopping, status</strong> <br>
-Control services by using the <code>systemctl</code> command. The format is <code>sudo systemctl &lt;action&gt; &lt;service name&gt;</code>.</p>
-<p>Most used 
-!!! example
-        Restart NGINX service: <code>sudo systemctl restart nginx</code></p>
-<p><br></p>
-<p><strong>Copy files / <code>scp</code></strong> <br>
-You can copy files from your laptop to a server or a server to your laptop by using <code>scp</code>. </p>
+<h3 id="services-starting-stopping-status">Services: starting, stopping, status<a class="headerlink" href="#services-starting-stopping-status" title="Permanent link">&para;</a></h3>
+<p>Control services by using the <code>systemctl</code> command. The format is <code>sudo systemctl &lt;action&gt; &lt;service name&gt;</code>.</p>
+<div class="admonition example">
+<p class="admonition-title">Example<p>Restart NGINX service: <code>sudo systemctl restart nginx</code></p>
+</p>
+</div>
+<h3 id="copying-files-across-servers-with-scp">Copying Files Across Servers with <em>scp</em><a class="headerlink" href="#copying-files-across-servers-with-scp" title="Permanent link">&para;</a></h3>
+<p>You can copy files from your laptop to a server or a server to your laptop by using <code>scp</code>. </p>
 <p>It uses our ssh tunnel to securely transfer your files back and forth. You can find great examples at <a href="http://www.hypexr.org/linux_scp_help.php">hyperx.org</a>.</p>
-<p>Copy all of the contents of a folder:<br> <code>:::bash scp -r  ava/*  root@157.230.163.231:/var/www/html/</code><br> This copies everything in the ava folder to the html folder.</p>
-<p><br></p>
-<p><strong>Local vs Remote</strong></p>
+<p>Copy all of the contents of a folder:</p>
+<p><code class="codehilite">scp -r  ava/*  root@157.230.163.231:/var/www/html/</code></p>
+<p>This copies everything in the ava folder to the html folder.</p>
+<h3 id="local-vs-remote">Local vs Remote<a class="headerlink" href="#local-vs-remote" title="Permanent link">&para;</a></h3>
 <p>A typical confusion for students when deadling with <code>scp</code> is whether their current terminal session is doing work on their local machine (your laptop), or on a remote machine (your Raspberry Pi or another server).</p>
 <p>You can tell which device your terminal session is doing work in by checking the hostname, that is whatever is after the <code>@</code> symbol. Take a look at the two example tabs below.</p>
 <p>``` bash tab="Local"</p>
-<h1 id="hostname-macbook-pro">hostname = macbook-pro</h1>
-<h1 id="this-tells-me-im-on-my-laptop">This tells me  I'm on my laptop.</h1>
+<h1 id="hostname-macbook-pro">hostname = macbook-pro<a class="headerlink" href="#hostname-macbook-pro" title="Permanent link">&para;</a></h1>
+<h1 id="this-tells-me-im-on-my-laptop">This tells me  I'm on my laptop.<a class="headerlink" href="#this-tells-me-im-on-my-laptop" title="Permanent link">&para;</a></h1>
 <p>ben@macbook-pro:~/Desktop/info-314/</p>
-<pre><code>
-``` bash tab=&quot;Remote&quot;
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>``` bash tab=&quot;Remote&quot;
 # hostname = debian-lab1
 # I must be on my server now.
 ben@debian-lab1:~$
-</code></pre>
+</pre></div>
+</td></tr></table>
 
-<p><br></p>
-<p><strong>Logs</strong> <br>
-Check a service's logs. This is a great way to see if it ran into any errors. If for some reason a service keeps crashing or behaving strangely you'd want to dig into its logs and see if it's unhappy with something.</p>
+<h3 id="logs">Logs<a class="headerlink" href="#logs" title="Permanent link">&para;</a></h3>
+<p>Check a service's logs. This is a great way to see if it ran into any errors. If for some reason a service keeps crashing or behaving strangely you'd want to dig into its logs and see if it's unhappy with something.</p>
 <ul>
-<li><code>:::bash sudo journcalctl -u &lt;service name&gt;</code></li>
-<li>If you specifically only want to see the most recent parts of the log, you can pipe the information it gives you into the tail command, which only shows any files' ending lines. <code>:::bash sudo journalctl -u &lt;service name here&gt;.service | tail -n 100</code></li>
-</ul>
-<p><br></p></div>
+<li><code class="codehilite">sudo journcalctl -u &lt;service name&gt;</code></li>
+<li>If you specifically only want to see the most recent parts of the log, you can pipe the information it gives you into the tail command, which only shows any files' ending lines. <code class="codehilite">sudo journalctl -u &lt;service name here&gt;.service <span class="p">|</span> tail -n <span class="m">100</span></code></li>
+</ul></div>
         </div>
 
         <footer class="col-md-12">
             <hr>
+                <p>Copyright &copy; 2020 Clinton Campbell</p>
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>
-            var base_url = "..",
+            var base_url = "../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../js/base.js" defer></script>
-        <script src="../search/main.js" defer></script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">

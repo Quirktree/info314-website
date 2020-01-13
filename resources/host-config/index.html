@@ -4,14 +4,14 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Documentation and Resources for INFO 314">
+        
         <meta name="author" content="Clinton Campbell">
-        <link rel="canonical" href="https://info314.tcpip.dev/">
-        <link rel="shortcut icon" href="img/favicon.ico">
-        <title>INFO 314 Course Resources</title>
-        <link href="css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="css/font-awesome.min.css" rel="stylesheet">
-        <link href="css/base.css" rel="stylesheet">
+        <link rel="canonical" href="https://info314.tcpip.dev/resources/host-config/">
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Mac/Win/Linux Networking - INFO 314 Course Resources</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/color-brewer.min.css">
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -19,13 +19,13 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        <script src="js/jquery-1.10.2.min.js" defer></script>
-        <script src="js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> 
     </head>
 
-    <body class="homepage">
+    <body>
 
         <div class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container">
@@ -39,39 +39,39 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href=".">INFO 314 Course Resources</a>
+                    <a class="navbar-brand" href="../..">INFO 314 Course Resources</a>
                 </div>
 
                 <!-- Expanded navigation -->
                 <div class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-                            <li class="active">
-                                <a href=".">Home</a>
+                            <li >
+                                <a href="../..">Home</a>
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li >
-    <a href="assignments/lab2/">Lab 2</a>
+    <a href="../../assignments/lab2/">Lab 2</a>
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li >
-    <a href="resources/markdown/">Intro to Markdown</a>
+    <a href="../markdown/">Intro to Markdown</a>
 </li>
                                     
 <li >
-    <a href="resources/bash/">Intro to Bash</a>
+    <a href="../bash/">Intro to Bash</a>
 </li>
                                     
-<li >
-    <a href="resources/host-config/">Mac/Win/Linux Networking</a>
+<li class="active">
+    <a href="./">Mac/Win/Linux Networking</a>
 </li>
                                 </ul>
                             </li>
@@ -83,13 +83,13 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-                            <li class="disabled">
-                                <a rel="next" >
+                            <li >
+                                <a rel="next" href="../bash/">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
-                            <li >
-                                <a rel="prev" href="assignments/lab2/">
+                            <li class="disabled">
+                                <a rel="prev" >
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -104,28 +104,51 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#computer-networks-and-distributed-applications">Computer Networks And Distributed Applications</a></li>
-            <li><a href="#important-links">Important Links</a></li>
+        <li class="main active"><a href="#macwindowslinux-networking">Mac/Windows/Linux Networking</a></li>
+            <li><a href="#renewing-dhcp-leases">Renewing DHCP Leases</a></li>
+            <li><a href="#managing-arp-cache">Managing ARP Cache</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="computer-networks-and-distributed-applications">Computer Networks And Distributed Applications<a class="headerlink" href="#computer-networks-and-distributed-applications" title="Permanent link">&para;</a></h1>
-<p>This site provides documentation and Resources for students participating in <strong>INFO 314</strong>: <em>"Computer Networks And Distributed Applications"</em>. Class documentation and troubleshooting will be slowly added to this website in order to better support  students with their assignments.</p>
-<p>If you notice a problem with the content presented here, please file an issue on the GitHub <a href="https://github.com/quirktree/info314-website" target="blank">project repository</a>.<sup id="fnref:MkDocs"><a class="footnote-ref" href="#fn:MkDocs">1</a></sup></p>
-<h2 id="important-links">Important Links<a class="headerlink" href="#important-links" title="Permanent link">&para;</a></h2>
+<h1 id="macwindowslinux-networking">Mac/Windows/Linux Networking<a class="headerlink" href="#macwindowslinux-networking" title="Permanent link">&para;</a></h1>
+<h2 id="renewing-dhcp-leases">Renewing DHCP Leases<a class="headerlink" href="#renewing-dhcp-leases" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>dhcp renewal is when a dhcp client (your laptop, phone, tablet...) renews or updates its IP address configuration with the dhcp server. Often times in our homes the dhcp server is already packaged in our router <a href="https://www.serverbrain.org/network-services-2003/how-the-dhcp-lease-renewal-process-works-1.html">source</a>.</p>
+</blockquote>
+<h3 id="macos">macOS<a class="headerlink" href="#macos" title="Permanent link">&para;</a></h3>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The <em>Renew DHCP Lease</em> button for macOS will not result in a complete DHCP Exchange. Be sure to follow the instructions below.</p>
+</div>
 <ul>
-<li><a href="https://canvas.uw.edu/courses/1355759" target="_blank"> INFO 314 Canvas HomePage </a> </li>
-<li><a href= "https://github.com/i314-campbell-wi19/project-tutorials" target="_blank"> Github Project Tutorials </a> </li>
+<li>Go to Network Preferences &gt;&gt; Select interface &gt;&gt; Advanced -&gt; TCP/IP, Turn off IPv4 Addressing (hit OK + Apply)</li>
+<li>Return to advanced settings and enable DHCP (hit OK + Apply). </li>
 </ul>
-<div class="footnote">
-<hr />
-<ol>
-<li id="fn:MkDocs">
-<p>Curious on how to develop something similar to this? Follow instructions on how to setup your own MkDocs <a href="https://github.com/bwalchen/mkdocs-template/blob/master/README.md">here</a>.&#160;<a class="footnote-backref" href="#fnref:MkDocs" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
-</ol>
-</div></div>
+<h3 id="windows">Windows<a class="headerlink" href="#windows" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Open a command prompt</li>
+<li>Run <code>ipconfig /release Wi-Fi</code> to release your IP address</li>
+<li>Wait for the release command to complete and run <code>ipconfig /renew</code> to request a new one</li>
+</ul>
+<h3 id="linux">Linux<a class="headerlink" href="#linux" title="Permanent link">&para;</a></h3>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Linux instructions will vary depending on your target distribution. You may need to search online for alternative instructions.</p>
+</div>
+<ul>
+<li><code>sudo dhclient -r eth0</code></li>
+<li><code>sudo dhclient eth0</code></li>
+</ul>
+<h2 id="managing-arp-cache">Managing ARP Cache<a class="headerlink" href="#managing-arp-cache" title="Permanent link">&para;</a></h2>
+<p>Every computer maintains a cache of associations of ARP responses that have recently appeared on the network. In order to examine ARP functionality or troubleshoot the behavior of a particular network device, you may need to flush the existing contents.</p>
+<h3 id="windows_1">Windows<a class="headerlink" href="#windows_1" title="Permanent link">&para;</a></h3>
+<p>Open an Administrator Command Prompt or PowerShell Session and run<code>arp -d</code></p>
+<h3 id="unix-macos">Unix (MacOS)<a class="headerlink" href="#unix-macos" title="Permanent link">&para;</a></h3>
+<p><code>sudo arp -ad</code> </p>
+<h3 id="linux_1">Linux<a class="headerlink" href="#linux_1" title="Permanent link">&para;</a></h3>
+<p>For the following command, substitute the name of your own network interface for <strong><wlan0></strong>: </p>
+<p><code>sudo ip neigh flush dev &lt;wlan0&gt;</code></p></div>
         </div>
 
         <footer class="col-md-12">
@@ -134,11 +157,11 @@
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>
-            var base_url = ".",
+            var base_url = "../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="js/base.js" defer></script>
-        <script src="search/main.js" defer></script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">
@@ -206,8 +229,3 @@
 
     </body>
 </html>
-
-<!--
-MkDocs version : 1.0.4
-Build Date UTC : 2020-01-13 10:03:38
--->

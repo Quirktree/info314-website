@@ -6,12 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Clinton Campbell">
-        <link rel="canonical" href="https://info314.tcpip.dev/markdown/">
-        <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Markdown - INFO 314 Course Resources</title>
-        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="../css/font-awesome.min.css" rel="stylesheet">
-        <link href="../css/base.css" rel="stylesheet">
+        <link rel="canonical" href="https://info314.tcpip.dev/resources/markdown/">
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Intro to Markdown - INFO 314 Course Resources</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/color-brewer.min.css">
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -19,8 +19,8 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-        <script src="../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> 
     </head>
@@ -39,11 +39,43 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="..">INFO 314 Course Resources</a>
+                    <a class="navbar-brand" href="../..">INFO 314 Course Resources</a>
                 </div>
 
                 <!-- Expanded navigation -->
                 <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../assignments/lab2/">Lab 2</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li class="active">
+    <a href="./">Intro to Markdown</a>
+</li>
+                                    
+<li >
+    <a href="../bash/">Intro to Bash</a>
+</li>
+                                    
+<li >
+    <a href="../host-config/">Mac/Win/Linux Networking</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
@@ -51,6 +83,16 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
+                            <li >
+                                <a rel="next" href="../../assignments/lab2/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../bash/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
                             <li>
                                 <a href="https://github.com/quirktree/info314-website">quirktree/info314-website</a>
                             </li>
@@ -62,39 +104,39 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#what-is-markdown">What is Markdown</a></li>
+        <li class="main "><a href="#how-do-i-get-started">How do I get started?</a></li>
+        <li class="main "><a href="#preview-markdown">Preview Markdown</a></li>
+        <li class="main "><a href="#markdown-pdf">Markdown -&gt; PDF</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
 <p><a href="https://i.github-camo.com/49795e7aa84c3510ca7a56c903d1c3ecb42e896d/68747470733a2f2f636c6f75642e67697468756275736572636f6e74656e742e636f6d2f6173736574732f3337383032332f31303031333038362f32346361643233652d363134392d313165352d393065362d3636333030393231303231382e706e67"><img alt="markdown image" src="https://i.github-camo.com/49795e7aa84c3510ca7a56c903d1c3ecb42e896d/68747470733a2f2f636c6f75642e67697468756275736572636f6e74656e742e636f6d2f6173736574732f3337383032332f31303031333038362f32346361643233652d363134392d313165352d393065362d3636333030393231303231382e706e67" /></a></p>
-<p><strong>What is Markdown</strong></p>
+<h3 id="what-is-markdown">What is Markdown<a class="headerlink" href="#what-is-markdown" title="Permanent link">&para;</a></h3>
 <p>"Markdown allows you to write using an easy-to-read, easy-to-write plain text format, then convert it to structurally valid XHTML (or HTML)" <a href="https://readwrite.com/2012/04/17/why-you-need-to-learn-markdown/">source</a>. You will be expected to use this syntax for most of your class reports. You will find a file called <code>README.md</code> in the root of all of your GitHub repo folders. This is where you will be doing most of your markdown work.</p>
-<p><br></p>
-<p><strong>How do I get started?</strong></p>
+<h3 id="how-do-i-get-started">How do I get started?<a class="headerlink" href="#how-do-i-get-started" title="Permanent link">&para;</a></h3>
 <p>Don't worry if you are unfamiliar with Markdown, it's really easy to pick up. Github has great documentation on all of the things you can do with it here: <a href="https://guides.github.com/features/mastering-markdown/"> mastering-markdown</a> guide. Once you've taken a look at it follow this beginner's tutorial: <a href="https://www.markdowntutorial.com/">markdowntutorial.com</a>.</p>
-<p><br></p>
-<p><strong>Preview Markdown</strong></p>
+<h3 id="preview-markdown">Preview Markdown<a class="headerlink" href="#preview-markdown" title="Permanent link">&para;</a></h3>
 <p>When you're editing your <code>md</code> file in your computer, you'll want to know what your text would look like on Github as you're typing. I recommend installing a couple extensions on VS code in order to make your life easier: <code>Markdown Preview Github</code> and <code>Markdown All in One</code>.</p>
 <p>Each has instructions at the time of installation on how to use them.</p>
-<p><br></p>
-<p><strong>Markdown -&gt; PDF</strong></p>
+<h3 id="markdown-pdf">Markdown -&gt; PDF<a class="headerlink" href="#markdown-pdf" title="Permanent link">&para;</a></h3>
 <p><strong><code>grip</code></strong> is a command line tool that will easily convert your markdown file to a <code>pdf</code> or <code>html</code> file.</p>
 <p>Installation instruction github.com/joeyespo/grip.</p>
-<p>Usage: <code>grip &lt;file name&gt;.md --export</code></p>
-<p><br>
-<br></p></div>
+<p>Usage: <code>grip &lt;file name&gt;.md --export</code></p></div>
         </div>
 
         <footer class="col-md-12">
             <hr>
+                <p>Copyright &copy; 2020 Clinton Campbell</p>
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>
-            var base_url = "..",
+            var base_url = "../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../js/base.js" defer></script>
-        <script src="../search/main.js" defer></script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
     <div class="modal-dialog">

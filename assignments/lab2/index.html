@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Clinton Campbell">
+        <link rel="canonical" href="https://info314.tcpip.dev/assignments/lab2/">
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Lab 2 - INFO 314 Course Resources</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/color-brewer.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../..">INFO 314 Course Resources</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li class="active">
+    <a href="./">Lab 2</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../resources/markdown/">Intro to Markdown</a>
+</li>
+                                    
+<li >
+    <a href="../../resources/bash/">Intro to Bash</a>
+</li>
+                                    
+<li >
+    <a href="../../resources/host-config/">Mac/Win/Linux Networking</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../..">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../../resources/markdown/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/quirktree/info314-website">quirktree/info314-website</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#lab-2-analyzing-dhcp-and-arp-with-wireshark">Lab 2 - Analyzing DHCP and ARP with Wireshark</a></li>
+        <li class="main "><a href="#overview">Overview</a></li>
+        <li class="main "><a href="#introduction-to-wireshark">Introduction to Wireshark</a></li>
+            <li><a href="#starting-a-capture">Starting a Capture</a></li>
+            <li><a href="#exploring-a-capture">Exploring a Capture</a></li>
+            <li><a href="#narrowing-your-search">Narrowing your Search</a></li>
+        <li class="main "><a href="#instructions">Instructions</a></li>
+            <li><a href="#dhcp">DHCP</a></li>
+            <li><a href="#arp">ARP</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="lab-2-analyzing-dhcp-and-arp-with-wireshark">Lab 2 - Analyzing DHCP and ARP with Wireshark<a class="headerlink" href="#lab-2-analyzing-dhcp-and-arp-with-wireshark" title="Permanent link">&para;</a></h1>
+<p><a href="https://canvas.uw.edu/courses/1355759/assignments/5195458">canvas link</a></p>
+<h1 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h1>
+<p>The purpose of this lab is for students to get familiar with basic functionalities of Wireshark, and to be able to capture and analyze network traffic.</p>
+<p>There will be multiple correct ways to complete this lab, we highly recommend using search engines to help you find solutions.</p>
+<h1 id="introduction-to-wireshark">Introduction to Wireshark<a class="headerlink" href="#introduction-to-wireshark" title="Permanent link">&para;</a></h1>
+<p>Wireshark is a tool designed to record and observe the messages that are sent over a network and to provide an analyst with tools to understand and troubleshoot the protocols associated with those messages.</p>
+<h2 id="starting-a-capture">Starting a Capture<a class="headerlink" href="#starting-a-capture" title="Permanent link">&para;</a></h2>
+<p>Open Wireshark and locate the Capture section of the launch screen. This section contains an input field for configuring capture filters and a list of physical and virtual interfaces that can be used to capture packets.</p>
+<p>To the right of each interface, you should notice an animated “sparkline” which indicates the level of activity on the associated network. You can launch a capture on your active interface (likely Wi-Fi or Ethernet) by double-clicking on the respective label. </p>
+<p>If a capture filter was specified before you selected the interface, Wireshark ignores any packets that don't match the filter. If the filter input is empty, Wireshark records everything it sees on the wire. </p>
+<p>Recording continues until you press the stop icon in the top toolbar or close the application.</p>
+<h2 id="exploring-a-capture">Exploring a Capture<a class="headerlink" href="#exploring-a-capture" title="Permanent link">&para;</a></h2>
+<p>By default, Wireshark will divide capture-related content among three panes:</p>
+<ul>
+<li>Packet List</li>
+<li>Packet Details</li>
+<li>Packet Bytes</li>
+</ul>
+<p>The <em>Packet List</em> displays all packets in the current capture, summarizing important details about traffic flow and the type of data contained in the packet. </p>
+<p>The <em>Packet Details</em> view initially displays a layered summary of the protocols represented in the selected packet. A more detailed view of each protocol can be explored by clicking the arrow icons to the left of the summary. The order of the protocols in this view corresponds to the order in which each protocol’s header appears in the data frame. </p>
+<p>The <em>Packet Bytes pane</em> can be useful for understanding the basic structure of raw network messages. As you navigate through the details in this view, Wireshark will highlight the corresponding bytes in the Packet Bytes pane.</p>
+<h2 id="narrowing-your-search">Narrowing your Search<a class="headerlink" href="#narrowing-your-search" title="Permanent link">&para;</a></h2>
+<p>If you have any software, particularly a web browser, running in the background, you'll notice that Wireshark can quickly accumulate a large list of packets. Fortunately, the software provides a variety of tools to help you more easily locate packets relevant to your search.</p>
+<p>The packet list can be modified non-destructively by adding/removing <em>display filters</em><sup id="fnref:filters"><a class="footnote-ref" href="#fn:filters">1</a></sup> in the input field below the top toolbar. Display filters are a valuable analytic tool that allows you to remove noise and quickly focus on packets that match certain criteria.</p>
+<p>In addition to writing your own display filters, you can access a variety of context-specific analysis tools by right clicking on any row of the Packet List or a field within the Packet Details pane. These tools can help you create a display filter based on the current packet or to investigate a conversation that spans multiple packets.</p>
+<h1 id="instructions">Instructions<a class="headerlink" href="#instructions" title="Permanent link">&para;</a></h1>
+<h2 id="dhcp">DHCP<a class="headerlink" href="#dhcp" title="Permanent link">&para;</a></h2>
+<h3 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h3>
+<p>Stop any ongoing captures and configure a new capture on your wireless interface with capture filter <code>arp || udp portrange 67-68</code>. This filter will prevent Wireshark from capturing excessive amounts of traffic so that we can leave the capture running for the entire lab.</p>
+<p>While our current capture should be fairly quiet owing to the previous capture filter, create a display filter to further reduce the number of visible packets (Hint: Type <code>dhcp</code> into the display filter input below the main wireshark toolbar).</p>
+<p><em>At the end of the lab, save your capture and submit it with your assignment.</em></p>
+<h3 id="request-a-new-dhcp-lease">Request a new DHCP Lease<a class="headerlink" href="#request-a-new-dhcp-lease" title="Permanent link">&para;</a></h3>
+<p>In order to properly complete this lab, you will need to terminate your current DHCP lease so that you can capture the process of DHCP initializing your network interface. This process will differ depending on your OS. </p>
+<p>Follow the instructions linked on <a href="/resources/host-config/#renewing-dhcp-leases">the resources site</a> to complete this process.</p>
+<h3 id="analysis">Analysis<a class="headerlink" href="#analysis" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Based on your capture, create an outline of a complete DHCP exchange. For each message:<ul>
+<li>Include a screenshot of the packet details summary.</li>
+<li>Include a brief written summary, identifying: DHCP message type, DHCP transaction ID, source and destination Ethernet addresses, source and destination IP addresses, and UDP source and destination UDP ports associated.</li>
+</ul>
+</li>
+<li>How can you determine which messages were sent by your own device versus the DHCP server?</li>
+<li>Based on the outline you created above, determine the purpose of the 0.0.0.0 address appearing within the DHCP exchange.</li>
+<li>What Ethernet-layer address corresponds to the 255.255.255.255 IP address? Using online resources as necessary, determine the purpose of these special addresses.</li>
+<li>Which of the fields that you have observed can be used to distinguish between different conversations between the same client and server?</li>
+</ol>
+<p>If you look closely at the packet details for each message, you'll notice that each DHCP message contains a variety of options. In DHCP, options allow DHCP clients and servers to adapt the protocol to their own needs. Like many other protocols, DHCP encodes options as a <em>type</em>, a <em>length</em>, and a <em>value</em>. Based on this structure, we can continue to extend the protocol without needing to change the basic foundation.</p>
+<ol start="6">
+<li>Using your search engine of choice, identify the IETF RFC (# and name) that defines the common option types for the DHCP protocol.</li>
+<li>Which DHCP Option (#) tells us the DHCP message type? How many bytes are required to encode the type?</li>
+<li>Which DHCP Option (#) tells us the length of a DHCP lease? How many bytes are required to encode the duration of the lease?</li>
+<li>According to the RFC, is it possible to specify the lease length in any unit of time other than seconds?</li>
+<li>Compare the Lease Time option of the Discover message with the value in the Offer message. Did your device request a particular duration? If so, did the server honor this request?</li>
+<li>Using online resources as needed, determine what happens at the end of a DHCP address lease.</li>
+<li>Based on the order of the messages in the capture and the details we've asked you to examine, offer an explanation of how the DHCP protocol works to configure your network interface with appropriate settings. How does the protocol make use of Ethernet and IP broadcast functionality, and why is that important? Use your capture to illustrate your point.</li>
+</ol>
+<h2 id="arp">ARP<a class="headerlink" href="#arp" title="Permanent link">&para;</a></h2>
+<h3 id="setup_1">Setup<a class="headerlink" href="#setup_1" title="Permanent link">&para;</a></h3>
+<p>You may continue to use the same capture for this section. If you launch a new capture, please save the first capture and submit both with your assignment.</p>
+<p>Before you begin the analysis questions, clear the ARP cache per instructions linked <a href="/resources/host-config/#managing-arp-cache">on the resources site</a> and generate some Internet traffic, e.g., browse the web.</p>
+<p>Remove any existing display filters and create a new filter that will only show ARP related traffic. (Hint: type <code>arp</code> in the display filter input).</p>
+<h3 id="analysis_1">Analysis<a class="headerlink" href="#analysis_1" title="Permanent link">&para;</a></h3>
+<ol start="13">
+<li>Outline a complete ARP exchange (request and response), including a screenshot and a brief summary of each message.</li>
+<li>Identify the 48-bit hardware address associated with your network interface and use this information to specify which message(s) originated from your local device?</li>
+<li>Determine which messages are sent to a broadcast destination.</li>
+<li>Why do you think the ARP protocol makes use of the broadcast destination?</li>
+<li>Aside from the broadcast address, what other differences do you notice between the contents of ARP requests and replies?</li>
+<li>Spend a moment comparing the overall packet structure (as seen in the Packet Details view) between DHCP and ARP. Identify any <em>layers</em> that are present in one protocol but not in the other.</li>
+<li>In order for a network message to be considered an IP packet, the message must contain an Internet Protocol layer that includes an IP header for the rest of the message. Does the ARP protocol use IP packets to communicate?</li>
+<li>Describe in your own words how ARP works to allow hosts to communicate in a Layer-2 network based on IP address. Use your capture to illustrate your points.</li>
+</ol>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:filters">
+<p>Do not confuse display filters and capture filters. They serve very different purposes and even use distinct syntax.&#160;<a class="footnote-backref" href="#fnref:filters" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>Copyright &copy; 2020 Clinton Campbell</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
