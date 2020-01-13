@@ -18,6 +18,7 @@ nav:
     - Intro to Markdown: resources/markdown.md
     - Intro to Bash: resources/bash.md
     - Mac/Win/Linux Networking: resources/host-config.md
+    - Install Wireshark: resources/wireshark-install.md
 
         #      - Asking for help: contact.md
         #- Resources:
