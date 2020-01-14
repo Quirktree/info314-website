@@ -1,11 +1,20 @@
 
-![wireshark](/img/course-prep/shark.jpg) 
-[source](https://www.cbtnuggets.com/blog/2014/11/5-reasons-learn-wireshark/.).
+# Installing WireShark
+Install WiresShark using the instructions linked below and test that you are able to run a packet capture over your current wireless connection.
 
-> Install Wireshark using the instructions linked below and attempt to run a packet capture over your current wireless connection:
+## Instructions (macOS)
 
-**Instructions (macOS):** https://www.wireshark.org/docs/wsug_html_chunked/ChBuildInstallOSXInstall.html
+Download the macOS installer from the [WireShark download page](https://www.wireshark.org/download.html) and proceed with the instructions at: https://www.wireshark.org/docs/wsug_html_chunked/ChBuildInstallOSXInstall.html
 
-**Instructions (Windows):** https://www.wireshark.org/docs/wsug_html_chunked/ChBuildInstallWinInstall.html
+!!! Important
+    The latest release of WireShark shipped with a macOS specific bug that appears with a permission denied error every time the user opens a new terminal window. This is a known bug[^bug] in the latest installer and can be resolved by running
+`sudo chmod 644 /etc/manpaths.d/Wireshark /etc/paths.d/Wireshark` from the terminal.
 
-**Instructions (Linux):** https://www.wireshark.org/docs/wsug_html_chunked/ChBuildInstallUnixInstallBins.html
+[^bug]: https://github.com/Homebrew/homebrew-cask/issues/74548
+
+## Instructions (Windows)
+Download the Windows installer (64-bit) from the [Wireshark download page](https://www.wireshark.org/download.html) and proceed with the instructions at: https://www.wireshark.org/docs/wsug_html_chunked/ChBuildInstallWinInstall.html
+
+## Instructions (Linux)
+
+https://www.wireshark.org/docs/wsug_html_chunked/ChBuildInstallUnixInstallBins.html
