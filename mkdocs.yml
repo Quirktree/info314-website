@@ -12,6 +12,11 @@ edit_uri: ""
 # Site Layout
 nav:
   - Home: index.md
+  - Projects:
+    - 1 - Pi Setup:
+      - Raspberry Pi Setup: assignments/pi-setup.md
+      - networkd Setup: assignments/networkd-setup.md
+      - Wifi Reference: resources/wifi-reference.md
   - Labs:
     - Lab 2: assignments/lab2.md
   - Reference:
@@ -19,6 +24,7 @@ nav:
     - Intro to Bash: resources/bash.md
     - Mac/Win/Linux Networking: resources/host-config.md
     - Install Wireshark: resources/wireshark-install.md
+    - Linux Wireless Reference: resources/wifi-reference.md
 
         #      - Asking for help: contact.md
         #- Resources:
@@ -57,6 +63,7 @@ markdown_extensions:
 - pymdownx.magiclink
 - pymdownx.mark
 - pymdownx.smartsymbols
+- pymdownx.superfences
 - pymdownx.tasklist:
     custom_checkbox: true
 - pymdownx.tilde
