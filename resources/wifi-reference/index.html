@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Clinton Campbell">
+        <link rel="canonical" href="https://info314.tcpip.dev/resources/wifi-reference/">
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Linux Wireless Reference - INFO 314 Course Resources</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/color-brewer.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../..">INFO 314 Course Resources</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">1 - Pi Setup</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../assignments/pi-setup/">Raspberry Pi Setup</a>
+</li>
+            
+<li >
+    <a href="../../assignments/networkd-setup/">networkd Setup</a>
+</li>
+            
+<li >
+    <a href="./">Wifi Reference</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../assignments/lab2/">Lab 2</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../markdown/">Intro to Markdown</a>
+</li>
+                                    
+<li >
+    <a href="../bash/">Intro to Bash</a>
+</li>
+                                    
+<li >
+    <a href="../host-config/">Mac/Win/Linux Networking</a>
+</li>
+                                    
+<li >
+    <a href="../wireshark-install/">Install Wireshark</a>
+</li>
+                                    
+<li class="active">
+    <a href="./">Linux Wireless Reference</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../wireshark-install/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="disabled">
+                                <a rel="prev" >
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/quirktree/info314-website">quirktree/info314-website</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#wpa-supplicant-configuration-reference-2019-04-21">WPA Supplicant Configuration Reference (2019-04-21)</a></li>
+            <li><a href="#basic-configuration">Basic Configuration</a></li>
+            <li><a href="#unencrypted-networks">Unencrypted Networks</a></li>
+            <li><a href="#wpa2-personal-networks">WPA2 Personal Networks</a></li>
+            <li><a href="#wpa2-enterprise-networks">WPA2 Enterprise Networks</a></li>
+            <li><a href="#applying-configuration-changes">Applying Configuration Changes</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="wpa-supplicant-configuration-reference-2019-04-21">WPA Supplicant Configuration Reference (2019-04-21)<a class="headerlink" href="#wpa-supplicant-configuration-reference-2019-04-21" title="Permanent link">&para;</a></h1>
+<h2 id="basic-configuration">Basic Configuration<a class="headerlink" href="#basic-configuration" title="Permanent link">&para;</a></h2>
+<p>Wireless settings for the Pi are controlled by a service called <strong>wpa_supplicant</strong>, which stores information about known wireless networks in a text-based configuration file in <strong><code>/etc/wpa_supplicant/</code></strong>. By default, in Raspbian, the name of this file is <strong><code>wpa_supplicant.conf</code></strong>. You may also encounter an interface-specific configuration where the interface name is appended to the file, e.g., <strong><code>wpa_supplicant-wlan0.conf</code></strong>. In both cases, the file is owned by <strong>root</strong> and requires <strong>root</strong> privileges to read or edit.</p>
+<details class="danger"><summary>Security Risk</summary><p><strong><code>wpa_supplicant.conf</code></strong> is protected from casual reading due to the fact that it is a sensitive file that will likely contain your home network keys and a hash of your UW NetID password. While hashes typically provide some extra protection of a stored password, MD4 is nearly useless in this regard except with really strong passwords.</p>
+<p>Practice caution with this file:</p>
+<ol>
+<li>Never share the contents of this file directly online.</li>
+<li>Scrub passwords, keys, and hashes before committing a copy into a <strong>repository</strong>.</li>
+<li>Reset your password if you lose your Pi or suspect that you may have disclosed it inadvertently.</li>
+</ol>
+</details>
+<p>You can edit <strong>wpa_supplicant</strong> configs directly on the Pi using any terminal-based text editor. Alternatively, you can create the file on your local system and copy it into place on the Pi (as described later in this guide). </p>
+<details class="warning"><summary>Warning: Windows line-endings and rich text format</summary><p>As students get started with Linux networking, we frequently encounter problems related to the overall file format. As a rule, the configuration files you create in this class must be plain text with standard line endings. </p>
+<p>You'll want to stick to using a code-oriented text editor, as opposed to options like macOS TextEdit and Windows Notepad that often save files as <em>rich text</em> rather than plain text.</p>
+<p>For Windows users, a code-oriented editor will also help you avoid issues related to line endings. While most operating systems use a simple <em>New Line (aka Line Feed)</em> control character to signify the end of a line, most Windows tools also include a <em>Carriage Return</em>. This alternate line ending causes parsing errors in many Linux tools.</p>
+</details>
+<p>The general structure of the configuration file is show below. The file begins with a standard set of parameters specifying the <strong>country</strong> (needed to initialize appropriate radio settings), a <strong>control interface</strong> used by network management tools, and a boolean that instructs <strong>wpa_supplicant</strong> to accept configuration updates from other network management tools. We won't delve any deeper into the meaning of these initial parameters within this course. Rather, our concern will be how to configure Linux to join nearby wireless networks.</p>
+<div class="admonition example">
+<p class="admonition-title">Example <code>wpa_supplicant.conf</code></p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>country=US
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+network={
+    ssid=&quot;Some public network&quot;
+    key_mgmt=NONE
+}
+
+network={
+    ssid=&quot;My home network&quot;
+    psk=&quot;Don&#39;t tell anyone the password&quot;
+}
+</pre></div>
+</td></tr></table>
+
+</div>
+<p>The contents of the network block will depend largely on the security settings of the network, e.g., whether or not the network is encrypted with a passphrase. This document provides instructions for configuring three common types of networks: </p>
+<ol>
+<li>Unencrypted Networks</li>
+<li>WPA2 Personal Networks (simple passphrase)</li>
+<li>WPA2 Enterprise Networks</li>
+</ol>
+<p>Let's start by examining the configuration for an unencrypted network.</p>
+<h2 id="unencrypted-networks">Unencrypted Networks<a class="headerlink" href="#unencrypted-networks" title="Permanent link">&para;</a></h2>
+<p>All networks are defined by <code>parameter=value</code> pairs enclosed within <code>network={}</code>. Regardless of security configuration, each network block is required to contain an <strong><code>ssid</code></strong> parameter identifying the network. The <strong>service set identifier (SSID)</strong> is the network name that you see on your device when you connect to a wireless network. Since this name may include whitespace, we encapsulate it in double quotes.</p>
+<p>In addition to the <strong>ssid</strong>, <strong>wpa_supplicant</strong> expects us to provide encryption a passphrase and other encryption settings for the wireless network. Omitting these settings, even for an unencrypted network, will result in errors. </p>
+<p>Instead, for unencrypted networks, we explicitly disable encryption with <strong><code>key_mgmt=NONE</code></strong>.</p>
+<div class="admonition example">
+<p class="admonition-title">Configuration for an unencrypted network</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>network={
+    ssid=&quot;Coffee Shop&quot;
+    key_mgmt=NONE
+}
+</pre></div>
+</td></tr></table>
+
+</div>
+<h2 id="wpa2-personal-networks">WPA2 Personal Networks<a class="headerlink" href="#wpa2-personal-networks" title="Permanent link">&para;</a></h2>
+<p>For a basic (non-enterprise) encrypted network, the configuration of the network block changes only slightly. Rather than specify the <code>key_mgmt</code> setting, we assign the network passphrase to the <code>psk</code> parameter.</p>
+<p>There are two ways to accomplish this task. First, we can assign the passphrase directly to the parameter in plaintext as shown here:</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger: Don't do this!!!</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>network={
+    ssid=&quot;Home Wifi&quot;
+    psk=&quot;super secret squirrels&quot;
+}
+</pre></div>
+</td></tr></table>
+
+</div>
+<p>Security professionals generally frown on plaintext passwords and passphrases being written to configuration files or code. As such, we prefer to write the configuration based on the raw network key (computed using a function called <em>PBKDF</em> in conjunction with <em>SHA1</em>).</p>
+<div class="admonition faq">
+<p class="admonition-title">Using <code>wpa_passphrase</code> to generate a raw PSK</p>
+<p>You can generate the raw psk directly on your Pi by running the <code>wpa_passphrase</code> utility. This utility takes your SSID as an argument and then prompts you to enter your passphrase. </p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Pass your SSID as the first argument</span>
+wpa_passphrase <span class="s2">&quot;Home Wifi&quot;</span>
+</pre></div>
+</td></tr></table>
+
+<p>You will not see any characters or placeholders echoed as you type the passphrase, but <strong><code>wpa_passphrase</code></strong> will continue to accept input until you hit <em>Enter/Return</em>. The output will be a valid <strong>wpa_supplicant</strong> configuration that you can paste into your configuration.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>network={
+    ssid=&quot;Home Wifi&quot;
+    psk=2508539ff867a3578f6ba7d9ee1d4a62aea82c25d30ffb1eb3a05cd08a373c02
+}
+</pre></div>
+</td></tr></table>
+
+</div>
+<h2 id="wpa2-enterprise-networks">WPA2 Enterprise Networks<a class="headerlink" href="#wpa2-enterprise-networks" title="Permanent link">&para;</a></h2>
+<p>Unlike home and coffee shop networks, enterprise networks like <em>Eduroam</em>, require a bit more setup since they authenticate individual users to the network as part of the process of establishing an encrypted connection. As such, these networks are substantially more secure than networks that are protected by <strong>WPA2 Personal</strong>. </p>
+<p><em>Eduroam</em> at UW uses the NetID system to authenticate users and grant secure access to the network. Before you can join the network, you will first need to compute a hash from your NetID password. For security and privacy purposes, you will use this hash as a substitute for your password within the final configuration.</p>
+<div class="admonition instructions">
+<p class="admonition-title">Computing an MD4 hash in Linux</p>
+<p>Follow these commands in order to compute the MD4 hash in Linux.<sup id="fnref:shellscript"><a class="footnote-ref" href="#fn:shellscript">1</a></sup> The <em>history</em> commands are not needed to compute a hash but are added for security. Without them, your password will be stored in the Bash history file and easily readable to anyone with access to your memory card.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nb">set</span> +o <span class="nb">history</span>
+
+<span class="nb">echo</span> -n <span class="s1">&#39;This is your password&#39;</span> <span class="p">|</span> iconv -t utf16le <span class="p">|</span> openssl md4
+<span class="c1"># You should see output like 6f9bad2c90b80bd549e595fc91e27806</span>
+
+<span class="nb">set</span> -o <span class="nb">history</span>
+</pre></div>
+</td></tr></table>
+
+</div>
+<p>The following template supplies all of the parameters needed to attach to Eduroam at UW. Add it to your <strong><code>wpa_supplicant.conf</code></strong>, substituting your own NetID and password hash for the supplied values.</p>
+<div class="admonition info">
+<p class="admonition-title">Eduroam configuration template</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>network={
+        ssid=&quot;eduroam&quot;
+        scan_ssid=1
+        key_mgmt=WPA-EAP
+        eap=PEAP
+        identity=&quot;YOUR_NETID@uw.edu&quot;
+        password=hash:6f9bad2c90b80bd549e595fc91e27806
+        phase1=&quot;peaplabel=0&quot;
+        phase2=&quot;auth=MSCHAPV2&quot;
+}
+</pre></div>
+</td></tr></table>
+
+</div>
+<h2 id="applying-configuration-changes">Applying Configuration Changes<a class="headerlink" href="#applying-configuration-changes" title="Permanent link">&para;</a></h2>
+<p>Like other services, <strong>wpa_supplicant</strong> will not load our changes automatically. Rather than reset the daemon completely using <strong><code>systemctl</code></strong>, we can use <strong><code>wpa_cli</code></strong> to update the configuration and perform other basic maintenance.</p>
+<p>When running <strong><code>wpa_cli</code></strong> we need to specify the interface we are configuring and a command to send to the <strong>wpa_supplicant</strong> service.</p>
+<div class="admonition instructions">
+<p class="admonition-title">Load configuration from <code>wpa_supplicant.conf</code></p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Update configuration from disk</span>
+wpa_cli -i wlan0 reconfigure
+
+<span class="c1"># Check the status of current connection</span>
+wpa_cli -i wlan0 status
+</pre></div>
+</td></tr></table>
+
+</div>
+<p>See <strong><code>man wpa_cli</code></strong> for further instructions and examples.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:shellscript">
+<p>The project repository includes a shell script called <strong>calc-md4-hash.sh</strong> that will compute this value for you. It can be run from macOS, Linux, and Git Bash (Windows users). To run the script, navigate to the resources path in your git repository and type <code>./calc-md4-hash.sh</code>. You may also copy this file to your Pi and run it there.&#160;<a class="footnote-backref" href="#fnref:shellscript" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>Copyright &copy; 2020 Clinton Campbell</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
