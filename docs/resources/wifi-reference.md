@@ -1,4 +1,4 @@
-# WPA Supplicant Configuration Reference (2019-04-21)
+# WPA Supplicant Configuration Reference (2020-01-18)
 
 ## Basic Configuration
 
@@ -8,7 +8,7 @@ Wireless settings for the Pi are controlled by a service called **wpa_supplicant
     **`wpa_supplicant.conf`** is protected from casual reading due to the fact that it is a sensitive file that will likely contain your home network keys and a hash of your UW NetID password. While hashes typically provide some extra protection of a stored password, MD4 is nearly useless in this regard except with really strong passwords.
 
     Practice caution with this file:
-
+    
     1. Never share the contents of this file directly online.
     1. Scrub passwords, keys, and hashes before committing a copy into a **repository**.
     1. Reset your password if you lose your Pi or suspect that you may have disclosed it inadvertently.
@@ -19,9 +19,9 @@ You can edit **wpa_supplicant** configs directly on the Pi using any terminal-ba
     As students get started with Linux networking, we frequently encounter problems related to the overall file format. As a rule, the configuration files you create in this class must be plain text with standard line endings. 
     
     You'll want to stick to using a code-oriented text editor, as opposed to options like macOS TextEdit and Windows Notepad that often save files as _rich text_ rather than plain text.
-
-    For Windows users, a code-oriented editor will also help you avoid issues related to line endings. While most operating systems use a simple _New Line (aka Line Feed)_ control character to signify the end of a line, most Windows tools also include a _Carriage Return_. This alternate line ending causes parsing errors in many Linux tools.
     
+    For Windows users, a code-oriented editor will also help you avoid issues related to line endings. While most operating systems use a simple _New Line (aka Line Feed)_ control character to signify the end of a line, most Windows tools also include a _Carriage Return_. This alternate line ending causes parsing errors in many Linux tools.
+
 The general structure of the configuration file is show below. The file begins with a standard set of parameters specifying the **country** (needed to initialize appropriate radio settings), a **control interface** used by network management tools, and a boolean that instructs **wpa_supplicant** to accept configuration updates from other network management tools. We won't delve any deeper into the meaning of these initial parameters within this course. Rather, our concern will be how to configure Linux to join nearby wireless networks.
 
 !!! example "Example `wpa_supplicant.conf`"
@@ -34,7 +34,7 @@ The general structure of the configuration file is show below. The file begins w
         ssid="Some public network"
         key_mgmt=NONE
     }
-
+    
     network={
         ssid="My home network"
         psk="Don't tell anyone the password"
@@ -87,9 +87,9 @@ Security professionals generally frown on plaintext passwords and passphrases be
     # Pass your SSID as the first argument
     wpa_passphrase "Home Wifi"
     ```
-
+    
     You will not see any characters or placeholders echoed as you type the passphrase, but **`wpa_passphrase`** will continue to accept input until you hit _Enter/Return_. The output will be a valid **wpa_supplicant** configuration that you can paste into your configuration.
-
+    
     ```
     network={
         ssid="Home Wifi"
@@ -107,10 +107,10 @@ _Eduroam_ at UW uses the NetID system to authenticate users and grant secure acc
 
     ```bash
     set +o history
-
+    
     echo -n 'This is your password' | iconv -t utf16le | openssl md4
     # You should see output like 6f9bad2c90b80bd549e595fc91e27806
-
+    
     set -o history
     ```
 
