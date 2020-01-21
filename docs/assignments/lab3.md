@@ -1,6 +1,4 @@
-# Lab 3
-_Last edited 04/16/2019_
-
+# Lab 3 - Analyze DNS & HTTP in Wireshark
 [![DNS image](https://www.elegantthemes.com/blog/wp-content/uploads/2018/03/what-is-dns.png)](https://www.elegantthemes.com/blog/wp-content/uploads/2018/03/what-is-dns.png)
 
 
@@ -11,16 +9,18 @@ The purpose of this lab is for students to gain hands on experience with DNS. By
 - DNS queries
 - security faults of DNS
 
-We highly recommend using search engines to help you find solutions.As usual, there will be multiple ways to complete this lab, and we expect you to follow proper assignment formatting ([assignment template](https://bwalchen.github.io/314-docs/assignments/)).
+We highly recommend using search engines to help you find solutions.As usual, there will be multiple ways to complete this lab. Please use the template provided on Canvas under the Assignment "Lab 3 - Analyze DNS & HTTP in Wireshark" to complete your lab report.
 
-<br>
+
 
 ## Part I - website
 Pick a popular website that has a lot of content on it. Ideally it should contain advertisements. You will be using it throughout this lab.
 
-**Deliverable**: What website did you select?
+**Report**: 
 
-<br>
+1. What website did you select?
+
+
 
 ## Part II - dig
 Before jumping into more complicated scenarios we would like you to learn how to use the **`dig`** command as it is an incredibly helpful and simple tool.
@@ -29,17 +29,19 @@ Go to  <a href=" https://bwalchen.github.io/314-docs/trouble/dns/" target="_blan
 
 Run dig against the website you selected. Open up two tabs in your browser, grab two different IP addresses that were returned to you, and put one in each tabs' URL bar. 
 
-**Deliverable** 
+**Report**: 
 
-* What addresses did the dig command return? Copy dig results to your report (code block or screenshot).
-* Where did the two IP addresses bring you to?
-* What do these addresses represent and why type of record are they?
-* What are the main types of records a nameserver holds on to?
+2. What addresses did the dig command return? Copy dig results to your report (code block or screenshot).
 
-<br>
+3. Where did the two IP addresses bring you to?
+
+4. What do these addresses represent and why type of record are they?
+
+5. What are the main types of records a nameserver holds on to?
+
+
 
 ## Part III - dev tools
----
 Open up a new tab preferably in a chromium based browser (Chrome, Brave, etc...). Open up the dev tools (right click on page and click Inspect), and go to the *Network* option. 
 
 In that very same tab paste in your selected web page into the URL bar and click enter. You should see all of the `GET` and `POST` requests that the browser made for that webpage load up in the dev tools.
@@ -50,23 +52,20 @@ Right-click the header of the Network Log table and select Domain. The domain of
 
 Take some time to scroll through the domains, files, and file types your website was requesting.
 
-**Deliverable**
+**Report**: 
 
-* From a quick glance what is the most common file type that you see is requested?
-* Approximately how many *domains* do you see in that list that don't matchup with the website domain you initially visited?
-  * Why do you think this page is getting information from other websites?
-  * If you had to guess, how many DNS requests do you think were sent in order to fully load this page?
+6. From a quick glance what is the most common file type that you see is requested?
+
+7. Approximately how many *domains* do you see in that list that don't matchup with the website domain you initially visited?
+
+8. Why do you think this page is getting information from other websites?
+
+9. If you had to guess, how many DNS requests do you think were sent in order to fully load this page?
 
 
-
-<br>
-<br>
 
 ## Part IV - wireshark
----
-
-!!! warning "Important: clear DNS cache" 
-    Before examining DNS requests in Wireshark you will want to clear your DNS cache. Instructions on what that means, what it's for, and how to do so can be found here [314-docs/trouble/dns](https://bwalchen.github.io/314-docs/trouble/dns/#clear-dns-cache).
+Before examining DNS requests in Wireshark you will want to clear your DNS cache. Instructions on what that means, what it's for, and how to do so can be found here [314-docs/trouble/dns](https://bwalchen.github.io/314-docs/trouble/dns/#clear-dns-cache).
 
 
 Create a capture of you visiting your website by: 
@@ -80,22 +79,25 @@ Now **filter** for DNS packets only in the display filter.
 * Identify the DNS response containing the information you needed in order to convert your website name into an IP address.
 * Use the information contained within that packet for the following deliverable.
 
+**Report**: 
 
-**Deliverable**
+10. Assuming almost all of the DNS requests you see in Wireshark right now are for the one website you visited, how many DNS requests do you see? 
 
-* Assuming almost all of the DNS requests you see in Wireshark right now are for the one website you visited, how many DNS requests do you see? 
-  * Overall were there less or more DNS queries than you'd expect?
-* How did you identify the DNS packet associated with the website you visited?
-  * Provide a screenshot of the packet (specifically of the DNS information).
-* List the ip addresses you received for the website from the DNS server that resolved your request.
-* Which *transport layer protocol* ([think OSI model](https://bwalchen.github.io/314-docs/course-prep/osi/)) is present within the DNS headers?
-* Compare this DNS response to others in the capture (generate more if needed).
-  * Which port number(s) are shared in common across these DNS requests?
-  
+11. Overall were there less or more DNS queries than you'd expect?
+
+12. How did you identify the DNS packet associated with the website you visited?
+
+13. Provide a screenshot of the packet (specifically of the DNS information).
+
+14. List the ip addresses you received for the website from the DNS server that resolved your request.
+
+15. Which *transport layer protocol* ([think OSI model](https://bwalchen.github.io/314-docs/course-prep/osi/)) is present within the DNS headers?
+
+16. Compare this DNS response to others in the capture (generate more if needed).
+
+17. Which port number(s) are shared in common across these DNS requests?
 
 
-<br>
-<br>
 
 ## Part V - security
 Open two packets in bytes view, a dns and a http packet that is encrypted with tls.
@@ -103,12 +105,16 @@ Open two packets in bytes view, a dns and a http packet that is encrypted with t
 * Remove the dns display filter and replace it with tls (web traffic). 
 * Open one of the tls packets in byte view too.
 
-**Deliverable**
+**Report**: 
 
-* Examine the bytes view of the two packets. Do you see any human
-readable values in the output?
-  * Looking at these two packets and others in your capture, does Wireshark provide any clues about whether or not your DNS is encrypted?
-  * Does it provide any clues on whether your web traffic is encrypted?
-* Attacker:
-  * What information might an outside observer be able to glean about your computing activities by capturing your DNS traffic?
-  * Was any discernible information revealed (as far as you can tell) through your web traffic?
+18. Examine the bytes view of the two packets. Do you see any human
+    readable values in the output?
+
+19. Looking at these two packets and others in your capture, does Wireshark provide any clues about whether or not your DNS is encrypted?
+
+20. Does it provide any clues on whether your web traffic is encrypted?
+
+Attacker:
+21. What information might an outside observer be able to glean about your computing activities by capturing your DNS traffic?
+
+22. Was any discernible information revealed (as far as you can tell) through your web traffic?
