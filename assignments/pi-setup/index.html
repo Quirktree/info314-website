@@ -475,7 +475,7 @@ update_config=1
 </td></tr></table>
 
 </div>
-<p>Afterwards add one or more network blocks (<strong>including a connection to <code>Eduroam</code></strong>). If you are new to this, there are detailed configuration instructions on how to add network blocks are available in <a href="/resources/wifi-reference/">WPA Supplicant Configuration Reference</a>.</p>
+<p>Afterwards add one or more network blocks (<strong>including a connection to <code>Eduroam</code></strong>). If you are new to this, there are detailed configuration instructions on how to add network blocks are available in <a href="/resources/wifi-reference.md">WPA Supplicant Configuration Reference</a>.</p>
 <p>When you are finished updating <code>wpa_supplicant.conf</code> reconfigure the wireless interface by calling <code>wpa_cli -i wlan0 reconfigure</code>. The command should return <code>OK</code> after a few seconds. Check that you are attached to the wireless network  by calling <code>wpa_cli -i wlan0 status</code>.</p>
 <details class="example"><summary>Example of what <code>wlan0 status</code> should print</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
  2
