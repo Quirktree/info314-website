@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Clinton Campbell">
-        <link rel="canonical" href="https://info314.tcpip.dev/resources/address-planning/">
+        <link rel="canonical" href="https://info314.tcpip.dev/assignments/Lab 3 Report/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Basic IP Address Planning (2020-01-18) - INFO 314 Course Resources</title>
+        <title>Lab 3 Report - Analyze DNS & HTTP in Wireshark - INFO 314 Course Resources</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -50,34 +50,15 @@
                                 <a href="../..">Home</a>
                             </li>
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    
-  <li class="dropdown-submenu">
-    <a href="#">1 - Pi Setup</a>
-    <ul class="dropdown-menu">
-            
-<li >
-    <a href="../../assignments/pi-setup/">Raspberry Pi Setup</a>
-</li>
-            
-<li >
-    <a href="../../assignments/networkd-setup/">networkd Setup</a>
-</li>
-            
-<li >
-    <a href="../wifi-reference/">Wifi Reference</a>
-</li>
-    </ul>
-  </li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li >
-    <a href="../../assignments/lab2/">Lab 2</a>
+    <a href="../lab2/">Lab 2</a>
+</li>
+                                    
+<li >
+    <a href="../lab3/">Lab 3</a>
 </li>
                                 </ul>
                             </li>
@@ -86,23 +67,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li >
-    <a href="../markdown/">Intro to Markdown</a>
+    <a href="../../resources/markdown/">Intro to Markdown</a>
 </li>
                                     
 <li >
-    <a href="../bash/">Intro to Bash</a>
+    <a href="../../resources/bash/">Intro to Bash</a>
 </li>
                                     
 <li >
-    <a href="../host-config/">Mac/Win/Linux Networking</a>
+    <a href="../../resources/host-config/">Mac/Win/Linux Networking</a>
 </li>
                                     
 <li >
-    <a href="../wireshark-install/">Install Wireshark</a>
-</li>
-                                    
-<li >
-    <a href="../wifi-reference/">Linux Wireless Reference</a>
+    <a href="../../resources/wireshark-install/">Install Wireshark</a>
 </li>
                                 </ul>
                             </li>
@@ -125,32 +102,117 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#basic-ip-address-planning-2020-01-18">Basic IP Address Planning (2020-01-18)</a></li>
-            <li><a href="#address-types">Address Types</a></li>
-            <li><a href="#procedure">Procedure</a></li>
+        <li class="main active"><a href="#lab-3-report-analyze-dns-http-in-wireshark">Lab 3 Report - Analyze DNS &amp; HTTP in Wireshark</a></li>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#part-i-website">Part I - Website</a></li>
+            <li><a href="#part-ii-dig">Part II - dig</a></li>
+            <li><a href="#part-iii-dev-tools">Part III - Dev Tools</a></li>
+            <li><a href="#part-iv-wireshark">Part IV - Wireshark</a></li>
+            <li><a href="#part-v-security">Part V - Security</a></li>
+            <li><a href="#deliverables">Deliverables</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="basic-ip-address-planning-2020-01-18">Basic IP Address Planning (2020-01-18)<a class="headerlink" href="#basic-ip-address-planning-2020-01-18" title="Permanent link">&para;</a></h1>
-<p>Don't try to build a network without a plan. A good network design is built on parameters and constraints that are appropriate for the intended use-cases. This guide offers a simple procedure that can serve as a starting point for basic planning needs.</p>
-<h2 id="address-types">Address Types<a class="headerlink" href="#address-types" title="Permanent link">&para;</a></h2>
-<p><strong>Leased Addresses</strong> As much as possible, you'll want to avoid the need for manual configuration when a new device joins the network. DHCP allows you to allocate a range of addresses that the server can use to issue address leases to hosts that request them. Leased addresses are dynamic in the sense that they aren't determined until a host joins the network and initiates the DHCP process.</p>
-<p><strong>Static Addresses</strong> Dynamic address assignment won't work for every scenario, e.g., when an address should be fixed and a dependency on DHCP isn't possible. Some devices, including the DHCP server itself should be directly configured. We describe their addresses as static because they are coded into a network node's configuration and won't change base on external factors.</p>
-<p><strong>DHCP Reservations</strong> Static address assignment provides a maximum degree of control when we want a device to stay at a fixed address, e.g., servers and printers, but introduces additional management cost since devices have to be configured on an individual basis. With a reservation, we can register a device based on its MAC address and ensure that DHCP serves it a pre-defined configuration when it joins the network. </p>
-<h2 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">&para;</a></h2>
-<h3 id="step-1-examine-address-needs">Step 1 - Examine address needs<a class="headerlink" href="#step-1-examine-address-needs" title="Permanent link">&para;</a></h3>
-<p>Determine the number of addresses required, accounting for static, reserved, and DHCP address pools.</p>
-<p>Identify additional address constraints, such as the number of distinct subnets needed or potential subnet conflicts</p>
-<h3 id="step-2-identify-the-base-network">Step 2 - Identify the base network<a class="headerlink" href="#step-2-identify-the-base-network" title="Permanent link">&para;</a></h3>
-<p>Your network/subnet addresses or select a block from the RFC-1918 address range.</p>
-<h3 id="step-3-select-subnet-parameters">Step 3 - Select subnet parameters<a class="headerlink" href="#step-3-select-subnet-parameters" title="Permanent link">&para;</a></h3>
-<p>Determine the CIDR length for your subnet and the subnet mask for your LAN.</p>
-<p>Based on your selected RFC-1918 address block, CIDR length, and additional constraints, select a subnet that will be used to allocate addresses for your LAN.</p>
-<p>Based on the previous values, determine the broadcast address associated with your network.</p>
-<h3 id="step-4-document-important-addresses-and-ranges">Step 4 - Document important addresses and ranges<a class="headerlink" href="#step-4-document-important-addresses-and-ranges" title="Permanent link">&para;</a></h3>
-<p>Assign any static addresses that are needed to provide core network functions and other services.</p>
-<p>Define the range of addresses available for use in the DHCP address pool.</p></div>
+<h1 id="lab-3-report-analyze-dns-http-in-wireshark">Lab 3 Report - Analyze DNS &amp; HTTP in Wireshark<a class="headerlink" href="#lab-3-report-analyze-dns-http-in-wireshark" title="Permanent link">&para;</a></h1>
+<p>INFO 314
+DATE: 
+NAME: </p>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The purpose of this lab is for students to gain hands on experience with DNS. By the end of the lab you will be familiar with:</p>
+<ul>
+<li><code>dig</code></li>
+<li>DNS queries</li>
+<li>security faults of DNS</li>
+</ul>
+<p>We highly recommend using search engines to help you find solutions.</p>
+<h2 id="part-i-website">Part I - Website<a class="headerlink" href="#part-i-website" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>What website did you select?</strong>  </li>
+</ol>
+<h2 id="part-ii-dig">Part II - dig<a class="headerlink" href="#part-ii-dig" title="Permanent link">&para;</a></h2>
+<ol start="2">
+<li>
+<p><strong>What addresses did the dig command return? Copy dig results to your report (code block or screenshot).</strong>  </p>
+</li>
+<li>
+<p><strong>Where did the two IP addresses bring you to?</strong>  </p>
+</li>
+<li>
+<p><strong>What do these addresses represent and why type of record are they?</strong>  </p>
+</li>
+<li>
+<p><strong>What are the main types of records a nameserver holds on to?</strong>  </p>
+</li>
+</ol>
+<h2 id="part-iii-dev-tools">Part III - Dev Tools<a class="headerlink" href="#part-iii-dev-tools" title="Permanent link">&para;</a></h2>
+<ol start="6">
+<li>
+<p><strong>From a quick glance what is the most common file type that you see is requested?</strong>    </p>
+</li>
+<li>
+<p><strong>Approximately how many domains do you see in that list that don't matchup with the website domain you initially visited?</strong>  </p>
+</li>
+<li>
+<p><strong>Why do you think this page is getting information from other websites?</strong>  </p>
+</li>
+<li>
+<p><strong>If you had to guess, how many DNS requests do you think were sent in order to fully load this page?</strong>  </p>
+</li>
+</ol>
+<h2 id="part-iv-wireshark">Part IV - Wireshark<a class="headerlink" href="#part-iv-wireshark" title="Permanent link">&para;</a></h2>
+<ol start="10">
+<li>
+<p><strong>Assuming almost all of the DNS requests you see in Wireshark right now are for the one website you visited, how many DNS requests do you see?</strong>  </p>
+</li>
+<li>
+<p><strong>Overall were there less or more DNS queries than you'd expect?</strong>  </p>
+</li>
+<li>
+<p><strong>How did you identify the DNS packet associated with the website you visited?</strong>  </p>
+</li>
+<li>
+<p><strong>Provide a screenshot of the packet (specifically of the DNS information).</strong>  </p>
+</li>
+<li>
+<p><strong>List the IP addresses you received for the website from the DNS server that resolved your request.</strong>  </p>
+</li>
+<li>
+<p><strong>Which transport layer protocol (think OSI model) is present within the DNS headers?</strong>  </p>
+</li>
+<li>
+<p><strong>Compare this DNS response to others in the capture (generate more if needed).</strong>  </p>
+</li>
+<li>
+<p><strong>Which port number(s) are shared in common across these DNS requests?</strong>  </p>
+</li>
+</ol>
+<h2 id="part-v-security">Part V - Security<a class="headerlink" href="#part-v-security" title="Permanent link">&para;</a></h2>
+<ol start="18">
+<li>
+<p><strong>Examine the bytes view of the two packets. Do you see any human readable values in the output?</strong>  </p>
+</li>
+<li>
+<p><strong>Looking at these two packets and others in your capture, does Wireshark provide any clues about whether or not your DNS is encrypted?</strong>  </p>
+</li>
+<li>
+<p><strong>Does it provide any clues on whether your web traffic is encrypted?</strong>  </p>
+</li>
+</ol>
+<p><strong>Attacker:</strong>  </p>
+<ol start="21">
+<li>
+<p><strong>What information might an outside observer be able to glean about your computing activities by capturing your DNS traffic?</strong>  </p>
+</li>
+<li>
+<p><strong>Was any discernible information revealed (as far as you can tell) through your web traffic?</strong>  </p>
+</li>
+</ol>
+<h2 id="deliverables">Deliverables<a class="headerlink" href="#deliverables" title="Permanent link">&para;</a></h2>
+<p><strong>For your deliverable, you will need to submit one file Canvas under the Assignment "Lab 3 - Analyze DNS &amp; HTTP in Wireshark".</strong>  </p>
+<ul>
+<li><strong>This completed lab report (preferably in PDF format)</strong></li>
+</ul></div>
         </div>
 
         <footer class="col-md-12">
