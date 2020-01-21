@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Clinton Campbell">
+        <link rel="canonical" href="https://info314.tcpip.dev/assignments/pi-setup/">
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Raspberry Pi Setup - INFO 314 Course Resources</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/color-brewer.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../..">INFO 314 Course Resources</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">1 - Pi Setup</a>
+    <ul class="dropdown-menu">
+            
+<li class="active">
+    <a href="./">Raspberry Pi Setup</a>
+</li>
+            
+<li >
+    <a href="../networkd-setup/">networkd Setup</a>
+</li>
+            
+<li >
+    <a href="../../resources/wifi-reference/">Wifi Reference</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../lab2/">Lab 2</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../resources/markdown/">Intro to Markdown</a>
+</li>
+                                    
+<li >
+    <a href="../../resources/bash/">Intro to Bash</a>
+</li>
+                                    
+<li >
+    <a href="../../resources/host-config/">Mac/Win/Linux Networking</a>
+</li>
+                                    
+<li >
+    <a href="../../resources/wireshark-install/">Install Wireshark</a>
+</li>
+                                    
+<li >
+    <a href="../../resources/wifi-reference/">Linux Wireless Reference</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../..">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../networkd-setup/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/quirktree/info314-website">quirktree/info314-website</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#raspberry-pi-setup-guide-2020-01-14">Raspberry Pi Setup Guide (2020-01-14)</a></li>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#before-you-start">Before you start</a></li>
+            <li><a href="#install-raspbian">Install Raspbian</a></li>
+            <li><a href="#initial-boot">Initial Boot</a></li>
+            <li><a href="#enable-passwordless-login">Enable Passwordless Login</a></li>
+            <li><a href="#connect-to-wifi">Connect to Wifi</a></li>
+            <li><a href="#update-software-packages">Update Software Packages</a></li>
+            <li><a href="#graceful-shutdown">Graceful Shutdown</a></li>
+            <li><a href="#tips-and-troubleshooting">Tips and Troubleshooting</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="raspberry-pi-setup-guide-2020-01-14">Raspberry Pi Setup Guide (2020-01-14)<a class="headerlink" href="#raspberry-pi-setup-guide-2020-01-14" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>This guide will walk you through the steps necessary to install Raspbian on your Pi and connect it to Wifi. While we encourage you to search online and use other resources when you encounter questions, it's important that you follow our instructions closely. Though there are many different guides that can help you accomplish the same objectives, this guide has been built based on the needs and requirements of our projects and introduces you to tools you will need throughout the quarter.</p>
+<p>The core sections of this guide will walk you through the following steps:</p>
+<ol>
+<li>Installing Raspbian on a MicroSD and enabling SSH</li>
+<li>Updating defaults and other preliminary setup steps</li>
+<li>Configuring a wifi connection</li>
+<li>Updating Raspbian and installing additional packages with <code>apt</code></li>
+</ol>
+<p>Before you start setting up your Pi, please review the tasks in the following section. These steps are particularly important for students running Windows and Linux.</p>
+<h2 id="before-you-start">Before you start<a class="headerlink" href="#before-you-start" title="Permanent link">&para;</a></h2>
+<h3 id="everyone">Everyone<a class="headerlink" href="#everyone" title="Permanent link">&para;</a></h3>
+<p>Download and install <strong>Etcher</strong> from <a href="https://etcher.io">https://etcher.io</a>. Etcher is among the easiest options for writing a Pi OS image to a microSD.</p>
+<h3 id="windows-users">Windows Users<a class="headerlink" href="#windows-users" title="Permanent link">&para;</a></h3>
+<h4 id="terminal">Terminal<a class="headerlink" href="#terminal" title="Permanent link">&para;</a></h4>
+<p>Except when otherwise noted, I recommend that Windows users complete all Linux networking exercises within Windows PowerShell rather than Git Bash or the Command Prompt.</p>
+<div class="admonition info recommendation">
+<p class="admonition-title">Info</p>
+<p>For a much improved working experience, you should download the new <strong>Windows Terminal</strong> application. This app is available in the <strong>Microsoft Store</strong> or from <a href="https://github.com/microsoft/terminal/releases">https://github.com/microsoft/terminal/releases</a>. By default, the terminal will run PowerShell, but it also supports Command Prompt and Windows Subsystem for Linux. </p>
+</div>
+<h4 id="text-editor">Text Editor<a class="headerlink" href="#text-editor" title="Permanent link">&para;</a></h4>
+<p>Among the many subtle differences between Windows and Unix-based machines is a difference in the control characters used to terminate lines in text files. In many cases, this difference will prevent Linux from parsing a file you've written and copied from Windows.</p>
+<p>To avoid this issue, install a code-oriented text editor that can be configured to use Unix-style line endings and use it exclusively for the labs and projects throughout this course. <strong>Visual Studio Code</strong> and <strong>Atom</strong> are common options.</p>
+<p>To configure <strong>VS Code</strong> to use Unix-style line endings:</p>
+<ol>
+<li>Open Settings</li>
+<li>Search for the term “Eol”</li>
+<li>Change the default End-of-Line character to <em>\n</em></li>
+</ol>
+<p>To configure <strong>Atom</strong> to use Unix-style line endings:</p>
+<ol>
+<li>Open Settings</li>
+<li>Navigate to Packages / Line Ending Selector</li>
+<li>Change the <em>Default line ending</em> to <em>LF</em></li>
+</ol>
+<h4 id="verify-support-for-mdns">Verify Support for mDNS<a class="headerlink" href="#verify-support-for-mdns" title="Permanent link">&para;</a></h4>
+<p>Please check the full version of Windows that you have installed by running <code>Get-ComputerInfo -Property Windows*</code> in a PowerShell console. After a moment, you'll receive a message describing your current Windows installation (as illustrated below). </p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>WindowsBuildLabEx              : 17763.1.amd64fre.rs5_release.180914-1434
+WindowsCurrentVersion          : 6.3
+WindowsEditionId               : Professional
+WindowsInstallationType        : Client
+WindowsInstallDateFromRegistry : 1/10/2019 8:10:04 AM
+WindowsProductId               : 00330-80000-00000-AA819
+WindowsProductName             : Windows 10 Pro
+WindowsRegisteredOrganization  :
+WindowsRegisteredOwner         : clementine
+WindowsSystemRoot              : C:\WINDOWS
+WindowsVersion                 : 1809
+</pre></div>
+</td></tr></table>
+
+<p>If the system reports that you are on Windows 10 and that the <code>WindowsVerion</code> is <code>1809</code> or newer, you are ready to proceed with main tutorial. Otherwise, you will need to upgrade Windows to a supported version.</p>
+<h3 id="linux-users">Linux Users<a class="headerlink" href="#linux-users" title="Permanent link">&para;</a></h3>
+<p>Using your default package manager (likely <code>yum</code> or <code>apt</code>), confirm that <strong>Avahi mDNS</strong> services are installed (mDNS is typically part of the default distribution).</p>
+<h2 id="install-raspbian">Install Raspbian<a class="headerlink" href="#install-raspbian" title="Permanent link">&para;</a></h2>
+<p>The Raspberry Pi is built with Linux distributions in mind. The official distribution, which we'll use in our labs is known as <strong>Raspbian</strong> and is based on Debian Linux. If you're familiar at all with Ubuntu, you should be mostly at home working in Raspbian. Don't worry if Linux is not your jam. We'll provide plenty of guidance so that you can focus your energy on the network concepts.</p>
+<h3 id="write-raspbian-to-microsd">Write Raspbian to MicroSD<a class="headerlink" href="#write-raspbian-to-microsd" title="Permanent link">&para;</a></h3>
+<p>Download a current image of Raspbian from <a href="http://www.raspberrypi.org/downloads">http://www.raspberrypi.org/downloads</a>. </p>
+<p>We will use <strong>Raspbian Buster Lite</strong> for this course. This version of Raspbian is headless, meaning that it does not include a desktop environment. We’ll leverage SSH to do all of our configuration through the CLI.</p>
+<p>Use <strong><a href="#before-you-start">Etcher</a></strong> to write the image you've downloaded to a microSD. Be aware that this process will overwrite any data that was already stored on the card. </p>
+<h3 id="update-configuration">Update Configuration<a class="headerlink" href="#update-configuration" title="Permanent link">&para;</a></h3>
+<p>Etcher will eject the microSD once the image is completely rewritten. We want to edit some files on the SD, so you will need to briefly remove the card before inserting it again.</p>
+<p>On macOS or Windows, you'll be limited to accessing the boot partition of the card. Use Explorer or Finder to locate and open the partition. </p>
+<p>You must complete the following step before the first boot.</p>
+<h4 id="enable-ssh">Enable SSH<a class="headerlink" href="#enable-ssh" title="Permanent link">&para;</a></h4>
+<p>Due to security considerations, the newest versions of Raspian disable SSH by default, but it's easy to turn the feature on so that we can use it for initial setup. </p>
+<p>To enable SSH on the first boot, add an empty file named ssh to the boot volume. Instructions will vary slightly between macOS and Windows:</p>
+<div class="superfences-tabs">
+<input name="__tabs_1" type="radio" id="__tab_1_0" checked="checked" />
+<label for="__tab_1_0">macOS</label>
+<div class="superfences-content"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Unix-based systems mount external storage to a path in the directory tree. For a freshly written Raspbian image, this path will be /Volumes/boot.</span>
+
+touch /Volumes/boot/ssh
+</pre></div>
+</td></tr></table></div>
+<input name="__tabs_1" type="radio" id="__tab_1_1" />
+<label for="__tab_1_1">Windows</label>
+<div class="superfences-content"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c"># Windows mounts external storage to a drive letter. Replace E: with the letter assigned on your system.</span>
+
+<span class="nb">New-Item</span> <span class="n">-type</span> <span class="n">File</span> <span class="n">E</span><span class="err">:</span><span class="p">\</span><span class="n">ssh</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<p>Raspbian will check for this file during the first startup and proceed to configure the SSH <em>daemon</em> to start automatically. The term daemon, by the way, is the name Unix operating systems use to describe a service that runs in the background (e.g., to respond to network requests). </p>
+<h2 id="initial-boot">Initial Boot<a class="headerlink" href="#initial-boot" title="Permanent link">&para;</a></h2>
+<p>It's time to boot the Pi for the first time. Close your editor and any windows that are open to the microSD so that you can eject the card gracefully from your OS. </p>
+<ul>
+<li>Remove the microSD and insert into the card slot on your Pi.</li>
+<li>Connect power to the designated micro-USB port.</li>
+<li>Attach to your computer with an Ethernet cable and get ready to launch an SSH connection.</li>
+<li>From terminal or PowerShell, connect to the Pi for the first time by running the following command:</li>
+</ul>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># The default password for pi is raspberry</span>
+ssh pi@raspberrypi.local
+</pre></div>
+</td></tr></table>
+
+<p>This command directs your local SSH client to connect to a network host named <code>raspberrypi.local</code> with the username <code>pi</code>. </p>
+<p>Using the mDNS service, your computer will resolve the hostname to an IP address SSH will ask you to accept the connection of an unknown device before presenting you with a password prompt. </p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>$ ssh pi@raspberrypi.local
+The authenticity of host &#39;raspberrypi.local (fe80::1b9c:bcf2:acd6:bbbe%42)&#39; can&#39;t be established.
+ECDSA key fingerprint is SHA256:QqhpMybvctuIxV03xcnlANU3cxWM1JhvSYxloSd69Rw.
+Are you sure you want to continue connecting (yes/no)?
+</pre></div>
+</td></tr></table>
+
+<p>If you've previously connected to a host with the name <code>raspberrypi.local</code>, you may also see the warning shown below (please refer to the troubleshooting section to resolve this error):</p>
+<div class="local">
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+</pre></div>
+</td></tr></table>
+</div>
+
+<p>If you are running Windows and receive a message that Windows cannot resolve the name <code>raspberrypi.local</code>, please refer to the instructions at the top of this guide.</p>
+<p>After confirming the prompt shown above, you will see another short message followed by a password prompt.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>Warning: Permanently added &#39;raspberrypi.local,fe80::1b9c:bcf2:acd6:bbbe%42&#39; (ECDSA) to the list of known hosts.
+pi@raspberrypi.local&#39;s password:
+</pre></div>
+</td></tr></table>
+
+<p>The default password for the <code>pi</code> user is <code>raspberry</code>. Once login is complete, you should be greeted with a message similar to that shown here.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>Linux raspberrypi 4.14.79-v7+ #1159 SMP Sun Nov 4 17:50:20 GMT 2018 armv7l
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Linux raspberrypi 4.14.79-v7+ #1159 SMP Sun Nov 4 17:50:20 GMT 2018 armv7l
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+
+SSH is enabled and the default password for the &#39;pi&#39; user has not been changed.
+This is a security risk - please login as the &#39;pi&#39; user and type &#39;passwd&#39; to set a new password.
+
+Wi-Fi is disabled because the country is not set.
+Use raspi-config to set the country before use.
+
+pi@raspberrypi:~ $
+</pre></div>
+</td></tr></table>
+
+<h3 id="choose-a-new-password">Choose a New Password<a class="headerlink" href="#choose-a-new-password" title="Permanent link">&para;</a></h3>
+<p>Before proceeding further with setup, you should change the default password by entering the <code>passwd</code> at the command prompt. You will be guided through three prompts to enter the current password and then to update/confirm the new password.</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>SSH is a favorite target of malicious attackers. Nothing makes their lives easier than devices that are configured with the default password for the type of system.</p>
+</div>
+<h3 id="default-configuration">Default Configuration<a class="headerlink" href="#default-configuration" title="Permanent link">&para;</a></h3>
+<p>After you complete this step, I also recommend the following changes on every new Linux device:</p>
+<p>Setting the timezone will ensure that log messages are displayed in local time, which is quite helpful for troubleshooting.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span># You can see a list of timezones by running `timedatectl list-timezones`
+sudo timedatectl set-timezone America/Los_Angeles
+</pre></div>
+</td></tr></table>
+
+<p>Raspbian defaults to a British locale. This can cause issues if we ever need to troubleshoot your device using an external keyboard. Configure the locale and keymap to prevent these issues.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="codehilite"><pre><span></span># Update /etc/locale.gen with your preferences
+sudo nano /etc/locale.gen # Find and uncomment the en_US.UTF-8 locale 
+
+# Re-generate locale information after updating the locale.gen file
+sudo locale-gen
+
+# Apply new settings
+sudo localectl set-locale &quot;LANG=en_US.UTF-8&quot;
+sudo localectl set-keymap us
+</pre></div>
+</td></tr></table>
+
+<p>Occasionally we'll end up running a program that uses the default editor settings for your profile (or root if we have run the program with <em>sudo</em>). It's helpful to have these configured so that you don't end up stuck in <em>vi</em> or <em>ed</em> without any way to exit.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span># Update default editor selections for the pi user
+select-editor
+
+# Modify the same setting for commands that require root privileges.
+sudo select-editor
+</pre></div>
+</td></tr></table>
+
+<h3 id="update-hostname">Update Hostname<a class="headerlink" href="#update-hostname" title="Permanent link">&para;</a></h3>
+<p>At first boot, we could locate our Pi on the network based on the default hostname of <strong>raspberrypi.local</strong>. This is fine in an isolated, point-to-point network, but it's a problem when we connect to shared networks. </p>
+<p>Use the <code>hostnamectl</code> command to set a <em>unique</em> name for your device.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># This little pi likes to be called Titan</span>
+sudo hostnamectl set-hostname titan
+</pre></div>
+</td></tr></table>
+
+<p>The main change that <strong>hostnamectl</strong> makes is visible in <code>/etc/hostname</code>. We also need to update references to the hostname in <code>/etc/hosts</code>. The <strong>hosts file</strong> is present on most Operating Systems and provides a way of defining hostname/IP address associations without relying on DNS. Linux uses this file to associate your hostname to the loopback IP address.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Confirm your hostname is up to date in /etc/hostname</span>
+cat /etc/hostname
+
+<span class="c1"># Replace any references to raspberrypi in /etc/hosts</span>
+sudo nano /etc/hosts
+</pre></div>
+</td></tr></table>
+
+<details class="faq"><summary>FAQ: Why is <code>sudo</code> slow</summary><p>You might notice odd warnings and sudo latency immediately after changing the hostname. These should clear up once you update the <strong>hosts file</strong>. For reasons beyond the scope of this curriculum, <strong>sudo</strong> performs DNS lookups as part of its check to determine whether the current user is permitted to elevate privileges. The delay you experience is the tool waiting for a DNS response prior to its timeout.</p>
+</details>
+<p>In order for the <em>hostname</em> changes to take full effect, reboot your pi by calling <code>sudo reboot now</code>. After 20 - 30 seconds your pi will be visible with the new name -- you will need to include the <code>.local</code> suffix on any command referencing the name.</p>
+<details class="example"><summary>Example</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># ping by MDNS hostname</span>
+ping titan.local
+
+<span class="c1"># ssh by MDNS hostname</span>
+ssh pi@titan.local
+</pre></div>
+</td></tr></table>
+
+</details>
+<h2 id="enable-passwordless-login">Enable Passwordless Login<a class="headerlink" href="#enable-passwordless-login" title="Permanent link">&para;</a></h2>
+<p>We can significantly simplify the process of managing our Pi’s by copying our public SSH keys into the <code>authorized_keys</code> file of the default pi user.</p>
+<p>To prepare the Raspberry Pi, we need to create a remote directory under the <code>pi</code> user's home directory. If you're still logged into your pi, you can create the directory using <code>mkdir ~/.ssh</code>. After that is done, type <code>exit</code> to terminate the connection and return to your local command prompt.  </p>
+<details class="faq"><summary>FAQ: Why aren't <code>ssh</code> and <code>scp</code> working</summary><p>Please review the previous set of instructions closely. The commands below are run from your <strong>local</strong> shell. Running them inside of an existing SSH session will not have the effect you are looking for.</p>
+</details>
+<p>With the directory in place, copy your public key (most likely <code>~/.ssh/id_ed25519.pub</code>) to the pi using the <code>scp</code> command.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>scp <span class="nv">$HOME</span>/.ssh/id_ed25519.pub pi@raspberrypi.local:.ssh/authorized_keys
+</pre></div>
+</td></tr></table>
+
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The second set of parameters in this command specifies the user (<code>pi</code>) the host (<code>titan.local</code>) and the location of the new file (<code>.ssh/authorized_keys</code>). Like <code>ssh</code>, <code>scp</code> is a user-based tool and will be executed relative to the home directory of the authenticated user (<code>/home/pi</code>). We can override the default by specifying an absolute path beginning with a <code>/</code>, e.g., <code>/home/pi/.ssh/authorized_keys</code>.</p>
+</div>
+<p><br>
+<br></p>
+<h2 id="connect-to-wifi">Connect to Wifi<a class="headerlink" href="#connect-to-wifi" title="Permanent link">&para;</a></h2>
+<hr />
+<p>To complete this guide, you will need to establish Internet connectivity for your Pi. Since the Pi 3 has integrated wireless capabilities, we can solve the problem by connecting to local wifi. </p>
+<h3 id="configure-the-wpa-supplicant">Configure the WPA Supplicant<a class="headerlink" href="#configure-the-wpa-supplicant" title="Permanent link">&para;</a></h3>
+<p>Wireless settings for the Pi are controlled by a service called <em>wpa_supplicant</em>, which stores network connection settings inside <code>/etc/wpa_supplicant/wpa_supplicant.conf</code>. You can edit this directly on the Pi using the nano text editor (or vi for the daring). Alternatively, you can create the file on your local system and copy it into place on the Pi.</p>
+<p>For this project, you must configure a connection to the Eduroam network. It's also a good idea at this time to configure connections to your home network.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Do not associate your Pi with <em>University of Washington</em> unless given direct instructions to do so. Because the network requires a browser-based login, it has been a major source of trouble for former students.</strong></p>
+</div>
+<p>Begin your <code>wpa_supplicant.conf</code> file with the following lines. </p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>country=US
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+# INSERT WPA2 ENTERPRISE CONFIG FOR EDUROAM
+</pre></div>
+</td></tr></table>
+
+</div>
+<p>Afterwards add one or more network blocks (<strong>including a connection to <code>Eduroam</code></strong>). If you are new to this, there are detailed configuration instructions on how to add network blocks are available in <a href="/resources/wifi-reference/">WPA Supplicant Configuration Reference</a>.</p>
+<p>When you are finished updating <code>wpa_supplicant.conf</code> reconfigure the wireless interface by calling <code>wpa_cli -i wlan0 reconfigure</code>. The command should return <code>OK</code> after a few seconds. Check that you are attached to the wireless network  by calling <code>wpa_cli -i wlan0 status</code>.</p>
+<details class="example"><summary>Example of what <code>wlan0 status</code> should print</summary><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>wpa_cli -i wlan0 status
+
+bssid=ac:a3:1e:eb:53:c1
+freq=2462
+ssid=eduroam
+id=0
+mode=station
+pairwise_cipher=CCMP
+group_cipher=CCMP
+key_mgmt=WPA2/IEEE 802.1X/EAP
+wpa_state=COMPLETED
+ip_address=10.18.185.176
+p2p_device_address=fa:f8:ee:8c:fe:62
+address=b8:27:eb:db:fe:93
+Supplicant PAE state=AUTHENTICATED
+suppPortStatus=Authorized
+EAP state=SUCCESS
+selectedMethod=25 (EAP-PEAP)
+EAP TLS cipher=ECDHE-RSA-AES256-GCM-SHA384
+tls_session_reused=0
+EAP-PEAPv0 Phase2 method=MSCHAPV2
+eap_session_id=19865aef996591ffbd01643fbcf1b5111ef04dd3ed4f3387752c8cc0cf3b8c88b95c40bfc4915b284b3b91f60f5cb71074baaf1360d39f7a91530143dcb3c8e4ce
+uuid=c4adf7c1-f863-5192-8179-f5d1d2e27fd7
+</pre></div>
+</td></tr></table>
+
+</details>
+<h3 id="testing-and-troubleshooting">Testing and Troubleshooting<a class="headerlink" href="#testing-and-troubleshooting" title="Permanent link">&para;</a></h3>
+<p>In addition to <code>wpa_cli</code>, there are several tools that can be used to check the current state of your wireless interface and determine whether it has received a valid configuration from DHCP.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Show the current state of the wlan0 interface</span>
+ip link show wlan0
+
+<span class="m">3</span>: wlan0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="m">1500</span> qdisc pfifo_fast state UP mode DORMANT group default qlen <span class="m">1000</span>
+    link/ether b8:27:eb:db:fe:93 brd ff:ff:ff:ff:ff:ff
+
+<span class="c1"># Show address configuration for the wlan0 interface</span>
+ip addr show wlan0
+
+<span class="m">3</span>: wlan0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu <span class="m">1500</span> qdisc pfifo_fast state UP group default qlen <span class="m">1000</span>
+    link/ether b8:27:eb:db:fe:93 brd ff:ff:ff:ff:ff:ff
+    inet <span class="m">10</span>.18.185.176/15 brd <span class="m">10</span>.19.255.255 scope global wlan0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::ce14:df50:b3f0:9c2a/64 scope link
+       valid_lft forever preferred_lft forever
+</pre></div>
+</td></tr></table>
+
+<p><br>
+<br></p>
+<h2 id="update-software-packages">Update Software Packages<a class="headerlink" href="#update-software-packages" title="Permanent link">&para;</a></h2>
+<hr />
+<p>Let's finalize the initial setup by checking for updates to Raspbian and its default packages (this can take a few minutes on slow networks).</p>
+<p>As a Debian based Linux distribution, Raspbian relies on <code>apt</code> for package management. The <code>apt update</code> command is used to determine whether there are new packages to download.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>sudo apt update
+sudo apt upgrade
+sudo apt dist-upgrade
+
+<span class="c1"># We&#39;ve found that an additional update is sometimes needed after a dist-upgrade</span>
+sudo apt update
+
+<span class="c1"># Install some useful packages while you&#39;re at it</span>
+sudo apt install dnsutils
+</pre></div>
+</td></tr></table>
+
+<h2 id="graceful-shutdown">Graceful Shutdown<a class="headerlink" href="#graceful-shutdown" title="Permanent link">&para;</a></h2>
+<p>Never yank the power from your Pi when it's time to quit. This can lead to data corruption on the microSD (they aren't as resilient as the drives installed in your laptop). </p>
+<p>Instead, you should always issue a proper shutdown via SSH.</p>
+<p>From an SSH connection, run <code>sudo poweroff</code>. If you ever need to reboot the Pi, call <code>sudo reboot now</code>.</p>
+<p>Wait about 15 - 20 seconds to allow the Pi to complete it’s shutdown process before disconnecting the power.</p>
+<p><br>
+<br></p>
+<h2 id="tips-and-troubleshooting">Tips and Troubleshooting<a class="headerlink" href="#tips-and-troubleshooting" title="Permanent link">&para;</a></h2>
+<hr />
+<h3 id="cant-find-raspberrypilocal">Can't find raspberrypi.local<a class="headerlink" href="#cant-find-raspberrypilocal" title="Permanent link">&para;</a></h3>
+<p>To make an initial connection with the Raspberry Pi, you need </p>
+<h4 id="check-network-adapters">Check Network Adapters<a class="headerlink" href="#check-network-adapters" title="Permanent link">&para;</a></h4>
+<p>If you are confident that you will need to check the configuration of the Ethernet port or USB device on your local computer. </p>
+<p>Run <code>ipconfig</code> on Windows or <code>ifconfig</code> on other devices to confirm that the interface registers a network connection. The local IPv4 address for this interface should begin with <code>169.254.x.x</code> (link-local address range). If you do not see a valid connection, you may need to review the next section on missing drivers.</p>
+<p><strong>Linux</strong> Most devices will assign a Link-Local address by default when DHCP cannot be found, but some versions of Linux, e.g., Ubuntu require you to choose between link-local addressing and DHCP. If you are on Ubuntu, explore your advanced adapter settings for Ethernet to configure your adapter settings.</p>
+<h4 id="mdns">MDNS<a class="headerlink" href="#mdns" title="Permanent link">&para;</a></h4>
+<p><strong>Windows</strong> Make sure that you are on the latest version of Windows 10. Though mDNS is now a draft standard, Microsoft did not include a full client until the most recent versions of Windows 10 (confirmed on 1809). Support for MDNS prior to Windows 10 depends on Bonjour Print Services, an MDNS client distributed by Apple and previously bundled with iTunes and various other applications. </p>
+<div class="admonition warning">
+<p class="admonition-title">Bonjour-related Conflicts</p>
+<p>While Bonjour was a useful tool on older versions of Windows, we suspect that it causes conflicts on versions 1803+. You can determine whether Bonjour is installed and remove it through Settings or Control Panel. </p>
+</div>
+<p><strong>Linux</strong> Linux relies on the Avahi daemon to query/respond to MDNS. Review the requirements at the <a href="#verify-support-for-mdns">beginning of this guide</a>.</p>
+<h4 id="missing-network-drivers">Missing Network Drivers<a class="headerlink" href="#missing-network-drivers" title="Permanent link">&para;</a></h4>
+<p>If you are using a USB Ethernet port for the first time on your computer, it's possible that your first attempt to connect will be unsuccessful. </p>
+<p>Many of these issues are resolved by disconnecting the USB briefly and trying after you have plugged everything back in. If issues persist, search online to determine whether your computer is missing a driver needed for the specific model of Ethernet adapter.</p>
+<h3 id="ssh-connection-warning">SSH Connection Warning<a class="headerlink" href="#ssh-connection-warning" title="Permanent link">&para;</a></h3>
+<p>At some point, you are likely to receive the following warning when trying to launch <code>ssh</code>. In most cases, what you are seeing is expected behavior. </p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+</pre></div>
+</td></tr></table>
+
+<p>The first time you connect to a host, SSH will bind a cryptographic signature to the hostname, e.g., <code>raspberrypi.local</code> and store it within <code>~/.ssh/known_hosts</code>. To prevent attacks, SSH warns us when the signature changes for a known host. </p>
+<p>In our case, it's likely that there is another explanation for the mismatched signature since SSH will create a new private key every time we set up or rebuild a Raspberry Pi.</p>
+<p>Since this is not an attack scenario, resolve the conflict with <code>ssh-keygen -R raspberrypi.local</code>, which will remove the existing entry. </p>
+<div class="admonition bug">
+<p class="admonition-title">Missing features in Windows SSH</p>
+<p>The <code>ssh-keygen -R</code> feature isn't present before Windows 10 1809. If you are still running an older version of Windows, you will have to locate <code>known_hosts</code> within the <code>.ssh</code> configuration directory and remove the line indicated by the warning message.</p>
+</div>
+<h3 id="permission-denied-errors">Permission Denied Errors<a class="headerlink" href="#permission-denied-errors" title="Permanent link">&para;</a></h3>
+<p>When we're performing system and network administration, we are often in need of <strong>root</strong> privileges. Running an administrative command without the appropriate privileges will result in a permissions-related error.</p>
+<p>By default, the <strong>pi</strong> user is restricted in which parts of the system it can read and modify (Linux is heavily user-based in it's permissions model); however, the user is permitted to elevate itself to the admin level with <code>sudo</code> when it is necessary to perform privileged commands.</p>
+<p>As a general security precaution, don't <code>sudo</code> commands unless it's necessary. For now, we'll indicate when that's the case. In later tasks, you will need to make this determination on your own.</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>Copyright &copy; 2020 Clinton Campbell</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

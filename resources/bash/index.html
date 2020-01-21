@@ -50,15 +50,34 @@
                                 <a href="../..">Home</a>
                             </li>
                             <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">1 - Pi Setup</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../assignments/pi-setup/">Raspberry Pi Setup</a>
+</li>
+            
+<li >
+    <a href="../../assignments/networkd-setup/">networkd Setup</a>
+</li>
+            
+<li >
+    <a href="../wifi-reference/">Wifi Reference</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li >
     <a href="../../assignments/lab2/">Lab 2</a>
-</li>
-                                    
-<li >
-    <a href="../../assignments/lab3/">Lab 3</a>
 </li>
                                 </ul>
                             </li>
@@ -80,6 +99,10 @@
                                     
 <li >
     <a href="../wireshark-install/">Install Wireshark</a>
+</li>
+                                    
+<li >
+    <a href="../wifi-reference/">Linux Wireless Reference</a>
 </li>
                                 </ul>
                             </li>
@@ -119,8 +142,6 @@
             <li><a href="#services-starting-stopping-status">Services: starting, stopping, status</a></li>
             <li><a href="#copying-files-across-servers-with-scp">Copying Files Across Servers with scp</a></li>
             <li><a href="#local-vs-remote">Local vs Remote</a></li>
-        <li class="main "><a href="#hostname-macbook-pro">hostname = macbook-pro</a></li>
-        <li class="main "><a href="#this-tells-me-im-on-my-laptop">This tells me  I'm on my laptop.</a></li>
             <li><a href="#logs">Logs</a></li>
     </ul>
 </div></div>
@@ -173,20 +194,26 @@ If you are unfamiliar with these I recommend looking up a nano tutorial.</li>
 <h3 id="local-vs-remote">Local vs Remote<a class="headerlink" href="#local-vs-remote" title="Permanent link">&para;</a></h3>
 <p>A typical confusion for students when deadling with <code>scp</code> is whether their current terminal session is doing work on their local machine (your laptop), or on a remote machine (your Raspberry Pi or another server).</p>
 <p>You can tell which device your terminal session is doing work in by checking the hostname, that is whatever is after the <code>@</code> symbol. Take a look at the two example tabs below.</p>
-<p>``` bash tab="Local"</p>
-<h1 id="hostname-macbook-pro">hostname = macbook-pro<a class="headerlink" href="#hostname-macbook-pro" title="Permanent link">&para;</a></h1>
-<h1 id="this-tells-me-im-on-my-laptop">This tells me  I'm on my laptop.<a class="headerlink" href="#this-tells-me-im-on-my-laptop" title="Permanent link">&para;</a></h1>
-<p>ben@macbook-pro:~/Desktop/info-314/</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+<div class="superfences-tabs">
+<input name="__tabs_1" type="radio" id="__tab_1_0" checked="checked" />
+<label for="__tab_1_0">Local</label>
+<div class="superfences-content"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
 2
-3
-4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>``` bash tab=&quot;Remote&quot;
-# hostname = debian-lab1
-# I must be on my server now.
+3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># hostname = macbook-pro</span>
+<span class="c1"># This tells me  I&#39;m on my laptop.</span>
+ben@macbook-pro:~/Desktop/info-314/
+</pre></div>
+</td></tr></table></div>
+<input name="__tabs_1" type="radio" id="__tab_1_1" />
+<label for="__tab_1_1">Remote</label>
+<div class="superfences-content"><table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># hostname = debian-lab1</span>
+<span class="c1"># I must be on my server now.</span>
 ben@debian-lab1:~$
 </pre></div>
-</td></tr></table>
-
+</td></tr></table></div>
+</div>
 <h3 id="logs">Logs<a class="headerlink" href="#logs" title="Permanent link">&para;</a></h3>
 <p>Check a service's logs. This is a great way to see if it ran into any errors. If for some reason a service keeps crashing or behaving strangely you'd want to dig into its logs and see if it's unhappy with something.</p>
 <ul>

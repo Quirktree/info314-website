@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Clinton Campbell">
+        <link rel="canonical" href="https://info314.tcpip.dev/assignments/networkd-setup/">
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>networkd Setup - INFO 314 Course Resources</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/color-brewer.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../..">INFO 314 Course Resources</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">1 - Pi Setup</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../pi-setup/">Raspberry Pi Setup</a>
+</li>
+            
+<li class="active">
+    <a href="./">networkd Setup</a>
+</li>
+            
+<li >
+    <a href="../../resources/wifi-reference/">Wifi Reference</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../lab2/">Lab 2</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../resources/markdown/">Intro to Markdown</a>
+</li>
+                                    
+<li >
+    <a href="../../resources/bash/">Intro to Bash</a>
+</li>
+                                    
+<li >
+    <a href="../../resources/host-config/">Mac/Win/Linux Networking</a>
+</li>
+                                    
+<li >
+    <a href="../../resources/wireshark-install/">Install Wireshark</a>
+</li>
+                                    
+<li >
+    <a href="../../resources/wifi-reference/">Linux Wireless Reference</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../pi-setup/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../../resources/wifi-reference/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/quirktree/info314-website">quirktree/info314-website</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#networkd-setup-for-raspbian-2019-04-21">Networkd Setup for Raspbian (2019-04-21)</a></li>
+            <li><a href="#intro-to-systemd">Intro to Systemd</a></li>
+            <li><a href="#systemd-vs-default-networking">Systemd vs Default Networking</a></li>
+            <li><a href="#enabling-networkd">Enabling Networkd</a></li>
+            <li><a href="#test-your-configuration">Test Your Configuration</a></li>
+            <li><a href="#troubleshooting">Troubleshooting</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="networkd-setup-for-raspbian-2019-04-21">Networkd Setup for Raspbian (2019-04-21)<a class="headerlink" href="#networkd-setup-for-raspbian-2019-04-21" title="Permanent link">&para;</a></h1>
+<h2 id="intro-to-systemd">Intro to Systemd<a class="headerlink" href="#intro-to-systemd" title="Permanent link">&para;</a></h2>
+<p>An <strong>init provider</strong> is the first process that is launched on a Linux system. It is responsible for loading other essential services, and it ultimately becomes the parent of every other process on the system. Among the differences between different Linux distributions is the choice of init system.</p>
+<p><strong>systemd</strong> is the initialization (init) provider most often deployed on recent Linux distributions. On Raspbian and other recent Debian-based distros  <strong>systemd</strong> replaces the aging <strong>sysvinit</strong>. We will interact directly with <strong>systemd</strong> in this tutorial by issuing <strong><code>systemctl</code></strong> commands to start, stop, enable and disable various system-level services.</p>
+<p>Beyond its job of launching essential services, <strong>systemd</strong> provides a modular interface to control many parts of the system. We've already interacted with a few of these components when we used <strong><code>localectl</code></strong>, <strong><code>timedatectl</code></strong>, and <strong><code>hostnamectl</code></strong> during the initial setup of the RaspberryPi.</p>
+<p>In this tutorial we will leverage three more <strong>systemd</strong> subsystems:</p>
+<ul>
+<li><strong><code>journald</code></strong> - Collects and catalogs log files from system services and applications. You can explore these files with <strong><code>journalctl</code></strong> as seen in <a href="#troubleshooting">Troubleshooting</a>.</li>
+<li><strong><code>networkd</code></strong> - Detects and configures network devices and performs various other network management functions.</li>
+<li><strong><code>resolved</code></strong> - Provides network name resolution and maintains a list of DNS servers (network-based resolvers) to contact based on settings provided by DHCP or <strong><code>networkd</code></strong> configuration files.</li>
+</ul>
+<div class="admonition danger">
+<p class="admonition-title">Danger: Risk of <em>bricking</em> your Pi</p>
+<p>A typo or other mistake within the core network configuration can result in total loss of network connectivity. If this happens, you will not be able to manage your Pi over SSH. Your only option will be to configure the Pi again from scratch or to troubleshoot using an external HDMI monitor and USB keyboard.</p>
+<p><em>We will not grant extensions for this type of incident.</em> Before you begin to follow these instructions, make an external copy of critical configs such as <strong>wpa_supplicant</strong> using <strong><code>scp</code></strong>. We provide <a href="#rebuilding-raspbian">additional tips</a> for rebuilding at the end of this guide.</p>
+</div>
+<h2 id="systemd-vs-default-networking">Systemd vs Default Networking<a class="headerlink" href="#systemd-vs-default-networking" title="Permanent link">&para;</a></h2>
+<p>By default, Raspbian networking relies on a component called dhcpcd to manage interface settings, addresses, etc. While this component works well for general purpose computing, but it is not a match for every scenario.</p>
+<p>The current version of Debian (the base OS for Raspbian) supports <strong>systemd</strong> based network management via the <strong>systemd-networkd</strong> service. Unlike <strong>dhcpcd</strong>, <strong>networkd</strong> is well-suited to managing the base configuration for our router.</p>
+<h2 id="enabling-networkd">Enabling Networkd<a class="headerlink" href="#enabling-networkd" title="Permanent link">&para;</a></h2>
+<p>We will enable <strong>networkd</strong> in several steps. Try to complete this process in one sitting to avoid "bricking" your Pi (at least making it inaccessible over the network).</p>
+<h3 id="retain-journald-logs">Retain journald logs<a class="headerlink" href="#retain-journald-logs" title="Permanent link">&para;</a></h3>
+<p><strong>systemd-networkd</strong> stores its logs in <strong>systemd-journald</strong>. We want <strong>journald</strong> to keep these logs between boots, which we enable by creating the persistent log path.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Create the location for persistent log messages</span>
+sudo mkdir -p /var/log/journal
+sudo systemd-tmpfiles --create --prefix /var/log/journal
+</pre></div>
+</td></tr></table>
+
+<h3 id="configure-network-interfaces">Configure network interfaces<a class="headerlink" href="#configure-network-interfaces" title="Permanent link">&para;</a></h3>
+<p>To configure the network with <strong>networkd</strong>, we create files in <strong><code>/etc/systemd/network/</code></strong> that match named network interfaces and define our desired settings settings. Create the following <strong><code>.network</code></strong> files to handle the default settings for wired and wireless interfaces. Enabling link local addresses is a critical component of these default configurations so that you can still communicate with the Pi when DHCP is not available.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>Networkd</strong> configuration is generally easy to work with, but there are a couple of footguns to be aware of:</p>
+<ul>
+<li>The files are case sensitive and sometimes sensitive to seemingly innocuous changes in spacing. </li>
+<li>A file with a missing or invalid [Match] statement will be applied to every interface that hasn't already been matched by an earlier configuration.</li>
+</ul>
+</div>
+<div class="admonition faq">
+<p class="admonition-title">FAQ: <strong>Networkd</strong> configuration files</p>
+<p><strong><code>man systemd.network</code></strong> provides a comprehensive reference to the format of the <strong>networkd</strong> configuration files and the process for loading them. </p>
+<p>At runtime, <strong>networkd</strong> gathers files using the <strong><code>.network</code></strong> extension from several locations, including <strong><code>/etc/systemd/network/</code></strong>. To determine the order in which to apply configuration, <strong>networkd</strong> sorts all of these files lexically. </p>
+<p>To maintain proper control over execution order, we can prepend a two digit numeric value to the filename. This allows us to set up high-numbered default configurations that are overriden on a case-by-case basis by low-numberd configs files.</p>
+</div>
+<h4 id="default-ethernet-configuration"><strong>Default ethernet configuration</strong><a class="headerlink" href="#default-ethernet-configuration" title="Permanent link">&para;</a></h4>
+<p><strong><code>/etc/systemd/network/99-eth.network</code></strong>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>[Match]
+# Applies to eth0, eth1, ...
+Name=eth*
+
+[Network]
+# Configure IPv4 using DHCP
+DHCP=ipv4
+
+# Enable link local addresses for IPv4 (169.254.x.y) and IPv6 (FE80::)
+LinkLocalAddressing=yes
+</pre></div>
+</td></tr></table></p>
+<h4 id="default-wireless-configuration"><strong>Default wireless configuration</strong><a class="headerlink" href="#default-wireless-configuration" title="Permanent link">&para;</a></h4>
+<p><strong><code>/etc/systemd/network/99-wlan.network</code></strong>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>[Match]
+Name=wlan*
+[Network]
+DHCP=ipv4
+</pre></div>
+</td></tr></table></p>
+<h3 id="disable-default-networking">Disable default networking<a class="headerlink" href="#disable-default-networking" title="Permanent link">&para;</a></h3>
+<div class="admonition tip">
+<p class="admonition-title">Tip: Backup new configuration before proceeding<p>If you've made any mistakes, you may lose access to your Pi after performing the following steps. </p>
+<p>Make an offline backup <strong>before</strong> you proceed by copying files to your local system with <strong><code>scp</code></strong>.</p>
+</p>
+</div>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="codehilite"><pre><span></span># Disable default Raspbian networking
+sudo systemctl mask dhcpcd.service
+
+# Disable legacy Debian networking
+sudo systemctl mask networking.service
+
+# Disable resolvconf service, which manages DNS servers for the OS
+sudo nano /etc/resolvconf.conf
+# Add the line resolvconf=NO to the beginning of the file
+</pre></div>
+</td></tr></table>
+
+<h3 id="enable-systemd-network-services">Enable systemd network services<a class="headerlink" href="#enable-systemd-network-services" title="Permanent link">&para;</a></h3>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span># Enable systemd-networkd to replace Raspbian and Debian networking
+sudo systemctl enable systemd-networkd
+
+# Enable systemd-resolved to replace the resolvconf service
+sudo systemctl enable systemd-resolved
+</pre></div>
+</td></tr></table>
+
+<p>DNS resolvers for Linux are loaded from the <strong><code>/etc/resolv.conf</code></strong>. Rather than manage this directly or through <strong>resolvconf</strong>, we want to load resolvers dynamically from <strong>systemd-resolved</strong>. This is as simple as creating a link </p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span># Set up a symbolic link from systemd-resolved resolv.conf to the system resolv.conf
+sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+</pre></div>
+</td></tr></table>
+
+<h3 id="modify-wireless-startup">Modify Wireless Startup<a class="headerlink" href="#modify-wireless-startup" title="Permanent link">&para;</a></h3>
+<p>Our original setup was driven by assumptions about <strong>dhcpcd</strong>. Before we reboot, we'll make a few brief changes to manage <strong>wpa_supplicant</strong> on an interface-by-interface basis. </p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="codehilite"><pre><span></span># Rename configuration as a per-interface file
+sudo mv /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant-wlan0.conf
+
+# Enable the wpa_supplicant service specifically for wlan0
+sudo systemctl enable wpa_supplicant@wlan0
+
+# Disable the non-interface specific service
+sudo systemctl disable wpa_supplicant
+</pre></div>
+</td></tr></table>
+
+<h2 id="test-your-configuration">Test Your Configuration<a class="headerlink" href="#test-your-configuration" title="Permanent link">&para;</a></h2>
+<p>Call <strong><code>sudo reboot now</code></strong> to reboot the Pi. Log back in and verify that your Pi is fully operational:</p>
+<ul>
+<li>Confirm that your wireless interface is online</li>
+<li><strong><code>cat /etc/resolv.conf</code></strong> to confirm that it is being populated by <strong>systemd-resolved</strong></li>
+</ul>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<h3 id="general-guidance">General Guidance<a class="headerlink" href="#general-guidance" title="Permanent link">&para;</a></h3>
+<p>When logging back into your Pi, you may find that some of the functionality is failing. In addition to validating log files and checking that you completed all instructions, log files can provide valuable information for detecting where an error is occurring.</p>
+<p>We have already mentioned <strong>journald</strong> earlier in this guide. In order to evaluate logs that are created by <strong>journald</strong>, we make use of the <strong><code>journalctl</code></strong> command. <a href="https://www.lifewire.com/what-to-know-less-command-4051972">Read up</a> on the <strong><code>less</code></strong> utility to learn how to efficiently navigate <strong><code>journalctl</code></strong> output.</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</pre></div></td><td class="code"><div class="codehilite"><pre><span></span># Show log messages
+journalctl
+
+# Include messages marked secure
+sudo journalctl
+
+# Show messages from last boot
+journalctl -k -b -1
+
+# Show networkd messages
+journalctl -u systemd-networkd
+
+# Show resolved messages
+journalctl -u systemd-resolved
+
+# Show wpa_supplicant messages for wlan0
+journalctl -u wpa_supplicant@wlan0
+
+# Load journal from a file path
+journalctl -D /PATH/TO/JOURNAL_FILE
+
+# Learn more about journald
+man journalctl
+</pre></div>
+</td></tr></table>
+
+<h3 id="accessing-a-bricked-pi">Accessing a Bricked Pi<a class="headerlink" href="#accessing-a-bricked-pi" title="Permanent link">&para;</a></h3>
+<p>If you made a mistake at the wrong point in the previous process, you may not even be able to connect anymore from the network. The only way to debug at this point will be to attach a keyboard/monitor to the Pi or to mount the memory card from another Linux machine or VM.</p>
+<h3 id="rebuilding-raspbian">Rebuilding Raspbian<a class="headerlink" href="#rebuilding-raspbian" title="Permanent link">&para;</a></h3>
+<p>Alternatively, you may opt to reflash your memory card and repeat initial setup. If you find yourself in this position, the following recommendations will simplify the process:</p>
+<ol>
+<li>Copy a fully configured <strong><code>wpa_supplicant.conf</code></strong> to the <strong><code>boot</code></strong> volume of the memory card before the first boot. Raspbian will move the file to the proper location in <strong><code>/etc/wpa_supplicant</code></strong> and set its permissions on the first boot.</li>
+<li>Remove the previous server key hash from <strong><code>.ssh/known_hosts</code></strong> to prevent <strong><code>ssh</code></strong> from complaining about the Pi's new key.<ul>
+<li><strong>macOS/Linux</strong> - Run <strong><code>ssh-keygen -R raspberrypi.local</code></strong></li>
+<li><strong>Windows</strong> - Edit <strong><code>$HOME\.ssh\known_hosts</code></strong> and remove the lines that reference <strong><code>raspberrypi.local</code></strong> before you attempt to connect.</li>
+</ul>
+</li>
+<li><strong>macOS/Linux</strong> - Run <strong><code>ssh-copy-id -i ~/.ssh/id_ed25519</code></strong> to quickly copy your public keys into <strong><code>authorized_keys</code></strong>. <em>Windows</em> users will have to manually set this file up as shown in previous guides.</li>
+</ol></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>Copyright &copy; 2020 Clinton Campbell</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
