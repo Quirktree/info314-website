@@ -290,7 +290,7 @@ Begin your `wpa_supplicant.conf` file with the following lines.
     # INSERT WPA2 ENTERPRISE CONFIG FOR EDUROAM
     ```
 
-Afterwards add one or more network blocks (**including a connection to `Eduroam`**). If you are new to this, there are detailed configuration instructions on how to add network blocks are available in [WPA Supplicant Configuration Reference](/resources/wifi-reference.md).
+Afterwards add one or more network blocks (**including a connection to `Eduroam`**). If you are new to this, there are detailed configuration instructions on how to add network blocks are available in [WPA Supplicant Configuration Reference](/resources/wifi-reference/).
 
 When you are finished updating `wpa_supplicant.conf` reconfigure the wireless interface by calling `wpa_cli -i wlan0 reconfigure`. The command should return `OK` after a few seconds. Check that you are attached to the wireless network  by calling `wpa_cli -i wlan0 status`.
 
