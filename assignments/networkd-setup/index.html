@@ -70,6 +70,20 @@
 </li>
     </ul>
   </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">2 - Set up a DHCP Server</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../resources/address-planning/">IP Address Planning Reference</a>
+</li>
+            
+<li >
+    <a href="../dhcp-setup/">Installing and Configuring the ISC DHCP Server</a>
+</li>
+    </ul>
+  </li>
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -104,6 +118,10 @@
 <li >
     <a href="../../resources/wifi-reference/">Linux Wireless Reference</a>
 </li>
+                                    
+<li >
+    <a href="../../resources/dhcpd-troubleshooting/">Troubleshooting DHCP</a>
+</li>
                                 </ul>
                             </li>
                         </ul>
@@ -135,7 +153,7 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#networkd-setup-for-raspbian-2019-04-21">Networkd Setup for Raspbian (2019-04-21)</a></li>
+        <li class="main active"><a href="#networkd-setup-for-raspbian-2020-01-22">Networkd Setup for Raspbian (2020-01-22)</a></li>
             <li><a href="#intro-to-systemd">Intro to Systemd</a></li>
             <li><a href="#systemd-vs-default-networking">Systemd vs Default Networking</a></li>
             <li><a href="#enabling-networkd">Enabling Networkd</a></li>
@@ -145,7 +163,7 @@
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="networkd-setup-for-raspbian-2019-04-21">Networkd Setup for Raspbian (2019-04-21)<a class="headerlink" href="#networkd-setup-for-raspbian-2019-04-21" title="Permanent link">&para;</a></h1>
+<h1 id="networkd-setup-for-raspbian-2020-01-22">Networkd Setup for Raspbian (2020-01-22)<a class="headerlink" href="#networkd-setup-for-raspbian-2020-01-22" title="Permanent link">&para;</a></h1>
 <h2 id="intro-to-systemd">Intro to Systemd<a class="headerlink" href="#intro-to-systemd" title="Permanent link">&para;</a></h2>
 <p>An <strong>init provider</strong> is the first process that is launched on a Linux system. It is responsible for loading other essential services, and it ultimately becomes the parent of every other process on the system. Among the differences between different Linux distributions is the choice of init system.</p>
 <p><strong>systemd</strong> is the initialization (init) provider most often deployed on recent Linux distributions. On Raspbian and other recent Debian-based distros  <strong>systemd</strong> replaces the aging <strong>sysvinit</strong>. We will interact directly with <strong>systemd</strong> in this tutorial by issuing <strong><code>systemctl</code></strong> commands to start, stop, enable and disable various system-level services.</p>

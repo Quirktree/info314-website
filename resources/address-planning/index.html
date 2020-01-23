@@ -8,7 +8,7 @@
         <meta name="author" content="Clinton Campbell">
         <link rel="canonical" href="https://info314.tcpip.dev/resources/address-planning/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Basic IP Address Planning - INFO 314 Course Resources</title>
+        <title>IP Address Planning Reference - INFO 314 Course Resources</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -49,7 +49,7 @@
                             <li >
                                 <a href="../..">Home</a>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -67,6 +67,20 @@
             
 <li >
     <a href="../wifi-reference/">Wifi Reference</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">2 - Set up a DHCP Server</a>
+    <ul class="dropdown-menu">
+            
+<li class="active">
+    <a href="./">IP Address Planning Reference</a>
+</li>
+            
+<li >
+    <a href="../../assignments/dhcp-setup/">Installing and Configuring the ISC DHCP Server</a>
 </li>
     </ul>
   </li>
@@ -104,6 +118,10 @@
 <li >
     <a href="../wifi-reference/">Linux Wireless Reference</a>
 </li>
+                                    
+<li >
+    <a href="../dhcpd-troubleshooting/">Troubleshooting DHCP</a>
+</li>
                                 </ul>
                             </li>
                         </ul>
@@ -114,6 +132,16 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
+                            <li >
+                                <a rel="next" href="../wifi-reference/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../../assignments/dhcp-setup/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
                             <li>
                                 <a href="https://github.com/quirktree/info314-website">quirktree/info314-website</a>
                             </li>
@@ -125,33 +153,51 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#basic-ip-address-planning">Basic IP Address Planning</a></li>
-            <li><a href="#address-types">Address Types</a></li>
+        <li class="main active"><a href="#basic-ip-address-planning-2020-01-22">Basic IP Address Planning (2020-01-22)</a></li>
+            <li><a href="#private-versus-public">Private versus Public</a></li>
+            <li><a href="#configuration-strategies">Configuration Strategies</a></li>
             <li><a href="#procedure">Procedure</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="basic-ip-address-planning">Basic IP Address Planning<a class="headerlink" href="#basic-ip-address-planning" title="Permanent link">&para;</a></h1>
-<p>Don't try to build a network without a plan. A good network design is built on parameters and constraints that are appropriate for the intended use-cases. </p>
-<p>This guide offers a generic procedure that can serve as a minimal starting point for planning a simple network or subnet. </p>
-<h2 id="address-types">Address Types<a class="headerlink" href="#address-types" title="Permanent link">&para;</a></h2>
-<p><strong>Leased Addresses</strong> When a new computer joins 
-<strong>Static Addresses</strong> 
-<strong>DHCP Reservations</strong></p>
+<h1 id="basic-ip-address-planning-2020-01-22">Basic IP Address Planning (2020-01-22)<a class="headerlink" href="#basic-ip-address-planning-2020-01-22" title="Permanent link">&para;</a></h1>
+<p>Don't try to build a network without a plan. A good network design is built on parameters and constraints that are appropriate for the intended use-cases. This guide offers a simple procedure that can serve as a starting point for basic planning needs.</p>
+<h2 id="private-versus-public">Private versus Public<a class="headerlink" href="#private-versus-public" title="Permanent link">&para;</a></h2>
+<p>We can't pull addresses from thin air. The laws of the TCP/IP universe restrict what addresses we can use on networks we can control. Make sure that you understand where addresses come from and can distinguish between private and public address space.</p>
+<p>** Private Addresses ** Within the boundaries of our own network, we are relatively free to set our rules as long as we use addresses that are reserved for private use. Your reference point for these addresses is <a href="https://tools.ietf.org/html/rfc1918">RFC-1918</a>.</p>
+<p>** Public Addresses ** For packets we send on the public Internet, we must use public addresses that are in our control. These addresses will either be leased (short-term or long-term reservation) to us by an ISP or allocated on a more permanent basis by a Regional Internet Registry (RIR)<sup id="fnref:rir"><a class="footnote-ref" href="#fn:rir">1</a></sup>. A contiguous group of addresses allocated in this way is referred to as a <strong>block</strong>.</p>
+<h2 id="configuration-strategies">Configuration Strategies<a class="headerlink" href="#configuration-strategies" title="Permanent link">&para;</a></h2>
+<p>As you get started, you will need to make decisions about how you will configure devices on your network with appropriate IP addresses and network parameters. Before you proceed, make sure that you understand the following classifications.</p>
+<p><strong>Leased Addresses</strong> As much as possible, you'll want to avoid the need for manual configuration when a new device joins the network. DHCP allows you to allocate a range of addresses that the server can use to issue address leases to hosts that request them. Leased addresses are dynamic in the sense that they aren't determined until a host joins the network and initiates the DHCP process.</p>
+<p><strong>Static Addresses</strong> Dynamic address assignment won't work for every scenario, e.g., when an address should be fixed and a dependency on DHCP isn't possible. Some devices, including the DHCP server itself should be directly configured. We describe their addresses as static because they are coded into a network node's configuration and won't change base on external factors.</p>
+<p><strong>DHCP Reservations</strong> Static address assignment provides a maximum degree of control when we want a device to stay at a fixed address, e.g., servers and printers, but introduces additional management cost since devices have to be configured on an individual basis. With a reservation, we can register a device based on its MAC address and ensure that DHCP serves it a pre-defined configuration when it joins the network. </p>
 <h2 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">&para;</a></h2>
 <h3 id="step-1-examine-address-needs">Step 1 - Examine address needs<a class="headerlink" href="#step-1-examine-address-needs" title="Permanent link">&para;</a></h3>
 <p>Determine the number of addresses required, accounting for static, reserved, and DHCP address pools.</p>
 <p>Identify additional address constraints, such as the number of distinct subnets needed or potential subnet conflicts</p>
 <h3 id="step-2-identify-the-base-network">Step 2 - Identify the base network<a class="headerlink" href="#step-2-identify-the-base-network" title="Permanent link">&para;</a></h3>
-<p>Identify your base address block or select a block from the RFC-1918 address range.</p>
+<p>Identify the base network from which you will be subnetting. If you do not have a permanent select a block from the RFC-1918 address range.</p>
 <h3 id="step-3-select-subnet-parameters">Step 3 - Select subnet parameters<a class="headerlink" href="#step-3-select-subnet-parameters" title="Permanent link">&para;</a></h3>
-<p>Determine the CIDR length for your subnet and the subnet mask for your LAN.</p>
-<p>Based on your selected RFC-1918 address block, CIDR length, and additional constraints, select a subnet that will be used to allocate addresses for your LAN.</p>
-<p>Based on the previous values, determine the broadcast address associated with your network.</p>
+<p>Based on the inventory you conducted in step #1, determine the number of address bits that are required in order to give an address to each host on your LAN. You can use this number to determine the CIDR length and network mask for your Subnet.</p>
+<p>Given a base network and a CIDR length, choose an available subnet id for your network.<sup id="fnref:prefix"><a class="footnote-ref" href="#fn:prefix">2</a></sup></p>
+<p>To complete the set of basic configuration parameters, compute the broadcast address associated with your chosen subnet ID and CIDR.</p>
 <h3 id="step-4-document-important-addresses-and-ranges">Step 4 - Document important addresses and ranges<a class="headerlink" href="#step-4-document-important-addresses-and-ranges" title="Permanent link">&para;</a></h3>
-<p>Assign any static addresses that are needed to provide core network functions and other services.</p>
-<p>Define the range of addresses available for use in the DHCP address pool.</p></div>
+<p>Finally, let's connect the dots between what we've done in the first three steps by splitting your subnet up according to static, reserved, and dynamic addresses.</p>
+<p>Static addresses will usually be assigned to core network devices, e.g., a router or DHCP server, that should operate independently of DHCP. For other devices that need consistent addresses -- perhaps DNS servers or printers -- you can assign a reserved address.</p>
+<p>If you operate multiple networks, it is helpful to be consistent with your static assignments. For example, most network administrators will assign the router to either the first or last address in the subnet. Don't deviate from convention unless you have a good reason.</p>
+<p>Once you've documented your static and reserved addresses, identify a range of addresses within your subnet that can be used for the DHCP address pool. This should be a contiguous block of addresses and it cannot overlap with your a) network ID, b) subnet broadcast address, or c) static or reserved addresses that you've defined.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:rir">
+<p>More information about RIRs can be found at <a href="https://www.nro.net/about/rirs/">https://www.nro.net/about/rirs/</a>.&#160;<a class="footnote-backref" href="#fnref:rir" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:prefix">
+<p>The subnet ID or network prefix is the portion of the address that stays the same for all hosts on the same layer-2 network segment.&#160;<a class="footnote-backref" href="#fnref:prefix" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
         </div>
 
         <footer class="col-md-12">

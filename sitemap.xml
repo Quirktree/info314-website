@@ -2,52 +2,67 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
      <loc>https://info314.tcpip.dev/</loc>
-     <lastmod>2020-01-20</lastmod>
+     <lastmod>2020-01-22</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://info314.tcpip.dev/assignments/pi-setup/</loc>
-     <lastmod>2020-01-20</lastmod>
+     <lastmod>2020-01-22</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://info314.tcpip.dev/assignments/networkd-setup/</loc>
-     <lastmod>2020-01-20</lastmod>
+     <lastmod>2020-01-22</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://info314.tcpip.dev/resources/wifi-reference/</loc>
-     <lastmod>2020-01-20</lastmod>
+     <lastmod>2020-01-22</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/resources/address-planning/</loc>
+     <lastmod>2020-01-22</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/assignments/dhcp-setup/</loc>
+     <lastmod>2020-01-22</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://info314.tcpip.dev/assignments/lab2/</loc>
-     <lastmod>2020-01-20</lastmod>
+     <lastmod>2020-01-22</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://info314.tcpip.dev/resources/markdown/</loc>
-     <lastmod>2020-01-20</lastmod>
+     <lastmod>2020-01-22</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://info314.tcpip.dev/resources/bash/</loc>
-     <lastmod>2020-01-20</lastmod>
+     <lastmod>2020-01-22</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://info314.tcpip.dev/resources/host-config/</loc>
-     <lastmod>2020-01-20</lastmod>
+     <lastmod>2020-01-22</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://info314.tcpip.dev/resources/wireshark-install/</loc>
-     <lastmod>2020-01-20</lastmod>
+     <lastmod>2020-01-22</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://info314.tcpip.dev/resources/wifi-reference/</loc>
-     <lastmod>2020-01-20</lastmod>
+     <lastmod>2020-01-22</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/resources/dhcpd-troubleshooting/</loc>
+     <lastmod>2020-01-22</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
