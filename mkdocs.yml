@@ -17,6 +17,9 @@ nav:
       - Raspberry Pi Setup: assignments/pi-setup.md
       - networkd Setup: assignments/networkd-setup.md
       - Wifi Reference: resources/wifi-reference.md
+    - 2 - Set up a DHCP Server:
+      - IP Address Planning Reference: resources/address-planning.md
+      - Installing and Configuring the ISC DHCP Server: assignments/dhcp-setup.md
   - Labs:
     - Lab 2: assignments/lab2.md
   - Reference:

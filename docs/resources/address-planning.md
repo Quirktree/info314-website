@@ -1,4 +1,4 @@
-# Basic IP Address Planning (2020-01-18)
+# Basic IP Address Planning (2020-01-22)
 
 Don't try to build a network without a plan. A good network design is built on parameters and constraints that are appropriate for the intended use-cases. This guide offers a simple procedure that can serve as a starting point for basic planning needs.
 
