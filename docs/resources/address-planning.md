@@ -6,9 +6,9 @@ Don't try to build a network without a plan. A good network design is built on p
 
 We can't pull addresses from thin air. The laws of the TCP/IP universe restrict what addresses we can use on networks we can control. Make sure that you understand where addresses come from and can distinguish between private and public address space.
 
-** Private Addresses ** Within the boundaries of our own network, we are relatively free to set our rules as long as we use addresses that are reserved for private use. Your reference point for these addresses is [RFC-1918](https://tools.ietf.org/html/rfc1918).
+**Private Addresses** Within the boundaries of our own network, we are relatively free to set our rules as long as we use addresses that are reserved for private use. Your reference point for these addresses is [RFC-1918](https://tools.ietf.org/html/rfc1918).
 
-** Public Addresses ** For packets we send on the public Internet, we must use public addresses that are in our control. These addresses will either be leased (short-term or long-term reservation) to us by an ISP or allocated on a more permanent basis by a Regional Internet Registry (RIR)[^rir]. A contiguous group of addresses allocated in this way is referred to as a **block**.
+**Public Addresses** For packets we send on the public Internet, we must use public addresses that are in our control. These addresses will either be leased (short-term or long-term reservation) to us by an ISP or allocated on a more permanent basis by a Regional Internet Registry (RIR)[^rir]. A contiguous group of addresses allocated in this way is referred to as a **block**.
 
 [^rir]: More information about RIRs can be found at https://www.nro.net/about/rirs/.
 
