@@ -1,9 +1,5 @@
 # Set up a DHCP Server for your LAN (2020-01-22)
 
-[![dhcp](../img/trouble/dhcp.png)](https://www.wikiwand.com/en/Dynamic_Host_Configuration_Protocol)
-<br>
-<br>
-
 ## Overview
 In this assignment, we'll be standing up a DHCP service on the Raspberry Pi. As we've discussed in class, DHCP is a function that is sometimes performed by routers and is a necessary service whenever we are creating a new network (of almost any type). 
 
@@ -102,4 +98,4 @@ Try running `ping` from both directions (laptop -> pi and pi -> laptop) to confi
 
 ## Troubleshooting
 
-Troubleshooting for the ISC DHCP Server can be found under [troubleshooting >> dhcp](/resources/dhcpd-troubleshooting/).
+Troubleshooting for the ISC DHCP Server can be found under [troubleshooting dhcp dhcp](/resources/dhcpd-troubleshooting/).

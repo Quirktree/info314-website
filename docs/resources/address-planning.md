@@ -6,7 +6,7 @@ Don't try to build a network without a plan. A good network design is built on p
 
 We can't pull addresses from thin air. The laws of the TCP/IP universe restrict what addresses we can use on networks we can control. Make sure that you understand where addresses come from and can distinguish between private and public address space.
 
-** Private Addresses ** Within the boundaries of our own network, we are relatively free to set our rules as long as we use addresses that are reserved for private use. Your reference point for these addresses is (RFC-1918)[https://tools.ietf.org/html/rfc1918].
+** Private Addresses ** Within the boundaries of our own network, we are relatively free to set our rules as long as we use addresses that are reserved for private use. Your reference point for these addresses is [RFC-1918](https://tools.ietf.org/html/rfc1918).
 
 ** Public Addresses ** For packets we send on the public Internet, we must use public addresses that are in our control. These addresses will either be leased (short-term or long-term reservation) to us by an ISP or allocated on a more permanent basis by a Regional Internet Registry (RIR)[^rir]. A contiguous group of addresses allocated in this way is referred to as a **block**.
 
@@ -38,11 +38,11 @@ Identify the base network from which you will be subnetting. If you do not have 
 
 Based on the inventory you conducted in step #1, determine the number of address bits that are required in order to give an address to each host on your LAN. You can use this number to determine the CIDR length and network mask for your Subnet.
 
-Given a base network and a CIDR length, choose an available subnet id[^prefix] for your network.
-
-[^prefix]: The subnet ID or network prefix is the portion of the address that stays the same for all hosts on the same layer-2 network segment. 
+Given a base network and a CIDR length, choose an available subnet id for your network.[^prefix]
 
 To complete the set of basic configuration parameters, compute the broadcast address associated with your chosen subnet ID and CIDR.
+
+[^prefix]: The subnet ID or network prefix is the portion of the address that stays the same for all hosts on the same layer-2 network segment. 
 
 ### Step 4 - Document important addresses and ranges
 
