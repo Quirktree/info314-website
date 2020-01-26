@@ -30,9 +30,9 @@ If you are unfamiliar with these I recommend looking up a nano tutorial.
 If you don't know what a command does or how to use it simply use the `man` command! 
 `man <commandName>` will print out an documentation. Once you're done reading hit `q` on your keyboard to quit out.  In the following screenshots I enter `man nslookup` which provides me with more information on what `nslookup` does and how it's used.
 
-![man command](img/welcome/man1.png)
+![man command](../img/man1.png)
 
-![man result](img/welcome/man2.png)
+![man result](../img/man2.png)
 
 ### Services: starting, stopping, status
 
