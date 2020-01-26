@@ -98,4 +98,4 @@ Try running `ping` from both directions (laptop -> pi and pi -> laptop) to confi
 
 ## Troubleshooting
 
-Troubleshooting for the ISC DHCP Server can be found under [troubleshooting dhcp dhcp](/resources/dhcpd-troubleshooting/).
+Troubleshooting for the ISC DHCP Server can be found under [troubleshooting dhcp dhcp](/resources/manage-dhcp/).

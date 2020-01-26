@@ -28,7 +28,7 @@ nav:
     - Mac/Win/Linux Networking: resources/host-config.md
     - Install Wireshark: resources/wireshark-install.md
     - Linux Wireless Reference: resources/wifi-reference.md
-    - Troubleshooting DHCP: resources/dhcpd-troubleshooting.md
+    - Troubleshooting DHCP: resources/manage-dhcp.md
 
         #      - Asking for help: contact.md
         #- Resources:
