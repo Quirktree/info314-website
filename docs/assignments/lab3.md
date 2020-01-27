@@ -5,11 +5,11 @@
 ## Overview
 The purpose of this lab is for students to gain hands on experience with DNS. By the end of the lab you will be familiar with:
 
-- `dig`
+- **`dig`** (or PowerShell's **`Resolve-DnsName`** command)
 - DNS queries
 - security faults of DNS
 
-We highly recommend using search engines to help you find solutions.As usual, there will be multiple ways to complete this lab. Please use the template provided on Canvas under the Assignment "Lab 3 - Analyze DNS & HTTP in Wireshark" to complete your lab report.
+We highly recommend using search engines to help you find solutions. As usual, there will be multiple ways to complete this lab. Please use the template provided on Canvas under the Assignment "Lab 3 - Analyze DNS & HTTP in Wireshark" to complete your lab report.
 
 
 
@@ -20,33 +20,34 @@ Pick a popular website that has a lot of content on it. Ideally it should contai
 
 1. What website did you select?
 
-
-
 ## Part II - dig
 Before jumping into more complicated scenarios we would like you to learn how to use the **`dig`** command as it is an incredibly helpful and simple tool.
 
-Go to  <a href=" https://bwalchen.github.io/314-docs/trouble/dns/" target="_blank"> 314-docs/trouble/dns/</a> and scroll down to the `dig` section.
+We've provided some resources at <a href="/resources/manage-dns/#perform-dns-lookups-manually" target="_blank">Perform DNS Loookups Manually</a> to help you get started.
 
-Run dig against the website you selected. Open up two tabs in your browser, grab two different IP addresses that were returned to you, and put one in each tabs' URL bar. 
+Use dig to lookup the domain name of the website you selected. Open up a new tab in your browser and enter (one of) the IP address(es) returned by dig to discover where it will take you. If dig returned more than one address, open up a second tab and enter it now.
+
+!!! Note 
+    Don't panic if you receive an error instead of a live site. Some servers host more than one website and need the name to help route you to the right place. Try another site, e.g., uw.edu, and see if you get different results.
 
 **Report**: 
 
 2. What addresses did the dig command return? Copy dig results to your report (code block or screenshot).
 
-3. Where did the two IP addresses bring you to?
+1. What did you observe when you browsed to the IP addresses directly?
 
-4. What do these addresses represent and why type of record are they?
+1. Aside from **A** records containing IP addresses, did you discover any other DNS records from your query? List at least 3 other record types that DNS manages.
 
-5. What are the main types of records a nameserver holds on to?
-
+1. Look closely at the output of the dig command. How can you be sure that the query completed successfully? Identify the IP address of the server used to handle your query.
 
 
 ## Part III - dev tools
 Open up a new tab preferably in a chromium based browser (Chrome, Brave, etc...). Open up the dev tools (right click on page and click Inspect), and go to the *Network* option. 
 
-In that very same tab paste in your selected web page into the URL bar and click enter. You should see all of the `GET` and `POST` requests that the browser made for that webpage load up in the dev tools.
+In that very same tab paste in your selected web page into the URL bar and click enter. You should see all of the **GET** and **POST** requests that the browser made for that webpage load up in the dev tools.
 
 Right-click the header of the Network Log table and select Domain. The domain of each resource is now shown.
+
 [![dev tools show domain](https://developers.google.com/web/tools/chrome-devtools/network/imgs/tutorial/domain.png)](https://developers.google.com/web/tools/chrome-devtools/network/imgs/tutorial/domain.png)
 
 
@@ -54,13 +55,13 @@ Take some time to scroll through the domains, files, and file types your website
 
 **Report**: 
 
-6. From a quick glance what is the most common file type that you see is requested?
+6. From a quick glance what is the most common file type requested?
 
-7. Approximately how many *domains* do you see in that list that don't matchup with the website domain you initially visited?
+1. Approximately how many *domains* do you see in that list that don't matchup with the website domain you initially visited?
 
-8. Why do you think this page is getting information from other websites?
+1. Why do you think this page is getting information from other websites?
 
-9. If you had to guess, how many DNS requests do you think were sent in order to fully load this page?
+1. If you had to guess, how many DNS requests do you think were sent in order to fully load this page?
 
 
 
@@ -79,28 +80,33 @@ Now **filter** for DNS packets only in the display filter.
 * Identify the DNS response containing the information you needed in order to convert your website name into an IP address.
 * Use the information contained within that packet for the following deliverable.
 
+
+!!! Hint
+    Learn how to use the search tool to find string content or research display filters that allow you to specify the domain name.
+
 **Report**: 
 
 10. Assuming almost all of the DNS requests you see in Wireshark right now are for the one website you visited, how many DNS requests do you see? 
 
-11. Overall were there less or more DNS queries than you'd expect?
+1. Overall were there less or more DNS queries than you'd expect?
 
-12. How did you identify the DNS packet associated with the website you visited?
+1. How did you identify the DNS packet(s) associated with the website you visited?
 
-13. Provide a screenshot of the packet (specifically of the DNS information).
+1. Provide screenshots of the packet(s) (specifically of the DNS information in Packet Details).
 
-14. List the ip addresses you received for the website from the DNS server that resolved your request.
+1. List the ip addresses you received for the website from the DNS server that resolved your request.
 
-15. Which *transport layer protocol* ([think OSI model](https://bwalchen.github.io/314-docs/course-prep/osi/)) is present within the DNS headers?
+1. Which *transport layer protocol* ([think OSI model](https://bwalchen.github.io/314-docs/course-prep/osi/)) is used to carry the DNS packet?
 
-16. Compare this DNS response to others in the capture (generate more if needed).
+1. Compare this DNS response to others in the capture (generate more if needed).
 
-17. Which port number(s) are shared in common across these DNS requests?
+1. Which port number(s) are shared in common across these DNS requests?
 
 
 
 ## Part V - security
 Open two packets in bytes view, a dns and a http packet that is encrypted with tls.
+
 * Double click one of the DNS packets in order to be able to see the bytes view. 
 * Remove the dns display filter and replace it with tls (web traffic). 
 * Open one of the tls packets in byte view too.
@@ -110,11 +116,12 @@ Open two packets in bytes view, a dns and a http packet that is encrypted with t
 18. Examine the bytes view of the two packets. Do you see any human
     readable values in the output?
 
-19. Looking at these two packets and others in your capture, does Wireshark provide any clues about whether or not your DNS is encrypted?
+1. Looking at these two packets and others in your capture, does Wireshark provide any clues about whether or not your DNS is encrypted?
 
-20. Does it provide any clues on whether your web traffic is encrypted?
+1. Does it provide any clues on whether your web traffic is encrypted?
 
 Attacker:
+
 21. What information might an outside observer be able to glean about your computing activities by capturing your DNS traffic?
 
-22. Was any discernible information revealed (as far as you can tell) through your web traffic?
+1. Was any discernible information revealed (as far as you can tell) through your web traffic?

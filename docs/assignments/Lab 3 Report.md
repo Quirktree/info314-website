@@ -25,21 +25,21 @@ We highly recommend using search engines to help you find solutions.
    
    
    
-3. **Where did the two IP addresses bring you to?**  
+3. **What did you observe when you browsed to the IP addresses directly?**  
    
    
    
-4. **What do these addresses represent and why type of record are they?**  
+4. **Aside from A records containing IP addresses, did you discover any other DNS records from your query? List at least 3 other record types that DNS manages.**  
    
    
    
-5. **What are the main types of records a nameserver holds on to?**  
+5. **Look closely at the output of the dig command. How can you be sure that the query completed successfully? Identify the IP address of the server used to handle your query.**  
    
    
    
 ## Part III - Dev Tools
 
-6. **From a quick glance what is the most common file type that you see is requested?**    
+6. **From a quick glance what is the most common file type requested?**    
    
 7. **Approximately how many domains do you see in that list that don't matchup with the website domain you initially visited?**  
    
@@ -63,11 +63,11 @@ We highly recommend using search engines to help you find solutions.
    
    
    
-12. **How did you identify the DNS packet associated with the website you visited?**  
+12. **How did you identify the DNS packet(s) associated with the website you visited?**  
    
    
    
-13. **Provide a screenshot of the packet (specifically of the DNS information).**  
+13. **Provide screenshot(s) of the packet(s) (specifically of the DNS information in Packet Details).**  
    
    
    
@@ -75,7 +75,7 @@ We highly recommend using search engines to help you find solutions.
    
    
    
-15. **Which transport layer protocol (think OSI model) is present within the DNS headers?**  
+15. **Which transport layer protocol (think OSI model) is used to carry the DNS packet?**  
    
    
    
