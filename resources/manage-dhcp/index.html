@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Clinton Campbell">
-        <link rel="canonical" href="https://info314.tcpip.dev/resources/bash/">
+        <link rel="canonical" href="https://info314.tcpip.dev/resources/manage-dhcp/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Intro to Bash - INFO 314 Course Resources</title>
+        <title>Troubleshooting DHCP - INFO 314 Course Resources</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -107,8 +107,8 @@
     <a href="../markdown/">Intro to Markdown</a>
 </li>
                                     
-<li class="active">
-    <a href="./">Intro to Bash</a>
+<li >
+    <a href="../bash/">Intro to Bash</a>
 </li>
                                     
 <li >
@@ -123,8 +123,8 @@
     <a href="../wifi-reference/">Linux Wireless Reference</a>
 </li>
                                     
-<li >
-    <a href="../manage-dhcp/">Troubleshooting DHCP</a>
+<li class="active">
+    <a href="./">Troubleshooting DHCP</a>
 </li>
                                     
 <li >
@@ -141,12 +141,12 @@
                             </a>
                         </li>
                             <li >
-                                <a rel="next" href="../markdown/">
+                                <a rel="next" href="../wifi-reference/">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li >
-                                <a rel="prev" href="../host-config/">
+                                <a rel="prev" href="../dns-clients/">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -161,84 +161,71 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#intro-to-bash">Intro to Bash</a></li>
-            <li><a href="#directories">Directories</a></li>
-            <li><a href="#editing-files">Editing files</a></li>
-            <li><a href="#command-documentation">Command documentation</a></li>
-            <li><a href="#services-starting-stopping-status">Services: starting, stopping, status</a></li>
-            <li><a href="#copying-files-across-servers-with-scp">Copying Files Across Servers with scp</a></li>
-            <li><a href="#local-vs-remote">Local vs Remote</a></li>
-            <li><a href="#logs">Logs</a></li>
+        <li class="main active"><a href="#dhcp">DHCP</a></li>
+            <li><a href="#renew-dhcp-lease">Renew dhcp lease</a></li>
+            <li><a href="#general-troubleshoot">General Troubleshoot</a></li>
+            <li><a href="#troubleshooting-isc-dhcp-server">Troubleshooting ISC DHCP Server</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="intro-to-bash">Intro to Bash<a class="headerlink" href="#intro-to-bash" title="Permanent link">&para;</a></h1>
+<h1 id="dhcp">DHCP<a class="headerlink" href="#dhcp" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p>Bash command, terminal command, command line command, for the purpose of our class these all mean the same things. You should already be familiar with bash from INFO 201 and INFO 340. This following section will help you refresh some of the basics.</p>
+<p>DHCP advice will be updated and rolled out to this page.
+Reminder that the service <strong><code>dhcpd</code></strong> will handle dhcp for us.</p>
 </blockquote>
-<div class="admonition info">
-<p class="admonition-title">Huh, Bash?<p>If you feel completely lost and have never seen terminal commands we recommend watching these two videos:</p>
-<ul>
-<li><a href="https://www.youtube.com/watch?v=oxuRxtrO2Ag" target="_blank">Beginner's Guide to the Bash Terminal</a></li>
-<li><a href="https://www.udacity.com/course/shell-workshop--ud206" target="_blank">Udacity Shell Workshop</a></li>
-</ul>
-</p>
+<h3 id="renew-dhcp-lease">Renew dhcp lease<a class="headerlink" href="#renew-dhcp-lease" title="Permanent link">&para;</a></h3>
+<hr />
+<div class="admonition quote">
+<p class="admonition-title">Quote</p>
+<blockquote>
+<p>dhcp renewal is when a dhcp client (your laptop, phone, tablet...) renews or updates its IP address cofniguration with the dhcp server. Often times in our homes the dhcp server is already packaged in our router <a href="https://www.serverbrain.org/network-services-2003/how-the-dhcp-lease-renewal-process-works-1.html">source</a>.</p>
+</blockquote>
 </div>
-<h3 id="directories">Directories<a class="headerlink" href="#directories" title="Permanent link">&para;</a></h3>
+<p><strong>Unix (Mac OS)</strong>: <br></p>
+<blockquote>
+<p>This steps below are necessary since the renew button for mac os only does a shortened DHCP exchange.</p>
+</blockquote>
 <ul>
-<li><code>cd</code> to change directories</li>
-<li><code>ls</code> to show files and directories at your current path</li>
-<li><code>ls -a</code> to also show hidden files</li>
+<li>Go to Network Preferences &gt;&gt; Select interface &gt;&gt; Advanced -&gt; TCP/IP, Turn off IPv4 Addressing (hit OK + Apply)</li>
+<li>Return to advanced settings and enable DHCP. </li>
 </ul>
-<h3 id="editing-files">Editing files<a class="headerlink" href="#editing-files" title="Permanent link">&para;</a></h3>
-<p>If you are editing a file on a remote server such as your Pi, you will not have the luxury of using a nice editor such as VS Code, Atom, or Sublime. Nevertheless, there are many powerful terminal editors.
-Use <code>nano</code> or <code>vim</code> to edit files through your terminal.</p>
-<p>How to edit a file that's on a linux server/your Pi:</p>
+<p><strong>Windows</strong>:</p>
 <ul>
-<li>Use <code>nano &lt;fileName&gt;</code> or <code>vim &lt;filename&gt;</code></li>
-<li>Nano is beginner friendly. 
-If you are unfamiliar with these I recommend looking up a nano tutorial.</li>
+<li>Open a command prompt</li>
+<li>run <code>ipconfig /release Wi-Fi</code> to release your IP address</li>
+<li>then run <code>ipconfig/renew</code> to request a new one</li>
 </ul>
-<h3 id="command-documentation">Command documentation<a class="headerlink" href="#command-documentation" title="Permanent link">&para;</a></h3>
-<p>If you don't know what a command does or how to use it simply use the <code>man</code> command! 
-<code>man &lt;commandName&gt;</code> will print out an documentation. Once you're done reading hit <code>q</code> on your keyboard to quit out.  In the following screenshots I enter <code>man nslookup</code> which provides me with more information on what <code>nslookup</code> does and how it's used.</p>
-<p><img alt="man command" src="../../img/man1.png" /></p>
-<p><img alt="man result" src="../../img/man2.png" /></p>
-<h3 id="services-starting-stopping-status">Services: starting, stopping, status<a class="headerlink" href="#services-starting-stopping-status" title="Permanent link">&para;</a></h3>
-<p>Control services by using the <code>systemctl</code> command. The format is <code>sudo systemctl &lt;action&gt; &lt;service name&gt;</code>.</p>
-<div class="admonition example">
-<p class="admonition-title">Example<p>Restart NGINX service: <code>sudo systemctl restart nginx</code></p>
-</p>
-</div>
-<h3 id="copying-files-across-servers-with-scp">Copying Files Across Servers with <em>scp</em><a class="headerlink" href="#copying-files-across-servers-with-scp" title="Permanent link">&para;</a></h3>
-<p>You can copy files from your laptop to a server or a server to your laptop by using <code>scp</code>. </p>
-<p>It uses our ssh tunnel to securely transfer your files back and forth. You can find great examples at <a href="http://www.hypexr.org/linux_scp_help.php">hyperx.org</a>.</p>
-<p>Copy all of the contents of a folder:</p>
-<p><code class="codehilite">scp -r  ava/*  root@157.230.163.231:/var/www/html/</code></p>
-<p>This copies everything in the ava folder to the html folder.</p>
-<h3 id="local-vs-remote">Local vs Remote<a class="headerlink" href="#local-vs-remote" title="Permanent link">&para;</a></h3>
-<p>A typical confusion for students when deadling with <code>scp</code> is whether their current terminal session is doing work on their local machine (your laptop), or on a remote machine (your Raspberry Pi or another server).</p>
-<p>You can tell which device your terminal session is doing work in by checking the hostname, that is whatever is after the <code>@</code> symbol. Take a look at the two example tabs below.</p>
-<div class="superfences-tabs">
-<input name="__tabs_1" type="radio" id="__tab_1_0" checked="checked" />
-<label for="__tab_1_0">Local</label>
-<div class="superfences-content"><div class="codehilite"><pre><span></span><span class="c1"># hostname = macbook-pro</span>
-<span class="c1"># This tells me  I&#39;m on my laptop.</span>
-ben@macbook-pro:~/Desktop/info-314/
-</pre></div></div>
-<input name="__tabs_1" type="radio" id="__tab_1_1" />
-<label for="__tab_1_1">Remote</label>
-<div class="superfences-content"><div class="codehilite"><pre><span></span><span class="c1"># hostname = debian-lab1</span>
-<span class="c1"># I must be on my server now.</span>
-ben@debian-lab1:~$
-</pre></div></div>
-</div>
-<h3 id="logs">Logs<a class="headerlink" href="#logs" title="Permanent link">&para;</a></h3>
-<p>Check a service's logs. This is a great way to see if it ran into any errors. If for some reason a service keeps crashing or behaving strangely you'd want to dig into its logs and see if it's unhappy with something.</p>
+<p><strong>Linux</strong>: </p>
 <ul>
-<li><code class="codehilite">sudo journcalctl -u &lt;service name&gt;</code></li>
-<li>If you specifically only want to see the most recent parts of the log, you can pipe the information it gives you into the tail command, which only shows any files' ending lines. <code class="codehilite">sudo journalctl -u &lt;service name here&gt;.service <span class="p">|</span> tail -n <span class="m">100</span></code></li>
+<li><code>sudo dhclient -r eth0</code></li>
+<li><code>sudo dhclient eth0</code></li>
+</ul>
+<h3 id="general-troubleshoot">General Troubleshoot<a class="headerlink" href="#general-troubleshoot" title="Permanent link">&para;</a></h3>
+<hr />
+<blockquote>
+<p>Follow the checklist below if you had dhcp previously working and it recently failed.</p>
+</blockquote>
+<ul>
+<li>Check DHCP errors <code>journalctl -u isc-dhcp-server</code></li>
+<li>check subnet range in <code>dhcpd.conf</code> </li>
+<li>Check what wifi your pi is using the appropriate wifi</li>
+<li><code>wpa_cli -i wlan0 status</code> </li>
+<li>Make sure both <code>dhcpd</code> and <code>systemd</code> are declaring the same statis IP for the Pi.</li>
+<li>Check your leases in <code>at /var/lib/dhcp/dhcpd.leases</code></li>
+</ul>
+<h3 id="troubleshooting-isc-dhcp-server">Troubleshooting ISC DHCP Server<a class="headerlink" href="#troubleshooting-isc-dhcp-server" title="Permanent link">&para;</a></h3>
+<hr />
+<blockquote>
+<p>Follow steps below if you are having trouble getting your ISC DHCP server setup for the first time.</p>
+</blockquote>
+<p>Raspbian provides us with several commands to troubleshoot and find errors related to services. Check status and recent log output using <code>systemctl status isc-dhcp-server.service</code> or <code>journalctl -xe</code>  .</p>
+<p>Search the system logs for relevant errors <code>journalctl -u isc-dhcp-server</code></p>
+<p>As you debug, keep the following points in mind:</p>
+<ul>
+<li>A misplaced space or bracket may cause DHCP to fail, so pay close attention to syntax.</li>
+<li>Your Pi will keep it's static address, so be sure that you excluded the address from the DHCP pool.</li>
+<li>Double check that you’ve configured the server defaults with the correct interface names and commented out IPv6 related settings.</li>
 </ul></div>
         </div>
 

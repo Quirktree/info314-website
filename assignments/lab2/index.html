@@ -93,6 +93,10 @@
 <li class="active">
     <a href="./">Lab 2</a>
 </li>
+                                    
+<li >
+    <a href="../lab3/">Lab 3</a>
+</li>
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -120,7 +124,11 @@
 </li>
                                     
 <li >
-    <a href="../../resources/dhcpd-troubleshooting/">Troubleshooting DHCP</a>
+    <a href="../../resources/manage-dhcp/">Troubleshooting DHCP</a>
+</li>
+                                    
+<li >
+    <a href="../../resources/dns-clients/">Managing DNS Clients</a>
 </li>
                                 </ul>
                             </li>
@@ -138,7 +146,7 @@
                                 </a>
                             </li>
                             <li >
-                                <a rel="prev" href="../../resources/markdown/">
+                                <a rel="prev" href="../lab3/">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -201,7 +209,7 @@
 <h3 id="request-a-new-dhcp-lease">Request a new DHCP Lease<a class="headerlink" href="#request-a-new-dhcp-lease" title="Permanent link">&para;</a></h3>
 <p>In order to properly complete this lab, you will need to terminate your current DHCP lease so that you can capture the process of DHCP initializing your network interface. This process will differ depending on your OS. </p>
 <p>Follow the instructions linked on <a href="/resources/host-config/#renewing-dhcp-leases">the resources site</a> to complete this process.</p>
-<h3 id="analysis">Analysis<a class="headerlink" href="#analysis" title="Permanent link">&para;</a></h3>
+<h3 id="report">Report<a class="headerlink" href="#report" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Based on your capture, create an outline of a complete DHCP exchange. For each message:<ul>
 <li>Include a screenshot of the packet details summary.</li>
@@ -228,7 +236,7 @@
 <p>You may continue to use the same capture for this section. If you launch a new capture, please save the first capture and submit both with your assignment.</p>
 <p>Before you begin the analysis questions, clear the ARP cache per instructions linked <a href="/resources/host-config/#managing-arp-cache">on the resources site</a> and generate some Internet traffic, e.g., browse the web.</p>
 <p>Remove any existing display filters and create a new filter that will only show ARP related traffic. (Hint: type <code>arp</code> in the display filter input).</p>
-<h3 id="analysis_1">Analysis<a class="headerlink" href="#analysis_1" title="Permanent link">&para;</a></h3>
+<h3 id="report_1">Report<a class="headerlink" href="#report_1" title="Permanent link">&para;</a></h3>
 <ol start="13">
 <li>Outline a complete ARP exchange (request and response), including a screenshot and a brief summary of each message.</li>
 <li>Identify the 48-bit hardware address associated with your network interface and use this information to specify which message(s) originated from your local device?</li>

@@ -93,6 +93,10 @@
 <li >
     <a href="../../assignments/lab2/">Lab 2</a>
 </li>
+                                    
+<li >
+    <a href="../../assignments/lab3/">Lab 3</a>
+</li>
                                 </ul>
                             </li>
                             <li class="dropdown active">
@@ -120,7 +124,11 @@
 </li>
                                     
 <li >
-    <a href="../dhcpd-troubleshooting/">Troubleshooting DHCP</a>
+    <a href="../manage-dhcp/">Troubleshooting DHCP</a>
+</li>
+                                    
+<li >
+    <a href="../dns-clients/">Managing DNS Clients</a>
 </li>
                                 </ul>
                             </li>
@@ -138,7 +146,7 @@
                                 </a>
                             </li>
                             <li >
-                                <a rel="prev" href="../dhcpd-troubleshooting/">
+                                <a rel="prev" href="../manage-dhcp/">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -182,19 +190,7 @@
 <p>The general structure of the configuration file is show below. The file begins with a standard set of parameters specifying the <strong>country</strong> (needed to initialize appropriate radio settings), a <strong>control interface</strong> used by network management tools, and a boolean that instructs <strong>wpa_supplicant</strong> to accept configuration updates from other network management tools. We won't delve any deeper into the meaning of these initial parameters within this course. Rather, our concern will be how to configure Linux to join nearby wireless networks.</p>
 <div class="admonition example">
 <p class="admonition-title">Example <code>wpa_supplicant.conf</code></p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>country=US
+<div class="codehilite"><pre><span></span>country=US
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
 
@@ -208,7 +204,6 @@ network={
     psk=&quot;Don&#39;t tell anyone the password&quot;
 }
 </pre></div>
-</td></tr></table>
 
 </div>
 <p>The contents of the network block will depend largely on the security settings of the network, e.g., whether or not the network is encrypted with a passphrase. This document provides instructions for configuring three common types of networks: </p>
@@ -224,15 +219,11 @@ network={
 <p>Instead, for unencrypted networks, we explicitly disable encryption with <strong><code>key_mgmt=NONE</code></strong>.</p>
 <div class="admonition example">
 <p class="admonition-title">Configuration for an unencrypted network</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
-2
-3
-4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>network={
+<div class="codehilite"><pre><span></span>network={
     ssid=&quot;Coffee Shop&quot;
     key_mgmt=NONE
 }
 </pre></div>
-</td></tr></table>
 
 </div>
 <h2 id="wpa2-personal-networks">WPA2 Personal Networks<a class="headerlink" href="#wpa2-personal-networks" title="Permanent link">&para;</a></h2>
@@ -240,37 +231,27 @@ network={
 <p>There are two ways to accomplish this task. First, we can assign the passphrase directly to the parameter in plaintext as shown here:</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger: Don't do this!!!</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
-2
-3
-4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>network={
+<div class="codehilite"><pre><span></span>network={
     ssid=&quot;Home Wifi&quot;
     psk=&quot;super secret squirrels&quot;
 }
 </pre></div>
-</td></tr></table>
 
 </div>
 <p>Security professionals generally frown on plaintext passwords and passphrases being written to configuration files or code. As such, we prefer to write the configuration based on the raw network key (computed using a function called <em>PBKDF</em> in conjunction with <em>SHA1</em>).</p>
 <div class="admonition faq">
 <p class="admonition-title">Using <code>wpa_passphrase</code> to generate a raw PSK</p>
 <p>You can generate the raw psk directly on your Pi by running the <code>wpa_passphrase</code> utility. This utility takes your SSID as an argument and then prompts you to enter your passphrase. </p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
-2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Pass your SSID as the first argument</span>
+<div class="codehilite"><pre><span></span><span class="c1"># Pass your SSID as the first argument</span>
 wpa_passphrase <span class="s2">&quot;Home Wifi&quot;</span>
 </pre></div>
-</td></tr></table>
 
 <p>You will not see any characters or placeholders echoed as you type the passphrase, but <strong><code>wpa_passphrase</code></strong> will continue to accept input until you hit <em>Enter/Return</em>. The output will be a valid <strong>wpa_supplicant</strong> configuration that you can paste into your configuration.</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
-2
-3
-4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>network={
+<div class="codehilite"><pre><span></span>network={
     ssid=&quot;Home Wifi&quot;
     psk=2508539ff867a3578f6ba7d9ee1d4a62aea82c25d30ffb1eb3a05cd08a373c02
 }
 </pre></div>
-</td></tr></table>
 
 </div>
 <h2 id="wpa2-enterprise-networks">WPA2 Enterprise Networks<a class="headerlink" href="#wpa2-enterprise-networks" title="Permanent link">&para;</a></h2>
@@ -279,34 +260,19 @@ wpa_passphrase <span class="s2">&quot;Home Wifi&quot;</span>
 <div class="admonition instructions">
 <p class="admonition-title">Computing an MD4 hash in Linux</p>
 <p>Follow these commands in order to compute the MD4 hash in Linux.<sup id="fnref:shellscript"><a class="footnote-ref" href="#fn:shellscript">1</a></sup> The <em>history</em> commands are not needed to compute a hash but are added for security. Without them, your password will be stored in the Bash history file and easily readable to anyone with access to your memory card.</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
-2
-3
-4
-5
-6</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="nb">set</span> +o <span class="nb">history</span>
+<div class="codehilite"><pre><span></span><span class="nb">set</span> +o <span class="nb">history</span>
 
 <span class="nb">echo</span> -n <span class="s1">&#39;This is your password&#39;</span> <span class="p">|</span> iconv -t utf16le <span class="p">|</span> openssl md4
 <span class="c1"># You should see output like 6f9bad2c90b80bd549e595fc91e27806</span>
 
 <span class="nb">set</span> -o <span class="nb">history</span>
 </pre></div>
-</td></tr></table>
 
 </div>
 <p>The following template supplies all of the parameters needed to attach to Eduroam at UW. Add it to your <strong><code>wpa_supplicant.conf</code></strong>, substituting your own NetID and password hash for the supplied values.</p>
 <div class="admonition info">
 <p class="admonition-title">Eduroam configuration template</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>network={
+<div class="codehilite"><pre><span></span>network={
         ssid=&quot;eduroam&quot;
         scan_ssid=1
         key_mgmt=WPA-EAP
@@ -317,7 +283,6 @@ wpa_passphrase <span class="s2">&quot;Home Wifi&quot;</span>
         phase2=&quot;auth=MSCHAPV2&quot;
 }
 </pre></div>
-</td></tr></table>
 
 </div>
 <h2 id="applying-configuration-changes">Applying Configuration Changes<a class="headerlink" href="#applying-configuration-changes" title="Permanent link">&para;</a></h2>
@@ -325,17 +290,12 @@ wpa_passphrase <span class="s2">&quot;Home Wifi&quot;</span>
 <p>When running <strong><code>wpa_cli</code></strong> we need to specify the interface we are configuring and a command to send to the <strong>wpa_supplicant</strong> service.</p>
 <div class="admonition instructions">
 <p class="admonition-title">Load configuration from <code>wpa_supplicant.conf</code></p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
-2
-3
-4
-5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Update configuration from disk</span>
+<div class="codehilite"><pre><span></span><span class="c1"># Update configuration from disk</span>
 wpa_cli -i wlan0 reconfigure
 
 <span class="c1"># Check the status of current connection</span>
 wpa_cli -i wlan0 status
 </pre></div>
-</td></tr></table>
 
 </div>
 <p>See <strong><code>man wpa_cli</code></strong> for further instructions and examples.</p>

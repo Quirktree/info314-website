@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Clinton Campbell">
-        <link rel="canonical" href="https://info314.tcpip.dev/resources/bash/">
+        <link rel="canonical" href="https://info314.tcpip.dev/resources/dns-clients/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Intro to Bash - INFO 314 Course Resources</title>
+        <title>Managing DNS Clients - INFO 314 Course Resources</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -107,8 +107,8 @@
     <a href="../markdown/">Intro to Markdown</a>
 </li>
                                     
-<li class="active">
-    <a href="./">Intro to Bash</a>
+<li >
+    <a href="../bash/">Intro to Bash</a>
 </li>
                                     
 <li >
@@ -127,8 +127,8 @@
     <a href="../manage-dhcp/">Troubleshooting DHCP</a>
 </li>
                                     
-<li >
-    <a href="../dns-clients/">Managing DNS Clients</a>
+<li class="active">
+    <a href="./">Managing DNS Clients</a>
 </li>
                                 </ul>
                             </li>
@@ -141,12 +141,12 @@
                             </a>
                         </li>
                             <li >
-                                <a rel="next" href="../markdown/">
+                                <a rel="next" href="../manage-dhcp/">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
-                            <li >
-                                <a rel="prev" href="../host-config/">
+                            <li class="disabled">
+                                <a rel="prev" >
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -161,85 +161,115 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#intro-to-bash">Intro to Bash</a></li>
-            <li><a href="#directories">Directories</a></li>
-            <li><a href="#editing-files">Editing files</a></li>
-            <li><a href="#command-documentation">Command documentation</a></li>
-            <li><a href="#services-starting-stopping-status">Services: starting, stopping, status</a></li>
-            <li><a href="#copying-files-across-servers-with-scp">Copying Files Across Servers with scp</a></li>
-            <li><a href="#local-vs-remote">Local vs Remote</a></li>
-            <li><a href="#logs">Logs</a></li>
+        <li class="main active"><a href="#managing-dns-clients">Managing DNS clients</a></li>
+            <li><a href="#view-or-clear-your-local-dns-cache">View or clear your local DNS cache</a></li>
+            <li><a href="#perform-dns-lookups-manually">Perform DNS lookups manually</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="intro-to-bash">Intro to Bash<a class="headerlink" href="#intro-to-bash" title="Permanent link">&para;</a></h1>
-<blockquote>
-<p>Bash command, terminal command, command line command, for the purpose of our class these all mean the same things. You should already be familiar with bash from INFO 201 and INFO 340. This following section will help you refresh some of the basics.</p>
-</blockquote>
-<div class="admonition info">
-<p class="admonition-title">Huh, Bash?<p>If you feel completely lost and have never seen terminal commands we recommend watching these two videos:</p>
-<ul>
-<li><a href="https://www.youtube.com/watch?v=oxuRxtrO2Ag" target="_blank">Beginner's Guide to the Bash Terminal</a></li>
-<li><a href="https://www.udacity.com/course/shell-workshop--ud206" target="_blank">Udacity Shell Workshop</a></li>
-</ul>
-</p>
-</div>
-<h3 id="directories">Directories<a class="headerlink" href="#directories" title="Permanent link">&para;</a></h3>
-<ul>
-<li><code>cd</code> to change directories</li>
-<li><code>ls</code> to show files and directories at your current path</li>
-<li><code>ls -a</code> to also show hidden files</li>
-</ul>
-<h3 id="editing-files">Editing files<a class="headerlink" href="#editing-files" title="Permanent link">&para;</a></h3>
-<p>If you are editing a file on a remote server such as your Pi, you will not have the luxury of using a nice editor such as VS Code, Atom, or Sublime. Nevertheless, there are many powerful terminal editors.
-Use <code>nano</code> or <code>vim</code> to edit files through your terminal.</p>
-<p>How to edit a file that's on a linux server/your Pi:</p>
-<ul>
-<li>Use <code>nano &lt;fileName&gt;</code> or <code>vim &lt;filename&gt;</code></li>
-<li>Nano is beginner friendly. 
-If you are unfamiliar with these I recommend looking up a nano tutorial.</li>
-</ul>
-<h3 id="command-documentation">Command documentation<a class="headerlink" href="#command-documentation" title="Permanent link">&para;</a></h3>
-<p>If you don't know what a command does or how to use it simply use the <code>man</code> command! 
-<code>man &lt;commandName&gt;</code> will print out an documentation. Once you're done reading hit <code>q</code> on your keyboard to quit out.  In the following screenshots I enter <code>man nslookup</code> which provides me with more information on what <code>nslookup</code> does and how it's used.</p>
-<p><img alt="man command" src="../../img/man1.png" /></p>
-<p><img alt="man result" src="../../img/man2.png" /></p>
-<h3 id="services-starting-stopping-status">Services: starting, stopping, status<a class="headerlink" href="#services-starting-stopping-status" title="Permanent link">&para;</a></h3>
-<p>Control services by using the <code>systemctl</code> command. The format is <code>sudo systemctl &lt;action&gt; &lt;service name&gt;</code>.</p>
+<h1 id="managing-dns-clients">Managing DNS clients<a class="headerlink" href="#managing-dns-clients" title="Permanent link">&para;</a></h1>
+<h2 id="view-or-clear-your-local-dns-cache">View or clear your local DNS cache<a class="headerlink" href="#view-or-clear-your-local-dns-cache" title="Permanent link">&para;</a></h2>
+<p>As applications make DNS queries to obtain the IP addresses of remote resources, your operating system will start to maintain a cache of previous responses. These cached responses are used on subsequent lookups in order to reduce network overhead and speed up the process of loading the applicable resources.</p>
+<p>Clearing your DNS cache is an operating system dependent operation:</p>
+<h3 id="windows-10">Windows 10<a class="headerlink" href="#windows-10" title="Permanent link">&para;</a></h3>
+<p>Open PowerShell <em>as an administrator</em> and run <code>clear-dnsclientcache</code>.</p>
+<h3 id="macos-1011">macOS 10.11+:<a class="headerlink" href="#macos-1011" title="Permanent link">&para;</a></h3>
+<p>Run <code>sudo killall -HUP mDNSResponder</code> from Terminal<sup id="fnref:sudo"><a class="footnote-ref" href="#fn:sudo">1</a></sup>.</p>
+<h3 id="linux">Linux<a class="headerlink" href="#linux" title="Permanent link">&para;</a></h3>
+<p>As an open source operating system with that comes in a variety of flavors, Linux users may find that some research is necessary to determine how DNS is managed in their distribution of choice and whether the system maintains a cache that can be cleared.</p>
+<p>Linux DNS caches may be incorporated into a resolver (systemd-resolved), provided by a standalone service (nscd), or built into a name server (bind9) running on localhost.</p>
+<p>A few of the most common options are listed below, along with the relevant command to restart the service and/or clear the cache directly.</p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Description</th>
+<th>Command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>systemd-resolved</td>
+<td>DNS Resolver (distributed with systemd)</td>
+<td><code>sudo systemd-resolve --flush-caches</code></td>
+</tr>
+<tr>
+<td>nscd</td>
+<td>DNS Cache</td>
+<td><code>sudo systemctl restart nscd</code></td>
+</tr>
+<tr>
+<td>dnsmasq</td>
+<td>Name Server</td>
+<td><code>sudo systemctl restart dnsmasq</code></td>
+</tr>
+<tr>
+<td>bind9</td>
+<td>Name Server</td>
+<td><code>sudo systemctl restart bind9</code></td>
+</tr>
+<tr>
+<td>dns-clean</td>
+<td>DNS Resolver (previously used by Ubuntu)</td>
+<td><code>/etc/init.d/dns-clean restart</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="perform-dns-lookups-manually">Perform DNS lookups manually<a class="headerlink" href="#perform-dns-lookups-manually" title="Permanent link">&para;</a></h2>
+<p>At times it can be helpful to perform DNS queries manually. Tools like <strong><code>dig</code></strong> allow us to query a <em>nameserver</em> and ask it to provide records about a particular host or domain. These tools provide us with an enormous amount of flexibility in interacting with DNS.</p>
+<h3 id="installing-dig">Installing Dig<a class="headerlink" href="#installing-dig" title="Permanent link">&para;</a></h3>
+<p>The <strong>dig</strong> command balances flexibility with ease of use, making it a popular tool for troubleshooting issues with DNS or performing security-related research on a domain. The utility is installed by default on macOS and some Linux distributions.</p>
+<p>Instructions are provided below if dig isn't available on your system.</p>
+<p><strong>Linux</strong></p>
+<p>For Debian/Ubuntu based Linux including Arch, Mint, and Raspbian, <strong>dig</strong> is part of the <em>dnsutils</em> package and is installed with <code>sudo apt install dnsutils</code>.</p>
+<p>For Fedora/RedHat based Linux including CentOS, <strong>dig</strong> is part of the <em>bind-utils</em> package and can be installed with <code>sudo dnf install bind-utils</code> -- use <code>sudo yum install bind-utils</code> if <code>dnf</code> is not available.</p>
+<p><strong>Windows</strong></p>
+<p>Windows users may install <strong>dig</strong> by downloading <strong>ISC BIND 9</strong> and installing with the <strong>Tools Only</strong> option<sup id="fnref:windows"><a class="footnote-ref" href="#fn:windows">2</a></sup>. Similar functionality is also provided by the PowerShell <strong>Resolve-DnsName</strong> command. </p>
+<h3 id="common-usage">Common Usage<a class="headerlink" href="#common-usage" title="Permanent link">&para;</a></h3>
+<p><code>dig &lt;domain name&gt;</code>: Request records for the given domain name. By default <strong>dig</strong> will send a query for <strong>A</strong> records (contain IPv4 addresses) to the default name server for the system.</p>
+<p><code>dig &lt;type&gt; &lt;domain name&gt;</code>: Override the type in order to obtain <strong>cname</strong> (DNS aliases for the given name), <strong>mx</strong> (mail servers), or <strong>ns</strong> name servers for the given host or domain rather than the default <code>A</code> record.</p>
+<p><code>dig @&lt;name server IP&gt; &lt;domain name&gt;</code>: Override the system's name server (often helpful to determine if other resolvers are returning different records).</p>
 <div class="admonition example">
-<p class="admonition-title">Example<p>Restart NGINX service: <code>sudo systemctl restart nginx</code></p>
-</p>
+<p class="admonition-title">Example</p>
+<div class="codehilite"><pre><span></span>pi@titan.local:~ $ dig @1.1.1.1 cname uw.edu
+
+; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; @1.1.1.1 cname uw.edu
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 50713
+;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1452
+;; QUESTION SECTION:
+;uw.edu.                IN  CNAME
+
+;; AUTHORITY SECTION:
+uw.edu.         600 IN  SOA hanna.cac.washington.edu. domainmaster.cac.washington.edu. 2020012403 10800 1800 3600000 600
+
+;; Query time: 40 msec
+;; SERVER: 1.1.1.1#53(1.1.1.1)
+;; WHEN: Sun Jan 26 23:32:59 PST 2020
+;; MSG SIZE  rcvd: 105    
+</pre></div>
+
 </div>
-<h3 id="copying-files-across-servers-with-scp">Copying Files Across Servers with <em>scp</em><a class="headerlink" href="#copying-files-across-servers-with-scp" title="Permanent link">&para;</a></h3>
-<p>You can copy files from your laptop to a server or a server to your laptop by using <code>scp</code>. </p>
-<p>It uses our ssh tunnel to securely transfer your files back and forth. You can find great examples at <a href="http://www.hypexr.org/linux_scp_help.php">hyperx.org</a>.</p>
-<p>Copy all of the contents of a folder:</p>
-<p><code class="codehilite">scp -r  ava/*  root@157.230.163.231:/var/www/html/</code></p>
-<p>This copies everything in the ava folder to the html folder.</p>
-<h3 id="local-vs-remote">Local vs Remote<a class="headerlink" href="#local-vs-remote" title="Permanent link">&para;</a></h3>
-<p>A typical confusion for students when deadling with <code>scp</code> is whether their current terminal session is doing work on their local machine (your laptop), or on a remote machine (your Raspberry Pi or another server).</p>
-<p>You can tell which device your terminal session is doing work in by checking the hostname, that is whatever is after the <code>@</code> symbol. Take a look at the two example tabs below.</p>
-<div class="superfences-tabs">
-<input name="__tabs_1" type="radio" id="__tab_1_0" checked="checked" />
-<label for="__tab_1_0">Local</label>
-<div class="superfences-content"><div class="codehilite"><pre><span></span><span class="c1"># hostname = macbook-pro</span>
-<span class="c1"># This tells me  I&#39;m on my laptop.</span>
-ben@macbook-pro:~/Desktop/info-314/
-</pre></div></div>
-<input name="__tabs_1" type="radio" id="__tab_1_1" />
-<label for="__tab_1_1">Remote</label>
-<div class="superfences-content"><div class="codehilite"><pre><span></span><span class="c1"># hostname = debian-lab1</span>
-<span class="c1"># I must be on my server now.</span>
-ben@debian-lab1:~$
-</pre></div></div>
-</div>
-<h3 id="logs">Logs<a class="headerlink" href="#logs" title="Permanent link">&para;</a></h3>
-<p>Check a service's logs. This is a great way to see if it ran into any errors. If for some reason a service keeps crashing or behaving strangely you'd want to dig into its logs and see if it's unhappy with something.</p>
-<ul>
-<li><code class="codehilite">sudo journcalctl -u &lt;service name&gt;</code></li>
-<li>If you specifically only want to see the most recent parts of the log, you can pipe the information it gives you into the tail command, which only shows any files' ending lines. <code class="codehilite">sudo journalctl -u &lt;service name here&gt;.service <span class="p">|</span> tail -n <span class="m">100</span></code></li>
-</ul></div>
+<h3 id="resolving-dns-with-powershell">Resolving DNS with PowerShell<a class="headerlink" href="#resolving-dns-with-powershell" title="Permanent link">&para;</a></h3>
+<p>PowerShell for Windows provides a powerful, scriptable DNS client that can be called via <code>Resolve-DnsName</code>. This tool replicates many of the features provided by dig, such as overriding the query type with the <code>-type &lt;type&gt;</code> option or the target server with <code>-server &lt;name server IP&gt;</code>.</p>
+<p>Run <code>man Resolve-DnsName</code> from PowerShell or view the <a href="https://docs.microsoft.com/en-us/powershell/module/dnsclient/resolve-dnsname?view=winserver2012r2-ps">online documentation</a> to learn more about this command. </p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:sudo">
+<p>Note that we are using <code>sudo</code> in order to perform this operation with root privileges.&#160;<a class="footnote-backref" href="#fnref:sudo" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:windows">
+<p>Detailed instructions provided at <a href="https://help.dyn.com/how-to-use-binds-dig-tool/">https://help.dyn.com/how-to-use-binds-dig-tool/</a>.&#160;<a class="footnote-backref" href="#fnref:windows" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
         </div>
 
         <footer class="col-md-12">

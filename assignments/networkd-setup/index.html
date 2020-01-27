@@ -93,6 +93,10 @@
 <li >
     <a href="../lab2/">Lab 2</a>
 </li>
+                                    
+<li >
+    <a href="../lab3/">Lab 3</a>
+</li>
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -120,7 +124,11 @@
 </li>
                                     
 <li >
-    <a href="../../resources/dhcpd-troubleshooting/">Troubleshooting DHCP</a>
+    <a href="../../resources/manage-dhcp/">Troubleshooting DHCP</a>
+</li>
+                                    
+<li >
+    <a href="../../resources/dns-clients/">Managing DNS Clients</a>
 </li>
                                 </ul>
                             </li>
@@ -186,13 +194,10 @@
 <p>We will enable <strong>networkd</strong> in several steps. Try to complete this process in one sitting to avoid "bricking" your Pi (at least making it inaccessible over the network).</p>
 <h3 id="retain-journald-logs">Retain journald logs<a class="headerlink" href="#retain-journald-logs" title="Permanent link">&para;</a></h3>
 <p><strong>systemd-networkd</strong> stores its logs in <strong>systemd-journald</strong>. We want <strong>journald</strong> to keep these logs between boots, which we enable by creating the persistent log path.</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
-2
-3</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><span class="c1"># Create the location for persistent log messages</span>
+<div class="codehilite"><pre><span></span><span class="c1"># Create the location for persistent log messages</span>
 sudo mkdir -p /var/log/journal
 sudo systemd-tmpfiles --create --prefix /var/log/journal
 </pre></div>
-</td></tr></table>
 
 <h3 id="configure-network-interfaces">Configure network interfaces<a class="headerlink" href="#configure-network-interfaces" title="Permanent link">&para;</a></h3>
 <p>To configure the network with <strong>networkd</strong>, we create files in <strong><code>/etc/systemd/network/</code></strong> that match named network interfaces and define our desired settings settings. Create the following <strong><code>.network</code></strong> files to handle the default settings for wired and wireless interfaces. Enabling link local addresses is a critical component of these default configurations so that you can still communicate with the Pi when DHCP is not available.</p>
@@ -212,16 +217,7 @@ sudo systemd-tmpfiles --create --prefix /var/log/journal
 </div>
 <h4 id="default-ethernet-configuration"><strong>Default ethernet configuration</strong><a class="headerlink" href="#default-ethernet-configuration" title="Permanent link">&para;</a></h4>
 <p><strong><code>/etc/systemd/network/99-eth.network</code></strong>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>[Match]
+<div class="codehilite"><pre><span></span>[Match]
 # Applies to eth0, eth1, ...
 Name=eth*
 
@@ -231,34 +227,21 @@ DHCP=ipv4
 
 # Enable link local addresses for IPv4 (169.254.x.y) and IPv6 (FE80::)
 LinkLocalAddressing=yes
-</pre></div>
-</td></tr></table></p>
+</pre></div></p>
 <h4 id="default-wireless-configuration"><strong>Default wireless configuration</strong><a class="headerlink" href="#default-wireless-configuration" title="Permanent link">&para;</a></h4>
 <p><strong><code>/etc/systemd/network/99-wlan.network</code></strong>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
-2
-3
-4</pre></div></td><td class="code"><div class="codehilite"><pre><span></span>[Match]
+<div class="codehilite"><pre><span></span>[Match]
 Name=wlan*
 [Network]
 DHCP=ipv4
-</pre></div>
-</td></tr></table></p>
+</pre></div></p>
 <h3 id="disable-default-networking">Disable default networking<a class="headerlink" href="#disable-default-networking" title="Permanent link">&para;</a></h3>
 <div class="admonition tip">
 <p class="admonition-title">Tip: Backup new configuration before proceeding<p>If you've made any mistakes, you may lose access to your Pi after performing the following steps. </p>
 <p>Make an offline backup <strong>before</strong> you proceed by copying files to your local system with <strong><code>scp</code></strong>.</p>
 </p>
 </div>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
-2
-3
-4
-5
-6
-7
-8
-9</pre></div></td><td class="code"><div class="codehilite"><pre><span></span># Disable default Raspbian networking
+<div class="codehilite"><pre><span></span># Disable default Raspbian networking
 sudo systemctl mask dhcpcd.service
 
 # Disable legacy Debian networking
@@ -268,38 +251,23 @@ sudo systemctl mask networking.service
 sudo nano /etc/resolvconf.conf
 # Add the line resolvconf=NO to the beginning of the file
 </pre></div>
-</td></tr></table>
 
 <h3 id="enable-systemd-network-services">Enable systemd network services<a class="headerlink" href="#enable-systemd-network-services" title="Permanent link">&para;</a></h3>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
-2
-3
-4
-5</pre></div></td><td class="code"><div class="codehilite"><pre><span></span># Enable systemd-networkd to replace Raspbian and Debian networking
+<div class="codehilite"><pre><span></span># Enable systemd-networkd to replace Raspbian and Debian networking
 sudo systemctl enable systemd-networkd
 
 # Enable systemd-resolved to replace the resolvconf service
 sudo systemctl enable systemd-resolved
 </pre></div>
-</td></tr></table>
 
 <p>DNS resolvers for Linux are loaded from the <strong><code>/etc/resolv.conf</code></strong>. Rather than manage this directly or through <strong>resolvconf</strong>, we want to load resolvers dynamically from <strong>systemd-resolved</strong>. This is as simple as creating a link </p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
-2</pre></div></td><td class="code"><div class="codehilite"><pre><span></span># Set up a symbolic link from systemd-resolved resolv.conf to the system resolv.conf
+<div class="codehilite"><pre><span></span># Set up a symbolic link from systemd-resolved resolv.conf to the system resolv.conf
 sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
 </pre></div>
-</td></tr></table>
 
 <h3 id="modify-wireless-startup">Modify Wireless Startup<a class="headerlink" href="#modify-wireless-startup" title="Permanent link">&para;</a></h3>
 <p>Our original setup was driven by assumptions about <strong>dhcpcd</strong>. Before we reboot, we'll make a few brief changes to manage <strong>wpa_supplicant</strong> on an interface-by-interface basis. </p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
-2
-3
-4
-5
-6
-7
-8</pre></div></td><td class="code"><div class="codehilite"><pre><span></span># Rename configuration as a per-interface file
+<div class="codehilite"><pre><span></span># Rename configuration as a per-interface file
 sudo mv /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant-wlan0.conf
 
 # Enable the wpa_supplicant service specifically for wlan0
@@ -308,7 +276,6 @@ sudo systemctl enable wpa_supplicant@wlan0
 # Disable the non-interface specific service
 sudo systemctl disable wpa_supplicant
 </pre></div>
-</td></tr></table>
 
 <h2 id="test-your-configuration">Test Your Configuration<a class="headerlink" href="#test-your-configuration" title="Permanent link">&para;</a></h2>
 <p>Call <strong><code>sudo reboot now</code></strong> to reboot the Pi. Log back in and verify that your Pi is fully operational:</p>
@@ -320,29 +287,7 @@ sudo systemctl disable wpa_supplicant
 <h3 id="general-guidance">General Guidance<a class="headerlink" href="#general-guidance" title="Permanent link">&para;</a></h3>
 <p>When logging back into your Pi, you may find that some of the functionality is failing. In addition to validating log files and checking that you completed all instructions, log files can provide valuable information for detecting where an error is occurring.</p>
 <p>We have already mentioned <strong>journald</strong> earlier in this guide. In order to evaluate logs that are created by <strong>journald</strong>, we make use of the <strong><code>journalctl</code></strong> command. <a href="https://www.lifewire.com/what-to-know-less-command-4051972">Read up</a> on the <strong><code>less</code></strong> utility to learn how to efficiently navigate <strong><code>journalctl</code></strong> output.</p>
-<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23</pre></div></td><td class="code"><div class="codehilite"><pre><span></span># Show log messages
+<div class="codehilite"><pre><span></span># Show log messages
 journalctl
 
 # Include messages marked secure
@@ -366,7 +311,6 @@ journalctl -D /PATH/TO/JOURNAL_FILE
 # Learn more about journald
 man journalctl
 </pre></div>
-</td></tr></table>
 
 <h3 id="accessing-a-bricked-pi">Accessing a Bricked Pi<a class="headerlink" href="#accessing-a-bricked-pi" title="Permanent link">&para;</a></h3>
 <p>If you made a mistake at the wrong point in the previous process, you may not even be able to connect anymore from the network. The only way to debug at this point will be to attach a keyboard/monitor to the Pi or to mount the memory card from another Linux machine or VM.</p>
