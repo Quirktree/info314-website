@@ -30,6 +30,7 @@ nav:
     - Install Wireshark: resources/wireshark-install.md
     - Linux Wireless Reference: resources/wifi-reference.md
     - Troubleshooting DHCP: resources/manage-dhcp.md
+    - Managing DNS Clients: resources/dns-clients.md
 
         #      - Asking for help: contact.md
         #- Resources:

@@ -23,7 +23,7 @@ Pick a popular website that has a lot of content on it. Ideally it should contai
 ## Part II - dig
 Before jumping into more complicated scenarios we would like you to learn how to use the **`dig`** command as it is an incredibly helpful and simple tool.
 
-We've provided some resources at <a href="/resources/manage-dns/#perform-dns-lookups-manually" target="_blank">Perform DNS Loookups Manually</a> to help you get started.
+We've provided some resources at <a href="/resources/dns-clients/#perform-dns-lookups-manually" target="_blank">Perform DNS Loookups Manually</a> to help you get started.
 
 Use dig to lookup the domain name of the website you selected. Open up a new tab in your browser and enter (one of) the IP address(es) returned by dig to discover where it will take you. If dig returned more than one address, open up a second tab and enter it now.
 
