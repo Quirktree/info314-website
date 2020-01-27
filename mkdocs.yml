@@ -22,6 +22,7 @@ nav:
       - Installing and Configuring the ISC DHCP Server: assignments/dhcp-setup.md
   - Labs:
     - Lab 2: assignments/lab2.md
+    - Lab 3: assignments/lab3.md
   - Reference:
     - Intro to Markdown: resources/markdown.md
     - Intro to Bash: resources/bash.md
@@ -29,6 +30,7 @@ nav:
     - Install Wireshark: resources/wireshark-install.md
     - Linux Wireless Reference: resources/wifi-reference.md
     - Troubleshooting DHCP: resources/manage-dhcp.md
+    - Managing DNS Clients: resources/dns-clients.md
 
         #      - Asking for help: contact.md
         #- Resources:
@@ -46,7 +48,6 @@ markdown_extensions:
 - admonition
 - codehilite:
     guess_lang: false
-    linenums: true
 - attr_list
 - def_list
 - footnotes
