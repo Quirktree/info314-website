@@ -132,18 +132,63 @@ The following template supplies all of the parameters needed to attach to Eduroa
     }
     ```
 
+## Using "University of Washington" instead of "eduroam"
+
+As of 1/27/20, there is an issue we are facing with the "eduroam" network.
+
+Temporarily, we recommend using the "University of Washington" WiFi instead.
+
+**Please setup your Pi for connecting to eduroam, but follow this guide if that does not work.**
+
+
+
+To set "University of Washington" up, do as follows:
+
+
+Find the MAC address of `wlan0` on your pi using the `ip link` command.
+
+**Make sure to select the MAC of `wlan0` and not `eth0`!**
+
+![](../img/uofw1.png)
+
+
+
+Register your `wlan0` MAC address manually for UW WiFi at:
+https://itconnect.uw.edu/connect/uw-networks/campus-wi-fi/manual-wifi-reg/
+
+![](../img/uofw2.png)
+
+![](../img/uofw3.png)
+
+Next, edit `wpa_supplicant.conf` again using:
+`sudo nano /etc/wpa_supplicant/wpa_supplicant.conf`
+or `sudo nano /etc/wpa_supplicant/wpa_supplicant-wlan0.conf`
+depending on where you are in the setup of your Pi.
+
+Add the “University of Washington” network.
+
+Put this definition above `eduroam` in your `wpa_supplicant.conf` file so that it will take priority.
+
+Also, add `disabled=1` on a line in the `eduroam` section.
+
+![](../img/uofw4.png)
+
+
+
 ## Applying Configuration Changes
+
 Like other services, **wpa_supplicant** will not load our changes automatically. Rather than reset the daemon completely using **`systemctl`**, we can use **`wpa_cli`** to update the configuration and perform other basic maintenance.
 
 When running **`wpa_cli`** we need to specify the interface we are configuring and a command to send to the **wpa_supplicant** service.
 
 !!! instructions "Load configuration from `wpa_supplicant.conf`"
-    ```bash
-    # Update configuration from disk
-    wpa_cli -i wlan0 reconfigure
-
-    # Check the status of current connection
-    wpa_cli -i wlan0 status
+    ```
+	# Update configuration from disk
+	wpa_cli -i wlan0 reconfigure
+	
+	# Check the status of current connection
+	wpa_cli -i wlan0 status
     ```
 
 See **`man wpa_cli`** for further instructions and examples.
+
