@@ -156,7 +156,7 @@ Find the MAC address of `wlan0` on your pi using the `ip link` command.
 Register your `wlan0` MAC address manually for UW WiFi at:
 https://itconnect.uw.edu/connect/uw-networks/campus-wi-fi/manual-wifi-reg/
 
-![](../img/uofw2.png)
+![](../img/uofw2fixed.png)
 
 ![](../img/uofw3.png)
 
@@ -188,7 +188,7 @@ When running **`wpa_cli`** we need to specify the interface we are configuring a
 	
 	# Check the status of current connection
 	wpa_cli -i wlan0 status
-    ```
+	```
 
 See **`man wpa_cli`** for further instructions and examples.
 
