@@ -20,6 +20,9 @@ nav:
     - 2 - Set up a DHCP Server:
       - IP Address Planning Reference: resources/address-planning.md
       - Installing and Configuring the ISC DHCP Server: assignments/dhcp-setup.md
+    - 3 - Configure Routing and NAT:
+      - Router Setup: assignments/router-setup.md
+      - Introduction to iptables: resources/iptables.md
   - Labs:
     - Lab 2: assignments/lab2.md
     - Lab 3: assignments/lab3.md
@@ -31,6 +34,7 @@ nav:
     - Linux Wireless Reference: resources/wifi-reference.md
     - Troubleshooting DHCP: resources/manage-dhcp.md
     - Managing DNS Clients: resources/dns-clients.md
+    - Introduction to iptables: resources/iptables.md
 
         #      - Asking for help: contact.md
         #- Resources:
