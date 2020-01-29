@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Clinton Campbell">
+        <link rel="canonical" href="https://info314.tcpip.dev/resources/iptables/">
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Introduction to iptables - INFO 314 Course Resources</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/color-brewer.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../..">INFO 314 Course Resources</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">1 - Pi Setup</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../assignments/pi-setup/">Raspberry Pi Setup</a>
+</li>
+            
+<li >
+    <a href="../../assignments/networkd-setup/">networkd Setup</a>
+</li>
+            
+<li >
+    <a href="../wifi-reference/">Wifi Reference</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">2 - Set up a DHCP Server</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../address-planning/">IP Address Planning Reference</a>
+</li>
+            
+<li >
+    <a href="../../assignments/dhcp-setup/">Installing and Configuring the ISC DHCP Server</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">3 - Configure Routing and NAT</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../assignments/router-setup/">Router Setup</a>
+</li>
+            
+<li >
+    <a href="./">Introduction to iptables</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../assignments/lab2/">Lab 2</a>
+</li>
+                                    
+<li >
+    <a href="../../assignments/lab3/">Lab 3</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../markdown/">Intro to Markdown</a>
+</li>
+                                    
+<li >
+    <a href="../bash/">Intro to Bash</a>
+</li>
+                                    
+<li >
+    <a href="../host-config/">Mac/Win/Linux Networking</a>
+</li>
+                                    
+<li >
+    <a href="../wireshark-install/">Install Wireshark</a>
+</li>
+                                    
+<li >
+    <a href="../wifi-reference/">Linux Wireless Reference</a>
+</li>
+                                    
+<li >
+    <a href="../manage-dhcp/">Troubleshooting DHCP</a>
+</li>
+                                    
+<li >
+    <a href="../dns-clients/">Managing DNS Clients</a>
+</li>
+                                    
+<li class="active">
+    <a href="./">Introduction to iptables</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../dns-clients/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="disabled">
+                                <a rel="prev" >
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/quirktree/info314-website">quirktree/info314-website</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#introduction-to-iptables">Introduction to Iptables</a></li>
+            <li><a href="#tables-chains-and-rule-syntax">Tables, Chains, and Rule Syntax</a></li>
+            <li><a href="#loading-rules-from-the-file-system-with-iptables-persistent">Loading rules from the file system with iptables-persistent</a></li>
+            <li><a href="#resources">Resources</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="introduction-to-iptables">Introduction to Iptables<a class="headerlink" href="#introduction-to-iptables" title="Permanent link">&para;</a></h1>
+<h2 id="tables-chains-and-rule-syntax">Tables, Chains, and Rule Syntax<a class="headerlink" href="#tables-chains-and-rule-syntax" title="Permanent link">&para;</a></h2>
+<p>Iptables is a tool that has been used for more than 20 years to allow administrators to manage <em>packet filter rules</em> that shape the behavior of the Linux kernel's network stack.</p>
+<h3 id="tables">Tables<a class="headerlink" href="#tables" title="Permanent link">&para;</a></h3>
+<p>Iptables uses a basic structure called a table to group rules according to their main function. Common tables include <code>nat</code>, <code>filter</code>, <code>mangle</code>, and <code>raw</code>. For this exercise, we'll focus on the <code>nat</code> table to implement <em>address translation</em> between private and public addresses along with the <code>filter</code> table to protect our network from outside traffic. </p>
+<h3 id="chains">Chains<a class="headerlink" href="#chains" title="Permanent link">&para;</a></h3>
+<p>Within each table, rules are assigned to a structure called a chain. A chain is nothing more than an ordered list of rules. Rule conditions are tested in order from the beginning of the chain. Each rule ends with an action. If the conditions of a rule match, iptables will apply the specified action or jump to another chain without processing the other rules. If conditions do not match, the next rule in the chain will be evaluated.</p>
+<p>The default chains correspond to different points in the packet lifecycle. Within the <code>filter</code> table, we will often work with the <code>INPUT</code>, <code>OUTPUT</code>, and <code>FORWARD</code> chains. These chains correspond to packets sent to the host (<code>INPUT</code>), packets being sent by the host (<code>OUTPUT</code>), and packets being routed through the host (<code>FORWARD</code>). </p>
+<p>Within the <code>nat</code> table, our focus will be on the <code>POSTROUTING</code> chain. This chain represents the last set of rules that will be evaluated before forwarding a filtered packet. This is where we want to apply address mappings related to SNAT and masquerading. In contrast, the <code>PREROUTING</code> chain is applied before any other process and is used to specify DNAT rules.</p>
+<h3 id="managing-rules-from-the-command-line">Managing Rules from the Command Line<a class="headerlink" href="#managing-rules-from-the-command-line" title="Permanent link">&para;</a></h3>
+<p>We can load a set of iptables rules from a file or manage them directly from the command line with the <code>iptables</code> command (<code>sudo</code> is required). As we explain the structure of rules, we will provide examples using the command line variant of iptables rule syntax.</p>
+<p>The first component of a rule specified from the command line is the table name. Specify the table using the <code>-t</code> option to the <code>iptables command</code>. If you don't specify a table explicitly, the filter table will be used by default. </p>
+<p>When working with rules via the command line, we have to work with rules one at a time and specify the order of operations as we go. Recall from the last section that the order of rules in a chain is significant. We can append new rules to the end of a chain using the <code>-A</code> option or insert rules at the beginning of a chain using <code>-I</code>. Likewise, we can delete a rule from a chain by specifying <code>-D</code> and providing a numeric index to the rule.</p>
+<details class="attention"><summary>Copy/Paste Warning</summary><p>These are examples only. Keep reading to learn how to build complete rules.</p>
+</details>
+<div class="admonition example">
+<p class="admonition-title">Example: Appending Rules</p>
+<p>Append a rule to the end of the POSTROUTING chain of the nat table ...</p>
+<div class="codehilite"><pre><span></span>iptables -t nat -A POSTROUTING &lt;conditions&gt; &lt;actions&gt;
+</pre></div>
+
+</div>
+<div class="admonition example">
+<p class="admonition-title">Example: Deleting Rules</p>
+<p>Delete the first rule from the FORWARD chain of filter</p>
+<div class="codehilite"><pre><span></span>iptables -D FORWARD 1           
+</pre></div>
+
+</div>
+<h3 id="customize-rules-with-filter-conditions">Customize Rules with Filter Conditions<a class="headerlink" href="#customize-rules-with-filter-conditions" title="Permanent link">&para;</a></h3>
+<p>In addition to specifying table and chain, our rules need to describe the criteria associated with packets we want to filter or manipulate. In this exercise, our <em>primary consideration</em> is the <em>direction of traffic</em> for a given packet, which we describe by specifying the ingress and/or egress interface for a given packet. </p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Throughout the instructions, we'll refer to the internal interface as our <strong>&lt;LAN&gt;</strong> (because it serves our local network) and the external interface as the <strong>&lt;WAN&gt;</strong> (because it connects us to the Internet). Your configuration files will reflect the Raspbian-assigned interface names, such as: <strong><code>eth0</code></strong> and <strong><code>wlan0</code></strong>.</p>
+<p>It's up to you to determine, based on your learning so far, which interface corresponds to which placeholder.</p>
+</div>
+<p>For example, we want to apply address translation to outbound packets, i.e., packets being forwarded in the <strong>&lt;LAN&gt;</strong> interface and out the <strong>&lt;WAN&gt;</strong> interface. We can specify this restriction in our <code>nat</code> rule by providing the <code>-o</code> option with the name of the outbound interface. Likewise, we can instruct iptables to look at packets coming from the <strong>&lt;LAN&gt;</strong> and to the <strong>&lt;WAN&gt;</strong> by combining the <code>-i</code> option with <code>-o</code> in our filter rules.</p>
+<details class="attention"><summary>Copy/Paste Warning</summary><p>These are examples only. Keep reading to learn how to build complete rules.</p>
+</details>
+<div class="admonition example">
+<p class="admonition-title">Example: Adding filter conditions to rules</p>
+<p>This NAT rule will be applied on outbound traffic that's being routed to the WAN network.</p>
+<div class="codehilite"><pre><span></span>iptables -t NAT -A POSTROUTING -o &lt;WAN&gt; &lt;actions&gt;
+</pre></div>
+
+</div>
+<div class="admonition example">
+<p class="admonition-title">Example: Combining multiple filters</p>
+<p>The following filter rule will be applied to outbound traffic that's being forwarded from the LAN to the WAN.</p>
+<div class="codehilite"><pre><span></span>iptables -A FORWARD -i &lt;LAN&gt; -o &lt;WAN&gt; &lt;actions&gt;
+</pre></div>
+
+</div>
+<h3 id="using-connection-state-in-rules">Using Connection State in Rules<a class="headerlink" href="#using-connection-state-in-rules" title="Permanent link">&para;</a></h3>
+<p>Iptables is <em>stateful</em>, meaning that it is even possible to specify rules based on the relationship of a packet to other packets that were processed by iptables. This feature shapes our rules in two ways. </p>
+<p>First, you'll notice that we only have to specify the masquerade rule in the outward direction. The same rule also handles the de-masquerading process for incoming packets. </p>
+<p>Second, you'll see that we can base filtering decisions on connection state itself. While it's appropriate for NAT routers to allow outgoing traffic, we typically want to place greater restrictions on incoming traffic. When configuring a gateway connection for a home or office, we often block incoming traffic unless it relates to existing connections from the LAN. Unsolicited traffic does not make sense in this context and poses a security risk.</p>
+<p>To accomplish this feat, we will make use of netfilter's connection tracking extensions which are specified with the <code>-m conntrack</code> and <code>--ctstate RELATED,ESTABLISHED</code> options.</p>
+<div class="admonition attention">
+<p class="admonition-title">Copy/Paste Warning</p>
+<p>These are examples only. Keep reading to learn how to build complete rules.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Example: Using the connection tracking extension</p>
+<p>Check the connection state of ingress traffic.</p>
+<div class="codehilite"><pre><span></span>iptables -A FORWARD -i &lt;WAN&gt; -m conntrack --ctstate RELATED,ESTABLISHED &lt;action&gt;
+</pre></div>
+
+</div>
+<h3 id="specify-an-action">Specify an Action<a class="headerlink" href="#specify-an-action" title="Permanent link">&para;</a></h3>
+<p>The last component of an iptables rule is specified using the <code>-j</code> option. In a simple configuration, this option provides the action to be carried out against the packet after the match. While we will encounter the <code>MASQUERADE</code> option in our NAT rules, we will more frequently with basic <code>ACCEPT</code> and <code>DROP</code> rules within the filter context. </p>
+<p>In more complex configurations, <code>-j</code> can point to user-defined chains containing additional rules that relate to the pattern you just matched. As you gain experience, you'll see that this provides a greater degree of organization and control flow. </p>
+<p>Bringing this option together with the earlier examples, we can express complete rules using the following syntax:</p>
+<div class="codehilite"><pre><span></span>iptables -t nat -A POSTROUTING -o &lt;WAN&gt; -j MASQUERADE
+iptables -A FORWARD -i &lt;WAN&gt; -o &lt;LAN&gt; -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+</pre></div>
+
+<h3 id="default-actions">Default Actions<a class="headerlink" href="#default-actions" title="Permanent link">&para;</a></h3>
+<p>We haven't yet said what will happen if your iptables chains complete without any matching rules. Each iptables chain defines a policy that specifies the default actions that will be taken if no other rule matches in a chain.</p>
+<p>Default policies are commonly used with the filter chains to implement a posture of failing securely, blocking traffic that wasn't explicitly allowed.</p>
+<div class="codehilite"><pre><span></span># Don&#39;t forward packets unless there was an explicit rule match
+iptables -P FORWARD DROP  
+</pre></div>
+
+<p>Be careful, however, that you don't lock yourself out by a bad combination of rules and policies. For example, setting <code>-P INPUT DROP</code> and <code>-P OUTPUT DROP</code> will block all inbound and outbound traffic to your Pi unless you previously added rules to explicitly allow SSH or other tools that are needed for management purposes. Even when you correctly add these rules, it's relatively easy to lock yourself out of a device by flushing your current ruleset --  deleting the rules from all chains while leaving your policies intact.</p>
+<h3 id="final-nat-template">Final NAT Template<a class="headerlink" href="#final-nat-template" title="Permanent link">&para;</a></h3>
+<p>The following template draws together all of the components we have discussed so far to define a basic NAT configuration for a Linux router. The syntax for this template differs somewhat from the commands we explored above. Rather than invoking each rule or policy through the <code>iptables</code> command, this template would be applied via <code>iptables-restore</code> or <code>iptables-apply</code>.</p>
+<div class="codehilite"><pre><span></span># Fill in the parameters in &lt;&gt; in order to complete the ruleset
+
+# Rules are given on a table-by-table basis, beginning with the *&lt;table&gt; and
+# ending with COMMIT.
+
+# Rules are appended to a chain using the -A &lt;chain&gt; syntax. Parameters vary
+# somewhat by chain and type of effect desired.
+
+# The -j switch instructs the rules engine to jump to another chain or perform
+# the action on the matched packet. The engine will not evaluate any more rules
+# in the given chain.
+
+# The default policy for a chain is given by the lines beginning with
+# :&lt;chain&gt;. The [0:0] resets the packet/byte counters that tell us how many
+# times the default policy has been applied. Note that default policy is
+# evaluated after all rules, so it only applies if there were not any matches.
+
+*nat
+-A POSTROUTING -o &lt;interface&gt; -j MASQUERADE
+COMMIT
+
+*filter
+:FORWARD &lt;action&gt; [0:0]
+-A FORWARD -i &lt;interface&gt; -o &lt;interface&gt; -j ACCEPT
+-A FORWARD -i &lt;interface&gt; -o &lt;interface&gt; -m conntrack --ctstate RELATED,ESTABLISHED -j &lt;action&gt;
+COMMIT
+</pre></div>
+
+<h2 id="loading-rules-from-the-file-system-with-iptables-persistent">Loading rules from the file system with <code>iptables-persistent</code><a class="headerlink" href="#loading-rules-from-the-file-system-with-iptables-persistent" title="Permanent link">&para;</a></h2>
+<p>For simplicity, we’ll rely on on a collection of tools called <code>iptables-persistent</code> to load the rules at boot. On boot, <code>iptables-persistent</code> will automatically load rules from <code>/etc/iptables/rules.v4</code>.</p>
+<p>Like many other tools, <code>iptables-persistent</code> is available as a package in Debian's package repository. Use <code>apt</code> to install the <code>iptables-persistent</code> package before proceeding with the remaining steps.</p>
+<p>Make a copy of your rules within your home directory and use <code>iptables-apply</code> to test that they work before writing them to <code>/etc/iptables/rules.v4</code>. While it is possible to edit <code>/etc/iptables/rules.v4</code> directly, it is not recommended.</p>
+<div class="admonition danger">
+<p class="admonition-title">Always test your rules</p>
+<p>The risk of adding rules directly to <code>/etc/iptables/rules.v4</code> is that you create a rule that locks you out of your device and cannot bypass it since it is loaded at boot. <code>iptables-persistent</code> provides a tool that allows us to test a set of rules before making them fully persistent.</p>
+</div>
+<p>The following command will load the rules from <code>~/untested_rules</code> and wait for <strong>60 seconds</strong> while you confirm that you can still SSH into the device from a second terminal tab or window. If you respond affirmatively to the final prompt within the time limit, the rules will remain active <strong>and</strong> be written to a location where they are automatically reloaded at boot. </p>
+<div class="codehilite"><pre><span></span>sudo iptables-apply -t 60 -w /etc/iptables/rules.v4 ~/untested_rules
+</pre></div>
+
+<p>After running the  command, you’ll have one minute to check that everything is working and confirm that you’re ready to apply the rules. If everything checks out, the rules will be written to <code>/etc/iptables/rules.v4</code> (where <code>iptables-persistent</code> can load them at boot). If your connection is interrupted or you decide not to keep the rules, the rules will be reset when the timer expires so that you con continue to access your Pi.</p>
+<p>As a final test that your rules are loaded, reboot the Pi, connect with SSH, and list the rules with <code>sudo iptables-save</code>. If you don’t see your rules, something went wrong.</p>
+<h2 id="resources">Resources<a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://www.digitalocean.com/community/tutorials/a-deep-dive-into-iptables-and-netfilter-architecture">Iptables and Netfilter Deep Dive</a></li>
+<li><a href="http://www.oreilly.com/openbook/linag2/book/ch11.html">Linux Network Administrators Guide - Masquerading</a></li>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-list-and-delete-iptables-firewall-rules">DigitalOcean Tutorial - Manipulate Iptables Rules</a></li>
+</ul></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>Copyright &copy; 2020 Clinton Campbell</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

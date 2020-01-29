@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Clinton Campbell">
+        <link rel="canonical" href="https://info314.tcpip.dev/assignments/router-setup/">
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Router Setup - INFO 314 Course Resources</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/color-brewer.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../..">INFO 314 Course Resources</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">1 - Pi Setup</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../pi-setup/">Raspberry Pi Setup</a>
+</li>
+            
+<li >
+    <a href="../networkd-setup/">networkd Setup</a>
+</li>
+            
+<li >
+    <a href="../../resources/wifi-reference/">Wifi Reference</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">2 - Set up a DHCP Server</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../resources/address-planning/">IP Address Planning Reference</a>
+</li>
+            
+<li >
+    <a href="../dhcp-setup/">Installing and Configuring the ISC DHCP Server</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">3 - Configure Routing and NAT</a>
+    <ul class="dropdown-menu">
+            
+<li class="active">
+    <a href="./">Router Setup</a>
+</li>
+            
+<li >
+    <a href="../../resources/iptables/">Introduction to iptables</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../lab2/">Lab 2</a>
+</li>
+                                    
+<li >
+    <a href="../lab3/">Lab 3</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../resources/markdown/">Intro to Markdown</a>
+</li>
+                                    
+<li >
+    <a href="../../resources/bash/">Intro to Bash</a>
+</li>
+                                    
+<li >
+    <a href="../../resources/host-config/">Mac/Win/Linux Networking</a>
+</li>
+                                    
+<li >
+    <a href="../../resources/wireshark-install/">Install Wireshark</a>
+</li>
+                                    
+<li >
+    <a href="../../resources/wifi-reference/">Linux Wireless Reference</a>
+</li>
+                                    
+<li >
+    <a href="../../resources/manage-dhcp/">Troubleshooting DHCP</a>
+</li>
+                                    
+<li >
+    <a href="../../resources/dns-clients/">Managing DNS Clients</a>
+</li>
+                                    
+<li >
+    <a href="../../resources/iptables/">Introduction to iptables</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../dhcp-setup/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../../resources/iptables/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/quirktree/info314-website">quirktree/info314-website</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#build-a-nat-enabled-router">Build a NAT - enabled Router</a></li>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#before-you-start">Before you Start</a></li>
+            <li><a href="#objectives">Objectives</a></li>
+            <li><a href="#what-is-nat">What is NAT</a></li>
+            <li><a href="#configuring-nat">Configuring NAT</a></li>
+            <li><a href="#enable-packet-forwarding">Enable Packet Forwarding</a></li>
+            <li><a href="#update-dhcp-configuration">Update DHCP Configuration</a></li>
+            <li><a href="#test-your-configuration">Test your Configuration</a></li>
+            <li><a href="#troubleshooting">Troubleshooting</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="build-a-nat-enabled-router">Build a NAT - enabled Router<a class="headerlink" href="#build-a-nat-enabled-router" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>This assignment builds on the DHCP server functionality you set up in the previous project. Follow the instructions provided here to set up NAT and enable packet forwarding on your Pi. At the end of the project, you will have a working network gateway.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>With each checkpoint, we expect you to do more of the work on your own. While the initial Pi setup gave clear instructions, we are slowly moving toward giving you specifications and additional context that you need in order to determine the right steps to accomplish the task.</p>
+</div>
+<h2 id="before-you-start">Before you Start<a class="headerlink" href="#before-you-start" title="Permanent link">&para;</a></h2>
+<p>Before you begin, make sure that you have completed all steps from Checkpoints #1 and #2 successfully. By now, your pi should be able to connect to the Internet via wireless, and it should provide DHCP services via a pre-defined address range on the ethernet-based LAN.</p>
+<p>At times in this project, you will need to refer back to the configuration you defined in the previous <strong>LAN Planning Exercise</strong>. </p>
+<h2 id="objectives">Objectives<a class="headerlink" href="#objectives" title="Permanent link">&para;</a></h2>
+<p>In this assignment, you will be configuring the Pi as a simple <strong>Internet gateway</strong> that routes traffic between an isolated, wired LAN and an Internet-connected wireless network. Practically speaking, you'll be tethering your computer to the Pi and using it to access the rest of the Internet.</p>
+<p>Whether it is immediately obvious or not, this architecture has practical applications. It is not always a good idea to connect your computer directly to an untrusted network. With a few more components, the Pi provides a simple firewall that can protect against many types of threats. Further, the Pi can be used to tunnel your traffic through a personal VPN, ensuring that that it cannot be intercepted or tampered with on a public network or local ISP.  </p>
+<h3 id="project-outline">Project outline<a class="headerlink" href="#project-outline" title="Permanent link">&para;</a></h3>
+<p>The main steps of this project are listed below:</p>
+<ol>
+<li>Configure basic firewall rules and NAT</li>
+<li>Enable packet forwarding settings within Raspbian</li>
+<li>Update DHCP to provide gateway and DNS settings</li>
+<li>Test and troubleshoot your configuration</li>
+</ol>
+<h2 id="what-is-nat">What is NAT<a class="headerlink" href="#what-is-nat" title="Permanent link">&para;</a></h2>
+<p>The hosts in our network use RFC-1918 addresses, which are restricted to private networks and cannot be used as a source or destination for addresses on packets being sent over the Internet. We'll address this problem with network address translation (NAT), which will allow your Pi to communicate on the Internet by masquerading with the public address assigned to the WAN port of the router.</p>
+<p>This setup is a special case of source NAT (SNAT) in that many private IP addresses will be mapped to one public address on the external interface. To accommodate, the Pi will need to monitor the state of each connection and other network traffic so that it can route to the correct host on the internal network when incoming traffic is received. </p>
+<h2 id="configuring-nat">Configuring NAT<a class="headerlink" href="#configuring-nat" title="Permanent link">&para;</a></h2>
+<p>NAT functionality is supported natively in Linux through the <strong>netfilter firewall</strong>. We'll use a common Linux tool known as <strong>iptables</strong> to manage this mechanism. Iptables defines rules in a hierarchical structure that are used to filter and manipulate packets. </p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Throughout the instructions, we'll refer to the wired interface as <strong>&lt;LAN&gt;</strong> (because it serves our local network) and the wireless interface as the <strong>&lt;WAN&gt;</strong> (because it connects us to the Internet). Your configuration files will reflect the Raspbian-assigned interface names, such as: eth0 and wlan0.</p>
+</div>
+<p>We have prepared an <a href="/resources/iptables">iptables tutorial</a> that focuses specifically on the features that are required to implement NAT. Read this tutorial first, and then use it as a reference to fill in the missing values in the starter template (which is included at the ended of the tutorial).</p>
+<div class="admonition attention">
+<p class="admonition-title">Copy/Paste Warning</p>
+<p>This template has missing values that you must define before trying to load on your Pi.</p>
+</div>
+<h3 id="rule-specification">Rule Specification<a class="headerlink" href="#rule-specification" title="Permanent link">&para;</a></h3>
+<p>The included template provides most of what is needed to establish a basic NAT configuration. Save a copy of this template in the home directory of your pi and fill in the missing values so that the final ruleset complies with the listed requirements:</p>
+<ul>
+<li>Append a new rule to the <code>POSTROUTING</code> chain that masquerades outbound packets on the WAN interface.</li>
+<li>Set the default policy for the <code>FORWARD</code> chain of the filter table to drop all packets.</li>
+<li>Create a rule to forward all outbound packets.</li>
+<li>Create a rule to forward inbound packets if they are related to previous packets or already established connections.</li>
+</ul>
+<p>While best practice would have us further configure the firewalls for the internal and external interfaces on the Raspberry Pi, we will save this step for a future assignment.</p>
+<h3 id="testing-and-applying-rules">Testing and Applying Rules<a class="headerlink" href="#testing-and-applying-rules" title="Permanent link">&para;</a></h3>
+<p>After you finish filling out the missing values in the reference template according to the above specifications, you should follow the instructions in the <a href="/resources/iptables/#loading-rules-from-the-file-system-with-iptables-persistent">provided tutorial</a> to set up your rules to be loaded persistently.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You will not be able to completely test your rules until you complete the upcoming steps. What you should ensure at this point is that the rules are applied and that you are not locked out of the Pi.</p>
+</div>
+<h2 id="enable-packet-forwarding">Enable Packet Forwarding<a class="headerlink" href="#enable-packet-forwarding" title="Permanent link">&para;</a></h2>
+<p>Once you are confident that you have set up NAT and filtering properly within iptables, you need to instruct the Linux kernel to begin forwarding packets. </p>
+<p>You can enable the setting temporarily from the command line by calling <code>sudo sysctl -w net.ipv4.ip_forward=1</code>, but it will not persist across reboots. </p>
+<p>Make this change persistent inside <code>/etc/sysctl.d/99-sysctl.conf</code> by setting <code>net.ipv4.ip_forward=1</code> (the rule is already included in the file but commented out).</p>
+<hr />
+<h2 id="update-dhcp-configuration">Update DHCP Configuration<a class="headerlink" href="#update-dhcp-configuration" title="Permanent link">&para;</a></h2>
+<p>Update the DHCP configuration written in the previous assignment to provide clients with settings for a <strong>default router</strong> and a public DNS resolver (called <strong>domain name servers</strong> in <strong>isc-dhcp-server</strong>). </p>
+<ul>
+<li>Use the examples provided in the default <code>dhcpd.conf</code> as the basis for your changes.</li>
+<li>You will need to restart <strong>isc-dhcp-server</strong> in order to load the new configuration.</li>
+<li>Renew your DHCP lease by temporarily disconnecting Ethernet or following <a href="/resources/manage-dhcp/">instructions</a> provided in the resources section of this site.</li>
+</ul>
+<h2 id="test-your-configuration">Test your Configuration<a class="headerlink" href="#test-your-configuration" title="Permanent link">&para;</a></h2>
+<p>Once you have completed these changes, you should be able to access external networks by way of the Raspberry Pi.</p>
+<ol>
+<li>Disable other network interfaces so that the Pi is your only route to the Internet. </li>
+<li>Try connecting to a well-known website from your browser. </li>
+<li>From the command line (your laptop), run a <code>traceroute</code> (<code>tracert</code> on Windows) to confirm that your Pi is the first hop of this route.</li>
+</ol>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<p>If you run into problems here, there are a few points to check. First, try to ping a known address such as 1.1.1.1 from your computer. This will tell you whether or not you have connectivity outside your network. If you're at UW, try pinging 128.95.112.1, to determine whether you can access hosts on campus. You may also try pinging a known domain name like amazon.com (and washington.edu if you're on campus).</p>
+<ul>
+<li>If you can't ping anything, you may have an issue with the network configuration on your computer. Try pinging the static address you created for the Pi. If this fails with no route to host, go back and make sure you set up the Pi and your computer correctly.</li>
+<li>If you can ping by IP address, but not name, you have an issue with DNS. Verify that DHCP is providing a valid name server address. </li>
+<li>If you're able to ping your Pi by it's IP and you're certain that you've set up your local network correctly, go back and confirm that the Pi has forwarding enabled for IP and that your iptables rules are loading. </li>
+</ul></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>Copyright &copy; 2020 Clinton Campbell</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
