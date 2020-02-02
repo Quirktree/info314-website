@@ -14,6 +14,7 @@ nav:
   - Home: index.md
   - Labs:
     - Lab 2: assignments/lab2.md
+    - Lab 5: assignments/lab5.md
   - Reference:
     - Intro to Markdown: resources/markdown.md
     - Intro to Bash: resources/bash.md
