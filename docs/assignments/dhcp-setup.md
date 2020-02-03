@@ -39,8 +39,9 @@ LinkLocalAddressing=ipv6
 !!! warning Important 
     Some online references will have you add a gateway and DNS settings for your new interface. You don't need to (and definitely shouldn't) add either to this interface. 
     
-    This interface does not provide a path for Internet traffic, but your Pi will try to use it that way if it believes it can be used for a default route.
 
+    This interface does not provide a path for Internet traffic, but your Pi will try to use it that way if it believes it can be used for a default route.
+    
     Likewise, we don't need to give the Pi DNS settings on Ethernet. The Pi will get it’s DNS from the wireless interface, which received it’s DNS settings from DHCP. 
 
 
@@ -96,6 +97,14 @@ Check your local machine to confirm that an IP address in the specified network 
 
 Try running `ping` from both directions (laptop -> pi and pi -> laptop) to confirm that the IP address and related settings are configured correctly.
 
+!!! warning Important
+    If you are on Windows, incoming `ping` requests (those from pi -> laptop) will not get any response. This is because by default Windows Firewall blocks these requests from being answered. To disable this, run a PowerShell prompt as Administrator and enter these commands:
+    ```
+    New-NetFirewallRule -DisplayName "Allow inbound ICMPv4" -Direction Inbound -Protocol ICMPv4 -IcmpType 8 -Action Allow
+    
+    New-NetFirewallRule -DisplayName "Allow inbound ICMPv6" -Direction Inbound -Protocol ICMPv6 -IcmpType 8 -Action Allow
+    ```
+    
 ## Troubleshooting
 
 Troubleshooting for the ISC DHCP Server can be found under [troubleshooting dhcp](/resources/manage-dhcp/).
