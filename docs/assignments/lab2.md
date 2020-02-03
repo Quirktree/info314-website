@@ -61,7 +61,7 @@ In order to properly complete this lab, you will need to terminate your current 
 
 Follow the instructions linked on [the resources site](/resources/host-config/#renewing-dhcp-leases) to complete this process.
 
-### Analysis
+### Report
 
 1.  Based on your capture, create an outline of a complete DHCP exchange. For each message:
     *   Include a screenshot of the packet details summary.
@@ -90,7 +90,7 @@ Before you begin the analysis questions, clear the ARP cache per instructions li
 
 Remove any existing display filters and create a new filter that will only show ARP related traffic. (Hint: type `arp` in the display filter input).
 
-### Analysis
+### Report
 
 13. Outline a complete ARP exchange (request and response), including a screenshot and a brief summary of each message.
 1.  Identify the 48-bit hardware address associated with your network interface and use this information to specify which message(s) originated from your local device?

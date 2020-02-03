@@ -12,14 +12,30 @@ edit_uri: ""
 # Site Layout
 nav:
   - Home: index.md
+  - Projects:
+    - 1 - Pi Setup:
+      - Raspberry Pi Setup: assignments/pi-setup.md
+      - networkd Setup: assignments/networkd-setup.md
+      - Wifi Reference: resources/wifi-reference.md
+    - 2 - Set up a DHCP Server:
+      - IP Address Planning Reference: resources/address-planning.md
+      - Installing and Configuring the ISC DHCP Server: assignments/dhcp-setup.md
+    - 3 - Configure Routing and NAT:
+      - Router Setup: assignments/router-setup.md
+      - Introduction to iptables: resources/iptables.md
   - Labs:
     - Lab 2: assignments/lab2.md
+    - Lab 3: assignments/lab3.md
     - Lab 4: assignments/lab4.md
   - Reference:
     - Intro to Markdown: resources/markdown.md
     - Intro to Bash: resources/bash.md
     - Mac/Win/Linux Networking: resources/host-config.md
     - Install Wireshark: resources/wireshark-install.md
+    - Linux Wireless Reference: resources/wifi-reference.md
+    - Troubleshooting DHCP: resources/manage-dhcp.md
+    - Managing DNS Clients: resources/dns-clients.md
+    - Introduction to iptables: resources/iptables.md
 
         #      - Asking for help: contact.md
         #- Resources:
@@ -37,7 +53,6 @@ markdown_extensions:
 - admonition
 - codehilite:
     guess_lang: false
-    linenums: true
 - attr_list
 - def_list
 - footnotes
@@ -58,6 +73,7 @@ markdown_extensions:
 - pymdownx.magiclink
 - pymdownx.mark
 - pymdownx.smartsymbols
+- pymdownx.superfences
 - pymdownx.tasklist:
     custom_checkbox: true
 - pymdownx.tilde
