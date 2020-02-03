@@ -18,7 +18,7 @@
 
 * Open a command prompt
 * run `ipconfig /release Wi-Fi` to release your IP address
-* then run `ipconfig/renew` to request a new one
+* then run `ipconfig /renew` to request a new one
 
 **Linux**: 
 
