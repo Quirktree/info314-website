@@ -66,6 +66,9 @@ sudo apt update
 sudo apt install isc-dhcp-server
 ```
 
+!!! warning Important
+    Right after installation, isc-dhcp-server will report that it failed to run, and spit out lots of nasty-looking errors. This is normal, as the DHCP server has not yet been configured.
+
 Edit `/etc/default/isc-dhcp-server` to specify the interfaces (`eth0` only) on which to run the DHCP server. Comment out any options pertaining to DHCP for IPv6.
 
 The stock DHCP configuration is located at `/etc/dhcp/dhcpd.conf`. This file contains a number of example `subnet` declarations that you are meant to pick and choose from in order to configure the DHCP server and to distribute addresses within your predefined address range. For this assignment, our configuration is quite minimal:
@@ -102,9 +105,11 @@ Try running `ping` from both directions (laptop -> pi and pi -> laptop) to confi
     ```
     New-NetFirewallRule -DisplayName "Allow inbound ICMPv4" -Direction Inbound -Protocol ICMPv4 -IcmpType 8 -Action Allow
     
+    ```
+
     New-NetFirewallRule -DisplayName "Allow inbound ICMPv6" -Direction Inbound -Protocol ICMPv6 -IcmpType 8 -Action Allow
     ```
-    
+
 ## Troubleshooting
 
 Troubleshooting for the ISC DHCP Server can be found under [troubleshooting dhcp](/resources/manage-dhcp/).
