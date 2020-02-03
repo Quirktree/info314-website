@@ -267,6 +267,14 @@ See &quot;systemctl status isc-dhcp-server.service&quot; and &quot;journalctl -x
 
 <p>Check your local machine to confirm that an IP address in the specified network range was provided.</p>
 <p>Try running <code>ping</code> from both directions (laptop -&gt; pi and pi -&gt; laptop) to confirm that the IP address and related settings are configured correctly.</p>
+<div class="admonition warning important">
+<p class="admonition-title">Warning</p>
+<p>If you are on Windows, incoming <code>ping</code> requests (those from pi -&gt; laptop) will not get any response. This is because by default Windows Firewall blocks these requests from being answered. To disable this, run a PowerShell prompt as Administrator and enter these commands:
+<div class="codehilite"><pre><span></span>New-NetFirewallRule -DisplayName &quot;Allow inbound ICMPv4&quot; -Direction Inbound -Protocol ICMPv4 -IcmpType 8 -Action Allow
+
+New-NetFirewallRule -DisplayName &quot;Allow inbound ICMPv6&quot; -Direction Inbound -Protocol ICMPv6 -IcmpType 8 -Action Allow
+</pre></div></p>
+</div>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <p>Troubleshooting for the ISC DHCP Server can be found under <a href="/resources/manage-dhcp/">troubleshooting dhcp</a>.</p></div>
         </div>
