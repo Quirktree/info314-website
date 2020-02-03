@@ -241,6 +241,10 @@ LinkLocalAddressing=ipv6
 sudo apt install isc-dhcp-server
 </pre></div>
 
+<div class="admonition warning important">
+<p class="admonition-title">Warning</p>
+<p>Right after installation, isc-dhcp-server will report that it failed to run, and spit out lots of nasty-looking errors. This is normal, as the DHCP server has not yet been configured.</p>
+</div>
 <p>Edit <code>/etc/default/isc-dhcp-server</code> to specify the interfaces (<code>eth0</code> only) on which to run the DHCP server. Comment out any options pertaining to DHCP for IPv6.</p>
 <p>The stock DHCP configuration is located at <code>/etc/dhcp/dhcpd.conf</code>. This file contains a number of example <code>subnet</code> declarations that you are meant to pick and choose from in order to configure the DHCP server and to distribute addresses within your predefined address range. For this assignment, our configuration is quite minimal:</p>
 <div class="admonition instructions">
@@ -271,9 +275,9 @@ See &quot;systemctl status isc-dhcp-server.service&quot; and &quot;journalctl -x
 <p class="admonition-title">Warning</p>
 <p>If you are on Windows, incoming <code>ping</code> requests (those from pi -&gt; laptop) will not get any response. This is because by default Windows Firewall blocks these requests from being answered. To disable this, run a PowerShell prompt as Administrator and enter these commands:
 <div class="codehilite"><pre><span></span>New-NetFirewallRule -DisplayName &quot;Allow inbound ICMPv4&quot; -Direction Inbound -Protocol ICMPv4 -IcmpType 8 -Action Allow
-
-New-NetFirewallRule -DisplayName &quot;Allow inbound ICMPv6&quot; -Direction Inbound -Protocol ICMPv6 -IcmpType 8 -Action Allow
 </pre></div></p>
+<p>New-NetFirewallRule -DisplayName "Allow inbound ICMPv6" -Direction Inbound -Protocol ICMPv6 -IcmpType 8 -Action Allow
+```</p>
 </div>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
 <p>Troubleshooting for the ISC DHCP Server can be found under <a href="/resources/manage-dhcp/">troubleshooting dhcp</a>.</p></div>
