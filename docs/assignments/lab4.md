@@ -52,7 +52,7 @@ The instructions below can be used to manually perform an HTTP exchange with a s
 
 ### Capture Instructions
 
-1. Create a [capture filter](https://wiki.wireshark.org/CaptureFilters) that will select traffic from TCP ports 80 and 443.
+1. Create a [capture filter](https://wiki.wireshark.org/CaptureFilters) that will select traffic from TCP ports 80 *or* 443.
 
 2. Launch a new Wireshark capture on your primary network interface with the capture filter from Step 1.
 
