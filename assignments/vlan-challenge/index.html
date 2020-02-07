@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Clinton Campbell">
-        <link rel="canonical" href="https://info314.tcpip.dev/assignments/dhcp-setup/">
+        <link rel="canonical" href="https://info314.tcpip.dev/assignments/vlan-challenge/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Installing and Configuring the ISC DHCP Server - INFO 314 Course Resources</title>
+        <title>VLAN Challenge - INFO 314 Course Resources</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -79,8 +79,8 @@
     <a href="../../resources/address-planning/">IP Address Planning Reference</a>
 </li>
             
-<li class="active">
-    <a href="./">Installing and Configuring the ISC DHCP Server</a>
+<li >
+    <a href="../dhcp-setup/">Installing and Configuring the ISC DHCP Server</a>
 </li>
     </ul>
   </li>
@@ -103,8 +103,8 @@
     <a href="#">Extra Credit</a>
     <ul class="dropdown-menu">
             
-<li >
-    <a href="../vlan-challenge/">VLAN Challenge</a>
+<li class="active">
+    <a href="./">VLAN Challenge</a>
 </li>
     </ul>
   </li>
@@ -173,12 +173,12 @@
                             </a>
                         </li>
                             <li >
-                                <a rel="next" href="../../resources/address-planning/">
+                                <a rel="next" href="../../resources/iptables/">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li >
-                                <a rel="prev" href="../router-setup/">
+                                <a rel="prev" href="../lab2/">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -193,104 +193,49 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#set-up-a-dhcp-server-for-your-lan-2020-01-22">Set up a DHCP Server for your LAN (2020-01-22)</a></li>
+        <li class="main active"><a href="#vlan-challenge-last-edited-2020-02-06">VLAN Challenge (last edited 2020-02-06)</a></li>
             <li><a href="#overview">Overview</a></li>
-            <li><a href="#before-you-start">Before you Start</a></li>
-            <li><a href="#configure-static-addresses-for-your-raspberry-pi">Configure Static Addresses for your Raspberry Pi</a></li>
-            <li><a href="#install-and-configure-dhcp">Install and Configure DHCP</a></li>
-            <li><a href="#test-dhcp-server">Test DHCP Server</a></li>
-            <li><a href="#troubleshooting">Troubleshooting</a></li>
+            <li><a href="#instructions">Instructions</a></li>
+            <li><a href="#specifications">Specifications</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="set-up-a-dhcp-server-for-your-lan-2020-01-22">Set up a DHCP Server for your LAN (2020-01-22)<a class="headerlink" href="#set-up-a-dhcp-server-for-your-lan-2020-01-22" title="Permanent link">&para;</a></h1>
+<h1 id="vlan-challenge-last-edited-2020-02-06">VLAN Challenge (last edited 2020-02-06)<a class="headerlink" href="#vlan-challenge-last-edited-2020-02-06" title="Permanent link">&para;</a></h1>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>In this assignment, we'll be standing up a DHCP service on the Raspberry Pi. As we've discussed in class, DHCP is a function that is sometimes performed by routers and is a necessary service whenever we are creating a new network (of almost any type). </p>
-<h2 id="before-you-start">Before you Start<a class="headerlink" href="#before-you-start" title="Permanent link">&para;</a></h2>
-<p>Before starting any of the work within this checkpoint, make sure that you have completed all steps from checkpoint one, including the <strong>networkd</strong> setup.</p>
-<p>You must also have completed the <strong>Address Planning Exercise</strong> correctly. You will use the parameters you selected in that exercise to configure the IP address for the Pi as well as the configuration for <strong>isc-dhcp-server</strong>.</p>
-<h2 id="configure-static-addresses-for-your-raspberry-pi">Configure Static Addresses for your Raspberry Pi<a class="headerlink" href="#configure-static-addresses-for-your-raspberry-pi" title="Permanent link">&para;</a></h2>
-<p>In this step, you will add a new configuration file to <strong>networkd</strong> in order to set up static addresses on <strong>eth0</strong>. The addresses you use here will be the one you defined for your <strong>DHCP Server</strong> and <strong>Default Gateway</strong> in the <strong>LAN Planning Exercise</strong>.</p>
-<details class="danger"><summary>Please do not try to follow other tutorials for setting up addresses</summary><p>Every quarter, we have students who choose to follow online tutorials instead of the instructions we've provided. Please be aware that we are not using the default Raspberry Pi networking. These tutorials will often instruct you to configure static addresses in the <code>/etc/dhcpcd.conf</code> file or <code>/etc/network/interfaces</code>. Both of these methods were disabled when we set up <strong>networkd</strong>.</p>
+<p>The objective of this assignment is to determine a VLAN strategy and port configuration that overlays the given routing topology onto a managed 8-port switch.</p>
+<p><img alt="Group Network Topology - Network Layer" src="/img/group-topology-network.png" style="width:425px" /> <img alt="Group Network Topology - Physical Layer" src="/img/group-topology-physical.png" style="width:225px" /></p>
+<p>The routing topology that you will be working with in this challenge is representative of the topology used in our final, group project. In this topology, we have three autonomous systems, i.e., networks that are managed independently from one another. Each of our three routers serves a group of local users via a LAN segment in addition to being connected to external networks via point-to-point routing links.</p>
+<p>The network positioned at the top of the diagram will function as an Internet Service Provider (ISP) for the other networks networks, routing traffic between them and other groups within the class. The links between routers are known as routing links. Each one represents a separate point-to-point network over which the routers will forward messages and share information about the inter-network topology.</p>
+<h2 id="instructions">Instructions<a class="headerlink" href="#instructions" title="Permanent link">&para;</a></h2>
+<h3 id="identify-broadcast-domains">Identify broadcast domains<a class="headerlink" href="#identify-broadcast-domains" title="Permanent link">&para;</a></h3>
+<p>Identify the distinct broadcast domains in the system and assign a different VLAN label (between 2 and 4094) to each of these network segments. </p>
+<h3 id="define-physical-connections">Define physical connections<a class="headerlink" href="#define-physical-connections" title="Permanent link">&para;</a></h3>
+<p>Assign each physical connection to a port on the switch. Since the topology is determined by port configuration, you will need to keep track of which device and network interface is associated with each port. Choose an order that is easy to remember.</p>
+<h3 id="create-port-configurations">Create port configurations<a class="headerlink" href="#create-port-configurations" title="Permanent link">&para;</a></h3>
+<p>Once you have identified the VLANs and mapped ports to physical topology, you can begin to define the port configurations. For each port, you will define a native VLAN (untagged) and zero or more tagged VLANs. A port can have both types of VLANs associated with it, though there can only be one native VLAN configured for any port.</p>
+<p>Untagged ethernet frames received on a port will be mapped internally to the native VLAN of the port and can only be forwarded (or flooded) through links attached to ports that are configured with the same VLAN (tagged or untagged). When a VLAN is configured to be tagged on a specific port, that port will add a VLAN identifier to outgoing frames and read/remove the identifiers from incoming frames.</p>
+<p>Adding a tagged VLAN to a port creates a trunk. Trunk links expect the same tag configuration on both ends of the link, i.e., they require explicit configuration on both sides of the trunk. Ports without any tagged VLANs are called access ports. These are preferred for most applications since the VLAN configuration will be encapsulated within the switch and transparent to users.</p>
+<h4 id="lan-connections">LAN connections<a class="headerlink" href="#lan-connections" title="Permanent link">&para;</a></h4>
+<p>For simplicity, start the process by defining the port configurations for a single broadcast domain associated with one of the LANs in the topology, e.g., LAN A. Pay close attention to the requirements given in the next section, which state that LAN connections to A, B, and C should be accessible without tagging.</p>
+<h4 id="routing-links">Routing links<a class="headerlink" href="#routing-links" title="Permanent link">&para;</a></h4>
+<p>Once you have completed the configuration for independent LANs, turn your attention to the routing links between the LANs. Update the configuration for each side of the routing link (two physical ports) with the appropriate VLAN configurations. </p>
+<h4 id="uplink">Uplink<a class="headerlink" href="#uplink" title="Permanent link">&para;</a></h4>
+<p>Finally, turn your attention to the connection that forms the uplink to the core network for the class. The uplink is a routing link, and it is configured in much the same manner as the other routing links in our topology. However, pay close attention to the assignment specifications and the implications for the final port configuration.</p>
+<h2 id="specifications">Specifications<a class="headerlink" href="#specifications" title="Permanent link">&para;</a></h2>
+<p>In addition to the following the given network layer topology, please align your VLAN strategy with requirements below:</p>
+<details class="info"><summary>Layer-3 Network Diagram</summary><p><img alt="Group Network Topology - Network Layer" src="/img/group-topology-network.png" /></p>
 </details>
-<p>Create a file named <code>20-eth0.network</code> in  <code>/etc/systemd/network/</code> (you'll need to use <code>sudo</code>) and define a static configuration that includes your chosen IP address and CIDR range. This path should already contain a default configuration for ethernet interfaces, e.g., <code>99-eth.network</code>. We are overriding this configuration for <code>eth0</code> by naming the file in such a way that <strong>networkd</strong> will load it first and by ensuring that the configuration will match <code>eth0</code> exactly.</p>
-<p>Your file should look something like:</p>
-<div class="codehilite"><pre><span></span>[Match]
-# We only want to match the eth0 interface
-Name=eth0
-
-# Provide full address config in abbreviated notation
-[Network]
-# Default Gateway / DHCP Server
-Address=192.168.0.1/24
-
-
-# Enable link local addresses for IPv6 (FE80::)
-LinkLocalAddressing=ipv6
-</pre></div>
-
-<div class="admonition warning important">
-<p class="admonition-title">Warning</p>
-<p>Some online references will have you add a gateway and DNS settings for your new interface. You don't need to (and definitely shouldn't) add either to this interface. </p>
-<p>This interface does not provide a path for Internet traffic, but your Pi will try to use it that way if it believes it can be used for a default route.</p>
-<p>Likewise, we don't need to give the Pi DNS settings on Ethernet. The Pi will get it’s DNS from the wireless interface, which received it’s DNS settings from DHCP. </p>
-</div>
-<p>In order to test these new settings:</p>
-<p>Call <code>sudo systemctl restart systemd-networkd.service</code> <strong>or</strong> reboot your Pi.</p>
-<p>Once you log back in, verify that <code>networkd</code> is running by calling <code>systemctl status systemd-networkd</code> and use the <code>ip addr</code> command to check that <code>eth0</code> is online with the new address.</p>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
-<p>Make note that the Pi is now assigned to our new subnet, but our computer will still be using it's autoconfigured IPv4 address in the 169.254/16 range.</p>
-<p>In an IPv4 only world, this would prevent us from talking to the Pi. To fix the problem, we'd have to manually configure a static IP on our laptop in the same range as the Pi's network ID.</p>
-<p>Fortunately, both devices have autoconfigured IPv6 addresses that will be discovered through mDNS. By default, this is the address that SSH will use.</p>
-</div>
-<h2 id="install-and-configure-dhcp">Install and Configure DHCP<a class="headerlink" href="#install-and-configure-dhcp" title="Permanent link">&para;</a></h2>
-<p>For this part of the exercise, we'll use the ISC DHCP Server. The ISC server is available in <code>apt</code> repositories, so it can be installed using:</p>
-<div class="codehilite"><pre><span></span>sudo apt update
-sudo apt install isc-dhcp-server
-</pre></div>
-
-<div class="admonition warning important">
-<p class="admonition-title">Warning</p>
-<p>Right after installation, isc-dhcp-server will report that it failed to run, and spit out lots of nasty-looking errors. This is normal, as the DHCP server has not yet been configured.</p>
-</div>
-<p>Edit <code>/etc/default/isc-dhcp-server</code> to specify the interfaces (<code>eth0</code> only) on which to run the DHCP server. Comment out any options pertaining to DHCP for IPv6.</p>
-<p>The stock DHCP configuration is located at <code>/etc/dhcp/dhcpd.conf</code>. This file contains a number of example <code>subnet</code> declarations that you are meant to pick and choose from in order to configure the DHCP server and to distribute addresses within your predefined address range. For this assignment, our configuration is quite minimal:</p>
-<div class="admonition instructions">
-<p class="admonition-title">Specifications</p>
-<p>Before you start to configure your subnet, comment out the lines near the top of the file that specify global settings for nameservers and domain (we won’t use them right now).</p>
-<ul>
-<li>Create a new subnet configuration block using the network ID and network mask you established in the <em>LAN Planning Exercise</em>.</li>
-<li>Inside the subnet block, define a contiguous <code>range</code> of IP addresses for the DHCP pool out of the address range selected in the <em>LAN Planning Exercise</em>.</li>
-<li>You may browse the othe options available, but at this point you should not specify anything other than the DHCP lease range.</li>
-</ul>
-</div>
-<div class="admonition faq">
-<p class="admonition-title">Why don't we configure the default gateway or name servers yet?</p>
-<p>Students will frequently jump ahead and fill in additional network parameters. The reason we don't want to include these parameters yet is that our Pi is not yet ready to provide an Internet connection. Sending a default route back to your workstation will create a black hole of sorts for Internet traffic. Your computer will try to route the traffic through the Pi, and the Pi will simply drop everything it receives.</p>
-</div>
-<h2 id="test-dhcp-server">Test DHCP Server<a class="headerlink" href="#test-dhcp-server" title="Permanent link">&para;</a></h2>
-<p>Use <code>systemctl</code> to restart the DHCP service as shown here:</p>
-<p><code>sudo systemctl restart isc-dhcp-server.service</code></p>
-<p>If you see errors such as the one shown here, you’ll need to continue troubleshooting the DHCP server (see next section).</p>
-<div class="codehilite"><pre><span></span>pi@titan:~ $ sudo systemctl restart isc-dhcp-server.service
-Job for isc-dhcp-server.service failed because the control process exited with error code.
-See &quot;systemctl status isc-dhcp-server.service&quot; and &quot;journalctl -xe&quot; for details.
-</pre></div>
-
-<p>Check your local machine to confirm that an IP address in the specified network range was provided.</p>
-<p>Try running <code>ping</code> from both directions (laptop -&gt; pi and pi -&gt; laptop) to confirm that the IP address and related settings are configured correctly.</p>
-<div class="admonition warning important">
-<p class="admonition-title">Warning</p>
-<p>If you are on Windows, incoming <code>ping</code> requests (those from pi -&gt; laptop) will not get any response. This is because by default Windows Firewall blocks these requests from being answered. To disable this, run a PowerShell prompt as Administrator and enter these commands:
-<div class="codehilite"><pre><span></span>New-NetFirewallRule -DisplayName &quot;Allow inbound ICMPv4&quot; -Direction Inbound -Protocol ICMPv4 -IcmpType 8 -Action Allow
-</pre></div></p>
-<p>New-NetFirewallRule -DisplayName "Allow inbound ICMPv6" -Direction Inbound -Protocol ICMPv6 -IcmpType 8 -Action Allow
-```</p>
-</div>
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<p>Troubleshooting for the ISC DHCP Server can be found under <a href="/resources/manage-dhcp/">troubleshooting dhcp</a>.</p></div>
+<details class="info"><summary>Example Physical Diagram</summary><p><img alt="Group Network Topology - Physical Layer" src="/img/group-topology-physical.png" /></p>
+</details>
+<h3 id="access-links-to-general-lans">Access links to general LANs<a class="headerlink" href="#access-links-to-general-lans" title="Permanent link">&para;</a></h3>
+<p>LANs A, B, and C are general purpose networks and should be exposed as untagged VLANs. This enables us to alternate seamlessly between a direct connect from our laptop to Pi and a connection that runs through the switch. If we were to rely on tagged VLANs to access a given LAN, you would need to configure VLANs on your laptop in order to connect directly to the Pi.</p>
+<h3 id="tagged-routing-links">Tagged Routing Links<a class="headerlink" href="#tagged-routing-links" title="Permanent link">&para;</a></h3>
+<p>Routing links may rely on tagged VLANs. The router will connect to these VLANs via virtual network interfaces that are configured to exchange tagged Ethernet traffic rather than standard, untagged frames. The router side of this configuration is beyond the scope of this exercise.</p>
+<h3 id="untagged-uplink-connection">Untagged Uplink Connection<a class="headerlink" href="#untagged-uplink-connection" title="Permanent link">&para;</a></h3>
+<p>The remote end of the uplink connection will be untagged. Make sure that you configure the associated port accordingly.</p>
+<h3 id="eliminate-extraneous-connections">Eliminate Extraneous Connections<a class="headerlink" href="#eliminate-extraneous-connections" title="Permanent link">&para;</a></h3>
+<p>For each port, only expose the VLANs that are necessary to satisfy the routing requirements indicated in the diagram. Adding additional VLANs creates unintended paths for communication, e.g., allowing Laptop A to communicate directly with Laptop B. For the purposes of this assignment, treat this sort of unintended pathway as a security exposure.</p></div>
         </div>
 
         <footer class="col-md-12">
