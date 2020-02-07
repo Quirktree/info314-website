@@ -23,6 +23,8 @@ nav:
     - 3 - Configure Routing and NAT:
       - Router Setup: assignments/router-setup.md
       - Introduction to iptables: resources/iptables.md
+    - Extra Credit:
+      - VLAN Challenge: assignments/vlan-challenge.md
   - Labs:
     - Lab 2: assignments/lab2.md
     - Lab 3: assignments/lab3.md
