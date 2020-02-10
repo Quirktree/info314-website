@@ -25,6 +25,9 @@ nav:
       - Introduction to iptables: resources/iptables.md
     - 4 - Configure a DNS Resolver:
       - DNS Resolver Setup: assignments/resolver-setup.md
+    - Report - NAT and DNS Analysis:
+      - Instructions: assignments/analysis-report.md
+      - Installing TShark: resources/tshark-install.md
     - Extra Credit:
       - VLAN Challenge: assignments/vlan-challenge.md
   - Labs:
@@ -44,6 +47,7 @@ nav:
       - Intro to Bash: resources/bash.md
       - Mac/Win/Linux Networking: resources/host-config.md
       - Install Wireshark: resources/wireshark-install.md
+      - Install TShark: resources/tshark-install.md
       - Troubleshooting DHCP: resources/manage-dhcp.md
       - Managing DNS Clients: resources/dns-clients.md
 
