@@ -41,6 +41,11 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
+     <loc>https://info314.tcpip.dev/assignments/resolver-setup/</loc>
+     <lastmod>2020-02-09</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
      <loc>https://info314.tcpip.dev/assignments/vlan-challenge/</loc>
      <lastmod>2020-02-09</lastmod>
      <changefreq>daily</changefreq>

@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Clinton Campbell">
-        <link rel="canonical" href="https://info314.tcpip.dev/assignments/vlan-challenge/">
+        <link rel="canonical" href="https://info314.tcpip.dev/assignments/resolver-setup/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>VLAN Challenge - INFO 314 Course Resources</title>
+        <title>DNS Resolver Setup - INFO 314 Course Resources</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -103,8 +103,8 @@
     <a href="#">4 - Configure a DNS Resolver</a>
     <ul class="dropdown-menu">
             
-<li >
-    <a href="../resolver-setup/">DNS Resolver Setup</a>
+<li class="active">
+    <a href="./">DNS Resolver Setup</a>
 </li>
     </ul>
   </li>
@@ -113,8 +113,8 @@
     <a href="#">Extra Credit</a>
     <ul class="dropdown-menu">
             
-<li class="active">
-    <a href="./">VLAN Challenge</a>
+<li >
+    <a href="../vlan-challenge/">VLAN Challenge</a>
 </li>
     </ul>
   </li>
@@ -209,12 +209,12 @@
                             </a>
                         </li>
                             <li >
-                                <a rel="next" href="../resolver-setup/">
+                                <a rel="next" href="../../resources/iptables/">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li >
-                                <a rel="prev" href="../lab2/">
+                                <a rel="prev" href="../vlan-challenge/">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -229,49 +229,84 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#vlan-challenge-last-edited-2020-02-06">VLAN Challenge (last edited 2020-02-06)</a></li>
+        <li class="main active"><a href="#dns-resolvers-last-edited-2020-02-09">DNS Resolvers (last edited 2020-02-09)</a></li>
             <li><a href="#overview">Overview</a></li>
+            <li><a href="#before-you-start">Before you start</a></li>
             <li><a href="#instructions">Instructions</a></li>
-            <li><a href="#specifications">Specifications</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="vlan-challenge-last-edited-2020-02-06">VLAN Challenge (last edited 2020-02-06)<a class="headerlink" href="#vlan-challenge-last-edited-2020-02-06" title="Permanent link">&para;</a></h1>
+<h1 id="dns-resolvers-last-edited-2020-02-09">DNS Resolvers (last edited 2020-02-09)<a class="headerlink" href="#dns-resolvers-last-edited-2020-02-09" title="Permanent link">&para;</a></h1>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>The objective of this assignment is to determine a VLAN strategy and port configuration that overlays the given routing topology onto a managed 8-port switch.</p>
-<p><img alt="Group Network Topology - Network Layer" src="/img/group-topology-network.png" style="width:425px" /> <img alt="Group Network Topology - Physical Layer" src="/img/group-topology-physical.png" style="width:225px" /></p>
-<p>The routing topology that you will be working with in this challenge is representative of the topology used in our final, group project. In this topology, we have three autonomous systems, i.e., networks that are managed independently from one another. Each of our three routers serves a group of local users via a LAN segment in addition to being connected to external networks via point-to-point routing links.</p>
-<p>The network positioned at the top of the diagram will function as an Internet Service Provider (ISP) for the other networks networks, routing traffic between them and other groups within the class. The links between routers are known as routing links. Each one represents a separate point-to-point network over which the routers will forward messages and share information about the inter-network topology.</p>
+<p>In this assignment, we'll continue to extend the functionality of the Linux-based router by installing and configuring the open source BIND server to resolve DNS requests on behalf of hosts on your LAN. This new functionality will take the place of the public DNS resolvers we used in the previous assignments (e.g., <code>1.1.1.1</code> or <code>8.8.8.8</code>).</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>With each checkpoint, we expect you to do more of the work on your own. While the initial Pi setup gave clear instructions, we are slowly moving toward giving you specifications and additional context that you need in order to determine the right steps to accomplish the task.</p>
+<p>In this assignment, you will use an <a href="https://www.digitalocean.com/community/tutorials/how-to-configure-bind-as-a-caching-or-forwarding-dns-server-on-ubuntu-16-04">existing tutorial</a> as a reference to <strong>help</strong> you complete the project specifications. Please note that you will not follow the tutorial verbatim, but instead make adjustments based on the project requirements.</p>
+<p>For some students, this can be a challenging adjustment, but it is also a valuable skill to learn and practice as you prepare for technical internships and jobs.</p>
+</div>
+<h2 id="before-you-start">Before you start<a class="headerlink" href="#before-you-start" title="Permanent link">&para;</a></h2>
+<p>Before you begin, make sure that you have completed all steps through Checkpoint #3 successfully. At this point, your Pi should operate as a NAT-router between the Ethernet LAN and a Wifi-based WAN. Likewise, DHCP is configured to provide LAN clients with a full network configuration, including a default gateway and a public DNS resolver.</p>
+<p>At times in this project, you will need to refer back to the configuration you defined in the previous <strong>LAN Planning Exercise</strong>. </p>
 <h2 id="instructions">Instructions<a class="headerlink" href="#instructions" title="Permanent link">&para;</a></h2>
-<h3 id="identify-broadcast-domains">Identify broadcast domains<a class="headerlink" href="#identify-broadcast-domains" title="Permanent link">&para;</a></h3>
-<p>Identify the distinct broadcast domains in the system and assign a different VLAN label (between 2 and 4094) to each of these network segments. </p>
-<h3 id="define-physical-connections">Define physical connections<a class="headerlink" href="#define-physical-connections" title="Permanent link">&para;</a></h3>
-<p>Assign each physical connection to a port on the switch. Since the topology is determined by port configuration, you will need to keep track of which device and network interface is associated with each port. Choose an order that is easy to remember.</p>
-<h3 id="create-port-configurations">Create port configurations<a class="headerlink" href="#create-port-configurations" title="Permanent link">&para;</a></h3>
-<p>Once you have identified the VLANs and mapped ports to physical topology, you can begin to define the port configurations. For each port, you will define a native VLAN (untagged) and zero or more tagged VLANs. A port can have both types of VLANs associated with it, though there can only be one native VLAN configured for any port.</p>
-<p>Untagged ethernet frames received on a port will be mapped internally to the native VLAN of the port and can only be forwarded (or flooded) through links attached to ports that are configured with the same VLAN (tagged or untagged). When a VLAN is configured to be tagged on a specific port, that port will add a VLAN identifier to outgoing frames and read/remove the identifiers from incoming frames.</p>
-<p>Adding a tagged VLAN to a port creates a trunk. Trunk links expect the same tag configuration on both ends of the link, i.e., they require explicit configuration on both sides of the trunk. Ports without any tagged VLANs are called access ports. These are preferred for most applications since the VLAN configuration will be encapsulated within the switch and transparent to users.</p>
-<h4 id="lan-connections">LAN connections<a class="headerlink" href="#lan-connections" title="Permanent link">&para;</a></h4>
-<p>For simplicity, start the process by defining the port configurations for a single broadcast domain associated with one of the LANs in the topology, e.g., LAN A. Pay close attention to the requirements given in the next section, which state that LAN connections to A, B, and C should be accessible without tagging.</p>
-<h4 id="routing-links">Routing links<a class="headerlink" href="#routing-links" title="Permanent link">&para;</a></h4>
-<p>Once you have completed the configuration for independent LANs, turn your attention to the routing links between the LANs. Update the configuration for each side of the routing link (two physical ports) with the appropriate VLAN configurations. </p>
-<h4 id="uplink">Uplink<a class="headerlink" href="#uplink" title="Permanent link">&para;</a></h4>
-<p>Finally, turn your attention to the connection that forms the uplink to the core network for the class. The uplink is a routing link, and it is configured in much the same manner as the other routing links in our topology. However, pay close attention to the assignment specifications and the implications for the final port configuration.</p>
-<h2 id="specifications">Specifications<a class="headerlink" href="#specifications" title="Permanent link">&para;</a></h2>
-<p>In addition to the following the given network layer topology, please align your VLAN strategy with requirements below:</p>
-<details class="info"><summary>Layer-3 Network Diagram</summary><p><img alt="Group Network Topology - Network Layer" src="/img/group-topology-network.png" /></p>
-</details>
-<details class="info"><summary>Example Physical Diagram</summary><p><img alt="Group Network Topology - Physical Layer" src="/img/group-topology-physical.png" /></p>
-</details>
-<h3 id="access-links-to-general-lans">Access links to general LANs<a class="headerlink" href="#access-links-to-general-lans" title="Permanent link">&para;</a></h3>
-<p>LANs A, B, and C are general purpose networks and should be exposed as untagged VLANs. This enables us to alternate seamlessly between a direct connect from our laptop to Pi and a connection that runs through the switch. If we were to rely on tagged VLANs to access a given LAN, you would need to configure VLANs on your laptop in order to connect directly to the Pi.</p>
-<h3 id="tagged-routing-links">Tagged Routing Links<a class="headerlink" href="#tagged-routing-links" title="Permanent link">&para;</a></h3>
-<p>Routing links may rely on tagged VLANs. The router will connect to these VLANs via virtual network interfaces that are configured to exchange tagged Ethernet traffic rather than standard, untagged frames. The router side of this configuration is beyond the scope of this exercise.</p>
-<h3 id="untagged-uplink-connection">Untagged Uplink Connection<a class="headerlink" href="#untagged-uplink-connection" title="Permanent link">&para;</a></h3>
-<p>The remote end of the uplink connection will be untagged. Make sure that you configure the associated port accordingly.</p>
-<h3 id="eliminate-extraneous-connections">Eliminate Extraneous Connections<a class="headerlink" href="#eliminate-extraneous-connections" title="Permanent link">&para;</a></h3>
-<p>For each port, only expose the VLANs that are necessary to satisfy the routing requirements indicated in the diagram. Adding additional VLANs creates unintended paths for communication, e.g., allowing Laptop A to communicate directly with Laptop B. For the purposes of this assignment, treat this sort of unintended pathway as a security exposure.</p></div>
+<h3 id="reviewupdate-your-ip-address-plan">Review/Update your IP Address Plan<a class="headerlink" href="#reviewupdate-your-ip-address-plan" title="Permanent link">&para;</a></h3>
+<p>Since we will be running our DNS resolver inside our LAN, we will need to provide it with an IP address on <em>eth0</em>. Choose an unused static address from the ranges you defined in your initial LAN Planning. </p>
+<p>Before you can assign this address to a service, you will need to add another <code>Address=</code> line to your <em>eth0</em> configuration in <em>systemd-networkd</em>. Further instructions were provided in <a href="../dhcp-setup/#configure-static-addresses-for-your-raspberry-pi">Checkpoint #2</a>.</p>
+<p>While it may not be clear at this point, there are sometimes benefits to using separate addresses for diffferent services (in real-world scenarios) even though they're all running on the same device and network interface. The first benefit that comes to my mind is that planning for multiple addresses sets you up for easy changes to your network architecture in the future. It might make sense to combine all of these services onto one device today, but that might not always be the case depending on your requirements.</p>
+<h3 id="install-bind-on-the-router">Install BIND on the router<a class="headerlink" href="#install-bind-on-the-router" title="Permanent link">&para;</a></h3>
+<p><strong>BIND</strong> (also refered to as <em>named</em>) is a robust and versatile DNS implementation developed by the <em>Internet Services Consortium (ISC)</em> -- the same folks that developed the DHCP server implementation we have deployed. The first version of BIND was released in 1986. At present, BIND 9 is the most widely deployed DNS server on the Internet.</p>
+<p>BIND and related utilities are packaged in the Debian/Raspbian software repositories, meaning that they can be installed and managed easily with the <code>apt</code> utilities that we are already familiar with. For our purposes, we want to install three different packages named <code>bind9</code>, <code>bind9utils</code>, <code>bind9-doc</code>. Please refer to previous guides if you need to review the options for the <code>apt</code> command.</p>
+<h3 id="configure-bind-as-a-caching-dns-server">Configure BIND as a caching DNS server<a class="headerlink" href="#configure-bind-as-a-caching-dns-server" title="Permanent link">&para;</a></h3>
+<p>The term <em>DNS server</em> can refer to several distinct roles that are defined in the DNS specifications<sup id="fnref:server-types"><a class="footnote-ref" href="#fn:server-types">1</a></sup>. BIND can be configured to operate in all of these roles, but in this checkpoint, we want to configure the service to handle recursive DNS resolution for our LAN clients. Until now, our clients relied on public DNS services. </p>
+<p>To accomplish this objective, refer to the section of Digital Ocean's tutorial<sup id="fnref:tutorial"><a class="footnote-ref" href="#fn:tutorial">2</a></sup>, which demonstrates how to set up a caching DNS server.</p>
+<p>You will need to make several adjustments to the configuration you created based on DO's guidance:</p>
+<ol>
+<li>Confirm that you have adapted the instructions to use your own IP address ranges.</li>
+<li>Disable IPv6 by changing <code>listen-on-v6 { any; };</code> to <code>listen-on-v6 { none; };</code>.</li>
+<li>Limit which IPv4 addresses will be listening for DNS queries by setting <code>listen-on { 127.0.0.1; &lt;DNS IP&gt;; }</code>.<ul>
+<li><strong><code>&lt;DNS IP&gt;</code></strong> will be replaced by the static IP on which you want to respond to DNS requests</li>
+<li>If the <code>listen-on</code> block is missing from the original file, you can add it immediately before or after <code>listen-on-v6</code>.</li>
+<li>127.0.0.1 is the loopback address. We're including this for times that your Pi will query its own resolver.</li>
+</ul>
+</li>
+<li>Restrict the <code>acl</code> to include <code>localhost</code> and your own subnet range (CIDR format)<ul>
+<li>If you added <code>localnets</code> while following the tutorial, remove it now. This setting would allow the resolver to be accessed on the external (wireless network) as well as your LAN.</li>
+<li>If you're curious to learn more about this security precaution, read up on <strong>Cache Poisoning Attacks</strong> or hit us up in office hours.</li>
+</ul>
+</li>
+<li>Disable DNSSEC functionality by replacing the configuration line that reads <code>dnssec-validation auto;</code> with <code>dnssec-enable no;</code>.<ul>
+<li>Disabling DNSSEC is necessary due to the limitations of using a Pi versus an always on network server.</li>
+<li>Specifically, the inability of the Pi to maintain accurate time when it is powered off interferes with the verification process for DNSSEC cryptographic signatures</li>
+</ul>
+</li>
+</ol>
+<h3 id="test-and-verify-that-the-new-server-is-operating-properly">Test and verify that the new server is operating properly<a class="headerlink" href="#test-and-verify-that-the-new-server-is-operating-properly" title="Permanent link">&para;</a></h3>
+<p>In addition to the troubleshooting tools that we're already familiar with. BIND comes with a utility called <code>named-checkconf</code> that will review its core configuration files for syntax errors. You should run it any time you modify the BIND configuration in this assignment or future checkpoints.</p>
+<div class="admonition faq">
+<p class="admonition-title">Why didn't <code>named-checkconf</code> do anything</p>
+<p>If it doesn't find any syntax errors in your configuration files, <code>named-checkconf</code> will return without displaying any messages. To see what sort of errors are reported by the utility, create an intentional syntax error and run the tool again.</p>
+</div>
+<p>Once your files are free of errors, use <code>systemctl</code> to restart the <code>bind9</code> service and check that it's working with <code>dig</code>, e.g., <code>dig @127.0.0.1 washington.edu</code>. As we've discussed in other places, the <code>@IP</code> syntax of <code>dig</code> is used to override local resolver settings (which are still determined by DHCP on the wifi network).</p>
+<h3 id="update-your-dhcp-server-configuration">Update your DHCP Server Configuration<a class="headerlink" href="#update-your-dhcp-server-configuration" title="Permanent link">&para;</a></h3>
+<p>To wrap up this project, you will need to update the DHCP server configuration so that LAN users will receive the address for the local resolver instead of the public resolver we previously used:</p>
+<ol>
+<li>Update DHCP server configuration so that your Pi will be used as the domain name server for the LAN</li>
+<li>Use systemctl to restart the DHCP server daemon</li>
+<li>Manually renew your DHCP configuration on your PC through the OS or by temporarily disconnecting the network cable </li>
+<li>Verify that your computer receives the updated parameters from DHCP</li>
+</ol>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:server-types">
+<p>See <a href="https://www.digitalocean.com/community/tutorials/a-comparison-of-dns-server-types-how-to-choose-the-right-dns-configuration">A Comparison of DNS Server Types</a>&#160;<a class="footnote-backref" href="#fnref:server-types" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:tutorial">
+<p>See <a href="https://www.digitalocean.com/community/tutorials/how-to-configure-bind-as-a-caching-or-forwarding-dns-server-on-ubuntu-16-04">How to Configure Bind as a Caching or Forwarding DNS Server</a>&#160;<a class="footnote-backref" href="#fnref:tutorial" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
         </div>
 
         <footer class="col-md-12">
