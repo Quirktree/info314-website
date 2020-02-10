@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Clinton Campbell">
-        <link rel="canonical" href="https://info314.tcpip.dev/resources/bash/">
+        <link rel="canonical" href="https://info314.tcpip.dev/resources/netfilter-hooks/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Intro to Bash - INFO 314 Course Resources</title>
+        <title>Understanding Netfilter/Iptables Hooks - INFO 314 Course Resources</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -149,8 +149,8 @@
     <a href="../iptables/">Introduction to Iptables</a>
 </li>
             
-<li >
-    <a href="../netfilter-hooks/">Understanding Netfilter/Iptables Hooks</a>
+<li class="active">
+    <a href="./">Understanding Netfilter/Iptables Hooks</a>
 </li>
             
 <li >
@@ -167,8 +167,8 @@
     <a href="../markdown/">Intro to Markdown</a>
 </li>
             
-<li class="active">
-    <a href="./">Intro to Bash</a>
+<li >
+    <a href="../bash/">Intro to Bash</a>
 </li>
             
 <li >
@@ -199,12 +199,12 @@
                             </a>
                         </li>
                             <li >
-                                <a rel="next" href="../markdown/">
+                                <a rel="next" href="../iptables/">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li >
-                                <a rel="prev" href="../host-config/">
+                                <a rel="prev" href="../wifi-reference/">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -219,84 +219,45 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#intro-to-bash">Intro to Bash</a></li>
-            <li><a href="#directories">Directories</a></li>
-            <li><a href="#editing-files">Editing files</a></li>
-            <li><a href="#command-documentation">Command documentation</a></li>
-            <li><a href="#services-starting-stopping-status">Services: starting, stopping, status</a></li>
-            <li><a href="#copying-files-across-servers-with-scp">Copying Files Across Servers with scp</a></li>
-            <li><a href="#local-vs-remote">Local vs Remote</a></li>
-            <li><a href="#logs">Logs</a></li>
+        <li class="main active"><a href="#understanding-netfilteriptables-hooks">Understanding Netfilter/Iptables Hooks</a></li>
+            <li><a href="#working-with-local-traffic">Working with Local Traffic</a></li>
+            <li><a href="#working-with-routed-traffic">Working with Routed Traffic</a></li>
+            <li><a href="#summary">Summary</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="intro-to-bash">Intro to Bash<a class="headerlink" href="#intro-to-bash" title="Permanent link">&para;</a></h1>
-<blockquote>
-<p>Bash command, terminal command, command line command, for the purpose of our class these all mean the same things. You should already be familiar with bash from INFO 201 and INFO 340. This following section will help you refresh some of the basics.</p>
-</blockquote>
-<div class="admonition info">
-<p class="admonition-title">Huh, Bash?<p>If you feel completely lost and have never seen terminal commands we recommend watching these two videos:</p>
+<h1 id="understanding-netfilteriptables-hooks">Understanding Netfilter/Iptables Hooks<a class="headerlink" href="#understanding-netfilteriptables-hooks" title="Permanent link">&para;</a></h1>
+<p>The <em>netfilter</em> component of Linux defines a set of <em>hooks</em> within the TCP/IP stack that are used to run code based on different packet events at different moments in the packet lifecycle. Utilities like iptables (and more recently nftables) provide a frontend and language for managing rules and actions that we want to perform based on the characteristics of network traffic. These tools are commonly used to implement services like NAT or to provide host or network-based packet filtering firewalls.</p>
+<h2 id="working-with-local-traffic">Working with Local Traffic<a class="headerlink" href="#working-with-local-traffic" title="Permanent link">&para;</a></h2>
+<p>To better understand how all of this works, let’s start with a simplified example on a standard Linux host. For now, ignore the possibility of routing and focus on the host’s ability to send or receive packets. In this scenario, we can use netfilter for tasks like dropping unwanted traffic or rewriting addresses and layer-3 ports on the fly.</p>
+<p>Since this is a simplified scenario, we can limit our examination to two hooks, INPUT and OUTPUT, that are triggered for packets flowing to and from the local device in a non-routing scenario. By non-routing, we mean that the INPUT hook is only invoked when the host is the intended recipient of the message based on the packet’s destination IP address. Likewise, the OUTPUT hook won’t fire unless the message originated from the local host. Given the INPUT/OUTPUT hooks, we can use a frontend like iptables to register specific rules and actions that are evaluated for each packet passing through the network stack.</p>
+<h3 id="host-based-packet-filters">Host-based Packet Filters<a class="headerlink" href="#host-based-packet-filters" title="Permanent link">&para;</a></h3>
+<p>One of the most common applications of the INPUT/OUTPUT hooks is to perform packet filtering in order to provide a host-based firewall for the Linux device. For example, from a security perspective, we typically want to limit how much of an “attack surface” we expose over the network. We can leverage the INPUT hook to drop packets that aren’t part of a TCP connection that we had previously initiated. In other words, we allow client-based software to open outbound connections but we block any attempts to connect to us as a server. If we need more flexibility, we can create rules to allow connections in to specific services, such as an HTTP or SSH daemon. </p>
+<h2 id="working-with-routed-traffic">Working with Routed Traffic<a class="headerlink" href="#working-with-routed-traffic" title="Permanent link">&para;</a></h2>
+<p>Netfilter operations become slightly more complex when routing is introduced. Like an ordinary host, routers still process packets coming to/from the local device, but they also need to forward packets received on one network interface through other interfaces. In fact, this latter operation is their main responsibility. In order to support these communication paths, netfilter defines three additional hooks: FORWARD, PREROUTING, and POSTROUTING that we can use to perform network-based packet filtering, network address translation (NAT), and other packet-level operations.</p>
+<h3 id="network-based-packet-filters">Network-based Packet Filters<a class="headerlink" href="#network-based-packet-filters" title="Permanent link">&para;</a></h3>
+<p>For packet-filtering purposes, the FORWARD hook is a direct analogue for the INPUT/OUTPUT hooks. As we’ve mentioned, INPUT/OUTPUT are not applied to routed packets. Instead, code registered on the FORWARD hook will be evaluated after the initial routing decision is made. The FORWARD hook provides the basis for network-based firewall functionality. Network-based firewalls enable us to drop or reject unwanted traffic before it has the opportunity to reach our hosts (or even enter into the network). Likewise, we can also leverage packet filtering to prevent certain types of local traffic from inadvertently leaking outside our own network perimeters.</p>
+<h3 id="network-address-translation">Network Address Translation<a class="headerlink" href="#network-address-translation" title="Permanent link">&para;</a></h3>
+<p>Sometimes it makes more sense to perform an action for an incoming packet before any routing decision has been made or just before actually sending an outgoing packet. This is the case for port and network address translation and is facilitated by attaching rules to the PREROUTING and POSTROUTING hooks. Specifically, we set up rules on the PREROUTING hook when we want to modify incoming packets based on their destination IP address. This configuration is called destination NAT (DNAT) and is useful for delivering traffic to a server on a private subnet. Likewise, we use the POSTROUTING hook when our goal is to change outgoing packets based on the original source address. This configuration is called source NAT (SNAT) and is useful when we need map a public IP on to packets coming from private addresses. </p>
+<h3 id="additional-caveats-for-local-traffic">Additional Caveats for Local Traffic<a class="headerlink" href="#additional-caveats-for-local-traffic" title="Permanent link">&para;</a></h3>
+<p>Unlike the FORWARD hook, PREROUTING and POSTROUTING may be used for local traffic as well as routed traffic. In particular, an incoming packet will be processed by the PREROUTING hook before the network stack makes a routing decision and reaches the INPUT hook. For outgoing packets, the OUTPUT hook is invoked prior to the outbound routing/forwarding decision or the POSTROUTING hook. For local traffic, we often have a choice about which hook provides the best entry point for our rules. </p>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p>When you're first learning about Linux networking internals, it can be difficult to remember the relationship between netfilter hooks and related events in the packet lifecycle. The following list summarizes what we've learned so far in terms of specific traffic flows. </p>
 <ul>
-<li><a href="https://www.youtube.com/watch?v=oxuRxtrO2Ag" target="_blank">Beginner's Guide to the Bash Terminal</a></li>
-<li><a href="https://www.udacity.com/course/shell-workshop--ud206" target="_blank">Udacity Shell Workshop</a></li>
+<li>Incoming local traffic: (receive packet via network interface) -&gt; PREROUTING -&gt; (local routing decision) -&gt; INPUT -&gt; (continue processing packet and deliver via sockets)</li>
+<li>Outgoing local traffic: (receive packet via sockets) -&gt; OUTPUT -&gt; (outbound routing) -&gt; POSTROUTING -&gt; (continue processing and send via network interface)</li>
+<li>Routed traffic: (receive packet via network interface) -&gt; PREROUTING -&gt; (inbound routing) -&gt; FORWARD -&gt; (outbound routing) -&gt; POSTROUTING -&gt; (continue processing and send via network interface)</li>
 </ul>
-</p>
-</div>
-<h3 id="directories">Directories<a class="headerlink" href="#directories" title="Permanent link">&para;</a></h3>
+<p>As you work to digest each of these traffic flows, you can refer to the following list for a reminder of which operations can be performed by using a particular hook. Once again, we are distinguishing routed traffic from incoming and outgoing routed traffic.</p>
 <ul>
-<li><code>cd</code> to change directories</li>
-<li><code>ls</code> to show files and directories at your current path</li>
-<li><code>ls -a</code> to also show hidden files</li>
-</ul>
-<h3 id="editing-files">Editing files<a class="headerlink" href="#editing-files" title="Permanent link">&para;</a></h3>
-<p>If you are editing a file on a remote server such as your Pi, you will not have the luxury of using a nice editor such as VS Code, Atom, or Sublime. Nevertheless, there are many powerful terminal editors.
-Use <code>nano</code> or <code>vim</code> to edit files through your terminal.</p>
-<p>How to edit a file that's on a linux server/your Pi:</p>
-<ul>
-<li>Use <code>nano &lt;fileName&gt;</code> or <code>vim &lt;filename&gt;</code></li>
-<li>Nano is beginner friendly. 
-If you are unfamiliar with these I recommend looking up a nano tutorial.</li>
-</ul>
-<h3 id="command-documentation">Command documentation<a class="headerlink" href="#command-documentation" title="Permanent link">&para;</a></h3>
-<p>If you don't know what a command does or how to use it simply use the <code>man</code> command! 
-<code>man &lt;commandName&gt;</code> will print out an documentation. Once you're done reading hit <code>q</code> on your keyboard to quit out.  In the following screenshots I enter <code>man nslookup</code> which provides me with more information on what <code>nslookup</code> does and how it's used.</p>
-<p><img alt="man command" src="../../img/man1.png" /></p>
-<p><img alt="man result" src="../../img/man2.png" /></p>
-<h3 id="services-starting-stopping-status">Services: starting, stopping, status<a class="headerlink" href="#services-starting-stopping-status" title="Permanent link">&para;</a></h3>
-<p>Control services by using the <code>systemctl</code> command. The format is <code>sudo systemctl &lt;action&gt; &lt;service name&gt;</code>.</p>
-<div class="admonition example">
-<p class="admonition-title">Example<p>Restart NGINX service: <code>sudo systemctl restart nginx</code></p>
-</p>
-</div>
-<h3 id="copying-files-across-servers-with-scp">Copying Files Across Servers with <em>scp</em><a class="headerlink" href="#copying-files-across-servers-with-scp" title="Permanent link">&para;</a></h3>
-<p>You can copy files from your laptop to a server or a server to your laptop by using <code>scp</code>. </p>
-<p>It uses our ssh tunnel to securely transfer your files back and forth. You can find great examples at <a href="http://www.hypexr.org/linux_scp_help.php">hyperx.org</a>.</p>
-<p>Copy all of the contents of a folder:</p>
-<p><code class="codehilite">scp -r  ava/*  root@157.230.163.231:/var/www/html/</code></p>
-<p>This copies everything in the ava folder to the html folder.</p>
-<h3 id="local-vs-remote">Local vs Remote<a class="headerlink" href="#local-vs-remote" title="Permanent link">&para;</a></h3>
-<p>A typical confusion for students when deadling with <code>scp</code> is whether their current terminal session is doing work on their local machine (your laptop), or on a remote machine (your Raspberry Pi or another server).</p>
-<p>You can tell which device your terminal session is doing work in by checking the hostname, that is whatever is after the <code>@</code> symbol. Take a look at the two example tabs below.</p>
-<div class="superfences-tabs">
-<input name="__tabs_1" type="radio" id="__tab_1_0" checked="checked" />
-<label for="__tab_1_0">Local</label>
-<div class="superfences-content"><div class="codehilite"><pre><span></span><span class="c1"># hostname = macbook-pro</span>
-<span class="c1"># This tells me  I&#39;m on my laptop.</span>
-ben@macbook-pro:~/Desktop/info-314/
-</pre></div></div>
-<input name="__tabs_1" type="radio" id="__tab_1_1" />
-<label for="__tab_1_1">Remote</label>
-<div class="superfences-content"><div class="codehilite"><pre><span></span><span class="c1"># hostname = debian-lab1</span>
-<span class="c1"># I must be on my server now.</span>
-ben@debian-lab1:~$
-</pre></div></div>
-</div>
-<h3 id="logs">Logs<a class="headerlink" href="#logs" title="Permanent link">&para;</a></h3>
-<p>Check a service's logs. This is a great way to see if it ran into any errors. If for some reason a service keeps crashing or behaving strangely you'd want to dig into its logs and see if it's unhappy with something.</p>
-<ul>
-<li><code class="codehilite">sudo journcalctl -u &lt;service name&gt;</code></li>
-<li>If you specifically only want to see the most recent parts of the log, you can pipe the information it gives you into the tail command, which only shows any files' ending lines. <code class="codehilite">sudo journalctl -u &lt;service name here&gt;.service <span class="p">|</span> tail -n <span class="m">100</span></code></li>
+<li>Filtering incoming traffic to local: INPUT</li>
+<li>Filtering outgoing traffic from local: OUTPUT</li>
+<li>Filtering routed traffic (in any direction): FORWARD</li>
+<li>SNAT for routed traffic: POSTROUTING</li>
+<li>SNAT for outgoing local traffic: POSTROUTING or OUTPUT</li>
+<li>DNAT for routed traffic: PREROUTING</li>
+<li>DNAT for incoming local traffic: PREROUTING or INPUT</li>
 </ul></div>
         </div>
 

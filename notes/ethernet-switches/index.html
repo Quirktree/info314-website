@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Clinton Campbell">
+        <link rel="canonical" href="https://info314.tcpip.dev/notes/ethernet-switches/">
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Ethernet switches - INFO 314 Course Resources</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/color-brewer.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../..">INFO 314 Course Resources</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">1 - Pi Setup</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../assignments/pi-setup/">Raspberry Pi Setup</a>
+</li>
+            
+<li >
+    <a href="../../assignments/networkd-setup/">networkd Setup</a>
+</li>
+            
+<li >
+    <a href="../../resources/wifi-reference/">Wifi Reference</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">2 - Set up a DHCP Server</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../resources/address-planning/">IP Address Planning Reference</a>
+</li>
+            
+<li >
+    <a href="../../assignments/dhcp-setup/">Installing and Configuring the ISC DHCP Server</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">3 - Configure Routing and NAT</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../assignments/router-setup/">Router Setup</a>
+</li>
+            
+<li >
+    <a href="../../resources/iptables/">Introduction to iptables</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">Extra Credit</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../assignments/vlan-challenge/">VLAN Challenge</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../assignments/lab2/">Lab 2</a>
+</li>
+                                    
+<li >
+    <a href="../../assignments/lab3/">Lab 3</a>
+</li>
+                                    
+<li >
+    <a href="../../assignments/lab4/">Lab 4</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Resources <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">Concepts and Theory</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../router-overview/">Routers</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">Guides</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../resources/iptables/">Introduction to Iptables</a>
+</li>
+            
+<li >
+    <a href="../../resources/netfilter-hooks/">Understanding Netfilter/Iptables Hooks</a>
+</li>
+            
+<li >
+    <a href="../../resources/wifi-reference/">Linux Wireless Configuration</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">Quick Reference</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../resources/markdown/">Intro to Markdown</a>
+</li>
+            
+<li >
+    <a href="../../resources/bash/">Intro to Bash</a>
+</li>
+            
+<li >
+    <a href="../../resources/host-config/">Mac/Win/Linux Networking</a>
+</li>
+            
+<li >
+    <a href="../../resources/wireshark-install/">Install Wireshark</a>
+</li>
+            
+<li >
+    <a href="../../resources/manage-dhcp/">Troubleshooting DHCP</a>
+</li>
+            
+<li >
+    <a href="../../resources/dns-clients/">Managing DNS Clients</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li>
+                                <a href="https://github.com/quirktree/info314-website">quirktree/info314-website</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#introduction">Introduction</a></li>
+        <li class="main "><a href="#collisions-and-media-access-control">Collisions and Media Access Control</a></li>
+        <li class="main "><a href="#star-topology">Star Topology</a></li>
+        <li class="main "><a href="#bridging-and-switches">Bridging and Switches</a></li>
+            <li><a href="#forwarding-mechanics">Forwarding Mechanics</a></li>
+        <li class="main "><a href="#broadcast-domains">Broadcast Domains</a></li>
+        <li class="main "><a href="#virtual-lan-vlan">Virtual LAN (VLAN)</a></li>
+        <li class="main "><a href="#switch-architecture-planning">Switch Architecture Planning</a></li>
+        <li class="main "><a href="#redundancy-and-switch-loops">Redundancy and Switch Loops</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<p>Key concepts: Shared transmission medium, topology, hub, congestion, collision domain, broadcast domain, segment (layer-2), bridge, switch, forwarding information base (FIB)</p>
+<h1 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h1>
+<p>Ethernet switches are one of the most widely deployed network components, providing physical ports for attaching other network components or endpoints at the data-link layer of the TCP/IP stack. Barring advanced configurations, devices that are attached through switching infrastructure are part of the same layer-2 network and can communicate directy through the switch using layer-2 addresses.</p>
+<h1 id="collisions-and-media-access-control">Collisions and Media Access Control<a class="headerlink" href="#collisions-and-media-access-control" title="Permanent link">&para;</a></h1>
+<p>Switches are not the only layer-2 game in town for wired Ethernet, though they are one of the few you should even consider in 2020. Once upon a time we connected devices in a <em>bus</em> configuration, where each node would tap into a segment of coaxial cable or other suitable transmission medium. In this configuration, the bus provides a resource that must be shared between all nodes attached to it. One consequence of this configuration is that data frames are visible to every other node since the signal is transmitted across the entire bus. Likewise, since the bus is shared, <em>collisions</em> between data frames may occur when nodes try to use the resource at the same time. For this reason, we say that bus represents a single <em>collision domain</em>. </p>
+<p>Ethernet copes with collisions using a <em>media access control (MAC)</em> mechanism that allows the NIC to identify a failure and make another attempt after a variable delay. This mechanism is known as <em>Carrier Sense Multiple Access with Collision Detection (CSMA/CD)</em>. While CSMA/CD enables the network to continue functioning despite collisions, <em>congestion</em> occur as the shared medium becomes more contested. A highly congested network is inefficient since failures and retransmission consume an increasing amount of its bandwidth.</p>
+<h1 id="star-topology">Star Topology<a class="headerlink" href="#star-topology" title="Permanent link">&para;</a></h1>
+<p>Congestion is not the only architectural concern associated with the bus topology. Physical challenges such as signal interference and attenuation limit the overall length of a bus. As such, the layout of the bus relative to the physical location of each node must be carefully planned. Hubs alleviated these latter concerns by offering a more flexible topology. In a <em>star topology</em>, multiple nodes connect back to a central point through dedicated, indepenent links, e.g., lengths of CAT-5 cable. </p>
+<p>Beneath the hood, hubs still operate on the underlying principle of transmitting signals across an entire network segment. In fact, each port of a hub acts as a repeater for the physical signals that were received on other ports. As such, hubs do not eliminate the concern of congestion and collisions or snooping on communication within a segment since endpoints connected by hubs are still members of a single collision domain. </p>
+<h1 id="bridging-and-switches">Bridging and Switches<a class="headerlink" href="#bridging-and-switches" title="Permanent link">&para;</a></h1>
+<p><em>Bridging</em> provide a layer-2 solution to the congestion problem by splitting a network into independent collision domains and intelligently forwarding frames between these layer-2 <em>segments</em>. When a bridge observes a frame on one of its ports, it inspects Ethernet headers to <em>learn</em> about the topology of the network based on the MAC address of the sender. The bridge uses the information it learns about the topology to optimize forwarding, which is only necessary when the recipient and sender are on different segments.</p>
+<p>xxx NO CHANGES TO ETHERNET</p>
+<p>Classic Ethernet bridges provides two ports/collision domains and are rarely seen in modern networks. A switch combines multiple bridges in a device that physically resembles a hub. Unlike a hub, however, each switch port represents a distinct segment on its own collision domain. From a performance perspective, a well-placed bridge can reduce the amount of activity on a domain by about half (discounting for broadcast traffic). Adding more bridges further improves the situation. In a switched network, every link is isolated within an independent collision domain, allowing a much greater level of overall throughput on the network.</p>
+<h2 id="forwarding-mechanics">Forwarding Mechanics<a class="headerlink" href="#forwarding-mechanics" title="Permanent link">&para;</a></h2>
+<p>The forwarding mechanics of a switch are identical to a bridge. As switches learn the topology of a layer-2 network, they populate a Forwarding Information Base (FIB) with MAC/port associations. Until a switch knows which port is associated with a particular destination MAC address, a frame received on one port will be <em>flooded</em> over every other port on the switch.</p>
+<h1 id="broadcast-domains">Broadcast Domains<a class="headerlink" href="#broadcast-domains" title="Permanent link">&para;</a></h1>
+<p>As we've seen, switches support standard Ethernet modes of communication between all nodes of the layer-2 network based on MAC address. </p>
+<h1 id="virtual-lan-vlan">Virtual LAN (VLAN)<a class="headerlink" href="#virtual-lan-vlan" title="Permanent link">&para;</a></h1>
+<p>VLANs provide a solution to isolate broadcast domains from one another without requiring an investment of dedicated hardware for each domain. In the simplest sense, VLANs provide virtual separation of broadcast domains by identifying switch ports as VLAN members and referencing this configuration to enforce the separation of ethernet traffic.</p>
+<p>A switch configured with more than one VLAN behaves like multiple standalone switches. The ports assigned to a given VLAN maintain their own view of the FIB that is based only on the MAC addresses seen on those ports. In port-based VLANs, which use the mode of operation described above, a router would need to be attached to each set of ports to assign forwarding across the VLAN boundary.</p>
+<p>Many switches, support a more dynamic mode that enables network-attached devices to distinguish between traffic from multiple VLANs running over a single link. Links that carry traffic for multiple VLANs are called trunks (the associated switch ports are called trunk ports). With trunking, connections between infrastructure components is simplified since multiple broadcast domains can be collapsed onto a single physical link. Trunks generally rely on tags (as specified in 802.1q) to control distribution of frames over VLANs. </p>
+<p>Despite implementation differences, tag and port-based VLANs obey the same rules. Layer-2 frames received on any port/tag are only distributed within the associated VLAN.</p>
+<h1 id="switch-architecture-planning">Switch Architecture Planning<a class="headerlink" href="#switch-architecture-planning" title="Permanent link">&para;</a></h1>
+<p>Larger networks require multi-tier switch deployments to satisfy the requirements of core communication, distribution, and network access. Switches at the access tier need to provide enough port density to support endpoints in the network. Switches participating in the distribution tier of the network architecture may prioritize VLAN trunking, basic redundancy, and incorporate layer-3 functionality to handle routing and security policies internally. Core functionality will likely incorporate multiple levels of redundancy and higher capacity links.</p>
+<h1 id="redundancy-and-switch-loops">Redundancy and Switch Loops<a class="headerlink" href="#redundancy-and-switch-loops" title="Permanent link">&para;</a></h1>
+<p>Redundancy is a common requirement in network infrastructure for the corporate world. Organizations have a greater dependence on information technology and a low threshold for system outages that disrupt operations or productivity. In LAN design, we need to plan for redundant components and links based on the impact of a failure at a given point in the network.</p>
+<p>Redundancy at this layer has an interesting effect with regard to forwarding behavior. A frame that passes through one side of a redundant connection is expected to return to the switch through the other side of the connection. This situation is commonly known as a switching loop. Frames that are caught in a loop degrade the performance of the switches involved. Broadcast traffic exacerbates the problem and may create a broadcast storm. Spanning tree protocol (STP) is present on many business-grade switches to alleviate this problem. </p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:fib">
+<p>FIBs sometimes referred to as a MAC address table or a CAM table. CAM stands for content addressable memory, which is the implementation mechanism used for the FIB on many switches.&#160;<a class="footnote-backref" href="#fnref:fib" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>Copyright &copy; 2020 Clinton Campbell</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

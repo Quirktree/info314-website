@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Clinton Campbell">
-        <link rel="canonical" href="https://info314.tcpip.dev/resources/bash/">
+        <link rel="canonical" href="https://info314.tcpip.dev/notes/router-overview/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Intro to Bash - INFO 314 Course Resources</title>
+        <title>Routers - INFO 314 Course Resources</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -66,7 +66,7 @@
 </li>
             
 <li >
-    <a href="../wifi-reference/">Wifi Reference</a>
+    <a href="../../resources/wifi-reference/">Wifi Reference</a>
 </li>
     </ul>
   </li>
@@ -76,7 +76,7 @@
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../address-planning/">IP Address Planning Reference</a>
+    <a href="../../resources/address-planning/">IP Address Planning Reference</a>
 </li>
             
 <li >
@@ -94,7 +94,7 @@
 </li>
             
 <li >
-    <a href="../iptables/">Introduction to iptables</a>
+    <a href="../../resources/iptables/">Introduction to iptables</a>
 </li>
     </ul>
   </li>
@@ -135,8 +135,8 @@
     <a href="#">Concepts and Theory</a>
     <ul class="dropdown-menu">
             
-<li >
-    <a href="../../notes/router-overview/">Routers</a>
+<li class="active">
+    <a href="./">Routers</a>
 </li>
     </ul>
   </li>
@@ -146,15 +146,15 @@
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../iptables/">Introduction to Iptables</a>
+    <a href="../../resources/iptables/">Introduction to Iptables</a>
 </li>
             
 <li >
-    <a href="../netfilter-hooks/">Understanding Netfilter/Iptables Hooks</a>
+    <a href="../../resources/netfilter-hooks/">Understanding Netfilter/Iptables Hooks</a>
 </li>
             
 <li >
-    <a href="../wifi-reference/">Linux Wireless Configuration</a>
+    <a href="../../resources/wifi-reference/">Linux Wireless Configuration</a>
 </li>
     </ul>
   </li>
@@ -164,27 +164,27 @@
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../markdown/">Intro to Markdown</a>
-</li>
-            
-<li class="active">
-    <a href="./">Intro to Bash</a>
+    <a href="../../resources/markdown/">Intro to Markdown</a>
 </li>
             
 <li >
-    <a href="../host-config/">Mac/Win/Linux Networking</a>
+    <a href="../../resources/bash/">Intro to Bash</a>
 </li>
             
 <li >
-    <a href="../wireshark-install/">Install Wireshark</a>
+    <a href="../../resources/host-config/">Mac/Win/Linux Networking</a>
 </li>
             
 <li >
-    <a href="../manage-dhcp/">Troubleshooting DHCP</a>
+    <a href="../../resources/wireshark-install/">Install Wireshark</a>
 </li>
             
 <li >
-    <a href="../dns-clients/">Managing DNS Clients</a>
+    <a href="../../resources/manage-dhcp/">Troubleshooting DHCP</a>
+</li>
+            
+<li >
+    <a href="../../resources/dns-clients/">Managing DNS Clients</a>
 </li>
     </ul>
   </li>
@@ -199,12 +199,12 @@
                             </a>
                         </li>
                             <li >
-                                <a rel="next" href="../markdown/">
+                                <a rel="next" href="../../assignments/lab4/">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li >
-                                <a rel="prev" href="../host-config/">
+                                <a rel="prev" href="../../resources/iptables/">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -219,85 +219,41 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#intro-to-bash">Intro to Bash</a></li>
-            <li><a href="#directories">Directories</a></li>
-            <li><a href="#editing-files">Editing files</a></li>
-            <li><a href="#command-documentation">Command documentation</a></li>
-            <li><a href="#services-starting-stopping-status">Services: starting, stopping, status</a></li>
-            <li><a href="#copying-files-across-servers-with-scp">Copying Files Across Servers with scp</a></li>
-            <li><a href="#local-vs-remote">Local vs Remote</a></li>
-            <li><a href="#logs">Logs</a></li>
+        <li class="main active"><a href="#routers">Routers</a></li>
+            <li><a href="#what-is-a-router">What is a Router</a></li>
+            <li><a href="#routers-vs-multi-homed-hosts">Routers vs Multi-homed Hosts</a></li>
+            <li><a href="#routers-and-incoming-packets">Routers and Incoming Packets</a></li>
+            <li><a href="#routers-and-outgoing-packets">Routers and Outgoing Packets</a></li>
+            <li><a href="#terminology">Terminology</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="intro-to-bash">Intro to Bash<a class="headerlink" href="#intro-to-bash" title="Permanent link">&para;</a></h1>
-<blockquote>
-<p>Bash command, terminal command, command line command, for the purpose of our class these all mean the same things. You should already be familiar with bash from INFO 201 and INFO 340. This following section will help you refresh some of the basics.</p>
-</blockquote>
-<div class="admonition info">
-<p class="admonition-title">Huh, Bash?<p>If you feel completely lost and have never seen terminal commands we recommend watching these two videos:</p>
-<ul>
-<li><a href="https://www.youtube.com/watch?v=oxuRxtrO2Ag" target="_blank">Beginner's Guide to the Bash Terminal</a></li>
-<li><a href="https://www.udacity.com/course/shell-workshop--ud206" target="_blank">Udacity Shell Workshop</a></li>
-</ul>
-</p>
-</div>
-<h3 id="directories">Directories<a class="headerlink" href="#directories" title="Permanent link">&para;</a></h3>
-<ul>
-<li><code>cd</code> to change directories</li>
-<li><code>ls</code> to show files and directories at your current path</li>
-<li><code>ls -a</code> to also show hidden files</li>
-</ul>
-<h3 id="editing-files">Editing files<a class="headerlink" href="#editing-files" title="Permanent link">&para;</a></h3>
-<p>If you are editing a file on a remote server such as your Pi, you will not have the luxury of using a nice editor such as VS Code, Atom, or Sublime. Nevertheless, there are many powerful terminal editors.
-Use <code>nano</code> or <code>vim</code> to edit files through your terminal.</p>
-<p>How to edit a file that's on a linux server/your Pi:</p>
-<ul>
-<li>Use <code>nano &lt;fileName&gt;</code> or <code>vim &lt;filename&gt;</code></li>
-<li>Nano is beginner friendly. 
-If you are unfamiliar with these I recommend looking up a nano tutorial.</li>
-</ul>
-<h3 id="command-documentation">Command documentation<a class="headerlink" href="#command-documentation" title="Permanent link">&para;</a></h3>
-<p>If you don't know what a command does or how to use it simply use the <code>man</code> command! 
-<code>man &lt;commandName&gt;</code> will print out an documentation. Once you're done reading hit <code>q</code> on your keyboard to quit out.  In the following screenshots I enter <code>man nslookup</code> which provides me with more information on what <code>nslookup</code> does and how it's used.</p>
-<p><img alt="man command" src="../../img/man1.png" /></p>
-<p><img alt="man result" src="../../img/man2.png" /></p>
-<h3 id="services-starting-stopping-status">Services: starting, stopping, status<a class="headerlink" href="#services-starting-stopping-status" title="Permanent link">&para;</a></h3>
-<p>Control services by using the <code>systemctl</code> command. The format is <code>sudo systemctl &lt;action&gt; &lt;service name&gt;</code>.</p>
-<div class="admonition example">
-<p class="admonition-title">Example<p>Restart NGINX service: <code>sudo systemctl restart nginx</code></p>
-</p>
-</div>
-<h3 id="copying-files-across-servers-with-scp">Copying Files Across Servers with <em>scp</em><a class="headerlink" href="#copying-files-across-servers-with-scp" title="Permanent link">&para;</a></h3>
-<p>You can copy files from your laptop to a server or a server to your laptop by using <code>scp</code>. </p>
-<p>It uses our ssh tunnel to securely transfer your files back and forth. You can find great examples at <a href="http://www.hypexr.org/linux_scp_help.php">hyperx.org</a>.</p>
-<p>Copy all of the contents of a folder:</p>
-<p><code class="codehilite">scp -r  ava/*  root@157.230.163.231:/var/www/html/</code></p>
-<p>This copies everything in the ava folder to the html folder.</p>
-<h3 id="local-vs-remote">Local vs Remote<a class="headerlink" href="#local-vs-remote" title="Permanent link">&para;</a></h3>
-<p>A typical confusion for students when deadling with <code>scp</code> is whether their current terminal session is doing work on their local machine (your laptop), or on a remote machine (your Raspberry Pi or another server).</p>
-<p>You can tell which device your terminal session is doing work in by checking the hostname, that is whatever is after the <code>@</code> symbol. Take a look at the two example tabs below.</p>
-<div class="superfences-tabs">
-<input name="__tabs_1" type="radio" id="__tab_1_0" checked="checked" />
-<label for="__tab_1_0">Local</label>
-<div class="superfences-content"><div class="codehilite"><pre><span></span><span class="c1"># hostname = macbook-pro</span>
-<span class="c1"># This tells me  I&#39;m on my laptop.</span>
-ben@macbook-pro:~/Desktop/info-314/
-</pre></div></div>
-<input name="__tabs_1" type="radio" id="__tab_1_1" />
-<label for="__tab_1_1">Remote</label>
-<div class="superfences-content"><div class="codehilite"><pre><span></span><span class="c1"># hostname = debian-lab1</span>
-<span class="c1"># I must be on my server now.</span>
-ben@debian-lab1:~$
-</pre></div></div>
-</div>
-<h3 id="logs">Logs<a class="headerlink" href="#logs" title="Permanent link">&para;</a></h3>
-<p>Check a service's logs. This is a great way to see if it ran into any errors. If for some reason a service keeps crashing or behaving strangely you'd want to dig into its logs and see if it's unhappy with something.</p>
-<ul>
-<li><code class="codehilite">sudo journcalctl -u &lt;service name&gt;</code></li>
-<li>If you specifically only want to see the most recent parts of the log, you can pipe the information it gives you into the tail command, which only shows any files' ending lines. <code class="codehilite">sudo journalctl -u &lt;service name here&gt;.service <span class="p">|</span> tail -n <span class="m">100</span></code></li>
-</ul></div>
+<h1 id="routers">Routers<a class="headerlink" href="#routers" title="Permanent link">&para;</a></h1>
+<p>Routers and routing are frequent topics when we discuss networking, and it is all too easy for newcomers to overlook or misunderstand some of the assumptions we make about these terms. Let’s take a step back and review the fundamentals.</p>
+<h2 id="what-is-a-router">What is a Router<a class="headerlink" href="#what-is-a-router" title="Permanent link">&para;</a></h2>
+<p>A router is a computing device that is attached to two or more networks <em>and</em> is set up so that it can forward packets from one network to another. Both of these conditions are necessary in order for us to call something a router. You might think that all routers are special purpose, embedded devices like the ones you see on most home or office networks. In reality, most computers<sup id="fnref:hotspots"><a class="footnote-ref" href="#fn:hotspots">1</a></sup> are capable of routing, so long as the hardware supports multiple network connections and the software supports forwarding between networks.</p>
+<h2 id="routers-vs-multi-homed-hosts">Routers vs Multi-homed Hosts<a class="headerlink" href="#routers-vs-multi-homed-hosts" title="Permanent link">&para;</a></h2>
+<p>It is not uncommon for a device to be connected to multiple networks without being configured to route traffic. A device with this configuration, e.g., your Pi prior to checkpoint #3, is known as a multi-homed host. A non-routing, multi-homed hosts will drop packets that aren’t directly addressed to it at both Layer-2 (MAC address) and Layer-3 (IP address). This behavior is exactly the same as an ordinary host attached to a single network.</p>
+<h2 id="routers-and-incoming-packets">Routers and Incoming Packets<a class="headerlink" href="#routers-and-incoming-packets" title="Permanent link">&para;</a></h2>
+<p>On an ethernet-based network, a router will process any frame for which the destination MAC address matches the MAC of the NIC on which the frame was received. After processing Layer-2, the router examines the packet’s IP headers. Assuming that the destination IP address is not a match for the router’s IP address, the router will consult its route table in order to forward the packet closer to its final destination. Packets addressed directly to the router will continue to be processed so that they can be delivered to an internal process via a socket. </p>
+<h2 id="routers-and-outgoing-packets">Routers and Outgoing Packets<a class="headerlink" href="#routers-and-outgoing-packets" title="Permanent link">&para;</a></h2>
+<p>Most of the unique magic that distinguishes routers from ordinary hosts takes place on inbound packets. You might be surprised to learn that the process of sending a packet is the same for packets from local applications as it is for packets forwarded between networks. </p>
+<p>No matter where a packet comes from or where it is going, packet-communication occurs on a hop-by-hop basis. Every host starts this process by comparing its destination address to entries defined in its own routing table. Matches are identified when the network bits of the destination match a network id in the based on the correspondence netmask or CIDR defined in the routing table<sup id="fnref:longest-match"><a class="footnote-ref" href="#fn:longest-match">2</a></sup>.</p>
+<p>After finding a match, the network stack can start the process of forwarding to the next hop. If the final destination is on a directly attached network, ARP is used to determine the MAC address of the destination and the packet will be forwarded directly. Otherwise, the routing table can be used to find a <em>next hop</em> IP address for a directly attached network. Once again, with the next hop IP, ARP can be used to determine the MAC address so that the packet can be forwarded directly.</p>
+<h2 id="terminology">Terminology<a class="headerlink" href="#terminology" title="Permanent link">&para;</a></h2>
+<p>Routing terminology is a common sticking point for many students and professionals. In particular, it can be useful to understand the finer distinctions between the terms <em>routing</em> and <em>forwarding</em>. At Layer-3, the word forwarding describes the mechanics of passing an inbound packet from its origin interface back onto a different network through an outbound interface. The mechanics of finding a matching route and pushing the packet out the appropriate interface are all part of the forwarding process. In contrast, routing refers to the entire end-to-end process that gets a packet to the right place.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:hotspots">
+<p>When we say most computers, we mean it. Have you ever used your mobile phone as a hotspot for your tablet or computer? Give it a shot, and if you’re able, use <code>traceroute</code> or <code>tracert</code> to observe the routing process in action.&#160;<a class="footnote-backref" href="#fnref:hotspots" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:longest-match">
+<p>It is possible for a routing table to find multiple matches. In this case, ties are broken by looking for the most specific entry, i.e., the longest matching network prefix. Other metrics may be used if there are multiple entries for a given network ID.&#160;<a class="footnote-backref" href="#fnref:longest-match" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
         </div>
 
         <footer class="col-md-12">

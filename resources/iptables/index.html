@@ -8,7 +8,7 @@
         <meta name="author" content="Clinton Campbell">
         <link rel="canonical" href="https://info314.tcpip.dev/resources/iptables/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Introduction to iptables - INFO 314 Course Resources</title>
+        <title>Introduction to Iptables - INFO 314 Course Resources</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -128,40 +128,66 @@
                                 </ul>
                             </li>
                             <li class="dropdown active">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reference <b class="caret"></b></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Resources <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
+  <li class="dropdown-submenu">
+    <a href="#">Concepts and Theory</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../notes/router-overview/">Routers</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">Guides</a>
+    <ul class="dropdown-menu">
+            
+<li class="active">
+    <a href="./">Introduction to Iptables</a>
+</li>
+            
+<li >
+    <a href="../netfilter-hooks/">Understanding Netfilter/Iptables Hooks</a>
+</li>
+            
+<li >
+    <a href="../wifi-reference/">Linux Wireless Configuration</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">Quick Reference</a>
+    <ul class="dropdown-menu">
+            
 <li >
     <a href="../markdown/">Intro to Markdown</a>
 </li>
-                                    
+            
 <li >
     <a href="../bash/">Intro to Bash</a>
 </li>
-                                    
+            
 <li >
     <a href="../host-config/">Mac/Win/Linux Networking</a>
 </li>
-                                    
+            
 <li >
     <a href="../wireshark-install/">Install Wireshark</a>
 </li>
-                                    
-<li >
-    <a href="../wifi-reference/">Linux Wireless Reference</a>
-</li>
-                                    
+            
 <li >
     <a href="../manage-dhcp/">Troubleshooting DHCP</a>
 </li>
-                                    
+            
 <li >
     <a href="../dns-clients/">Managing DNS Clients</a>
 </li>
-                                    
-<li class="active">
-    <a href="./">Introduction to iptables</a>
-</li>
+    </ul>
+  </li>
                                 </ul>
                             </li>
                         </ul>
@@ -173,12 +199,12 @@
                             </a>
                         </li>
                             <li >
-                                <a rel="next" href="../dns-clients/">
+                                <a rel="next" href="../../notes/router-overview/">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
-                            <li class="disabled">
-                                <a rel="prev" >
+                            <li >
+                                <a rel="prev" href="../netfilter-hooks/">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -202,6 +228,7 @@
                 <div class="col-md-9" role="main">
 
 <h1 id="introduction-to-iptables">Introduction to Iptables<a class="headerlink" href="#introduction-to-iptables" title="Permanent link">&para;</a></h1>
+<p>This guide serves the dual purpose of providing an introductino to iptables and using it to build a basic ruleset that routes packets between an internal and external network while also applying NAT to private, internal addresses. You should read the entire guide carefully before attempting to install the template or any of the other tools referenced here.</p>
 <h2 id="tables-chains-and-rule-syntax">Tables, Chains, and Rule Syntax<a class="headerlink" href="#tables-chains-and-rule-syntax" title="Permanent link">&para;</a></h2>
 <p>Iptables is a tool that has been used for more than 20 years to allow administrators to manage <em>packet filter rules</em> that shape the behavior of the Linux kernel's network stack.</p>
 <h3 id="tables">Tables<a class="headerlink" href="#tables" title="Permanent link">&para;</a></h3>
@@ -210,6 +237,7 @@
 <p>Within each table, rules are assigned to a structure called a chain. A chain is nothing more than an ordered list of rules. Rule conditions are tested in order from the beginning of the chain. Each rule ends with an action. If the conditions of a rule match, iptables will apply the specified action or jump to another chain without processing the other rules. If conditions do not match, the next rule in the chain will be evaluated.</p>
 <p>The default chains correspond to different points in the packet lifecycle. Within the <code>filter</code> table, we will often work with the <code>INPUT</code>, <code>OUTPUT</code>, and <code>FORWARD</code> chains. These chains correspond to packets sent to the host (<code>INPUT</code>), packets being sent by the host (<code>OUTPUT</code>), and packets being routed through the host (<code>FORWARD</code>). </p>
 <p>Within the <code>nat</code> table, our focus will be on the <code>POSTROUTING</code> chain. This chain represents the last set of rules that will be evaluated before forwarding a filtered packet. This is where we want to apply address mappings related to SNAT and masquerading. In contrast, the <code>PREROUTING</code> chain is applied before any other process and is used to specify DNAT rules.</p>
+<p>For a more detailed exploration of the chains we have discussed, see <a href="/resources/netfilter-hooks">Understanding Netfilter/Iptables Hooks</a>.</p>
 <h3 id="managing-rules-from-the-command-line">Managing Rules from the Command Line<a class="headerlink" href="#managing-rules-from-the-command-line" title="Permanent link">&para;</a></h3>
 <p>We can load a set of iptables rules from a file or manage them directly from the command line with the <code>iptables</code> command (<code>sudo</code> is required). As we explain the structure of rules, we will provide examples using the command line variant of iptables rule syntax.</p>
 <p>The first component of a rule specified from the command line is the table name. Specify the table using the <code>-t</code> option to the <code>iptables command</code>. If you don't specify a table explicitly, the filter table will be used by default. </p>
@@ -287,7 +315,8 @@ iptables -P FORWARD DROP
 
 <p>Be careful, however, that you don't lock yourself out by a bad combination of rules and policies. For example, setting <code>-P INPUT DROP</code> and <code>-P OUTPUT DROP</code> will block all inbound and outbound traffic to your Pi unless you previously added rules to explicitly allow SSH or other tools that are needed for management purposes. Even when you correctly add these rules, it's relatively easy to lock yourself out of a device by flushing your current ruleset --  deleting the rules from all chains while leaving your policies intact.</p>
 <h3 id="final-nat-template">Final NAT Template<a class="headerlink" href="#final-nat-template" title="Permanent link">&para;</a></h3>
-<p>The following template draws together all of the components we have discussed so far to define a basic NAT configuration for a Linux router. The syntax for this template differs somewhat from the commands we explored above. Rather than invoking each rule or policy through the <code>iptables</code> command, this template would be applied via <code>iptables-restore</code> or <code>iptables-apply</code>.</p>
+<p>The following template draws together all of the components we have discussed so far to define a basic NAT configuration for a Linux router. The syntax for this template differs somewhat from the commands we explored above. Rather than invoking each rule or policy in this file through the <code>iptables</code> command, this template would be applied via <code>iptables-restore</code> or <code>iptables-apply</code>. </p>
+<p>To prepare to use this template, save a copy of this template to the home directory (file name does not matter) of your Linux router. Pay close attention to the comments within the file, since they explain some of the differences in syntax.</p>
 <div class="codehilite"><pre><span></span># Fill in the parameters in &lt;&gt; in order to complete the ruleset
 
 # Rules are given on a table-by-table basis, beginning with the *&lt;table&gt; and
@@ -317,14 +346,15 @@ COMMIT
 </pre></div>
 
 <h2 id="loading-rules-from-the-file-system-with-iptables-persistent">Loading rules from the file system with <code>iptables-persistent</code><a class="headerlink" href="#loading-rules-from-the-file-system-with-iptables-persistent" title="Permanent link">&para;</a></h2>
-<p>For simplicity, we’ll rely on on a collection of tools called <code>iptables-persistent</code> to load the rules at boot. On boot, <code>iptables-persistent</code> will automatically load rules from <code>/etc/iptables/rules.v4</code>.</p>
-<p>Like many other tools, <code>iptables-persistent</code> is available as a package in Debian's package repository. Use <code>apt</code> to install the <code>iptables-persistent</code> package before proceeding with the remaining steps.</p>
-<p>Make a copy of your rules within your home directory and use <code>iptables-apply</code> to test that they work before writing them to <code>/etc/iptables/rules.v4</code>. While it is possible to edit <code>/etc/iptables/rules.v4</code> directly, it is not recommended.</p>
+<p>For simplicity, we’ll rely on on a collection of tools called <code>iptables-persistent</code> to test our rules and then load them automatically at boot. </p>
 <div class="admonition danger">
-<p class="admonition-title">Always test your rules</p>
-<p>The risk of adding rules directly to <code>/etc/iptables/rules.v4</code> is that you create a rule that locks you out of your device and cannot bypass it since it is loaded at boot. <code>iptables-persistent</code> provides a tool that allows us to test a set of rules before making them fully persistent.</p>
+<p class="admonition-title">Here be Dragons</p>
+<p>Do not write rules directly to <code>/etc/iptables/rules.v4</code>. If you do this, you risk creating a rule that locks you out of your device from the network. Without an external monitor and keyboard, you will not be able to bypass these changes since they are loaded at boot. </p>
+<p>We are presenting <code>iptables-persistent</code> to provide you with a tool that allows us you to apply new rules safely by testing changes before making them fully persistent.</p>
 </div>
-<p>The following command will load the rules from <code>~/untested_rules</code> and wait for <strong>60 seconds</strong> while you confirm that you can still SSH into the device from a second terminal tab or window. If you respond affirmatively to the final prompt within the time limit, the rules will remain active <strong>and</strong> be written to a location where they are automatically reloaded at boot. </p>
+<p>Like many other tools, <code>iptables-persistent</code> is available as a package in Debian's package repository. This package contains tools to help you test new rules and install them into the <code>/etc/iptables/rules.v4</code> path so that they can be loaded automatically in the future. Use <code>apt</code> to install the <code>iptables-persistent</code> package before attempting the instructions below.</p>
+<p>Make a copy of your rules within your <em>home directory</em> (file name does not matter) and use the <code>iptables-apply</code> command as shown below to test that they work before writing them to <code>/etc/iptables/rules.v4</code>. While it is possible to edit <code>/etc/iptables/rules.v4</code> directly, we recomend against it. </p>
+<p>The following command will flush iptables and load the rules given in <code>~/untested_rules</code>. After loading the rules, <code>iptables-apply</code> waits for <strong>60 seconds</strong> while you confirm that you can still SSH into the device from a second terminal tab or window. If your rules work as intended, you need respond affirmatively at this final prompt within the time limit so that iptables-apply can write them to a permanent location. If you skip this step, iptables-apply will assume that your test failed and restore the old version of the rules.</p>
 <div class="codehilite"><pre><span></span>sudo iptables-apply -t 60 -w /etc/iptables/rules.v4 ~/untested_rules
 </pre></div>
 
@@ -332,7 +362,8 @@ COMMIT
 <p>As a final test that your rules are loaded, reboot the Pi, connect with SSH, and list the rules with <code>sudo iptables-save</code>. If you don’t see your rules, something went wrong.</p>
 <h2 id="resources">Resources<a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="https://www.digitalocean.com/community/tutorials/a-deep-dive-into-iptables-and-netfilter-architecture">Iptables and Netfilter Deep Dive</a></li>
+<li><a href="/resources/netfilter-hooks">Understanding Netfilter/Iptables Hooks</a></li>
+<li><a href="https://www.digitalocean.com/community/tutorials/a-deep-dive-into-iptables-and-netfilter-architecture">Digital Ocean Tutorial - Iptables and Netfilter Deep Dive</a></li>
 <li><a href="http://www.oreilly.com/openbook/linag2/book/ch11.html">Linux Network Administrators Guide - Masquerading</a></li>
 <li><a href="https://www.digitalocean.com/community/tutorials/how-to-list-and-delete-iptables-firewall-rules">DigitalOcean Tutorial - Manipulate Iptables Rules</a></li>
 </ul></div>
