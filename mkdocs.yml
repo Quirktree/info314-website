@@ -29,15 +29,20 @@ nav:
     - Lab 2: assignments/lab2.md
     - Lab 3: assignments/lab3.md
     - Lab 4: assignments/lab4.md
-  - Reference:
-    - Intro to Markdown: resources/markdown.md
-    - Intro to Bash: resources/bash.md
-    - Mac/Win/Linux Networking: resources/host-config.md
-    - Install Wireshark: resources/wireshark-install.md
-    - Linux Wireless Reference: resources/wifi-reference.md
-    - Troubleshooting DHCP: resources/manage-dhcp.md
-    - Managing DNS Clients: resources/dns-clients.md
-    - Introduction to iptables: resources/iptables.md
+  - Resources:
+    - Concepts and Theory:
+      - Routers: notes/router-overview.md
+    - Guides:
+      - Introduction to Iptables: resources/iptables.md
+      - Understanding Netfilter/Iptables Hooks: resources/netfilter-hooks.md
+      - Linux Wireless Configuration: resources/wifi-reference.md
+    - Quick Reference:
+      - Intro to Markdown: resources/markdown.md
+      - Intro to Bash: resources/bash.md
+      - Mac/Win/Linux Networking: resources/host-config.md
+      - Install Wireshark: resources/wireshark-install.md
+      - Troubleshooting DHCP: resources/manage-dhcp.md
+      - Managing DNS Clients: resources/dns-clients.md
 
         #      - Asking for help: contact.md
         #- Resources:

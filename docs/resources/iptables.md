@@ -1,4 +1,5 @@
 # Introduction to Iptables
+This guide serves the dual purpose of providing an introductino to iptables and using it to build a basic ruleset that routes packets between an internal and external network while also applying NAT to private, internal addresses. You should read the entire guide carefully before attempting to install the template or any of the other tools referenced here.
 
 ## Tables, Chains, and Rule Syntax
 
@@ -13,6 +14,8 @@ Within each table, rules are assigned to a structure called a chain. A chain is 
 The default chains correspond to different points in the packet lifecycle. Within the `filter` table, we will often work with the `INPUT`, `OUTPUT`, and `FORWARD` chains. These chains correspond to packets sent to the host (`INPUT`), packets being sent by the host (`OUTPUT`), and packets being routed through the host (`FORWARD`). 
 
 Within the `nat` table, our focus will be on the `POSTROUTING` chain. This chain represents the last set of rules that will be evaluated before forwarding a filtered packet. This is where we want to apply address mappings related to SNAT and masquerading. In contrast, the `PREROUTING` chain is applied before any other process and is used to specify DNAT rules.
+
+For a more detailed exploration of the chains we have discussed, see [Understanding Netfilter/Iptables Hooks](/resources/netfilter-hooks).
 
 ### Managing Rules from the Command Line
 We can load a set of iptables rules from a file or manage them directly from the command line with the `iptables` command (`sudo` is required). As we explain the structure of rules, we will provide examples using the command line variant of iptables rule syntax.
@@ -110,7 +113,9 @@ iptables -P FORWARD DROP
 Be careful, however, that you don't lock yourself out by a bad combination of rules and policies. For example, setting `-P INPUT DROP` and `-P OUTPUT DROP` will block all inbound and outbound traffic to your Pi unless you previously added rules to explicitly allow SSH or other tools that are needed for management purposes. Even when you correctly add these rules, it's relatively easy to lock yourself out of a device by flushing your current ruleset --  deleting the rules from all chains while leaving your policies intact.
 
 ### Final NAT Template
-The following template draws together all of the components we have discussed so far to define a basic NAT configuration for a Linux router. The syntax for this template differs somewhat from the commands we explored above. Rather than invoking each rule or policy through the `iptables` command, this template would be applied via `iptables-restore` or `iptables-apply`.
+The following template draws together all of the components we have discussed so far to define a basic NAT configuration for a Linux router. The syntax for this template differs somewhat from the commands we explored above. Rather than invoking each rule or policy in this file through the `iptables` command, this template would be applied via `iptables-restore` or `iptables-apply`. 
+
+To prepare to use this template, save a copy of this template to the home directory (file name does not matter) of your Linux router. Pay close attention to the comments within the file, since they explain some of the differences in syntax.
 
 ```
 # Fill in the parameters in <> in order to complete the ruleset
@@ -142,16 +147,18 @@ COMMIT
 ```
 
 ## Loading rules from the file system with `iptables-persistent`
-For simplicity, we’ll rely on on a collection of tools called `iptables-persistent` to load the rules at boot. On boot, `iptables-persistent` will automatically load rules from `/etc/iptables/rules.v4`.
+For simplicity, we’ll rely on on a collection of tools called `iptables-persistent` to test our rules and then load them automatically at boot. 
 
-Like many other tools, `iptables-persistent` is available as a package in Debian's package repository. Use `apt` to install the `iptables-persistent` package before proceeding with the remaining steps.
+!!! danger "Here be Dragons"
+    Do not write rules directly to `/etc/iptables/rules.v4`. If you do this, you risk creating a rule that locks you out of your device from the network. Without an external monitor and keyboard, you will not be able to bypass these changes since they are loaded at boot. 
+    
+    We are presenting `iptables-persistent` to provide you with a tool that allows us you to apply new rules safely by testing changes before making them fully persistent.
 
-Make a copy of your rules within your home directory and use `iptables-apply` to test that they work before writing them to `/etc/iptables/rules.v4`. While it is possible to edit `/etc/iptables/rules.v4` directly, it is not recommended.
+Like many other tools, `iptables-persistent` is available as a package in Debian's package repository. This package contains tools to help you test new rules and install them into the `/etc/iptables/rules.v4` path so that they can be loaded automatically in the future. Use `apt` to install the `iptables-persistent` package before attempting the instructions below.
 
-!!! danger "Always test your rules"
-    The risk of adding rules directly to `/etc/iptables/rules.v4` is that you create a rule that locks you out of your device and cannot bypass it since it is loaded at boot. `iptables-persistent` provides a tool that allows us to test a set of rules before making them fully persistent.
+Make a copy of your rules within your _home directory_ (file name does not matter) and use the `iptables-apply` command as shown below to test that they work before writing them to `/etc/iptables/rules.v4`. While it is possible to edit `/etc/iptables/rules.v4` directly, we recomend against it. 
 
-The following command will load the rules from `~/untested_rules` and wait for **60 seconds** while you confirm that you can still SSH into the device from a second terminal tab or window. If you respond affirmatively to the final prompt within the time limit, the rules will remain active **and** be written to a location where they are automatically reloaded at boot. 
+The following command will flush iptables and load the rules given in `~/untested_rules`. After loading the rules, `iptables-apply` waits for **60 seconds** while you confirm that you can still SSH into the device from a second terminal tab or window. If your rules work as intended, you need respond affirmatively at this final prompt within the time limit so that iptables-apply can write them to a permanent location. If you skip this step, iptables-apply will assume that your test failed and restore the old version of the rules.
 
 ```
 sudo iptables-apply -t 60 -w /etc/iptables/rules.v4 ~/untested_rules
@@ -163,6 +170,7 @@ As a final test that your rules are loaded, reboot the Pi, connect with SSH, and
 
 ## Resources
 
-- [Iptables and Netfilter Deep Dive](https://www.digitalocean.com/community/tutorials/a-deep-dive-into-iptables-and-netfilter-architecture)
+- [Understanding Netfilter/Iptables Hooks](/resources/netfilter-hooks)
+- [Digital Ocean Tutorial - Iptables and Netfilter Deep Dive](https://www.digitalocean.com/community/tutorials/a-deep-dive-into-iptables-and-netfilter-architecture)
 - [Linux Network Administrators Guide - Masquerading](http://www.oreilly.com/openbook/linag2/book/ch11.html)
 - [DigitalOcean Tutorial - Manipulate Iptables Rules](https://www.digitalocean.com/community/tutorials/how-to-list-and-delete-iptables-firewall-rules)
