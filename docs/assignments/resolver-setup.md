@@ -33,7 +33,7 @@ The term _DNS server_ can refer to several distinct roles that are defined in th
 
 [^server-types]: See [A Comparison of DNS Server Types](https://www.digitalocean.com/community/tutorials/a-comparison-of-dns-server-types-how-to-choose-the-right-dns-configuration)
 
-To accomplish this objective, refer to the section of Digital Ocean's tutorial[^tutorial], which demonstrates how to set up a caching DNS server.
+To accomplish this objective, refer to the section of Digital Ocean's tutorial[^tutorial], which demonstrates how to set up a caching DNS server (be sure to stop after this section) and the notes below.
 
 [^tutorial]: See [How to Configure Bind as a Caching or Forwarding DNS Server](https://www.digitalocean.com/community/tutorials/how-to-configure-bind-as-a-caching-or-forwarding-dns-server-on-ubuntu-16-04)
 
