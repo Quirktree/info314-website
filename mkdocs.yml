@@ -37,6 +37,7 @@ nav:
     - Lab 5: assignments/lab5.md
   - Resources:
     - Concepts and Theory:
+      - Domain Name System (DNS): notes/dns-overview.md
       - Routers: notes/router-overview.md
     - Guides:
       - Introduction to Iptables: resources/iptables.md
