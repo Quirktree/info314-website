@@ -24,7 +24,3 @@ In the remaining weeks of the quarter, we will create a network service using th
 
 [^encoding]: [https://www.pythoncentral.io/encoding-and-decoding-strings-in-python-3-x/](https://www.pythoncentral.io/encoding-and-decoding-strings-in-python-3-x/)
 [^arguments]: [https://stackabuse.com/command-line-arguments-in-python/](https://stackabuse.com/command-line-arguments-in-python/) 
-
-
-*  
-*   
