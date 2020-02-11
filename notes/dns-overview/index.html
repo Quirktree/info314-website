@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Clinton Campbell">
+        <link rel="canonical" href="https://info314.tcpip.dev/notes/dns-overview/">
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Domain Name System (DNS) - INFO 314 Course Resources</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/color-brewer.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../..">INFO 314 Course Resources</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">1 - Pi Setup</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../assignments/pi-setup/">Raspberry Pi Setup</a>
+</li>
+            
+<li >
+    <a href="../../assignments/networkd-setup/">networkd Setup</a>
+</li>
+            
+<li >
+    <a href="../../resources/wifi-reference/">Wifi Reference</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">2 - Set up a DHCP Server</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../resources/address-planning/">IP Address Planning Reference</a>
+</li>
+            
+<li >
+    <a href="../../assignments/dhcp-setup/">Installing and Configuring the ISC DHCP Server</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">3 - Configure Routing and NAT</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../assignments/router-setup/">Router Setup</a>
+</li>
+            
+<li >
+    <a href="../../resources/iptables/">Introduction to iptables</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">4 - Configure a DNS Resolver</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../assignments/resolver-setup/">DNS Resolver Setup</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">Report - NAT and DNS Analysis</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../assignments/analysis-report/">Instructions</a>
+</li>
+            
+<li >
+    <a href="../../resources/tshark-install/">Installing TShark</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">Extra Credit</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../assignments/vlan-challenge/">VLAN Challenge</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../assignments/lab2/">Lab 2</a>
+</li>
+                                    
+<li >
+    <a href="../../assignments/lab3/">Lab 3</a>
+</li>
+                                    
+<li >
+    <a href="../../assignments/lab4/">Lab 4</a>
+</li>
+                                    
+<li >
+    <a href="../../assignments/lab5/">Lab 5</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Resources <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">Concepts and Theory</a>
+    <ul class="dropdown-menu">
+            
+<li class="active">
+    <a href="./">Domain Name System (DNS)</a>
+</li>
+            
+<li >
+    <a href="../router-overview/">Routers</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">Guides</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../resources/iptables/">Introduction to Iptables</a>
+</li>
+            
+<li >
+    <a href="../../resources/netfilter-hooks/">Understanding Netfilter/Iptables Hooks</a>
+</li>
+            
+<li >
+    <a href="../../resources/wifi-reference/">Linux Wireless Configuration</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">Quick Reference</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../resources/markdown/">Intro to Markdown</a>
+</li>
+            
+<li >
+    <a href="../../resources/bash/">Intro to Bash</a>
+</li>
+            
+<li >
+    <a href="../../resources/host-config/">Mac/Win/Linux Networking</a>
+</li>
+            
+<li >
+    <a href="../../resources/wireshark-install/">Install Wireshark</a>
+</li>
+            
+<li >
+    <a href="../../resources/tshark-install/">Install TShark</a>
+</li>
+            
+<li >
+    <a href="../../resources/manage-dhcp/">Troubleshooting DHCP</a>
+</li>
+            
+<li >
+    <a href="../../resources/dns-clients/">Managing DNS Clients</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../../assignments/lab5/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../router-overview/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/quirktree/info314-website">quirktree/info314-website</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#domain-name-system">Domain Name System</a></li>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#dns-namespace-and-zones">DNS Namespace and Zones</a></li>
+            <li><a href="#protocol">Protocol</a></li>
+            <li><a href="#common-resource-record-rr-types">Common Resource Record (RR) Types</a></li>
+            <li><a href="#additional-topics">Additional Topics</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="domain-name-system">Domain Name System<a class="headerlink" href="#domain-name-system" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The domain name system (DNS) is a distributed, hierarchical data store and name resolution service that is used primarily to resolve IP addresses based on much more user-friendly domain names. DNS is a powerful and rather complex system that plays a variety of crucial roles in modern systems and applications. It is so central to these systems that any degradation of service will severely impact the usability of a network-connected computer or mobile device (e.g., resulting in extremely slow boot and application launch times).</p>
+<p>Our objective is to gain a functional understanding of the system, which we can apply broadly to our work in other areas of the informatics domain. The following videos provide a highly accessible starting point.</p>
+<ul>
+<li>Pieter Explains Tech  <a href="https://www.youtube.com/watch?v=GlZC4Jwf3xQ">https://www.youtube.com/watch?v=GlZC4Jwf3xQ</a></li>
+<li>Khan Academy <a href="https://www.khanacademy.org/computing/computer-science/internet-intro/internet-works-intro/v/the-internet-ip-addresses-and-dns">https://www.khanacademy.org/computing/computer-science/internet-intro/internet-works-intro/v/the-internet-ip-addresses-and-dns</a></li>
+</ul>
+<h2 id="dns-namespace-and-zones">DNS Namespace and Zones<a class="headerlink" href="#dns-namespace-and-zones" title="Permanent link">&para;</a></h2>
+<p>As you've seen, domain names are structured in a hierarchical manner that reflects the decentralized nature of the domain name system. The DNS namespace can be represented by a tree, with branches descending from a common root. A fully-qualified domain name (FQDN) is written by concatenating labels from left-to-right, tracing the path from a leaf node to the root by way of the parent nodes. A trailing dot, representative of the root, is appended to the FQDN for DNS operations though it is omitted in most user-facing applications. </p>
+<p>Below the root, the top-most level of the graph represents top-level domains (TLD), such as com, net, and edu, that appear at the end of every FQDN. IANA and its parent organization ICANN oversee the governance of the DNS root and top-level domains, though it delegates registration functions and operation of root and TLD name servers to independent organizations.</p>
+<p>Names appearing as children of each TLD are assigned to organizations through the domain registration process. An organization registers a domain name by working with an ICANN-accredited registrar or a reseller subcontracted by an accredited registrar. </p>
+<ul>
+<li><a href="https://whois.icann.org/en/domain-name-registration-process">https://whois.icann.org/en/domain-name-registration-process</a></li>
+</ul>
+<p>Further subdivisions of the registered namespace can be created by the registrant. These subdomains appear as children of the registrant domains in the DNS tree described previously.</p>
+<h3 id="dns-zones">DNS Zones<a class="headerlink" href="#dns-zones" title="Permanent link">&para;</a></h3>
+<p>The hierarchical structure of DNS lends to dividing administrative responsibility of the global namespace. The term "zone" refers to these administrative divisions. Each zone in DNS is a contiguous portion of the namespace under the administrative responsibility of a single manager. While zones are often aligned with individual domain registrations, the relationship is not one-to-one. A zone may include multiple domains. Likewise, a domain may be divided into additional zones encapsulating distinct subtrees. </p>
+<p>The root zone database is managed by IANA and contains the authority records for the TLDs. Likewise, IANA assigns operators for the TLDs. These operators maintain the authoritative database of all domain names and authority records registered in the TLD. These databases are referred to as the DNS registries and can be queried to identify the authoritative nameservers for child zones.</p>
+<h3 id="dns-name-servers">DNS Name Servers<a class="headerlink" href="#dns-name-servers" title="Permanent link">&para;</a></h3>
+<p>Each zone, including the root, is hosted by one or more name servers that store collection of resource records associated with the corresponding subset of the DNS namespace. The primary service of root name servers and TLD name servers is to provide information about where to query the next level of the namespace. </p>
+<p>Roots point to TLD name servers and TLDs point to authoritative name servers for second-level domains. The primary records served by these servers are NS records along with A/AAAA glue records that identify the IP addresses for the provided servers. Likewise, the root and TLD servers distribute records related to DNS Security (DNSSEC) mechanisms.</p>
+<p>In addition to the root servers and TLD servers described above, resource records for each zone are hosted by at least one authoritative name server.  These authoritative name servers may be hosted by the registrant itself or by a third-party DNS hosting service. Many organizations maintain internal, private zones serving records that are only available within well-defined network boundaries.</p>
+<p>Not all name servers are authoritative for a zone. Plenty of servers are created to satisfy service requirements for performance, redundancy, or security. Recursive name servers are used by clients to resolve DNS requests without having to perform iterative queries of root, TLD, and registrant name servers. When a recursive name server receives a query that it cannot resolve independently, it queries the upper-level zones to find the answer that it returns to the original client. This process can be sped up significantly by caching results, though care must be observed to prevent serving stale records from a cache.</p>
+<ul>
+<li><a href="https://www.lifewire.com/dns-root-name-servers-3971336">https://www.lifewire.com/dns-root-name-servers-3971336</a></li>
+<li><a href="https://www.iana.org/domains/root/servers">https://www.iana.org/domains/root/servers</a></li>
+<li><a href="http://root-servers.org">http://root-servers.org</a></li>
+</ul>
+<h3 id="redundancy-and-reliability">Redundancy and Reliability<a class="headerlink" href="#redundancy-and-reliability" title="Permanent link">&para;</a></h3>
+<p>The modern internet is heavily dependent on DNS, so much so that DNS disruptions and failures can take businesses and users offline. Even seemingly minor performance issues can multiply and cause noticeable delays for networking operations. </p>
+<p>To combat these issues, many DNS service providers rely heavily on IPv4/v6 Anycast to ensure that a fleet of servers are available to answer queries. These service providers leverage BGP, the dynamic routing protocol of the Internet to assign the same IP address, e.g., 1.1.1.1, to each of their servers scattered around the world. Each DNS request that passes through the Internet will be routed to exactly one of these servers, typically the server that is closest to the sender. </p>
+<p><a href="http://dyn.com/blog/unicast-vs-anycast-dns-nameserver-routing/">http://dyn.com/blog/unicast-vs-anycast-dns-nameserver-routing/</a>
+<a href="http://blog.catchpoint.com/2015/06/16/dns-anycast/">http://blog.catchpoint.com/2015/06/16/dns-anycast/</a></p>
+<h2 id="protocol">Protocol<a class="headerlink" href="#protocol" title="Permanent link">&para;</a></h2>
+<p>As the prior sections have suggested, the DNS protocol is a query response protocol that is used to resolve IP addresses and other metadata stored in resource records based on DNS names. The protocol can be run atop both UDP and TCP for transport and uses port 53 in both cases. </p>
+<p>Basic DNS queries are most likely to be served over UDP, as this protocol provides the most efficient transport mechanism by avoiding the multi-round trip cost associated with the TCP handshake. The connection-oriented TCP protocol is most likely to be used for responses over 512 bytes to ensure that the message fits in a single datagram. Zone transfers used to transfer domain information between primary and secondary name servers are a common example of TCP-based DNS transactions.</p>
+<p>The DNS protocol itself is unicast, though a multicast version (mDNS) has been defined to support communication on local networks without the need for supporting infrastructure. Multicast DNS is served on port 5353 of the 224.0.0.251 multicast address. The mDNS protocol was popularized by Apple under the Bonjour trademark, but it has more recently made its way into the most popular mobile and desktop operating systems by way of zeroconf initiatives. </p>
+<h2 id="common-resource-record-rr-types">Common Resource Record (RR) Types<a class="headerlink" href="#common-resource-record-rr-types" title="Permanent link">&para;</a></h2>
+<p>DNS-related RFCs define many different record types for general use and specific applications. We address the most common records here:</p>
+<p>Start of Authority (SOA) records identify the primary name server and administrator responsible for a given zone as well as version information and base parameters that impact communication between servers in a zone and caching of records related to the zone. </p>
+<p>Name Server (NS) records indicate which name servers are authoritative for a given zone. These records are also accompanied by so-called glue records that store the IP addresses associated with the server name stored in an NS.</p>
+<p>Address (A) records are among the most familiar DNS records. Their role is simple in that they associate the IPv4 address of a resource with the server's name. Address records are structured for forward lookup, i.e., resolving the address given the name. A similar, yet separate address record (AAAA) is defined to support IPv6-related queries.</p>
+<p>Canonical Name (CNAME) records are used to set aliases for existing DNS names rather than directly associating a name with an IP address. These records are commonly used when a resource is hosted by an organization other than the registrant itself and to avoid the necessity of maintaining static IP addresses for these resources. The hostname of a web site that runs on a service like SquareSpace or Wix is likely to point to a CNAME alias that can be resolved to an IP within the parent (service-provider's) domain. </p>
+<p>Text (TXT) records store additional information required by other protocols. Quite often, TXT records are created to demonstrate ownership of a certain namespace. This action is required, e.g., when attaching a private domain to a hosted service such as Office 365 or GSuite mail. TXT records are also used to store Sender Policy Framework (SPF) records leveraged by SMTP servers to combat email spam. </p>
+<p>Mail Exchange (MX) records point to SMTP servers for a domain, enabling other SMTP servers to locate and route mail between domains. Each MX record contains the FQDN for a mail host. An associated A (or AAAA) record must exist to resolve the hostname to an IP address.</p>
+<p>The MX record also contains a preference field, which is used to determine priority among multiple MX records. It is quite common to provide multiple MX records to balance load between mail servers and gain redundancy. Servers with smaller preference values are tried first, while clients are expected to choose randomly between servers with equal preference.</p>
+<p>The MX record is the starting point for mail configuration. To combat spam and fraud, most organizations will configure SMTP to check for additional records, such as the TXT-based SPF records. Read <a href="https://www.rackaid.com/blog/email-dns-records/">https://www.rackaid.com/blog/email-dns-records/</a> to learn more about these applications. </p>
+<p>Reverse DNS Pointer (PTR) records enable lookups from IPv4 address to hostnames. These reverse lookups are required, or at least recommended, for the proper operation of certain application-level protocols such as email.  </p>
+<h2 id="additional-topics">Additional Topics<a class="headerlink" href="#additional-topics" title="Permanent link">&para;</a></h2>
+<h3 id="tools">Tools<a class="headerlink" href="#tools" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Dig - <a href="https://help.dyn.com/how-to-use-binds-dig-tool/">https://help.dyn.com/how-to-use-binds-dig-tool/</a></li>
+<li>Nslookup - <a href="https://en.wikipedia.org/wiki/Nslookup">https://en.wikipedia.org/wiki/Nslookup</a></li>
+<li>Whois - <a href="https://whois.icann.org/en/dns-and-whois-how-it-works">https://whois.icann.org/en/dns-and-whois-how-it-works</a></li>
+</ul>
+<h3 id="service-discovery">Service Discovery<a class="headerlink" href="#service-discovery" title="Permanent link">&para;</a></h3>
+<p>Service (SRV) records are used in conjunction with application layer protocols to identify resources based on role or function rather than hostname. This application is known as Service Discovery (DNS-SD) and is described in RFC 6763. </p>
+<p>SRV records can be queried just like any other record, though they are identified by a distinct convention of _service._transport in place of a standard host name. Practically speaking, SRV records function much like a general purpose MX pointing to named address records that can be further queried to obtain the IP address for a resource.</p>
+<p>$ dig -t srv _sip._tls.microsoft.com</p>
+<p>; &lt;&lt;&gt;&gt; DiG 9.8.3-P1 &lt;&lt;&gt;&gt; srv _sip._tls.microsoft.com
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 33094
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1</p>
+<p>;; QUESTION SECTION:
+;_sip._tls.microsoft.com.   IN  SRV</p>
+<p>;; ANSWER SECTION:
+_sip._tls.microsoft.com. 3600   IN  SRV 0 0 443 sip.microsoft.com.</p>
+<p>;; ADDITIONAL SECTION:
+sip.microsoft.com.  895 IN  A   167.220.67.163</p>
+<p>;; Query time: 15 msec
+;; SERVER: 199.66.140.50#53(199.66.140.50)
+;; WHEN: Tue May  9 16:19:39 2017
+;; MSG SIZE  rcvd: 98</p>
+<p>The preceding query highlights the use of SRV by the session initiation protocol (SIP), a component in voice-over-IP and other types of real-time communication systems that is used to establish connections between peers. </p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/SRV_record">https://en.wikipedia.org/wiki/SRV_record</a></li>
+<li><a href="https://www.onsip.com/blog/dns-srv-records-sip">https://www.onsip.com/blog/dns-srv-records-sip</a></li>
+</ul>
+<h3 id="security-and-privacy">Security and Privacy<a class="headerlink" href="#security-and-privacy" title="Permanent link">&para;</a></h3>
+<p>The distributed nature of DNS infrastructure offers many benefits. The database is independent of any single network or entity. The load of DNS queries is distributed broadly across many different servers. Clients can query servers that are geographically close to them, reducing overall time for name resolution. Moreover, DNS can withstand many types of failures and disruptions and resists many types of broad scale interference.</p>
+<p>Nevertheless, DNS has some significant limitations in the realm of security and privacy that are important to understand. In standard DNS, queries and responses are neither encrypted nor authenticated. Targeted manipulation of DNS responses, e.g., spoofing, can be used to direct victims to attacker-controlled resources or to inject advertisements into user traffic. </p>
+<ul>
+<li><a href="http://erichelgeson.github.io/blog/2013/12/31/i-fought-my-isps-bad-behavior-and-won/">http://erichelgeson.github.io/blog/2013/12/31/i-fought-my-isps-bad-behavior-and-won/</a></li>
+</ul>
+<p>Likewise, passive monitoring reveals significant amounts of information about a victim's identity, beyond just telling us which server they have visited. This type of monitoring is often conducted by network administrators, ISPs, governments, passive observers on wireless networks, and hackers who have managed to hijack network traffic through a MITM attack.</p>
+<ul>
+<li><a href="https://nakedsecurity.sophos.com/2016/10/05/unmasking-tor-users-with-dns/">https://nakedsecurity.sophos.com/2016/10/05/unmasking-tor-users-with-dns/</a></li>
+<li><a href="https://dnsprivacy.org/wiki/display/DP/DNS+Privacy+-+The+Problem">https://dnsprivacy.org/wiki/display/DP/DNS+Privacy+-+The+Problem</a></li>
+</ul>
+<p>This is a double-edged sword. The same properties of DNS can make it a powerful tool for detecting and preventing malicious attacks. The Cisco Umbrella service (originally OpenDNS), for example, can detect malware infections, phishing scams, and more through sophisticated analysis of DNS queries (<a href="https://umbrella.cisco.com/">https://umbrella.cisco.com/</a>).</p>
+<p>One approach to securing DNS against privacy incursions is to use a resolver that encrypts connections between clients and recursive servers. The dnscrypt project (<a href="https://dnscrypt.org/">https://dnscrypt.org/</a>) provides such a tool, though it is not supported by the vast majority of public DNS servers. </p>
+<p>More than privacy, the integrity of DNS is arguably the primary concern for most applications. DNSSEC provides a basic integrity mechanism akin to the public key infrastructure and X.509 certificates that underly SSL. DNSSEC is a complex topic and controversial topic. </p>
+<ul>
+<li><a href="https://www.cloudflare.com/dns/dnssec/how-dnssec-works/">https://www.cloudflare.com/dns/dnssec/how-dnssec-works/</a></li>
+</ul>
+<p>For most users, the most important thing to remember about DNS security is to take steps to protect records under their own purview. Basic DNS security hygiene involves the following tasks:</p>
+<ul>
+<li>Choosing trustworthy and secure DNS providers</li>
+<li>Keep DNS registrations active so that attackers cannot hijack the expired domain</li>
+<li>Limiting access to zone management accounts</li>
+<li>Implementing strong passwords and secondary authentication mechanisms</li>
+</ul>
+<p>It's difficult to overstate the importance of these practices. Attackers target DNS to hijack web traffic, entire email systems, and more. For this reason, applications are often deployed with higher-layer integrity mechanisms, e.g., X.509 certificates used in SSL and fingerprinting / key pinning in SSH. These systems, however, are not foolproof. Each has its limitations, therefore DNS security remains a top priority. </p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>Copyright &copy; 2020 Clinton Campbell</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

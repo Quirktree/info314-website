@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Clinton Campbell">
-        <link rel="canonical" href="https://info314.tcpip.dev/assignments/vlan-challenge/">
+        <link rel="canonical" href="https://info314.tcpip.dev/assignments/analysis-report/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>VLAN Challenge - INFO 314 Course Resources</title>
+        <title>Instructions - INFO 314 Course Resources</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -113,8 +113,8 @@
     <a href="#">Report - NAT and DNS Analysis</a>
     <ul class="dropdown-menu">
             
-<li >
-    <a href="../analysis-report/">Instructions</a>
+<li class="active">
+    <a href="./">Instructions</a>
 </li>
             
 <li >
@@ -127,8 +127,8 @@
     <a href="#">Extra Credit</a>
     <ul class="dropdown-menu">
             
-<li class="active">
-    <a href="./">VLAN Challenge</a>
+<li >
+    <a href="../vlan-challenge/">VLAN Challenge</a>
 </li>
     </ul>
   </li>
@@ -235,12 +235,12 @@
                             </a>
                         </li>
                             <li >
-                                <a rel="next" href="../../resources/tshark-install/">
+                                <a rel="next" href="../resolver-setup/">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li >
-                                <a rel="prev" href="../lab2/">
+                                <a rel="prev" href="../../resources/tshark-install/">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -255,49 +255,88 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#vlan-challenge-last-edited-2020-02-06">VLAN Challenge (last edited 2020-02-06)</a></li>
-            <li><a href="#overview">Overview</a></li>
-            <li><a href="#instructions">Instructions</a></li>
-            <li><a href="#specifications">Specifications</a></li>
+        <li class="main active"><a href="#report-2-nat-and-dns-analysis">Report 2 - NAT and DNS analysis</a></li>
+            <li><a href="#part-i-nat-analysis">Part I: NAT Analysis</a></li>
+            <li><a href="#part-ii-dns-analysis">Part II: DNS Analysis</a></li>
+            <li><a href="#questions">Questions</a></li>
+            <li><a href="#additional-resources">Additional Resources</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="vlan-challenge-last-edited-2020-02-06">VLAN Challenge (last edited 2020-02-06)<a class="headerlink" href="#vlan-challenge-last-edited-2020-02-06" title="Permanent link">&para;</a></h1>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>The objective of this assignment is to determine a VLAN strategy and port configuration that overlays the given routing topology onto a managed 8-port switch.</p>
-<p><img alt="Group Network Topology - Network Layer" src="/img/group-topology-network.png" style="width:425px" /> <img alt="Group Network Topology - Physical Layer" src="/img/group-topology-physical.png" style="width:225px" /></p>
-<p>The routing topology that you will be working with in this challenge is representative of the topology used in our final, group project. In this topology, we have three autonomous systems, i.e., networks that are managed independently from one another. Each of our three routers serves a group of local users via a LAN segment in addition to being connected to external networks via point-to-point routing links.</p>
-<p>The network positioned at the top of the diagram will function as an Internet Service Provider (ISP) for the other networks networks, routing traffic between them and other groups within the class. The links between routers are known as routing links. Each one represents a separate point-to-point network over which the routers will forward messages and share information about the inter-network topology.</p>
-<h2 id="instructions">Instructions<a class="headerlink" href="#instructions" title="Permanent link">&para;</a></h2>
-<h3 id="identify-broadcast-domains">Identify broadcast domains<a class="headerlink" href="#identify-broadcast-domains" title="Permanent link">&para;</a></h3>
-<p>Identify the distinct broadcast domains in the system and assign a different VLAN label (between 2 and 4094) to each of these network segments. </p>
-<h3 id="define-physical-connections">Define physical connections<a class="headerlink" href="#define-physical-connections" title="Permanent link">&para;</a></h3>
-<p>Assign each physical connection to a port on the switch. Since the topology is determined by port configuration, you will need to keep track of which device and network interface is associated with each port. Choose an order that is easy to remember.</p>
-<h3 id="create-port-configurations">Create port configurations<a class="headerlink" href="#create-port-configurations" title="Permanent link">&para;</a></h3>
-<p>Once you have identified the VLANs and mapped ports to physical topology, you can begin to define the port configurations. For each port, you will define a native VLAN (untagged) and zero or more tagged VLANs. A port can have both types of VLANs associated with it, though there can only be one native VLAN configured for any port.</p>
-<p>Untagged ethernet frames received on a port will be mapped internally to the native VLAN of the port and can only be forwarded (or flooded) through links attached to ports that are configured with the same VLAN (tagged or untagged). When a VLAN is configured to be tagged on a specific port, that port will add a VLAN identifier to outgoing frames and read/remove the identifiers from incoming frames.</p>
-<p>Adding a tagged VLAN to a port creates a trunk. Trunk links expect the same tag configuration on both ends of the link, i.e., they require explicit configuration on both sides of the trunk. Ports without any tagged VLANs are called access ports. These are preferred for most applications since the VLAN configuration will be encapsulated within the switch and transparent to users.</p>
-<h4 id="lan-connections">LAN connections<a class="headerlink" href="#lan-connections" title="Permanent link">&para;</a></h4>
-<p>For simplicity, start the process by defining the port configurations for a single broadcast domain associated with one of the LANs in the topology, e.g., LAN A. Pay close attention to the requirements given in the next section, which state that LAN connections to A, B, and C should be accessible without tagging.</p>
-<h4 id="routing-links">Routing links<a class="headerlink" href="#routing-links" title="Permanent link">&para;</a></h4>
-<p>Once you have completed the configuration for independent LANs, turn your attention to the routing links between the LANs. Update the configuration for each side of the routing link (two physical ports) with the appropriate VLAN configurations. </p>
-<h4 id="uplink">Uplink<a class="headerlink" href="#uplink" title="Permanent link">&para;</a></h4>
-<p>Finally, turn your attention to the connection that forms the uplink to the core network for the class. The uplink is a routing link, and it is configured in much the same manner as the other routing links in our topology. However, pay close attention to the assignment specifications and the implications for the final port configuration.</p>
-<h2 id="specifications">Specifications<a class="headerlink" href="#specifications" title="Permanent link">&para;</a></h2>
-<p>In addition to the following the given network layer topology, please align your VLAN strategy with requirements below:</p>
-<details class="info"><summary>Layer-3 Network Diagram</summary><p><img alt="Group Network Topology - Network Layer" src="/img/group-topology-network.png" /></p>
-</details>
-<details class="info"><summary>Example Physical Diagram</summary><p><img alt="Group Network Topology - Physical Layer" src="/img/group-topology-physical.png" /></p>
-</details>
-<h3 id="access-links-to-general-lans">Access links to general LANs<a class="headerlink" href="#access-links-to-general-lans" title="Permanent link">&para;</a></h3>
-<p>LANs A, B, and C are general purpose networks and should be exposed as untagged VLANs. This enables us to alternate seamlessly between a direct connect from our laptop to Pi and a connection that runs through the switch. If we were to rely on tagged VLANs to access a given LAN, you would need to configure VLANs on your laptop in order to connect directly to the Pi.</p>
-<h3 id="tagged-routing-links">Tagged Routing Links<a class="headerlink" href="#tagged-routing-links" title="Permanent link">&para;</a></h3>
-<p>Routing links may rely on tagged VLANs. The router will connect to these VLANs via virtual network interfaces that are configured to exchange tagged Ethernet traffic rather than standard, untagged frames. The router side of this configuration is beyond the scope of this exercise.</p>
-<h3 id="untagged-uplink-connection">Untagged Uplink Connection<a class="headerlink" href="#untagged-uplink-connection" title="Permanent link">&para;</a></h3>
-<p>The remote end of the uplink connection will be untagged. Make sure that you configure the associated port accordingly.</p>
-<h3 id="eliminate-extraneous-connections">Eliminate Extraneous Connections<a class="headerlink" href="#eliminate-extraneous-connections" title="Permanent link">&para;</a></h3>
-<p>For each port, only expose the VLANs that are necessary to satisfy the routing requirements indicated in the diagram. Adding additional VLANs creates unintended paths for communication, e.g., allowing Laptop A to communicate directly with Laptop B. For the purposes of this assignment, treat this sort of unintended pathway as a security exposure.</p></div>
+<h1 id="report-2-nat-and-dns-analysis">Report 2 - NAT and DNS analysis<a class="headerlink" href="#report-2-nat-and-dns-analysis" title="Permanent link">&para;</a></h1>
+<p><img alt="" src="https://cdn.lynda.com/course/157341/157341-636909971425095787-16x9.jpg" /></p>
+<p>The objective of this task is to analyze the mechanics of NAT and DNS using a variety of network utilities and to use your findings to help you answer the questions defined below.</p>
+<h2 id="part-i-nat-analysis">Part I: NAT Analysis<a class="headerlink" href="#part-i-nat-analysis" title="Permanent link">&para;</a></h2>
+<p>In this section, you will use <code>netstat</code> and <code>netstat-nat</code> to analyze the state of network connections from several different perspectives on your LAN.</p>
+<h3 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h3>
+<p><code>netstat</code> is a powerful tool for viewing information about sockets and connections on Windows, Linux, and macOS devices. The tool is installed by default by all major desktop OS vendors, though you'll find that the command line options vary slightly between implementation.</p>
+<p><code>netstat-nat</code> provides a similar interface to <code>netstat</code> with the purpose of diving more deeply into the behavior of routed network connections and NAT. Use <code>apt</code> to install <code>netstat-nat</code> on your Pi.</p>
+<div class="admonition important">
+<p class="admonition-title">Root Permissions</p>
+<p><code>netstat-nat</code> requires root permissions in order to run properly on your Pi, while <code>netstat</code> can be run without having to invoke <code>sudo</code> (but may provide more detailed information when used in that way).</p>
+</div>
+<h3 id="usage-tips">Usage Tips<a class="headerlink" href="#usage-tips" title="Permanent link">&para;</a></h3>
+<p>The most common options for <code>netstat</code> across all three operating systems are <code>-an</code>. The <code>-a</code> option instructs netstat to display server as well as client sockets, while <code>n</code> disables reverse DNS resolution and keeps the output easier to interpret.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip: Reducing netstat output</p>
+<p><code>netstat</code> can produce an overwhelming amount of information. To focus your attention, you can limit the output to a single protocol, e.g., tcp or udp. The syntax for this option on Windows and macOS is <code>-p &lt;PROTO&gt;</code>, e.g., <code>netstat -anp tcp</code>. For Linux, use  <code>-t</code> to select only TCP sockets and <code>-u</code> to select only UDP packets.</p>
+</div>
+<p>When running <code>netstat-nat</code>, the most useful view for this combination of options will be <code>-SNn</code>. This will show you source and destination IP addresses as well as the entries in your Pi's NAT table associated with each connection.</p>
+<h3 id="analysis-instructions">Analysis instructions<a class="headerlink" href="#analysis-instructions" title="Permanent link">&para;</a></h3>
+<p>Setup your computer to use the Pi as a router (wifi disabled) so that you can use <code>netstat</code> and <code>netstat-nat</code> to examine open Internet connections from multiple perspectives. </p>
+<p>You will obtain the most information by running <code>netstat</code> on your own computer back-to-back with <code>netstat-nat</code> on your Pi. You should also experiment with <code>netstat</code> on your Pi, though you'll find it does not show you any data about routed connections.</p>
+<p>Take some time to understand what these perspectives are showing you (it may be helpful to run <code>netstat</code> without <code>-n</code> temporarily to obtain more information about the protocols and destination hosts). Try to correlate connections shown in <code>netstat</code> on your computer with the connections appearing in your NAT tables. </p>
+<h2 id="part-ii-dns-analysis">Part II: DNS Analysis<a class="headerlink" href="#part-ii-dns-analysis" title="Permanent link">&para;</a></h2>
+<p>In this section, you will use the <code>tshark</code> utility (a commandline version of Wireshark) in order to analyze DNS requests from the perspective of your Pi's external network interface.</p>
+<p><a href="resources/tshark-install/">Install and configure</a> <code>tshark</code> on your Pi and perform the two following captures of DNS as described below.</p>
+<h3 id="capture-1-perform-a-capture-of-dns-queries-being-routed-through-the-pi">Capture &num;1 - Perform a capture of DNS queries being <strong>routed through the Pi</strong><a class="headerlink" href="#capture-1-perform-a-capture-of-dns-queries-being-routed-through-the-pi" title="Permanent link">&para;</a></h3>
+<p>Setup your computer to use the Pi as a router (wifi disabled) and launch a <code>tshark</code> capture on the <code>wlan0</code> port of your Pi.</p>
+<p>With <code>tshark</code> running, perform a manual DNS query from your computer to a <strong>public DNS resolver</strong> such as 1.1.1.1. Since your computer is now using your Pi as its default DNS resolver (based on the configuration performed by DHCP), you will need to manually override the DNS settings for your query. </p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Both <code>dig</code> and Powershell's <code>Resolve-DNSName</code> command provide the functionality to override the system's default resolver. Use <code>man</code> or other resources to find the correct syntax for your system.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Save a copy of your capture and make note of the domain queried.</p>
+</div>
+<h3 id="capture-2-perform-a-capture-of-dns-queries-being-resolved-by-your-pi">Capture &num;2 - Perform a capture of DNS queries being <strong>resolved by your Pi</strong>:<a class="headerlink" href="#capture-2-perform-a-capture-of-dns-queries-being-resolved-by-your-pi" title="Permanent link">&para;</a></h3>
+<p>Setup your computer to use the Pi as a router (wifi disabled) and launch a <code>tshark</code> capture on the <code>wlan0</code> port of your Pi.</p>
+<p>With <code>tshark</code> running <em>on your Pi</em>, clear BIND's resolver cache <em>on your Pi</em> (run <code>sudo rndc reload</code> on the Pi) and perform a manual DNS query <em>from your computer</em> to the Raspberry Pi based recursive resolver.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Save a copy of your capture and make note of the domain queried.</p>
+</div>
+<h3 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Use Wireshark's search capabilities to look for the string in the packet details of the capture. </li>
+<li>Use <em>capture filters</em> to limit the capture to port 53 and <em>display filters</em> to further cut down on the noise of the capture (see below).<ul>
+<li>In addition to your DNS queries, you may see a lot of additional DNS traffic being generated by your computer and the Pi. The following display filter will eliminate DNSSEC related queries and queries generated by <em>network time protocol</em>: <code>dns &amp;&amp; !(dns.qry.type in {43 48} || dns.qry.name contains "ntp.org")</code>. </li>
+</ul>
+</li>
+</ul>
+<h2 id="questions">Questions<a class="headerlink" href="#questions" title="Permanent link">&para;</a></h2>
+<h3 id="part-i">Part I<a class="headerlink" href="#part-i" title="Permanent link">&para;</a></h3>
+<p>Briefly describe NAT in your own words along with an explanation of what information it collects in order to track and masquerade connections on your behalf. Use screenshots and illustrations from the sockets you observed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For research purposes, you may also want to search Port Address Translation (PAT). This is the tehcnical term for the variant of NAT that we are utilizing.</p>
+</div>
+<h3 id="part-ii">Part II<a class="headerlink" href="#part-ii" title="Permanent link">&para;</a></h3>
+<p>For each capture, summarize the message(s) that were involved in resolving <strong>your DNS queries</strong>.</p>
+<div class="codehilite"><pre><span></span>    * Packet # from the wireshark capture
+    * Source and Destination IP address
+    * Tranport layer protocol and port
+    * Message type, e.g., query/response
+    * Record types included in the response, e.g., NS, A, or AAAA
+</pre></div>
+
+
+<p>Looking at each pair of messages above, identify what type of DNS server provided back the corresponding response (Resolver, Root Name Server, TLD Name Server, or Authoritative Name Server).</p>
+<p>Using the data you've captured for illustration (along with other resources), compare and contrast the two sets of queries (Capture &num;1 and Capture &num;2) from the perspective of your Pi. What was the role of the Pi in each of these captures? What work did it have to do in order for you to receive a response to your question?</p>
+<h2 id="additional-resources">Additional Resources<a class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h2>
+<p><a href="https://www.youtube.com/watch?v=ZUIKfNX8tA4&amp;t=1s">WCT01-S11: Understand Proxy/Firewall/NAT/PAT Traffic Flows [WCT01: Network Analysis Overview Course]</a></p></div>
         </div>
 
         <footer class="col-md-12">
