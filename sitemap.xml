@@ -56,16 +56,6 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://info314.tcpip.dev/assignments/dns-zone-setup/</loc>
-     <lastmod>2020-02-17</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://info314.tcpip.dev/resources/zone-file-format/</loc>
-     <lastmod>2020-02-17</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
      <loc>https://info314.tcpip.dev/assignments/vlan-challenge/</loc>
      <lastmod>2020-02-17</lastmod>
      <changefreq>daily</changefreq>
@@ -112,11 +102,6 @@
     </url>
     <url>
      <loc>https://info314.tcpip.dev/resources/wifi-reference/</loc>
-     <lastmod>2020-02-17</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://info314.tcpip.dev/resources/zone-file-format/</loc>
      <lastmod>2020-02-17</lastmod>
      <changefreq>daily</changefreq>
     </url>
