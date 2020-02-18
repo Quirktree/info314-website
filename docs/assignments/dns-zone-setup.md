@@ -1,7 +1,7 @@
-# Authoritative Name Server (last edited 2019-05-16)
+# Authoritative Name Server (last edited 2020-02-17)
 
 ## Overview
-In this assignment, we will extend our BIND configuration (think back to our [DNS Resolver checkpoint](../resolver-setup/)) to handle DNS queries for a domain that is in your complete control. While you don't have very many services or resources available on your network yet, this project should help you explore the ways in which DNS can be used to identify resources on a network as you add them. This task will build upon the work you did in the [_DNS Planning Exercise_](https://canvas.uw.edu/courses/1355759/assignments/5195249).
+In this assignment, we will extend our BIND configuration (think back to our [DNS Resolver checkpoint](/assignments/resolver-setup/)) to handle DNS queries for a domain that is in your complete control. While you don't have very many services or resources available on your network yet, this project should help you explore the ways in which DNS can be used to identify resources on a network as you add them. This task will build upon the work you did in the [_DNS Planning Exercise_](https://canvas.uw.edu/courses/1355759/assignments/5195249).
 
 !!! important
     With each checkpoint, we expect you to do more of the work on your own. While the initial Pi setup gave clear instructions, we are slowly moving toward giving you specifications and additional context that you need in order to determine the right steps to accomplish the task.
