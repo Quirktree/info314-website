@@ -28,6 +28,9 @@ nav:
     - Report - NAT and DNS Analysis:
       - Instructions: assignments/analysis-report.md
       - Installing TShark: resources/tshark-install.md
+    - 5 - Configure an Authoritative Name Server:
+      - Authoritative Zone Setup: assignments/dns-zone-setup.md
+      - DNS Zone Reference: resources/zone-file-format.md
     - Extra Credit:
       - VLAN Challenge: assignments/vlan-challenge.md
   - Labs:
@@ -43,6 +46,7 @@ nav:
       - Introduction to Iptables: resources/iptables.md
       - Understanding Netfilter/Iptables Hooks: resources/netfilter-hooks.md
       - Linux Wireless Configuration: resources/wifi-reference.md
+      - Zone File Reference: resources/zone-file-format.md
     - Quick Reference:
       - Intro to Markdown: resources/markdown.md
       - Intro to Bash: resources/bash.md
