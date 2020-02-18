@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Clinton Campbell">
-        <link rel="canonical" href="https://info314.tcpip.dev/assignments/vlan-challenge/">
+        <link rel="canonical" href="https://info314.tcpip.dev/assignments/dns-zone-setup/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>VLAN Challenge - INFO 314 Course Resources</title>
+        <title>Authoritative Zone Setup - INFO 314 Course Resources</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -127,8 +127,8 @@
     <a href="#">5 - Configure an Authoritative Name Server</a>
     <ul class="dropdown-menu">
             
-<li >
-    <a href="../dns-zone-setup/">Authoritative Zone Setup</a>
+<li class="active">
+    <a href="./">Authoritative Zone Setup</a>
 </li>
             
 <li >
@@ -141,8 +141,8 @@
     <a href="#">Extra Credit</a>
     <ul class="dropdown-menu">
             
-<li class="active">
-    <a href="./">VLAN Challenge</a>
+<li >
+    <a href="../vlan-challenge/">VLAN Challenge</a>
 </li>
     </ul>
   </li>
@@ -253,12 +253,12 @@
                             </a>
                         </li>
                             <li >
-                                <a rel="next" href="../../resources/zone-file-format/">
+                                <a rel="next" href="../../resources/tshark-install/">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li >
-                                <a rel="prev" href="../lab2/">
+                                <a rel="prev" href="../../resources/zone-file-format/">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -273,49 +273,113 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#vlan-challenge-last-edited-2020-02-06">VLAN Challenge (last edited 2020-02-06)</a></li>
+        <li class="main active"><a href="#authoritative-name-server-last-edited-2020-02-17">Authoritative Name Server (last edited 2020-02-17)</a></li>
             <li><a href="#overview">Overview</a></li>
-            <li><a href="#instructions">Instructions</a></li>
-            <li><a href="#specifications">Specifications</a></li>
+            <li><a href="#before-you-start">Before you start</a></li>
+            <li><a href="#create-a-new-zone-file">Create a new zone file</a></li>
+            <li><a href="#customize-the-localhost-zone-file-for-your-own-domain">Customize the localhost zone file for your own domain</a></li>
+            <li><a href="#declare-the-zone-in-namedconflocal">Declare the zone in named.conf.local</a></li>
+            <li><a href="#validate-and-test-your-configuration">Validate and test your configuration</a></li>
+            <li><a href="#update-dhcp">Update DHCP</a></li>
+            <li><a href="#additional-resources">Additional Resources</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="vlan-challenge-last-edited-2020-02-06">VLAN Challenge (last edited 2020-02-06)<a class="headerlink" href="#vlan-challenge-last-edited-2020-02-06" title="Permanent link">&para;</a></h1>
+<h1 id="authoritative-name-server-last-edited-2020-02-17">Authoritative Name Server (last edited 2020-02-17)<a class="headerlink" href="#authoritative-name-server-last-edited-2020-02-17" title="Permanent link">&para;</a></h1>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>The objective of this assignment is to determine a VLAN strategy and port configuration that overlays the given routing topology onto a managed 8-port switch.</p>
-<p><img alt="Group Network Topology - Network Layer" src="/img/group-topology-network.png" style="width:425px" /> <img alt="Group Network Topology - Physical Layer" src="/img/group-topology-physical.png" style="width:225px" /></p>
-<p>The routing topology that you will be working with in this challenge is representative of the topology used in our final, group project. In this topology, we have three autonomous systems, i.e., networks that are managed independently from one another. Each of our three routers serves a group of local users via a LAN segment in addition to being connected to external networks via point-to-point routing links.</p>
-<p>The network positioned at the top of the diagram will function as an Internet Service Provider (ISP) for the other networks networks, routing traffic between them and other groups within the class. The links between routers are known as routing links. Each one represents a separate point-to-point network over which the routers will forward messages and share information about the inter-network topology.</p>
-<h2 id="instructions">Instructions<a class="headerlink" href="#instructions" title="Permanent link">&para;</a></h2>
-<h3 id="identify-broadcast-domains">Identify broadcast domains<a class="headerlink" href="#identify-broadcast-domains" title="Permanent link">&para;</a></h3>
-<p>Identify the distinct broadcast domains in the system and assign a different VLAN label (between 2 and 4094) to each of these network segments. </p>
-<h3 id="define-physical-connections">Define physical connections<a class="headerlink" href="#define-physical-connections" title="Permanent link">&para;</a></h3>
-<p>Assign each physical connection to a port on the switch. Since the topology is determined by port configuration, you will need to keep track of which device and network interface is associated with each port. Choose an order that is easy to remember.</p>
-<h3 id="create-port-configurations">Create port configurations<a class="headerlink" href="#create-port-configurations" title="Permanent link">&para;</a></h3>
-<p>Once you have identified the VLANs and mapped ports to physical topology, you can begin to define the port configurations. For each port, you will define a native VLAN (untagged) and zero or more tagged VLANs. A port can have both types of VLANs associated with it, though there can only be one native VLAN configured for any port.</p>
-<p>Untagged ethernet frames received on a port will be mapped internally to the native VLAN of the port and can only be forwarded (or flooded) through links attached to ports that are configured with the same VLAN (tagged or untagged). When a VLAN is configured to be tagged on a specific port, that port will add a VLAN identifier to outgoing frames and read/remove the identifiers from incoming frames.</p>
-<p>Adding a tagged VLAN to a port creates a trunk. Trunk links expect the same tag configuration on both ends of the link, i.e., they require explicit configuration on both sides of the trunk. Ports without any tagged VLANs are called access ports. These are preferred for most applications since the VLAN configuration will be encapsulated within the switch and transparent to users.</p>
-<h4 id="lan-connections">LAN connections<a class="headerlink" href="#lan-connections" title="Permanent link">&para;</a></h4>
-<p>For simplicity, start the process by defining the port configurations for a single broadcast domain associated with one of the LANs in the topology, e.g., LAN A. Pay close attention to the requirements given in the next section, which state that LAN connections to A, B, and C should be accessible without tagging.</p>
-<h4 id="routing-links">Routing links<a class="headerlink" href="#routing-links" title="Permanent link">&para;</a></h4>
-<p>Once you have completed the configuration for independent LANs, turn your attention to the routing links between the LANs. Update the configuration for each side of the routing link (two physical ports) with the appropriate VLAN configurations. </p>
-<h4 id="uplink">Uplink<a class="headerlink" href="#uplink" title="Permanent link">&para;</a></h4>
-<p>Finally, turn your attention to the connection that forms the uplink to the core network for the class. The uplink is a routing link, and it is configured in much the same manner as the other routing links in our topology. However, pay close attention to the assignment specifications and the implications for the final port configuration.</p>
-<h2 id="specifications">Specifications<a class="headerlink" href="#specifications" title="Permanent link">&para;</a></h2>
-<p>In addition to the following the given network layer topology, please align your VLAN strategy with requirements below:</p>
-<details class="info"><summary>Layer-3 Network Diagram</summary><p><img alt="Group Network Topology - Network Layer" src="/img/group-topology-network.png" /></p>
-</details>
-<details class="info"><summary>Example Physical Diagram</summary><p><img alt="Group Network Topology - Physical Layer" src="/img/group-topology-physical.png" /></p>
-</details>
-<h3 id="access-links-to-general-lans">Access links to general LANs<a class="headerlink" href="#access-links-to-general-lans" title="Permanent link">&para;</a></h3>
-<p>LANs A, B, and C are general purpose networks and should be exposed as untagged VLANs. This enables us to alternate seamlessly between a direct connect from our laptop to Pi and a connection that runs through the switch. If we were to rely on tagged VLANs to access a given LAN, you would need to configure VLANs on your laptop in order to connect directly to the Pi.</p>
-<h3 id="tagged-routing-links">Tagged Routing Links<a class="headerlink" href="#tagged-routing-links" title="Permanent link">&para;</a></h3>
-<p>Routing links may rely on tagged VLANs. The router will connect to these VLANs via virtual network interfaces that are configured to exchange tagged Ethernet traffic rather than standard, untagged frames. The router side of this configuration is beyond the scope of this exercise.</p>
-<h3 id="untagged-uplink-connection">Untagged Uplink Connection<a class="headerlink" href="#untagged-uplink-connection" title="Permanent link">&para;</a></h3>
-<p>The remote end of the uplink connection will be untagged. Make sure that you configure the associated port accordingly.</p>
-<h3 id="eliminate-extraneous-connections">Eliminate Extraneous Connections<a class="headerlink" href="#eliminate-extraneous-connections" title="Permanent link">&para;</a></h3>
-<p>For each port, only expose the VLANs that are necessary to satisfy the routing requirements indicated in the diagram. Adding additional VLANs creates unintended paths for communication, e.g., allowing Laptop A to communicate directly with Laptop B. For the purposes of this assignment, treat this sort of unintended pathway as a security exposure.</p></div>
+<p>In this assignment, we will extend our BIND configuration (think back to our <a href="/assignments/resolver-setup/">DNS Resolver checkpoint</a>) to handle DNS queries for a domain that is in your complete control. While you don't have very many services or resources available on your network yet, this project should help you explore the ways in which DNS can be used to identify resources on a network as you add them. This task will build upon the work you did in the <a href="https://canvas.uw.edu/courses/1355759/assignments/5195249"><em>DNS Planning Exercise</em></a>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>With each checkpoint, we expect you to do more of the work on your own. While the initial Pi setup gave clear instructions, we are slowly moving toward giving you specifications and additional context that you need in order to determine the right steps to accomplish the task.</p>
+<p>In this assignment, you will use the provided reference documents to help you configure the project according to specification.</p>
+<p>For some students, this can be a challenging adjustment, but it is also a valuable skill to learn and practice as you prepare for technical internships and jobs.</p>
+</div>
+<h2 id="before-you-start">Before you start<a class="headerlink" href="#before-you-start" title="Permanent link">&para;</a></h2>
+<p>Before you begin, make sure that you have completed all steps through Checkpoint #4 successfully. At this point, BIND is installed and configured so that your Pi can resolve DNS queries from clients inside your LAN. DHCP is configured to provide LAN clients with the IP address of this resolver (via the domain-name-server option), and you have tested that DNS resolution is working.</p>
+<p>Before you begin, you should also confirm that you have completed the <em>LAN Planning</em> and <em>DNS Planning</em> exercises. You will be required to refer back to these worksheets.</p>
+<h2 id="create-a-new-zone-file">Create a new zone file<a class="headerlink" href="#create-a-new-zone-file" title="Permanent link">&para;</a></h2>
+<p>The documentation installed with BIND provides guidance for where to store zone files on your name server. The recommendation for master (primary) name servers, such as the one we are creating, is to store the zone files in <code>/etc/bind</code> or one of its subdirectories. We'll follow this advice below.</p>
+<p>To get started defining your own zone, create a new sub-directory called <code>zones</code> in <code>/etc/bind</code> as shown below and copy the existing <code>db.local</code> into it as a starting point for creating your zone. Our advice is to follow the convention of naming your zone file after your selected domain, e.g., gradebook.pi is defined in <code>/etc/bind/zones/db.gradebook.pi.</code></p>
+<div class="admonition instructions">
+<p class="admonition-title">Creating your starter zone file</p>
+<div class="codehilite"><pre><span></span>sudo mkdir -p /etc/bind/zones
+sudo cp /etc/bind/db.local /etc/bind/zones/db.gradebook.pi
+</pre></div>
+
+<p>The initial contents of your zone file will look similar to this:</p>
+<div class="codehilite"><pre><span></span>;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@   IN  SOA localhost. root.localhost. (
+                2       ; Serial
+            604800      ; Refresh
+            86400       ; Retry
+            2419200     ; Expire
+            604800 )    ; Negative Cache TTL
+;
+@   IN  NS  localhost.
+@   IN  A   127.0.0.1
+@   IN  AAAA    ::1
+</pre></div>
+
+<p>As is stated in the comment at the start of the file, this file is defining a special purpose zone for the localhost domain to ensure proper handling when the name is passed to BIND.</p>
+</div>
+<h2 id="customize-the-localhost-zone-file-for-your-own-domain">Customize the localhost zone file for your own domain<a class="headerlink" href="#customize-the-localhost-zone-file-for-your-own-domain" title="Permanent link">&para;</a></h2>
+<p>Your task at this point is to update this file to describe the public-facing domain that you selected in the <strong>DNS Planning Exercise</strong>. </p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Your primary resource for this task is the <a href="/resources/zone-file-format">Zone File Reference</a>, which outlines the format of the zone file and the <em>resource records</em> that we will use. It may also be helpful to examine the section <em>Creating the Forward Zone File</em> in <a href="https://www.digitalocean.com/community/tutorials/how-to-configure-bind-as-a-private-network-dns-server-on-debian-9#configuring-the-primary-dns-server">DigitalOcean's Tutorial</a></p>
+</div>
+<h3 id="customize-the-start-of-authority-soa">Customize the Start of Authority (SOA)<a class="headerlink" href="#customize-the-start-of-authority-soa" title="Permanent link">&para;</a></h3>
+<p>Update the comments at the start of the file to refer to your domain and then modify the SOA resource record based on the fully-qualified domain name of your Pi and a valid email address, e.g., your UW email.</p>
+<div class="admonition important">
+<p class="admonition-title">Specifying e-mail addresses for SOA records</p>
+<p>While it's not apparent on first glance, every SOA resource record contains a field called the RNAME, which specifies an email address associated with the administrator for the domain.</p>
+<p>As mentioned in <a href="/resources/zone-file-format">Zone File Reference</a>, RNAME records receive special formatting. You must replace the <code>@</code> with a <code>.</code> and escape existing periods in the username by prefixing them with a <code>\</code>).</p>
+</div>
+<h3 id="add-ns-and-a-records-for-the-nameservers">Add NS and A records for the nameservers<a class="headerlink" href="#add-ns-and-a-records-for-the-nameservers" title="Permanent link">&para;</a></h3>
+<p>Delete the initial NS and glue records and create a new NS record and a type A glue record for your name server. The NS record will point to your server by its fully-qualified domain name. Likewise, the A record will contain the internal IP address of your server. </p>
+<p>The <a href="/resources/zone-file-format">Zone File Reference</a> provides real world examples of name servers and glue records. Using <em>dig</em>, e.g., <code>dig NS microsoft.com</code>, you can find additional examples for pretty much any public domain. </p>
+<h3 id="add-records-for-additional-dns-resources">Add records for additional DNS resources<a class="headerlink" href="#add-records-for-additional-dns-resources" title="Permanent link">&para;</a></h3>
+<p>Using the provided <a href="/resources/zone-file-format">Zone File Reference</a>, create additional MX and A records to identify the mail server that you defined in the <em>DNS Planning Exercise</em>. </p>
+<p>It's okay that we haven't set up the mail server yet. Refer back to your <em>LAN Planning</em> and select an unused static address. </p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Pay close attention to the expected format of an MX resource record. It varies slightly from other common record types and leads to frequent errors.</p>
+</div>
+<h2 id="declare-the-zone-in-namedconflocal">Declare the zone in named.conf.local<a class="headerlink" href="#declare-the-zone-in-namedconflocal" title="Permanent link">&para;</a></h2>
+<p>The zone file that you have created defines the resources that can be queried by your name server, but it does not yet instruct BIND to serve the domain. To accomplish this, we will add a new <code>zone</code> configuration within <code>/etc/bind/named.conf.local</code>.</p>
+<div class="admonition instructions">
+<p class="admonition-title">Instructions</p>
+<p>Open <code>/etc/bind/named.conf.local</code> and add a new zone reference:</p>
+<div class="codehilite"><pre><span></span>// Replace references to corp.gradebook.pi with your own domain name.
+zone &quot;gradebook.pi&quot; IN {
+    //  We&#39;re setting up the master server for the zone. In DNS, masters contain
+    //  the zone file for a domain while slaves read the zone contents from a 
+    //  master server.
+    type master;
+    file &quot;/etc/bind/zones/db.gradebook.pi&quot;;
+};
+</pre></div>
+
+</div>
+<h2 id="validate-and-test-your-configuration">Validate and test your configuration<a class="headerlink" href="#validate-and-test-your-configuration" title="Permanent link">&para;</a></h2>
+<p>Run <code>named-checkconf -z</code> to identify any immediate errors in your configuration or zone file and restart the <code>bind9</code> service using <code>systemctl</code>.</p>
+<p>Use <code>systemctl</code> to verify that the service is running correctly. You can also test your configuration locally on the Pi by running <code>dig @127.0.0.1 ns &lt;DOMAIN_NAME&gt;</code>. Pay close attention to status codes and errors appearing in the response. </p>
+<h2 id="update-dhcp">Update DHCP<a class="headerlink" href="#update-dhcp" title="Permanent link">&para;</a></h2>
+<p>Your LAN clients should be able to query the new domain without any additional configuration; however, we will take the opportunity to make one additional update to DHCP. </p>
+<p>Following the same process you've encountered in previous guides add the <code>domain-name</code> option to your subnet configuration. </p>
+<p>This option configures your LAN clients to recognize your internal domain name as a default domain name when attempting to resolve hosts, e.g., <code>dig titan</code> would resolve records for <code>titan.gradebook.pi</code>.</p>
+<h2 id="additional-resources">Additional Resources<a class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://www.digitalocean.com/community/tutorials/a-comparison-of-dns-server-types-how-to-choose-the-right-dns-configuration">A Comparison of DNS Server Types</a></li>
+<li><a href="https://tools.ietf.org/html/rfc1034">RFC 1034: Domain Names - Concepts and Facilities</a></li>
+<li><a href="https://tools.ietf.org/html/rfc1035">RFC 1035: Domain Names - Implementation and Specification</a></li>
+<li><a href="https://help.dyn.com/how-to-format-a-zone-file/">How to format a zone file (Dyn.com)</a></li>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-configure-bind-as-a-private-network-dns-server-on-debian-9">How to configure BIND as a Private Network DNS Server - DigitalOcean Tutorial</a></li>
+</ul></div>
         </div>
 
         <footer class="col-md-12">

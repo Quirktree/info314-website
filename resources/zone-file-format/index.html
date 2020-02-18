@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Clinton Campbell">
+        <link rel="canonical" href="https://info314.tcpip.dev/resources/zone-file-format/">
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Zone File Reference - INFO 314 Course Resources</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/color-brewer.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../..">INFO 314 Course Resources</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">1 - Pi Setup</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../assignments/pi-setup/">Raspberry Pi Setup</a>
+</li>
+            
+<li >
+    <a href="../../assignments/networkd-setup/">networkd Setup</a>
+</li>
+            
+<li >
+    <a href="../wifi-reference/">Wifi Reference</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">2 - Set up a DHCP Server</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../address-planning/">IP Address Planning Reference</a>
+</li>
+            
+<li >
+    <a href="../../assignments/dhcp-setup/">Installing and Configuring the ISC DHCP Server</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">3 - Configure Routing and NAT</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../assignments/router-setup/">Router Setup</a>
+</li>
+            
+<li >
+    <a href="../iptables/">Introduction to iptables</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">4 - Configure a DNS Resolver</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../assignments/resolver-setup/">DNS Resolver Setup</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">Report - NAT and DNS Analysis</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../assignments/analysis-report/">Instructions</a>
+</li>
+            
+<li >
+    <a href="../tshark-install/">Installing TShark</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">5 - Configure an Authoritative Name Server</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../assignments/dns-zone-setup/">Authoritative Zone Setup</a>
+</li>
+            
+<li >
+    <a href="./">DNS Zone Reference</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">Extra Credit</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../assignments/vlan-challenge/">VLAN Challenge</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../assignments/lab2/">Lab 2</a>
+</li>
+                                    
+<li >
+    <a href="../../assignments/lab3/">Lab 3</a>
+</li>
+                                    
+<li >
+    <a href="../../assignments/lab4/">Lab 4</a>
+</li>
+                                    
+<li >
+    <a href="../../assignments/lab5/">Lab 5</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Resources <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">Concepts and Theory</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../notes/dns-overview/">Domain Name System (DNS)</a>
+</li>
+            
+<li >
+    <a href="../../notes/router-overview/">Routers</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">Guides</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../iptables/">Introduction to Iptables</a>
+</li>
+            
+<li >
+    <a href="../netfilter-hooks/">Understanding Netfilter/Iptables Hooks</a>
+</li>
+            
+<li >
+    <a href="../wifi-reference/">Linux Wireless Configuration</a>
+</li>
+            
+<li class="active">
+    <a href="./">Zone File Reference</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">Quick Reference</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../markdown/">Intro to Markdown</a>
+</li>
+            
+<li >
+    <a href="../bash/">Intro to Bash</a>
+</li>
+            
+<li >
+    <a href="../host-config/">Mac/Win/Linux Networking</a>
+</li>
+            
+<li >
+    <a href="../wireshark-install/">Install Wireshark</a>
+</li>
+            
+<li >
+    <a href="../tshark-install/">Install TShark</a>
+</li>
+            
+<li >
+    <a href="../manage-dhcp/">Troubleshooting DHCP</a>
+</li>
+            
+<li >
+    <a href="../dns-clients/">Managing DNS Clients</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../wifi-reference/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../markdown/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/quirktree/info314-website">quirktree/info314-website</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#bind-zone-files">BIND Zone Files</a></li>
+            <li><a href="#zone-file-structure">Zone File Structure</a></li>
+            <li><a href="#record-format">Record Format</a></li>
+            <li><a href="#common-record-types">Common Record Types</a></li>
+            <li><a href="#references">References</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="bind-zone-files">BIND Zone Files<a class="headerlink" href="#bind-zone-files" title="Permanent link">&para;</a></h1>
+<p>A DNS zone file is a text file that describes a DNS zone and provides the list of all resource records that are defined in the zone. The zone file for an authoritative DNS server follows is composed of the following elements:</p>
+<h2 id="zone-file-structure">Zone File Structure<a class="headerlink" href="#zone-file-structure" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Comments</strong> beginning with a semicolon and continuing to the end of the current line.</li>
+<li><strong>Directives</strong> such as <code>$ORIGIN</code> and <code>$TTL</code> keywords that provide default values used when interpreting DNS records.</li>
+<li>A <strong>SOA</strong> record positioned at the top of the file that defines global parameters for the zone.</li>
+<li>Additional <strong>Resource Records</strong> used to identify service-specific resources such as name servers and email servers or to map hostnames to network addresses.</li>
+</ul>
+<p>The following simple zone file distributed with BIND9 defines a zone description for the reserved <code>localhost</code> namespace:</p>
+<div class="codehilite"><pre><span></span>;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@   IN  SOA localhost. root.localhost. (
+                  2     ; Serial
+             604800     ; Refresh
+              86400     ; Retry
+            2419200     ; Expire
+             604800 )   ; Negative Cache TTL
+;
+@   IN  NS  localhost.
+@   IN  A   127.0.0.1
+@   IN  AAAA    ::1
+</pre></div>
+
+<h2 id="record-format">Record Format<a class="headerlink" href="#record-format" title="Permanent link">&para;</a></h2>
+<h3 id="standard-fields">Standard Fields<a class="headerlink" href="#standard-fields" title="Permanent link">&para;</a></h3>
+<p>Each record in a zone defines a set of parameters associated with a single DNS resource.</p>
+<ul>
+<li><strong>NAME</strong> is the DNS record's alphanumeric identifier (e.g., such as <code>www</code> or <code>mail</code>).</li>
+<li><strong>TTL</strong> informs DNS clients, such as your your OS or browser, how long they can keep the record in their local cache. The TTL field is optional for individual resource records. BIND9 will default to the value of the global $TTL directive when omitted. </li>
+<li><strong>CLASS</strong> is a namespace identifier defined by the DNS protocol. For our purposes, the value will always be <code>IN</code>.</li>
+<li><strong>TYPE</strong> describes the type of resource, e.g., NS (name server), A (address), or MX (mail server).</li>
+<li><strong>RDATA</strong> specifies the value of the record. The format of this data is based on the record type. A few common types are given later in this document.</li>
+</ul>
+<h3 id="names">Names<a class="headerlink" href="#names" title="Permanent link">&para;</a></h3>
+<p>DNS names can be given in absolute or relative form. Absolute names are commonly called fully qualified domain name (FQDN) and include all parts of the name from the the host to the root of the DNS hierarchy. When configuring DNS servers, FQDNs are always terminated with a trailing dot, e.g., <code>www.washington.edu.</code>. </p>
+<p>Relative names omit the domain portion of the address and the trailing dot, e.g., <code>www</code>. When BIND encounters a hostname without the trailing dot in a zone file, it implicitly inserts the domain portion of the address. Forgetting to terminate an absolute hostname such as <code>www.washington.edu</code> with the trailing period will result in errors since BIND will see the resource as <code>www.washington.edu.washington.edu.</code>. </p>
+<h3 id="shorthand">Shorthand<a class="headerlink" href="#shorthand" title="Permanent link">&para;</a></h3>
+<p>The standard zone file format employs a number of shortcuts that allow certain fields to be omitted or shortened. </p>
+<ul>
+<li>BIND will use the global <code>$TTL</code> value as a default for records that do not specify their own.</li>
+<li>A hostname of <code>@</code> is shorthand for the default domain name for the zone. This value will be explicitly defined by the <code>$ORIGIN</code> directive at the start of a zone file or learned implicitly by the server based on the server's configuration. </li>
+<li>When specifying multiple records in a row with the same name, you can omit the name after the first record.</li>
+</ul>
+<h2 id="common-record-types">Common Record Types<a class="headerlink" href="#common-record-types" title="Permanent link">&para;</a></h2>
+<h3 id="soa-record-data">SOA Record Data<a class="headerlink" href="#soa-record-data" title="Permanent link">&para;</a></h3>
+<p>A valid zone file begins with the <strong>Start of Authority</strong> record. This record provides information about the primary servers for the domain and defines parameters to control the behavior of secondary servers.</p>
+<p>RDATA for SOA includes the following fields:</p>
+<ul>
+<li><strong>MNAME</strong> specifies the name server that is the primary source of data about this domain.</li>
+<li><strong>RNAME</strong> is the email address of the administrator for the zone. RFC 2142 recommends that every domain provides a <code>hostmaster</code> mailbox to receive support queries related to the domain. **Special formatting applies for the RNAME (see below).</li>
+<li><strong>SERIAL</strong> is an unsigned 32-bit version number of the zone-file used to detect updates. <strong>This number must be incremented <em>every</em> time the zone file is updated.</strong>  RFC 1912 recommends using the numerically formatted date followed by a 2 digit revision number, i.e., <code>YYYYMMDDnn</code>. </li>
+<li><strong>REFRESH</strong> defines the number of seconds after which secondary name servers should query the master for the SOA record to determine whether there are any updates to the zone. RIPE's recommendation for small and stable zones is 86400 seconds (24 hours).</li>
+<li><strong>RETRY</strong> defines the number of seconds a secondary name server should wait to retry its refresh query if the master does not respond. RIPE's recommendation for small and stable zones is 7200 seconds (2 hours).</li>
+<li><strong>EXPIRE</strong> defines the number of seconds before expiring the current set of records if the master does not respond. RIPE's recommendation for small and stable zones is 3600000 seconds (1000 hours).</li>
+<li><strong>TTL</strong> defines a time to live value that is used by recent servers to determine how long to cache a negative DNS result and by older servers to determine the default TTL for resources that don't specify it explicitly. RIPE's recommendation for small and stable zones is 172800 seconds (2 days).</li>
+</ul>
+<blockquote>
+<p>When formatting an email address for the RNAME field, You must escape any period in the username portion of the address with a <code>\</code> and replace the <code>@</code> symbol with an unescaped period. Do not escape periods in the domain portion of the address. An example can be seen in the following SOA record.</p>
+</blockquote>
+<div class="codehilite"><pre><span></span>;
+; Example SOA record for washington.edu
+; Primary NS - hanna.cac.washington.edu
+; Administrative Email - domainmaster@cac.washington.edu
+;
+washington.edu.     462 IN  SOA hanna.cac.washington.edu. domainmaster.cac.washington.edu. 2019021600 3600 1800 3600000 600
+;
+; Use parenthesis to split the record across lines for readability
+;
+washington.edu 462 IN SOA hanna.cac.washington.edu. domainmaster.cac.washington.edu (
+    2019021600          ; SERIAL
+    3600                ; REFRESH (1 hour)
+    1800                ; RETRY (30 minutes)
+    3600000             ; EXPIRE (1000 hours)
+    600                 ; TTL (10 minutes)
+)
+</pre></div>
+
+<h3 id="ns-record-data">NS Record Data<a class="headerlink" href="#ns-record-data" title="Permanent link">&para;</a></h3>
+<p><strong>Name Server</strong> records are used to indicate the servers that host the zone file for a domain. A zone file will normally include its own name servers and the name servers of any subdomains. </p>
+<blockquote>
+<p>In a real world scenario, your domains should be hosted by at least two name servers.</p>
+</blockquote>
+<p>NS records refer to the hostname of a server. Assigning an IP address to a NS record is a misconfiguration. Rather a zone file can define glue records, A and AAAA address records that tie the name servers' hostnames to IP addresses. Glue records are required when a zone hosts its own authoritative name servers.</p>
+<div class="codehilite"><pre><span></span>; Name Server
+washington.edu.     86400   IN  NS  hanna.cac.washington.edu.
+
+; Glue Records
+hanna.cac.washington.edu. 86400 IN  A   140.142.5.5
+hanna.cac.washington.edu. 86400 IN  AAAA    2607:4000:200:42::5
+</pre></div>
+
+<h3 id="a-and-aaaa-record-data">A and AAAA Record Data<a class="headerlink" href="#a-and-aaaa-record-data" title="Permanent link">&para;</a></h3>
+<p><strong>Address</strong> records map hostnames to IP addresses. The value of an A record in a BIND zone file is simply the IPv4 address in dotted decimal notation. For AAAA records, BIND supports the standard shorthand rules for IPv6.</p>
+<p>It is legal (and common) for multiple address records to be provided for a given hostname. This feature allows us to support <em>dual stack</em> hosts that can be reached using either IPv4 or IPv6 addresses, but it also enables us to distribute traffic between multiple servers for redundancy and load balancing. </p>
+<p>This configuration is referred to as <em>round-robin DNS</em> and can be seen in the following example:</p>
+<div class="codehilite"><pre><span></span>;
+; Subsequent DNS responses will list records in a random order
+;
+www.washington.edu. IN  A   128.95.155.134
+www.washington.edu. IN  A   128.95.155.197
+www.washington.edu.     IN  A   128.95.155.198
+</pre></div>
+
+<h3 id="cname-record-data">CNAME Record Data<a class="headerlink" href="#cname-record-data" title="Permanent link">&para;</a></h3>
+<p><strong>Canonical Name</strong> records define aliases for hostnames. CNAME records have many uses, including mapping alternate domain registrations to a primary domain (as seen below) or to improve the stability of DNS records when we do not have direct control over the underlying infrastructure.</p>
+<div class="codehilite"><pre><span></span>;
+; www.uw.edu can be used as an alias for www.washington.edu
+;
+www.uw.edu. IN  CNAME   www.washington.edu.
+</pre></div>
+
+<p>While CNAME records can be quite useful, there are several important restrictions to keep in mind:</p>
+<ul>
+<li>Do not define a CNAME record for the <em>apex domain name</em>, i.e., the name of the domain without any host prefix.</li>
+<li>Do not define a CNAME as the target of an MX or NS record. The target of an MX or NS must always resolve to an A or AAAA record.</li>
+<li>Do not define any other records for a hostname that is given a CNAME record. For example, since <a href="http://www.uw.edu">www.uw.edu</a> has a CNAME, it cannot also be given an A record or a TXT record.</li>
+</ul>
+<h3 id="mx-record-data">MX Record Data<a class="headerlink" href="#mx-record-data" title="Permanent link">&para;</a></h3>
+<p><strong>Mail Exchanger</strong> records are used to specify the servers that will receive mail for a given domain.</p>
+<p>An individual MX record include an integer priority and a hostname. It is common and recommended to define multiple MX records for a domain. The priority field is used by mail agents to determine the preferred mail server (lower values are given higher priority).</p>
+<div class="codehilite"><pre><span></span>;
+; Since the three servers listed here have equal priority, a mail
+; agent will choose one at random.
+;
+washington.edu.     10800   IN  MX  100 mxe30.s.uw.edu.
+washington.edu.     10800   IN  MX  100 mxe31.s.uw.edu.
+washington.edu.     10800   IN  MX  100 mxe32.s.uw.edu.
+
+;
+; The hostnames referred to by MX records must resolve to address 
+; records are hosted in the zone for uw.edu, e.g.,
+; 
+mxe30.s.uw.edu.     86400   IN  A   173.250.227.19
+</pre></div>
+
+<h3 id="txt-record-data">TXT Record Data<a class="headerlink" href="#txt-record-data" title="Permanent link">&para;</a></h3>
+<p><strong>Text</strong> records hold freeform text that is generally intended for use by external services. </p>
+<p>TXT records are frequently used to:
+* Verify ownership of a domain, e.g., required to set up 3<sup>rd</sup> party email hosting or obtain a certificate for TLS.
+* Support SPAM reduction technologies such as the Sender Policy Framework (SPF) and DomainKeys Identfied Mail (DKIM).</p>
+<div class="codehilite"><pre><span></span>;
+; SPF uses TXT to indicate which networks or hosts may be used to send
+; email on behalf of a domain. Recipients may flag or drop email that
+; originated from an alternate server.
+; 
+uw.edu.         3600    IN  TXT &quot;v=spf1 ip4:128.95.242.222/32 ip4:128.208.0.5/32 ip4:128.208.181.0/26 ip4:140.142.32.0/24 ip4:140.142.234.128/25 ip4:173.250.227.0/24 ?all&quot;
+</pre></div>
+
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://tools.ietf.org/html/rfc1912">RFC 1912: Common DNS Operational and Configuration Errors</a></li>
+<li><a href="https://tools.ietf.org/html/rfc2142">RFC 2142: Mailbox Names for Common Services, Roles, and Functions</a></li>
+<li><a href="https://www.ripe.net/publications/docs/ripe-203">RIPE 203: Recommendations for DNS SOA Values</a></li>
+</ul></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>Copyright &copy; 2020 Clinton Campbell</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
