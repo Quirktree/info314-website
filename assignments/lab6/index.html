@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Clinton Campbell">
-        <link rel="canonical" href="https://info314.tcpip.dev/notes/router-overview/">
+        <link rel="canonical" href="https://info314.tcpip.dev/assignments/lab6/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Routers - INFO 314 Course Resources</title>
+        <title>Proxy Part 1 Instructions - INFO 314 Course Resources</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -58,11 +58,11 @@
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../../assignments/pi-setup/">Raspberry Pi Setup</a>
+    <a href="../pi-setup/">Raspberry Pi Setup</a>
 </li>
             
 <li >
-    <a href="../../assignments/networkd-setup/">networkd Setup</a>
+    <a href="../networkd-setup/">networkd Setup</a>
 </li>
             
 <li >
@@ -80,7 +80,7 @@
 </li>
             
 <li >
-    <a href="../../assignments/dhcp-setup/">Installing and Configuring the ISC DHCP Server</a>
+    <a href="../dhcp-setup/">Installing and Configuring the ISC DHCP Server</a>
 </li>
     </ul>
   </li>
@@ -90,7 +90,7 @@
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../../assignments/router-setup/">Router Setup</a>
+    <a href="../router-setup/">Router Setup</a>
 </li>
             
 <li >
@@ -104,7 +104,7 @@
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../../assignments/resolver-setup/">DNS Resolver Setup</a>
+    <a href="../resolver-setup/">DNS Resolver Setup</a>
 </li>
     </ul>
   </li>
@@ -114,7 +114,7 @@
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../../assignments/analysis-report/">Instructions</a>
+    <a href="../analysis-report/">Instructions</a>
 </li>
             
 <li >
@@ -128,7 +128,7 @@
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../../assignments/dns-zone-setup/">Authoritative Zone Setup</a>
+    <a href="../dns-zone-setup/">Authoritative Zone Setup</a>
 </li>
             
 <li >
@@ -142,30 +142,30 @@
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../../assignments/vlan-challenge/">VLAN Challenge</a>
+    <a href="../vlan-challenge/">VLAN Challenge</a>
 </li>
     </ul>
   </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li >
-    <a href="../../assignments/lab2/">Lab 2</a>
+    <a href="../lab2/">Lab 2</a>
 </li>
                                     
 <li >
-    <a href="../../assignments/lab3/">Lab 3</a>
+    <a href="../lab3/">Lab 3</a>
 </li>
                                     
 <li >
-    <a href="../../assignments/lab4/">Lab 4</a>
+    <a href="../lab4/">Lab 4</a>
 </li>
                                     
 <li >
-    <a href="../../assignments/lab5/">Lab 5</a>
+    <a href="../lab5/">Lab 5</a>
 </li>
                                     
   <li class="dropdown-submenu">
@@ -173,17 +173,17 @@
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../../assignments/proxy-labs/">Proxy Project Overview</a>
+    <a href="../proxy-labs/">Proxy Project Overview</a>
 </li>
             
-<li >
-    <a href="../../assignments/lab6/">Proxy Part 1 Instructions</a>
+<li class="active">
+    <a href="./">Proxy Part 1 Instructions</a>
 </li>
     </ul>
   </li>
                                 </ul>
                             </li>
-                            <li class="dropdown active">
+                            <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Resources <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -192,11 +192,11 @@
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../dns-overview/">Domain Name System (DNS)</a>
+    <a href="../../notes/dns-overview/">Domain Name System (DNS)</a>
 </li>
             
-<li class="active">
-    <a href="./">Routers</a>
+<li >
+    <a href="../../notes/router-overview/">Routers</a>
 </li>
     </ul>
   </li>
@@ -267,12 +267,12 @@
                             </a>
                         </li>
                             <li >
-                                <a rel="next" href="../dns-overview/">
+                                <a rel="next" href="../proxy-labs/">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li >
-                                <a rel="prev" href="../../resources/iptables/">
+                                <a rel="prev" href="../../notes/dns-overview/">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -287,41 +287,99 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#routers">Routers</a></li>
-            <li><a href="#what-is-a-router">What is a Router</a></li>
-            <li><a href="#routers-vs-multi-homed-hosts">Routers vs Multi-homed Hosts</a></li>
-            <li><a href="#routers-and-incoming-packets">Routers and Incoming Packets</a></li>
-            <li><a href="#routers-and-outgoing-packets">Routers and Outgoing Packets</a></li>
-            <li><a href="#terminology">Terminology</a></li>
+        <li class="main active"><a href="#lab-6-proxy-part-1">Lab 6 - proxy part 1</a></li>
+            <li><a href="#python-concepts">Python concepts</a></li>
+            <li><a href="#instructions">Instructions</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="routers">Routers<a class="headerlink" href="#routers" title="Permanent link">&para;</a></h1>
-<p>Routers and routing are frequent topics when we discuss networking, and it is all too easy for newcomers to overlook or misunderstand some of the assumptions we make about these terms. Let’s take a step back and review the fundamentals.</p>
-<h2 id="what-is-a-router">What is a Router<a class="headerlink" href="#what-is-a-router" title="Permanent link">&para;</a></h2>
-<p>A router is a computing device that is attached to two or more networks <em>and</em> is set up so that it can forward packets from one network to another. Both of these conditions are necessary in order for us to call something a router. You might think that all routers are special purpose, embedded devices like the ones you see on most home or office networks. In reality, most computers<sup id="fnref:hotspots"><a class="footnote-ref" href="#fn:hotspots">1</a></sup> are capable of routing, so long as the hardware supports multiple network connections and the software supports forwarding between networks.</p>
-<h2 id="routers-vs-multi-homed-hosts">Routers vs Multi-homed Hosts<a class="headerlink" href="#routers-vs-multi-homed-hosts" title="Permanent link">&para;</a></h2>
-<p>It is not uncommon for a device to be connected to multiple networks without being configured to route traffic. A device with this configuration, e.g., your Pi prior to checkpoint #3, is known as a multi-homed host. A non-routing, multi-homed hosts will drop packets that aren’t directly addressed to it at both Layer-2 (MAC address) and Layer-3 (IP address). This behavior is exactly the same as an ordinary host attached to a single network.</p>
-<h2 id="routers-and-incoming-packets">Routers and Incoming Packets<a class="headerlink" href="#routers-and-incoming-packets" title="Permanent link">&para;</a></h2>
-<p>On an ethernet-based network, a router will process any frame for which the destination MAC address matches the MAC of the NIC on which the frame was received. After processing Layer-2, the router examines the packet’s IP headers. Assuming that the destination IP address is not a match for the router’s IP address, the router will consult its route table in order to forward the packet closer to its final destination. Packets addressed directly to the router will continue to be processed so that they can be delivered to an internal process via a socket. </p>
-<h2 id="routers-and-outgoing-packets">Routers and Outgoing Packets<a class="headerlink" href="#routers-and-outgoing-packets" title="Permanent link">&para;</a></h2>
-<p>Most of the unique magic that distinguishes routers from ordinary hosts takes place on inbound packets. You might be surprised to learn that the process of sending a packet is the same for packets from local applications as it is for packets forwarded between networks. </p>
-<p>No matter where a packet comes from or where it is going, packet-communication occurs on a hop-by-hop basis. Every host starts this process by comparing its destination address to entries defined in its own routing table. Matches are identified when the network bits of the destination match a network id in the based on the correspondence netmask or CIDR defined in the routing table<sup id="fnref:longest-match"><a class="footnote-ref" href="#fn:longest-match">2</a></sup>.</p>
-<p>After finding a match, the network stack can start the process of forwarding to the next hop. If the final destination is on a directly attached network, ARP is used to determine the MAC address of the destination and the packet will be forwarded directly. Otherwise, the routing table can be used to find a <em>next hop</em> IP address for a directly attached network. Once again, with the next hop IP, ARP can be used to determine the MAC address so that the packet can be forwarded directly.</p>
-<h2 id="terminology">Terminology<a class="headerlink" href="#terminology" title="Permanent link">&para;</a></h2>
-<p>Routing terminology is a common sticking point for many students and professionals. In particular, it can be useful to understand the finer distinctions between the terms <em>routing</em> and <em>forwarding</em>. At Layer-3, the word forwarding describes the mechanics of passing an inbound packet from its origin interface back onto a different network through an outbound interface. The mechanics of finding a matching route and pushing the packet out the appropriate interface are all part of the forwarding process. In contrast, routing refers to the entire end-to-end process that gets a packet to the right place.</p>
-<div class="footnote">
-<hr />
-<ol>
-<li id="fn:hotspots">
-<p>When we say most computers, we mean it. Have you ever used your mobile phone as a hotspot for your tablet or computer? Give it a shot, and if you’re able, use <code>traceroute</code> or <code>tracert</code> to observe the routing process in action.&#160;<a class="footnote-backref" href="#fnref:hotspots" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
-<li id="fn:longest-match">
-<p>It is possible for a routing table to find multiple matches. In this case, ties are broken by looking for the most specific entry, i.e., the longest matching network prefix. Other metrics may be used if there are multiple entries for a given network ID.&#160;<a class="footnote-backref" href="#fnref:longest-match" title="Jump back to footnote 2 in the text">&#8617;</a></p>
-</li>
-</ol>
-</div></div>
+<h1 id="lab-6-proxy-part-1">Lab 6 - proxy part 1<a class="headerlink" href="#lab-6-proxy-part-1" title="Permanent link">&para;</a></h1>
+<p><img alt="proxy image" src="https://hydrasky.com/wp-content/uploads/2017/10/proxy_diagram.png" /></p>
+<h2 id="python-concepts">Python concepts<a class="headerlink" href="#python-concepts" title="Permanent link">&para;</a></h2>
+<ul>
+<li>program structure</li>
+<li>find(), split(), strip()</li>
+<li>slicing lists / strings</li>
+<li>try / except</li>
+<li>dictionary</li>
+<li>control characters, e.g., <code>\r\n</code></li>
+</ul>
+<h2 id="instructions">Instructions<a class="headerlink" href="#instructions" title="Permanent link">&para;</a></h2>
+<h3 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h3>
+<p>As always, create a new branch dedicated to this lab within your http-proxy repository, and at the root of your repository, add a new script named <code>http-proxy.py</code> based on <code>resources/template.py</code>. This file will be the main deliverable for your project.</p>
+<p>HTTP proxies incorporate server and client functionality into a single daemon. As a server, your proxy listens and process the requests it receives from browsers and other HTTP clients. As a client, your proxy will pass the clients' requests on to the intended destination and handle the responses in return.</p>
+<p>In this task, we will work exclusively on the server functionality of the proxy. Specifically, we'll build a server that processes the incoming TCP stream and parses out HTTP GET requests. In future assignments, we'll extend our code to handle other message types and implement the client functionality.</p>
+<h3 id="main-loop-event-loop">Main Loop (Event Loop)<a class="headerlink" href="#main-loop-event-loop" title="Permanent link">&para;</a></h3>
+<p>Use a while loop to repeatedly <code>accept()</code> and process incoming requests. For each active connection, you will be making calls to <code>Socket.recv()</code> in order to fetch the next chunk of data from the TCP stream and process it.</p>
+<div class="admonition info">
+<p class="admonition-title">What it means to work with streams</p>
+<p>Remember that TCP is a stream-oriented protocol and that the Sockets API is built around the metaphor of the stream of bytes. Each attempt to read data from a socket pulls data from the stream in small chunks, e.g., <code>Socket.recv(1024)</code> returns <em>up to 1024 bytes</em> of data from the stream. </p>
+<p>Don't assume that <code>recv()</code> will return a complete HTTP message in one call. The Sockets API does not even guarantee that it will return the full number of bytes you requested. In order to know where messages begin and end, we have to inspect the incoming bytes based on HTTP message syntax.</p>
+</div>
+<p>Since it is up to you to identify and reconstruct messages out of the stream, you should create a buffer that will hold your data while you work to identify complete HTTP messages. A buffer in this case is nothing more than a python bytes object that you append to each time a <code>recv()</code> returns successfully, for example:</p>
+<div class="codehilite"><pre><span></span><span class="c1"># Declare an empty buffer</span>
+<span class="n">buffer</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span>
+
+<span class="c1"># Receive new data and add it to the buffer</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+<span class="n">buffer</span> <span class="o">=</span> <span class="n">buffer</span> <span class="o">+</span> <span class="n">data</span>
+</pre></div>
+
+<h3 id="getting-to-http-messages">Getting to HTTP Messages<a class="headerlink" href="#getting-to-http-messages" title="Permanent link">&para;</a></h3>
+<p>In order to recognize HTTP messages, you need to parse the bytes you've received and determine whether you have a complete message. Your task is to a simple HTTP parser that accepts a byte buffer and attempts to parse an HTTP GET request (ignore other request types for now). We recommend that your parser returns the parsed message as a dictionary (see below) along with the bytes that were still left over in the buffer.</p>
+<p>Based on this description, we can create a python function that resembles the following:</p>
+<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">parse_message</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="c1"># initialize an empty dictionary</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># parse bytes and assign key / value pairs such as ...</span>
+    <span class="n">message</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="c1"># HTTP method name such as GET</span>
+    <span class="n">message</span><span class="p">[</span><span class="s1">&#39;uri&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="c1"># address or resource name from the request, such as www.uw.edu</span>
+    <span class="n">message</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="c1"># HTTP version such as HTTP/1.0</span>
+    <span class="n">message</span><span class="p">[</span><span class="s1">&#39;headers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># List of headers</span>
+
+    <span class="c1"># If parsing is successful, return a completed message (if applicable) and unused bytes</span>
+    <span class="k">return</span> <span class="n">message</span><span class="p">,</span> <span class="n">unparsed_data</span>
+
+    <span class="c1"># If parsing fails, return the entire buffer and an indicator that parsing was incomplete</span>
+    <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">data</span>
+</pre></div>
+
+<h4 id="parsing">Parsing<a class="headerlink" href="#parsing" title="Permanent link">&para;</a></h4>
+<p>HTTP messages follow a relatively simple syntax that can be used to make decisions about how to break the message into smaller parts (using tools like Python <em>slicing</em> and the functions <code>find()</code>, <code>strip()</code>, and <code>split()</code>). </p>
+<p>For GET requests, the message structure is based entirely around lines and the <em>Carriage Return / New Line</em> line separators (think back to previous labs in which we sent GET requests using netcat). It's tempting for many students to read this and start parsing with a <code>data.split('\r\n')</code>. This strategy rarely works. </p>
+<p>Instead, we recommend that you create a dedicated function to split a single line off the buffer. You can do this with <code>find()</code>, <code>strip()</code>, and <em>slices</em>.</p>
+<p>Before you go any further, make sure you have a basic understanding of HTTP/1.0 message structure. See <a href="/assignments/proxy-labs">HTTP syntax overview</a> or <a href="https://tools.ietf.org/html/rfc1945">RFC 1945</a>.</p>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<p>After successfully parsing a request, you should print the following summary and close the connection (return to the start of your loop to listen for new requests).</p>
+<p><strong>Request summary</strong></p>
+<ul>
+<li><strong>Connection Source:</strong> \&lt;IP address returned from the call to Socket.accept()></li>
+<li><strong>HTTP Method:</strong> \&lt;Name of method, e.g., GET, OPTION, or POST></li>
+<li><strong>Destination:</strong> \&lt;URI extracted from the request></li>
+<li><strong>Headers:</strong> \&lt;Comma delimited list of header names>  </li>
+</ul>
+<h3 id="testing-your-code-with-testpy">Testing your code with <code>test.py</code><a class="headerlink" href="#testing-your-code-with-testpy" title="Permanent link">&para;</a></h3>
+<p>The resources directory of the project repository contains a simple python script called test.py that you can use to send HTTP requests from a file into your proxy code.</p>
+<div class="codehilite"><pre><span></span><span class="c1"># Send the request from sample-request.txt </span>
+<span class="c1"># one line at a time with a short delay between</span>
+python3 test.py <span class="m">9999</span> sample-request.txt
+
+<span class="c1"># Send the request from sample-request.txt 250 bytes at a time </span>
+<span class="c1"># with a short delay between</span>
+python3 test.py <span class="m">9999</span> sample-request.txt <span class="m">250</span>
+</pre></div>
+
+<h3 id="capturing-proxied-requests-for-testing">Capturing proxied requests for testing<a class="headerlink" href="#capturing-proxied-requests-for-testing" title="Permanent link">&para;</a></h3>
+<p>Use the following method to capture valid requests that you can use for testing:</p>
+<ul>
+<li>Open ncat to listen for incoming connections, e.g., <code>ncat -o &lt;FILENAME&gt; -l &lt;PORT&gt;</code></li>
+<li>Configure Firefox with an HTTP proxy on <code>127.0.0.1 &lt;PORT&gt;</code></li>
+<li>Enter the URL of an HTTP-only site into the FF address bar (the request will hang)</li>
+<li>Manually stop the request from the browser</li>
+<li>Verify that the request was captured in ncat (ncat will close automatically)</li>
+</ul></div>
         </div>
 
         <footer class="col-md-12">
