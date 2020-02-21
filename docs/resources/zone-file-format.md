@@ -77,7 +77,7 @@ washington.edu.		462	IN	SOA	hanna.cac.washington.edu. domainmaster.cac.washingto
 ;
 ; Use parenthesis to split the record across lines for readability
 ;
-washington.edu 462 IN SOA hanna.cac.washington.edu. domainmaster.cac.washington.edu (
+washington.edu. 462 IN SOA hanna.cac.washington.edu. domainmaster.cac.washington.edu (
     2019021600          ; SERIAL
     3600                ; REFRESH (1 hour)
     1800                ; RETRY (30 minutes)
