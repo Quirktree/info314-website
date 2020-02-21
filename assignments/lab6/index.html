@@ -328,6 +328,9 @@
 
 <h3 id="getting-to-http-messages">Getting to HTTP Messages<a class="headerlink" href="#getting-to-http-messages" title="Permanent link">&para;</a></h3>
 <p>In order to recognize HTTP messages, you need to parse the bytes you've received and determine whether you have a complete message. Your task is to a simple HTTP parser that accepts a byte buffer and attempts to parse an HTTP GET request (ignore other request types for now). We recommend that your parser returns the parsed message as a dictionary (see below) along with the bytes that were still left over in the buffer.</p>
+<p>As noted, the data coming from the socket will be in bytestring format, meaning it will appear as <code>b'data'</code>  and not <code>'data'</code> as with a normal string. You cannot use string methods such as <code>split()</code> on a btyestring. Therefore you will need to decode the btyestring with the <code>str()</code> or <code>decode()</code> method to turn it into a string.</p>
+<p>HTTP messages may be formatted as ASCII (per RFC 7230) or ISO-8859-1 (per historic RFCs). </p>
+<p>Decoding text as <code>iso-8859-1</code> will allow for the maximum versatility.</p>
 <p>Based on this description, we can create a python function that resembles the following:</p>
 <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">parse_message</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="c1"># initialize an empty dictionary</span>
