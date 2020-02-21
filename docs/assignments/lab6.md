@@ -46,6 +46,12 @@ buffer = buffer + data
 
 In order to recognize HTTP messages, you need to parse the bytes you've received and determine whether you have a complete message. Your task is to a simple HTTP parser that accepts a byte buffer and attempts to parse an HTTP GET request (ignore other request types for now). We recommend that your parser returns the parsed message as a dictionary (see below) along with the bytes that were still left over in the buffer.
 
+As noted, the data coming from the socket will be in bytestring format, meaning it will appear as `b'data'`  and not `'data'` as with a normal string. You cannot use string methods such as `split()` on a btyestring. Therefore you will need to decode the btyestring with the `str()` or `decode()` method to turn it into a string.
+
+HTTP messages may be formatted as ASCII (per RFC 7230) or ISO-8859-1 (per historic RFCs). 
+
+Decoding text as `iso-8859-1` will allow for the maximum versatility.
+
 Based on this description, we can create a python function that resembles the following:
 
 ```python
