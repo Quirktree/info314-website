@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Clinton Campbell">
-        <link rel="canonical" href="https://info314.tcpip.dev/notes/ethernet-switches/">
+        <link rel="canonical" href="https://info314.tcpip.dev/assignments/lab7/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Ethernet switches - INFO 314 Course Resources</title>
+        <title>Lab 7 - proxy part II - INFO 314 Course Resources</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -58,11 +58,11 @@
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../../assignments/pi-setup/">Raspberry Pi Setup</a>
+    <a href="../pi-setup/">Raspberry Pi Setup</a>
 </li>
             
 <li >
-    <a href="../../assignments/networkd-setup/">networkd Setup</a>
+    <a href="../networkd-setup/">networkd Setup</a>
 </li>
             
 <li >
@@ -80,7 +80,7 @@
 </li>
             
 <li >
-    <a href="../../assignments/dhcp-setup/">Installing and Configuring the ISC DHCP Server</a>
+    <a href="../dhcp-setup/">Installing and Configuring the ISC DHCP Server</a>
 </li>
     </ul>
   </li>
@@ -90,7 +90,7 @@
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../../assignments/router-setup/">Router Setup</a>
+    <a href="../router-setup/">Router Setup</a>
 </li>
             
 <li >
@@ -104,7 +104,7 @@
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../../assignments/resolver-setup/">DNS Resolver Setup</a>
+    <a href="../resolver-setup/">DNS Resolver Setup</a>
 </li>
     </ul>
   </li>
@@ -114,7 +114,7 @@
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../../assignments/analysis-report/">Instructions</a>
+    <a href="../analysis-report/">Instructions</a>
 </li>
             
 <li >
@@ -128,7 +128,7 @@
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../../assignments/dns-zone-setup/">Authoritative Zone Setup</a>
+    <a href="../dns-zone-setup/">Authoritative Zone Setup</a>
 </li>
             
 <li >
@@ -142,7 +142,7 @@
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../../assignments/vlan-challenge/">VLAN Challenge</a>
+    <a href="../vlan-challenge/">VLAN Challenge</a>
 </li>
     </ul>
   </li>
@@ -153,19 +153,19 @@
                                 <ul class="dropdown-menu">
                                     
 <li >
-    <a href="../../assignments/lab2/">Lab 2</a>
+    <a href="../lab2/">Lab 2</a>
 </li>
                                     
 <li >
-    <a href="../../assignments/lab3/">Lab 3</a>
+    <a href="../lab3/">Lab 3</a>
 </li>
                                     
 <li >
-    <a href="../../assignments/lab4/">Lab 4</a>
+    <a href="../lab4/">Lab 4</a>
 </li>
                                     
 <li >
-    <a href="../../assignments/lab5/">Lab 5</a>
+    <a href="../lab5/">Lab 5</a>
 </li>
                                     
   <li class="dropdown-submenu">
@@ -173,11 +173,11 @@
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../../assignments/proxy-labs/">Proxy Project Overview</a>
+    <a href="../proxy-labs/">Proxy Project Overview</a>
 </li>
             
 <li >
-    <a href="../../assignments/lab6/">Proxy Part 1 Instructions</a>
+    <a href="../lab6/">Proxy Part 1 Instructions</a>
 </li>
     </ul>
   </li>
@@ -192,11 +192,11 @@
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../dns-overview/">Domain Name System (DNS)</a>
+    <a href="../../notes/dns-overview/">Domain Name System (DNS)</a>
 </li>
             
 <li >
-    <a href="../router-overview/">Routers</a>
+    <a href="../../notes/router-overview/">Routers</a>
 </li>
     </ul>
   </li>
@@ -277,51 +277,110 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#introduction">Introduction</a></li>
-        <li class="main "><a href="#collisions-and-media-access-control">Collisions and Media Access Control</a></li>
-        <li class="main "><a href="#star-topology">Star Topology</a></li>
-        <li class="main "><a href="#bridging-and-switches">Bridging and Switches</a></li>
-            <li><a href="#forwarding-mechanics">Forwarding Mechanics</a></li>
-        <li class="main "><a href="#broadcast-domains">Broadcast Domains</a></li>
-        <li class="main "><a href="#virtual-lan-vlan">Virtual LAN (VLAN)</a></li>
-        <li class="main "><a href="#switch-architecture-planning">Switch Architecture Planning</a></li>
-        <li class="main "><a href="#redundancy-and-switch-loops">Redundancy and Switch Loops</a></li>
+        <li class="main active"><a href="#lab-7-proxy-part-ii">Lab 7 - proxy part II</a></li>
+            <li><a href="#python-concepts">Python concepts</a></li>
+            <li><a href="#instructions">Instructions</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<p>Key concepts: Shared transmission medium, topology, hub, congestion, collision domain, broadcast domain, segment (layer-2), bridge, switch, forwarding information base (FIB)</p>
-<h1 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h1>
-<p>Ethernet switches are one of the most widely deployed network components, providing physical ports for attaching other network components or endpoints at the data-link layer of the TCP/IP stack. Barring advanced configurations, devices that are attached through switching infrastructure are part of the same layer-2 network and can communicate directy through the switch using layer-2 addresses.</p>
-<h1 id="collisions-and-media-access-control">Collisions and Media Access Control<a class="headerlink" href="#collisions-and-media-access-control" title="Permanent link">&para;</a></h1>
-<p>Switches are not the only layer-2 game in town for wired Ethernet, though they are one of the few you should even consider in 2020. Once upon a time we connected devices in a <em>bus</em> configuration, where each node would tap into a segment of coaxial cable or other suitable transmission medium. In this configuration, the bus provides a resource that must be shared between all nodes attached to it. One consequence of this configuration is that data frames are visible to every other node since the signal is transmitted across the entire bus. Likewise, since the bus is shared, <em>collisions</em> between data frames may occur when nodes try to use the resource at the same time. For this reason, we say that bus represents a single <em>collision domain</em>. </p>
-<p>Ethernet copes with collisions using a <em>media access control (MAC)</em> mechanism that allows the NIC to identify a failure and make another attempt after a variable delay. This mechanism is known as <em>Carrier Sense Multiple Access with Collision Detection (CSMA/CD)</em>. While CSMA/CD enables the network to continue functioning despite collisions, <em>congestion</em> occur as the shared medium becomes more contested. A highly congested network is inefficient since failures and retransmission consume an increasing amount of its bandwidth.</p>
-<h1 id="star-topology">Star Topology<a class="headerlink" href="#star-topology" title="Permanent link">&para;</a></h1>
-<p>Congestion is not the only architectural concern associated with the bus topology. Physical challenges such as signal interference and attenuation limit the overall length of a bus. As such, the layout of the bus relative to the physical location of each node must be carefully planned. Hubs alleviated these latter concerns by offering a more flexible topology. In a <em>star topology</em>, multiple nodes connect back to a central point through dedicated, indepenent links, e.g., lengths of CAT-5 cable. </p>
-<p>Beneath the hood, hubs still operate on the underlying principle of transmitting signals across an entire network segment. In fact, each port of a hub acts as a repeater for the physical signals that were received on other ports. As such, hubs do not eliminate the concern of congestion and collisions or snooping on communication within a segment since endpoints connected by hubs are still members of a single collision domain. </p>
-<h1 id="bridging-and-switches">Bridging and Switches<a class="headerlink" href="#bridging-and-switches" title="Permanent link">&para;</a></h1>
-<p><em>Bridging</em> provide a layer-2 solution to the congestion problem by splitting a network into independent collision domains and intelligently forwarding frames between these layer-2 <em>segments</em>. When a bridge observes a frame on one of its ports, it inspects Ethernet headers to <em>learn</em> about the topology of the network based on the MAC address of the sender. The bridge uses the information it learns about the topology to optimize forwarding, which is only necessary when the recipient and sender are on different segments.</p>
-<p>xxx NO CHANGES TO ETHERNET</p>
-<p>Classic Ethernet bridges provides two ports/collision domains and are rarely seen in modern networks. A switch combines multiple bridges in a device that physically resembles a hub. Unlike a hub, however, each switch port represents a distinct segment on its own collision domain. From a performance perspective, a well-placed bridge can reduce the amount of activity on a domain by about half (discounting for broadcast traffic). Adding more bridges further improves the situation. In a switched network, every link is isolated within an independent collision domain, allowing a much greater level of overall throughput on the network.</p>
-<h2 id="forwarding-mechanics">Forwarding Mechanics<a class="headerlink" href="#forwarding-mechanics" title="Permanent link">&para;</a></h2>
-<p>The forwarding mechanics of a switch are identical to a bridge. As switches learn the topology of a layer-2 network, they populate a Forwarding Information Base (FIB) with MAC/port associations. Until a switch knows which port is associated with a particular destination MAC address, a frame received on one port will be <em>flooded</em> over every other port on the switch.</p>
-<h1 id="broadcast-domains">Broadcast Domains<a class="headerlink" href="#broadcast-domains" title="Permanent link">&para;</a></h1>
-<p>As we've seen, switches support standard Ethernet modes of communication between all nodes of the layer-2 network based on MAC address. </p>
-<h1 id="virtual-lan-vlan">Virtual LAN (VLAN)<a class="headerlink" href="#virtual-lan-vlan" title="Permanent link">&para;</a></h1>
-<p>VLANs provide a solution to isolate broadcast domains from one another without requiring an investment of dedicated hardware for each domain. In the simplest sense, VLANs provide virtual separation of broadcast domains by identifying switch ports as VLAN members and referencing this configuration to enforce the separation of ethernet traffic.</p>
-<p>A switch configured with more than one VLAN behaves like multiple standalone switches. The ports assigned to a given VLAN maintain their own view of the FIB that is based only on the MAC addresses seen on those ports. In port-based VLANs, which use the mode of operation described above, a router would need to be attached to each set of ports to assign forwarding across the VLAN boundary.</p>
-<p>Many switches, support a more dynamic mode that enables network-attached devices to distinguish between traffic from multiple VLANs running over a single link. Links that carry traffic for multiple VLANs are called trunks (the associated switch ports are called trunk ports). With trunking, connections between infrastructure components is simplified since multiple broadcast domains can be collapsed onto a single physical link. Trunks generally rely on tags (as specified in 802.1q) to control distribution of frames over VLANs. </p>
-<p>Despite implementation differences, tag and port-based VLANs obey the same rules. Layer-2 frames received on any port/tag are only distributed within the associated VLAN.</p>
-<h1 id="switch-architecture-planning">Switch Architecture Planning<a class="headerlink" href="#switch-architecture-planning" title="Permanent link">&para;</a></h1>
-<p>Larger networks require multi-tier switch deployments to satisfy the requirements of core communication, distribution, and network access. Switches at the access tier need to provide enough port density to support endpoints in the network. Switches participating in the distribution tier of the network architecture may prioritize VLAN trunking, basic redundancy, and incorporate layer-3 functionality to handle routing and security policies internally. Core functionality will likely incorporate multiple levels of redundancy and higher capacity links.</p>
-<h1 id="redundancy-and-switch-loops">Redundancy and Switch Loops<a class="headerlink" href="#redundancy-and-switch-loops" title="Permanent link">&para;</a></h1>
-<p>Redundancy is a common requirement in network infrastructure for the corporate world. Organizations have a greater dependence on information technology and a low threshold for system outages that disrupt operations or productivity. In LAN design, we need to plan for redundant components and links based on the impact of a failure at a given point in the network.</p>
-<p>Redundancy at this layer has an interesting effect with regard to forwarding behavior. A frame that passes through one side of a redundant connection is expected to return to the switch through the other side of the connection. This situation is commonly known as a switching loop. Frames that are caught in a loop degrade the performance of the switches involved. Broadcast traffic exacerbates the problem and may create a broadcast storm. Spanning tree protocol (STP) is present on many business-grade switches to alleviate this problem. </p>
+<h1 id="lab-7-proxy-part-ii">Lab 7 - proxy part II<a class="headerlink" href="#lab-7-proxy-part-ii" title="Permanent link">&para;</a></h1>
+<h2 id="python-concepts">Python concepts<a class="headerlink" href="#python-concepts" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Slicing lists / strings</li>
+<li>Converting strings to/from numbers</li>
+<li>Creating and using enumerations</li>
+<li>Format strings, e.g., <code>"{}: {}\r\n".format(header_name, header_value)</code></li>
+</ul>
+<h2 id="instructions">Instructions<a class="headerlink" href="#instructions" title="Permanent link">&para;</a></h2>
+<h3 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h3>
+<p>As always, create a new branch dedicated to this lab within your http-proxy repository, and at the root of your repository, open up the <code>http-proxy.py</code> script you created in Lab 6 and continue working from the same file. </p>
+<p>In the previous lab, we started to build the server component of your proxy. This component is designed to receive incoming requests from web clients and then eventually forward responses that were received from an upstream web server. The core of the server is established on a request parser, which we also started to develop in the last assignment.</p>
+<p>In this lab, we'll extend the parser to handle additional HTTP request types and also HTTP responses. Likewise, we'll start to build out the client component of the proxy by writing a new function that rebuilds an HTTP request from a previously parsed message. </p>
+<h3 id="parsing-requests-cont">Parsing Requests (cont.)<a class="headerlink" href="#parsing-requests-cont" title="Permanent link">&para;</a></h3>
+<p>Extend your parsing function to handle more complex HTTP requests, such as the POST or PUT type. While GET requests are terminated by an empty CRLF line after the headers, other request types append an additional message body.</p>
+<p>From a parsing perspective, a POST or PUT request proceeds exactly like the GET request up until reading the final CRLF that follows the header section. In order to read the remainder of the message, we need to first find out the length of the body component. In HTTP 1.0, the body length is defined by an HTTP header called <code>Content-Length</code>.<sup id="fnref:oversimplification"><a class="footnote-ref" href="#fn:oversimplification">1</a></sup> The value of <code>Content-Length</code> will be a numeric string that defines the length of the body payload. If the header exists and its integer value is non-zero, you should attempt to read <em>Content-Length</em> bytes from the buffer and save as an additional field in your parsed message. </p>
+<p>If you succeed in parsing a complete message, you should remove the data from the buffer and return a dictionary containing the parts of your message back to the main event loop. If parsing fails, you should leave the data in the buffer and return to your connection handling loop to wait for the rest of the message.</p>
+<h3 id="parsing-responses">Parsing Responses<a class="headerlink" href="#parsing-responses" title="Permanent link">&para;</a></h3>
+<p>Structurally, there is almost no difference between an HTTP request with a message body and an HTTP response. In fact, the only difference from your parser's perspective is the order of fields in the first line of the message.<sup id="fnref:http-syntax"><a class="footnote-ref" href="#fn:http-syntax">2</a></sup></p>
+<p>Extend your parser to handle both types of messages based on an additional <code>message_type</code> argument to your parser function. Modify the behavior of the function to parse the first line properly based on this argument, include the <code>message_type</code> in the parsed message.</p>
+<p>A standard way to represent a value representing a message type is using an enumeration, e.g.:</p>
+<div class="codehilite"><pre><span></span><span class="c1"># Required imports</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">auto</span>
+
+<span class="c1"># Enumeration to represent message types </span>
+<span class="k">class</span> <span class="nc">MessageType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">REQUEST</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+    <span class="n">RESPONSE</span> <span class="o">=</span> <span class="n">auto</span><span class="p">()</span>
+
+<span class="c1"># Use the is operator rather than == to test an enumeration …</span>
+<span class="c1"># if message[‘type’] is MessageType.REQUEST:</span>
+</pre></div>
+
+<h3 id="build-message">Build Message<a class="headerlink" href="#build-message" title="Permanent link">&para;</a></h3>
+<p>Before you wrap up this lab, let's create one more component of the parser, a new function that takes a dictionary like the one generated by your parser and builds a new message (returning the message as a byte string).<sup id="fnref:really?"><a class="footnote-ref" href="#fn:really?">3</a></sup> </p>
+<p>The message you build should be modified in the following manner:</p>
+<ul>
+<li>Replace the HTTP version you received with <code>HTTP/1.0</code></li>
+<li>Add or update a <code>Via</code> header (per RFC 7230) for the proxied connection, e.g.,<ul>
+<li><code>Via: 1.0 127.0.0.1:9999</code></li>
+<li>If a <code>Via</code> already exists, append your entry as a comma separated value to the end of the existing header</li>
+</ul>
+</li>
+</ul>
+<h4 id="tips">Tips<a class="headerlink" href="#tips" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Use python format strings to recreate the line-delimited parts of the message, ensuring you terminate each line in <code>\r\n</code> and encode as <code>iso-8859-1</code></li>
+</ul>
+<h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
+<p>Once all parts of your code are working, print the following summary and close the connection. This will return to the start of your loop to listen for new connections).</p>
+<p><strong>Request summary</strong>  </p>
+<ul>
+<li>Connection Source: &lt; IP address returned from the call to Socket.accept() &gt;  </li>
+<li>HTTP Method: &lt; Name of method, e.g., GET, OPTION, or POST  &gt;  </li>
+<li>Destination: &lt; URI extracted from the request &gt;  </li>
+<li>Headers: &lt; Comma delimited list of header names &gt;</li>
+</ul>
+<p><strong>Ready to forward Request</strong></p>
+<ul>
+<li>Target: &lt; URI of server obtained from request &gt;</li>
+<li>Message: &lt; Raw bytes of the rebuilt request &gt;</li>
+</ul>
+<details class="note"><summary> What are these diamonds "&lt;   &gt;" ?</summary><p>These are placeholders. When you see these it means you should fill in information that is between them and then delete the symbols. It's a quick way of saying "hey something needs to be filled in" for the developer world.</p>
+</details>
+<h3 id="testing-your-code-with-testpy">Testing your code with test.py<a class="headerlink" href="#testing-your-code-with-testpy" title="Permanent link">&para;</a></h3>
+<p>The resources directory of the project repository contains a simple
+python script called test.py that you can use to send HTTP requests from
+a file into your proxy code.</p>
+<div class="codehilite"><pre><span></span><span class="c1"># Send the request from sample-request.txt on port 9999 one line at a time with a short delay between</span>
+<span class="n">python3</span> <span class="n">test</span><span class="o">.</span><span class="n">py</span> <span class="mi">9999</span> <span class="n">sample</span><span class="o">-</span><span class="n">request</span><span class="o">.</span><span class="n">txt</span>
+
+<span class="c1"># Send the request from sample-request.txt on port 9999 250 bytes at a time with a short delay between</span>
+<span class="n">python3</span> <span class="n">test</span><span class="o">.</span><span class="n">py</span> <span class="mi">9999</span> <span class="n">sample</span><span class="o">-</span><span class="n">request</span><span class="o">.</span><span class="n">txt</span> <span class="mi">250</span>
+</pre></div>
+
+<h3 id="capturing-proxied-requests-for-testing">Capturing proxied requests for testing<a class="headerlink" href="#capturing-proxied-requests-for-testing" title="Permanent link">&para;</a></h3>
+<p>Use the following method to capture valid requests that you can use for
+testing:</p>
+<ul>
+<li>Open ncat to listen for incoming connections, e.g., <code>ncat -o &lt;FILENAME&gt; -l &lt;PORT&gt;</code></li>
+<li>Configure Firefox with an HTTP proxy on <code>127.0.0.1 &lt;PORT&gt;</code></li>
+<li>Enter the URL of an HTTP-only site into the FF address bar (the request will hang)</li>
+<li>Manually stop the request from the browser</li>
+<li>Verify that the request was captured in ncat (ncat will close automatically)</li>
+</ul>
 <div class="footnote">
 <hr />
 <ol>
-<li id="fn:fib">
-<p>FIBs sometimes referred to as a MAC address table or a CAM table. CAM stands for content addressable memory, which is the implementation mechanism used for the FIB on many switches.&#160;<a class="footnote-backref" href="#fnref:fib" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<li id="fn:oversimplification">
+<p>This is an oversimplification of the RFC for HTTP/1.0, but it will be sufficient
+for our purposes.&#160;<a class="footnote-backref" href="#fnref:oversimplification" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:http-syntax">
+<p>More information available at <a href="/assignments/proxy-labs">HTTP syntax overview</a>&#160;<a class="footnote-backref" href="#fnref:http-syntax" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:really?">
+<p>I realize it seems strange to rebuild the message you just spent time tearing apart, but this approach gives you more leverage in terms of what functions your proxy can provide. For example, notice how easily we can modify the HTTP version and add new headers.&#160;<a class="footnote-backref" href="#fnref:really?" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div></div>
