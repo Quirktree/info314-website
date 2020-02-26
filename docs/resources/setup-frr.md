@@ -4,15 +4,15 @@
 
 1. Review the project homepage at https://frrouting.org
 2. Configure the FRR Debain Repository
-    a. Download the public key used to verify application packages: `curl -s https://deb.frrouting.org/frr/keys.asc | sudo apt-key add -`
-    b. Add the repository into the list of available resources for apt: `echo deb https://deb.frrouting.org/frr $(lsb_release -s -c) frr-stable | sudo tee -a /etc/apt/sources.list.d/frr.list`
-3. Use `apt` to install FRR: `sudo apt update && sudo apt install frr frr-pythontools`
+    - a. Download the public key used to verify application packages: `curl -s https://deb.frrouting.org/frr/keys.asc | sudo apt-key add -`
+    - b. Add the repository into the list of available resources for apt: `echo deb https://deb.frrouting.org/frr $(lsb_release -s -c) frr-stable | sudo tee -a /etc/apt/sources.list.d/frr.list`
+3. Use `apt` to install FRR: `sudo apt update && sudo apt install frr`
 4. Give the Pi user permission to run the FRR managment client
-    a. Run `sudo usermod -aG frrvty pi` to add the `pi` user to the `frrvty` management group
-    b. Logout (exit SSH) and return in order for Linux to recognize your new privileges
+    - a. Run `sudo usermod -aG frrvty pi` to add the `pi` user to the `frrvty` management group
+    - b. Logout (exit SSH) and return in order for Linux to recognize your new privileges
 5. Enable the BGP routing daemon
-    a. Edit `/etc/frr/daemons` and set `bgpd=yes`. 
-    b. Repeat this process for other routing daemons (if applicable).
+    - a. Edit `/etc/frr/daemons` and set `bgpd=yes`. 
+    - b. Repeat this process for other routing daemons (if applicable).
 6. Restart FRRouting: `sudo systemctl restart frr`
 
 ## Learn the basics of navigating VTY Shell Basics
