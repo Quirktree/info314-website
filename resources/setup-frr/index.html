@@ -324,16 +324,22 @@
 <h2 id="initial-setup">Initial Setup<a class="headerlink" href="#initial-setup" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Review the project homepage at <a href="https://frrouting.org">https://frrouting.org</a></li>
-<li>Configure the FRR Debain Repository
-    a. Download the public key used to verify application packages: <code>curl -s https://deb.frrouting.org/frr/keys.asc | sudo apt-key add -</code>
-    b. Add the repository into the list of available resources for apt: <code>echo deb https://deb.frrouting.org/frr $(lsb_release -s -c) frr-stable | sudo tee -a /etc/apt/sources.list.d/frr.list</code></li>
-<li>Use <code>apt</code> to install FRR: <code>sudo apt update &amp;&amp; sudo apt install frr frr-pythontools</code></li>
-<li>Give the Pi user permission to run the FRR managment client
-    a. Run <code>sudo usermod -aG frrvty pi</code> to add the <code>pi</code> user to the <code>frrvty</code> management group
-    b. Logout (exit SSH) and return in order for Linux to recognize your new privileges</li>
-<li>Enable the BGP routing daemon
-    a. Edit <code>/etc/frr/daemons</code> and set <code>bgpd=yes</code>. 
-    b. Repeat this process for other routing daemons (if applicable).</li>
+<li>Configure the FRR Debain Repository<ul>
+<li>a. Download the public key used to verify application packages: <code>curl -s https://deb.frrouting.org/frr/keys.asc | sudo apt-key add -</code></li>
+<li>b. Add the repository into the list of available resources for apt: <code>echo deb https://deb.frrouting.org/frr $(lsb_release -s -c) frr-stable | sudo tee -a /etc/apt/sources.list.d/frr.list</code></li>
+</ul>
+</li>
+<li>Use <code>apt</code> to install FRR: <code>sudo apt update &amp;&amp; sudo apt install frr</code></li>
+<li>Give the Pi user permission to run the FRR managment client<ul>
+<li>a. Run <code>sudo usermod -aG frrvty pi</code> to add the <code>pi</code> user to the <code>frrvty</code> management group</li>
+<li>b. Logout (exit SSH) and return in order for Linux to recognize your new privileges</li>
+</ul>
+</li>
+<li>Enable the BGP routing daemon<ul>
+<li>a. Edit <code>/etc/frr/daemons</code> and set <code>bgpd=yes</code>. </li>
+<li>b. Repeat this process for other routing daemons (if applicable).</li>
+</ul>
+</li>
 <li>Restart FRRouting: <code>sudo systemctl restart frr</code></li>
 </ol>
 <h2 id="learn-the-basics-of-navigating-vty-shell-basics">Learn the basics of navigating VTY Shell Basics<a class="headerlink" href="#learn-the-basics-of-navigating-vty-shell-basics" title="Permanent link">&para;</a></h2>
