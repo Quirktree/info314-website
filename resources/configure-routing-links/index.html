@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Clinton Campbell">
+        <link rel="canonical" href="https://info314.tcpip.dev/resources/configure-routing-links/">
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Configure a Routing Link for BGP Peers - INFO 314 Course Resources</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/color-brewer.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../..">INFO 314 Course Resources</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">1 - Pi Setup</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../assignments/pi-setup/">Raspberry Pi Setup</a>
+</li>
+            
+<li >
+    <a href="../../assignments/networkd-setup/">networkd Setup</a>
+</li>
+            
+<li >
+    <a href="../wifi-reference/">Wifi Reference</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">2 - Set up a DHCP Server</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../address-planning/">IP Address Planning Reference</a>
+</li>
+            
+<li >
+    <a href="../../assignments/dhcp-setup/">Installing and Configuring the ISC DHCP Server</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">3 - Configure Routing and NAT</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../assignments/router-setup/">Router Setup</a>
+</li>
+            
+<li >
+    <a href="../iptables/">Introduction to iptables</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">4 - Configure a DNS Resolver</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../assignments/resolver-setup/">DNS Resolver Setup</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">Report - NAT and DNS Analysis</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../assignments/analysis-report/">Instructions</a>
+</li>
+            
+<li >
+    <a href="../tshark-install/">Installing TShark</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">5 - Configure an Authoritative Name Server</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../assignments/dns-zone-setup/">Authoritative Zone Setup</a>
+</li>
+            
+<li >
+    <a href="../zone-file-format/">DNS Zone Reference</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">Extra Credit</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../assignments/vlan-challenge/">VLAN Challenge</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../assignments/lab2/">Lab 2</a>
+</li>
+                                    
+<li >
+    <a href="../../assignments/lab3/">Lab 3</a>
+</li>
+                                    
+<li >
+    <a href="../../assignments/lab4/">Lab 4</a>
+</li>
+                                    
+<li >
+    <a href="../../assignments/lab5/">Lab 5</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">Proxy Labs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../assignments/proxy-labs/">Proxy Project Overview</a>
+</li>
+            
+<li >
+    <a href="../../assignments/lab6/">Proxy Part 1 Instructions</a>
+</li>
+            
+<li >
+    <a href="../../assignments/lab7/">Proxy Part 2 Instructions</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Resources <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">Concepts and Theory</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../notes/dns-overview/">Domain Name System (DNS)</a>
+</li>
+            
+<li >
+    <a href="../../notes/router-overview/">Routers</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">Guides</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../iptables/">Introduction to Iptables</a>
+</li>
+            
+<li >
+    <a href="../netfilter-hooks/">Understanding Netfilter/Iptables Hooks</a>
+</li>
+            
+<li >
+    <a href="../wifi-reference/">Linux Wireless Configuration</a>
+</li>
+            
+<li >
+    <a href="../zone-file-format/">Zone File Reference</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">Quick Reference</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../markdown/">Intro to Markdown</a>
+</li>
+            
+<li >
+    <a href="../bash/">Intro to Bash</a>
+</li>
+            
+<li >
+    <a href="../host-config/">Mac/Win/Linux Networking</a>
+</li>
+            
+<li >
+    <a href="../wireshark-install/">Install Wireshark</a>
+</li>
+            
+<li >
+    <a href="../tshark-install/">Install TShark</a>
+</li>
+            
+<li >
+    <a href="../manage-dhcp/">Troubleshooting DHCP</a>
+</li>
+            
+<li >
+    <a href="../dns-clients/">Managing DNS Clients</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li>
+                                <a href="https://github.com/quirktree/info314-website">quirktree/info314-website</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#configure-a-routing-link-for-bgp-peers">Configure a Routing Link for BGP Peers</a></li>
+            <li><a href="#determine-requirements">Determine Requirements</a></li>
+            <li><a href="#prepare-interfaces">Prepare Interfaces</a></li>
+            <li><a href="#configure-frrouting">Configure FRRouting</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="configure-a-routing-link-for-bgp-peers">Configure a Routing Link for BGP Peers<a class="headerlink" href="#configure-a-routing-link-for-bgp-peers" title="Permanent link">&para;</a></h1>
+<h2 id="determine-requirements">Determine Requirements<a class="headerlink" href="#determine-requirements" title="Permanent link">&para;</a></h2>
+<p>In order to configure your your router to peer with other BGP routers, you will need to identify several parameters associated with the routing configuration. First, identify your ASN and select a unique IP address that you will assign as the router ID. Next determine which interface to use for the routing link, and identify the address ranges to be advertised to neighboring routers.</p>
+<p>We'll use the following values in this example:
+- Interface for routing link: <code>vlan10</code>
+- Autonomous System Number (ASN): <code>65000</code>
+- Router ID: <code>172.23.0.129</code>
+- Advertise Network(s): <code>172.23.0.0/24</code></p>
+<h2 id="prepare-interfaces">Prepare Interfaces<a class="headerlink" href="#prepare-interfaces" title="Permanent link">&para;</a></h2>
+<p>To begin, we need to prepare the interface that we'll be using to peer with neighboring routers. In the past, this would have meant configuring IPv4 addresses for each side of the connection; however, we will be taking advantage of <em>unnumbered BGP</em> to identify and connect to our peers based on auto-configured IPv6 addresses. This simplification is welcome since the addresses we assign on point-to-point routing links generally serve no purpose other than facilitating communication between the adjacent routers.</p>
+<p>Our main task is to enable auto-configuration for IPv6 and to disable auto-configuration privacy extensions so that our MAC address will be encoded into the <em>link-local</em> IPv6 address for the interface. We also need to ensure that the routing interface will listen for and accept <em>ICMPv6 router advertisements</em> from its peer.</p>
+<h3 id="configure-interface">Configure interface<a class="headerlink" href="#configure-interface" title="Permanent link">&para;</a></h3>
+<p>Create or edit a networkd <code>.network</code> configuration for the routing link, e.g., <code>/etc/systemd/network/24-vlan10.network</code> and ensure that the following IPv6 settings are in place. No IPv4 configuration will be performed on this link.</p>
+<div class="codehilite"><pre><span></span>[Match]
+Name=vlan10
+
+[Network]
+# Enable link local addressing for IPv6 only
+LinkLocalAddressing=ipv6
+# Watch for router advertisements so that we can learn about neighboring routers
+IPv6AcceptRA=yes
+# Required due to a bug in FRR (https://github.com/FRRouting/frr/issues/2205)
+IPv6PrivacyExtensions=no
+</pre></div>
+
+<h2 id="configure-frrouting">Configure FRRouting<a class="headerlink" href="#configure-frrouting" title="Permanent link">&para;</a></h2>
+<h3 id="set-up-address-for-bgp-router-id">Set up address for BGP router ID<a class="headerlink" href="#set-up-address-for-bgp-router-id" title="Permanent link">&para;</a></h3>
+<p>The router can use any locally defined address as a router ID attached to BGP advertisements. Though we could use any one of our directly attached addresses, it is common to configure an ID on the loopback interface of the network device to ensure that it is available regardless of link status -- static addresses attached to physical interfaces are offline when the link is down.</p>
+<p>We'll perform this configuration within the FRR VTY shell (<em>launch using <code>vtysh</code></em>):</p>
+<div class="codehilite"><pre><span></span>configure terminal
+interface lo
+ip address 172.23.0.129/32
+quit    
+</pre></div>
+
+<h3 id="additional-unnumbered-routing-configuration">Additional unnumbered routing configuration<a class="headerlink" href="#additional-unnumbered-routing-configuration" title="Permanent link">&para;</a></h3>
+<p>Routers in an unnumbered peering relationship rely on ICMPv6 router advertisements to discover peers on a routing link. We previously configured our interface to accept these messages, but we still need to set up the routing daemon to generate the messages on the specified interface. </p>
+<p>The following commands will turn on ICMPv6 router advertisements and set an interval of one advertisement every 5 seconds (as recommended by FRR documentation).</p>
+<p>Enter the following commands in the VTY shell:</p>
+<div class="codehilite"><pre><span></span>configure terminal
+interface vlan10
+ipv6 nd ra-interval 5
+no ipv6 nd suppress-ra
+quit
+</pre></div>
+
+<h3 id="configure-bgp-routing">Configure BGP Routing<a class="headerlink" href="#configure-bgp-routing" title="Permanent link">&para;</a></h3>
+<p>Once the preliminary configuration is complete, we can setup the BGP daemon to peer on the specified interface. The following example will enable a new router in ASN 65000 that peers over the <code>vlan10</code> interface and advertises routes for 172.23.0.0/24.</p>
+<p>Enter the following commands in VTY shell: </p>
+<div class="codehilite"><pre><span></span>configure terminal
+router bgp 65000 
+bgp router-id 172.23.0.129 
+neighbor vlan10 interface remote-as external
+network 172.23.0.0/24
+quit
+</pre></div>
+
+<p>Supporting multiple routing links on a single router requires a simple modification to this script to add additional <code>neighbor</code> statements. If you've already configured other details, you don't need to repeat them to add an aditional neighbor. Enter the following commands to resume editing your existing router:</p>
+<div class="codehilite"><pre><span></span>configure terminal
+router bgp 65000
+</pre></div>
+
+<h3 id="save-your-changes">Save Your Changes<a class="headerlink" href="#save-your-changes" title="Permanent link">&para;</a></h3>
+<p>Don't forget that live updates to FRR are not persistent. Rebooting the router or restarting <code>frr</code> will dispose of any settings that are not written to the startup config.</p>
+<p>To save your changes, you need to be in <em>enable</em> mode. Exit out of <em>configure</em> mode, if necessary, and call <code>copy running-config startup-config</code> or <code>write memory</code>.</p>
+<p>From the Linux commandline, you can view the current <em>startup configuration</em> within <code>/etc/frr/frr.conf</code>.</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>Copyright &copy; 2020 Clinton Campbell</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
