@@ -141,6 +141,21 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
+     <loc>https://info314.tcpip.dev/resources/vlans-and-dummies/</loc>
+     <lastmod>2020-02-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/resources/configure-routing-links/</loc>
+     <lastmod>2020-02-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/resources/setup-frr/</loc>
+     <lastmod>2020-02-26</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
      <loc>https://info314.tcpip.dev/resources/markdown/</loc>
      <lastmod>2020-02-26</lastmod>
      <changefreq>daily</changefreq>
