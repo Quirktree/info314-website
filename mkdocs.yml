@@ -31,6 +31,8 @@ nav:
     - 5 - Configure an Authoritative Name Server:
       - Authoritative Zone Setup: assignments/dns-zone-setup.md
       - DNS Zone Reference: resources/zone-file-format.md
+    - Final WAN Project:
+      - Project Requirements: assignments/final-project.md
     - Extra Credit:
       - VLAN Challenge: assignments/vlan-challenge.md
   - Labs:
@@ -51,6 +53,9 @@ nav:
       - Understanding Netfilter/Iptables Hooks: resources/netfilter-hooks.md
       - Linux Wireless Configuration: resources/wifi-reference.md
       - Zone File Reference: resources/zone-file-format.md
+      - Special Network Interfaces (VLANs and Dummies): resources/vlans-and-dummies.md
+      - Configuring Routing Links: resources/configure-routing-links.md
+      - Install Free Range Routing (FRR): resources/setup-frr.md
     - Quick Reference:
       - Intro to Markdown: resources/markdown.md
       - Intro to Bash: resources/bash.md
@@ -59,6 +64,7 @@ nav:
       - Install TShark: resources/tshark-install.md
       - Troubleshooting DHCP: resources/manage-dhcp.md
       - Managing DNS Clients: resources/dns-clients.md
+    
 
         #      - Asking for help: contact.md
         #- Resources:
