@@ -35,7 +35,7 @@ Take some time to understand what these perspectives are showing you (it may be 
 ## Part II: DNS Analysis
 In this section, you will use the `tshark` utility (a commandline version of Wireshark) in order to analyze DNS requests from the perspective of your Pi's external network interface.
 
-[Install and configure](./resources/tshark-install/) `tshark` on your Pi and perform the two following captures of DNS as described below.
+[Install and configure](/resources/tshark-install/) `tshark` on your Pi and perform the two following captures of DNS as described below.
 
 ### Capture &num;1 - Perform a capture of DNS queries being **routed through the Pi**
 
