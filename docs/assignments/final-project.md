@@ -32,7 +32,7 @@ Each group is required to fulfill the following requirements by building off of 
 Perform IP address planning and network renumbering on a group and individual basis based on the address ranges provided by the instructor. 
 
   - IP address
-      -  assignments can be found in the [PICANN Registry](https://docs.google.com/spreadsheets/d/1EZvg-ing9NbtjFKemekvvM7Fcp16BPDHa2Gadg3ZIp0/edit?usp=sharing)
+      -  assignments can be found in the [PICANN Registry](https://docs.google.com/spreadsheets/d/1Bxp3wKK4W0cgG3RDtyWJg1VPGIyQEE0qn2TV0Y84Gx0/edit?usp=sharing)
       - Video guide on Authoritative server, external IP, external DNS: [Panapto Recording](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=65c5c73b-5d96-455b-8ee9-aa5e001e40c3)
       - [Address Planning for Final Project (video)](https://drive.google.com/file/d/1_fuLgXVzNPcm5xYsooDBoXRiACMAKDIA/view)
   - VLANS:
