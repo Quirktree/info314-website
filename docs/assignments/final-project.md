@@ -43,7 +43,7 @@ Perform IP address planning and network renumbering on a group and individual ba
 Once you've completed all network planning and documentation you may move on to the following sections.
 
 - Build a “core router” that will function as the ISP for your other networks. In addition to providing connectivity between routers, you will provide public Internet access for the rest of your group. The router will eventually be connected to other groups to form a private in-class Internet.
-    - [Project Topology (video)](https://drive.google.com/open?id=10FKI08wlec7JgF2OTnBUr0sY9n6NxjVs)
+    - [Project Topology (video)](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=fc325b42-6bed-4542-8940-ab700140b0c3)
     - [VLAN and Switch Planning (video)](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=abcfc06f-b904-4cfc-8de9-aa64000aa3a0)
 - Build two or more “edge routers” that will allow your partners to connect to the Internet as customers of the ISP. Each router should serve one or more LAN subnets. In your final configuration, you should rely on the ISP connection for public Internet access, i.e., you won't be connecting the edge routers to public wifi directly except for setup purposes.
 - Using Free Range Routing (FRR), configure BGP peering on the routing links between the ISP routers and customers’ edge routers.
