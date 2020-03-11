@@ -1,4 +1,4 @@
-# **Final Network Project** (last edited 2020-02-26)
+# **Final Network Project** (last edited 2020-03-11)
 
 ## **Overview**
 Working in your group, design and implement a networked system that mirrors the concept of an Internet Service Provider (ISP) with customer networks. Your primary objective in this exercise is to adapt what you've completed in previous tasks to meet the requirements specified below.
@@ -52,7 +52,7 @@ Once you've completed all network planning and documentation you may move on to 
     - [Configure BGP peering](/resources/configure-routing-links)
     - [FRR and BGP routing configuration (video)](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=b55f0a5f-4dc4-4fee-b8ee-aa64001a1d50)
 - Configure public domains, authoritative servers, and (optionally) email for each of your networks. One router in your group should also host the .pi TLD at 10.10.10.10 (BGP Anycast) via a provided Docker image.
-- Configure a Ubiquiti Unifi switch based on instructor instructions to support the system topology.
+- **\[ SKIP ME \]** Configure a Ubiquiti Unifi switch based on instructor instructions to support the system topology.
     - [Setting up VLANs on a Unifi Switch (video)](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=daee7090-819a-4768-83dd-aa630185d228)
 
 ### Renumbering IP Addresses
@@ -66,7 +66,8 @@ Once you've completed all network planning and documentation you may move on to 
 ### Core Router Setup
 - Managing network interfaces
     - Use wlan0 to provide access to the public Internet to your customers (NAT is required)
-    - Set up tagged VLAN interfaces to connect with each edge router. 
+    - **\[ORIGINAL\]** Set up tagged VLAN interfaces to connect with each edge router.
+    - **\[UPDATED\]** Set up at least one VLAN interace, as would be required to connect with one of the Edge routers included in your network plan.
     - See [Setting up VLAN interfaces in Linux (video)](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=984e3939-da15-414a-9af4-aa640010989e).
 - Firewall rules
     - Our network is private, so use connection state with your forwarding rules to make sure inbound packets (from wlan0) are dropped when they aren't related to established sessions
@@ -89,6 +90,9 @@ Once you've completed all network planning and documentation you may move on to 
     - Configure DROP policies for the INPUT and OUTPUT chains that manage traffic to/from the router.
 
 ### Ubiquiti Switch
+
+#### **\[ SKIP THIS SECTION \]**
+
 See [VLAN and Switch Planning](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=abcfc06f-b904-4cfc-8de9-aa64000aa3a0), [Installing FRR and Ubiquiti Controller](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=abd934e0-9a2b-4c4e-9e76-aa63017e78f0), and [Configuring Unifi Switch](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=daee7090-819a-4768-83dd-aa630185d228).
 
 - Configure a VLAN that each group member shares with their own Pi. Set the VLAN up as native (untagged) for both the Pi and the PC connection to the switch.
@@ -104,8 +108,8 @@ See [VLAN and Switch Planning](https://uw.hosted.panopto.com/Panopto/Pages/Viewe
 See [Configuring External IP and DNS](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=65c5c73b-5d96-455b-8ee9-aa5e001e40c3).
 
 - Configure a public DNS zone for each network (ISP + customer networks) and set up records for each of your public services (you may choose to centralize authoritative DNS at the ISP, but each student must configure their own zone file).
-- **(ONE PER GROUP)** Host an authoritative DNS slave for the .pi TLD. This server will be hosted publicly on 10.10.10.10 and routed via BGP Anycast. A dockerized container and instructions to deploy are included in the repo linked below.
-- **(EXTRA CREDIT OPTION)** Configure email for each of your public domains using the provided docker containers.
+- **\[ SKIP ME \]** (ONE PER GROUP) Host an authoritative DNS slave for the .pi TLD. This server will be hosted publicly on 10.10.10.10 and routed via BGP Anycast. A dockerized container and instructions to deploy are included in the repo linked below.
+- **(EXTRA CREDIT OPTION)** Configure [email](https://github.com/i314-campbell-sp19/docker-mail) for each of your public domains using the provided docker containers.
 
 
 ## **Extra Credit**
@@ -113,7 +117,7 @@ See [Configuring External IP and DNS](https://uw.hosted.panopto.com/Panopto/Page
 
 If you're up for the challenge, there are several other ways to earn extra credit toward your final grade by completing the following tasks.
 
-- **(1 pt)** 
+- **(1 pt)** Install and configure the [Pi Mail](https://github.com/i314-campbell-sp19/docker-mail) Docker containers in order to host email on your domain/network.
     - Extra credit will be given to each student who successfully completes this task.
 - **(1 pt)** Add a wireless access point to your Edge LANs. The wlan0 port is capable of operating as a software-based access point using the hostapd package in the Debian repositories.
     - At least two group members must complete this configuration. Instructions will be provided.
@@ -121,7 +125,7 @@ If you're up for the challenge, there are several other ways to earn extra credi
     - Apply this configuration to each of your customer networks, adapting for any differences in configuration for that network.
 - **(1 pt)** Extend your IPTables rules to support a default DROP policy on the OUTPUT chain, making sure that you have full utility of all of your private and public services.
     - Apply this configuration to each of your customer networks, adapting for any differences in configuration for that network.
-- **(1 pt)** Perform TCP-based nmap scans of your networks from inside and outside. Summarize the major findings for each network.
+- **\[ SKIP ME \]** (1 pt) Perform TCP-based nmap scans of your networks from inside and outside. Summarize the major findings for each network.
     - You should have 2 scans per Pi. One scanning IP addresses for that team member from inside their LAN and one scanning from a different LAN.
 
 
@@ -129,5 +133,5 @@ If you're up for the challenge, there are several other ways to earn extra credi
 ---
 
 - [PICANN](https://docs.google.com/spreadsheets/d/1Bxp3wKK4W0cgG3RDtyWJg1VPGIyQEE0qn2TV0Y84Gx0/edit?usp=sharing): DNS Registry and IP Reservations
-- dotPI TLD:  Instructions and docker components needed to load a dockerized BIND on 10.10.10.10 for the .pi TLD
-- Pi Mail: Instructions and docker components needed to configure SMTP, IMAP, and a webmail server on your Pi
+- **\[ SKIP ME \]** dotPI TLD:  Instructions and docker components needed to load a dockerized BIND on 10.10.10.10 for the .pi TLD
+- [Pi Mail](https://github.com/i314-campbell-sp19/docker-mail): Instructions and docker components needed to configure SMTP, IMAP, and a webmail server on your Pi
