@@ -44,7 +44,7 @@ buffer = buffer + data
 
 ### Getting to HTTP Messages
 
-In order to recognize HTTP messages, you need to parse the bytes you've received and determine whether you have a complete message. Your task is to a simple HTTP parser that accepts a byte buffer and attempts to parse an HTTP GET request (ignore other request types for now). We recommend that your parser returns the parsed message as a dictionary (see below) along with the bytes that were still left over in the buffer.
+In order to recognize HTTP messages, you need to parse the bytes you've received and determine whether you have a complete message. Your task is to build a simple HTTP parser that accepts a byte buffer and attempts to parse an HTTP GET request (ignore other request types for now). We recommend that your parser returns the parsed message as a dictionary (see below) along with the bytes that were still left over in the buffer.
 
 As noted, the data coming from the socket will be in bytestring format, meaning it will appear as `b'data'`  and not `'data'` as with a normal string. You cannot use string methods such as `split()` on a btyestring. Therefore you will need to decode the btyestring with the `str()` or `decode()` method to turn it into a string.
 
