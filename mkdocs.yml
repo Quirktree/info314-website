@@ -36,20 +36,24 @@ nav:
     - Extra Credit:
       - VLAN Challenge: assignments/vlan-challenge.md
   - Labs:
-    - Lab 2: assignments/lab2.md
-    - Lab 3: assignments/lab3.md
-    - Lab 4: assignments/lab4.md
-    - Lab 5: assignments/lab5.md
+    - Lab 1 - Core Technical Skills: assignments/lab1.md
+    - Lab 2 - Analyzing DHCP and ARP with Wireshark: assignments/lab2.md
+    - Lab 3 - Analyze Zeroconf in Wireshark: assignments/lab3.md
+    - Lab 4 - Analyze TCP with ncat and Wireshark: assignments/lab4.md
+    - Lab 5 - Analyze DNS & HTTP in Wireshark: assignments/lab5.md
+    - Lab 6 - Socket Basics in Python: assignments/lab6.md
     - Proxy Labs: 
       - Proxy Project Overview: assignments/proxy-labs.md
-      - Proxy Part 1 Instructions: assignments/lab6.md
-      - Proxy Part 2 Instructions: assignments/lab7.md
-      - Proxy Part 3 Instructions: assignments/lab8.md
+      - Proxy Part 1 (Lab 7): assignments/lab7.md
+      - Proxy Part 2 (Lab 8): assignments/lab8.md
+      - Proxy Part 3 (Lab 9): assignments/lab9.md
   - Resources:
     - Concepts and Theory:
       - Domain Name System (DNS): notes/dns-overview.md
       - Routers: notes/router-overview.md
     - Guides:
+      - Getting Pi Materials: resources/pi-materials.md
+      - Digital Ocean Signup: resources/digital-ocean.md
       - Introduction to Iptables: resources/iptables.md
       - Understanding Netfilter/Iptables Hooks: resources/netfilter-hooks.md
       - Linux Wireless Configuration: resources/wifi-reference.md
@@ -65,15 +69,7 @@ nav:
       - Install TShark: resources/tshark-install.md
       - Troubleshooting DHCP: resources/manage-dhcp.md
       - Managing DNS Clients: resources/dns-clients.md
-    
-
-        #      - Asking for help: contact.md
-        #- Resources:
-        #- Pi Materials: resources/pi-materials.md
-        #- Asking for help: contact.md
-        #- Assignments:
-        #- Projects:
-        #- Labs:
+  - Contact Us: contact.md
 
 # Configuration
 theme: yeti

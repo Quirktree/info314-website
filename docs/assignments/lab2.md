@@ -1,5 +1,5 @@
 # Lab 2 - Analyzing DHCP and ARP with Wireshark 
-[canvas link](https://canvas.uw.edu/courses/1355759/assignments/5195458)
+[Lab 2 Assignment page on Canvas](https://canvas.uw.edu/courses/1373089/assignments/5369617)
 
 # Overview
 

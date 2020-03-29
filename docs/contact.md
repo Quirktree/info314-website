@@ -1,5 +1,5 @@
 
-![question logo](/img/welcome/conversation.png)
+![question logo](/img/conversation.png)
 
 **Asking teaching staff for help**
 
@@ -19,3 +19,4 @@ You should reach out for help if you have:
 * It is highly encourages that you ask your questions in a Slack Channel.
   * You will get a response back much more quickly either from a student are teaching staff this way.
 * In your message explain the problem and what you have tried so far.
+* If the question pertains grading or other private information, please use Canvas messaging or email one off the staff members. Our emails are listed on the Canvas page.

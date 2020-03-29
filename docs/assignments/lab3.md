@@ -1,127 +1,63 @@
-# Lab 3 - Analyze DNS & HTTP in Wireshark
-[![DNS image](https://www.elegantthemes.com/blog/wp-content/uploads/2018/03/what-is-dns.png)](https://www.elegantthemes.com/blog/wp-content/uploads/2018/03/what-is-dns.png)
+# Lab 3 - Analyze Zeroconf in Wireshark
 
+[Lab 3 Assignment page on Canvas](https://canvas.uw.edu/courses/1373089/assignments/5369619)
 
 ## Overview
-The purpose of this lab is for students to gain hands on experience with DNS. By the end of the lab you will be familiar with:
 
-- **`dig`** (or PowerShell's **`Resolve-DnsName`** command)
-- DNS queries
-- security faults of DNS
+Most of the time, our discussion about IP addresses are focused on globally routable addresses or on RFC1918 private addresses. In this lab, we are going to explore another type of address that can be used without any explicit configuration (either by a user or network administrator). We’re also going to look at how these addresses fit in to a group of protocols called the zero-configuration networking (zeroconf) protocols and explore how zeroconf appears in this class and in our daily use of network technology.
 
-We highly recommend using search engines to help you find solutions. As usual, there will be multiple ways to complete this lab. Please use the template provided on Canvas under the Assignment "Lab 3 - Analyze DNS & HTTP in Wireshark" to complete your lab report.
+This lab will require a combination of Wireshark analysis and Internet research. We’ve provided links to several references as a starting point, but you are free to look up other resources as needed. Please cite all sources in your deliverable.
 
+## Resources
 
+[https://en.wikipedia.org/wiki/Link-local_address (Links to an external site.)](https://en.wikipedia.org/wiki/Link-local_address)
 
-## Part I - website
-Pick a popular website that has a lot of content on it. Ideally it should contain advertisements. You will be using it throughout this lab.
+[https://tools.ietf.org/html/rfc3927 (Links to an external site.)](https://tools.ietf.org/html/rfc3927)
 
-**Report**: 
+[https://en.wikipedia.org/wiki/.local (Links to an external site.)](https://en.wikipedia.org/wiki/.local)
 
-1. What website did you select?
+[https://en.wikipedia.org/wiki/Zero-configuration_networking (Links to an external site.)](https://en.wikipedia.org/wiki/Zero-configuration_networking)
 
-## Part II - dig
-Before jumping into more complicated scenarios we would like you to learn how to use the **`dig`** command as it is an incredibly helpful and simple tool.
+## Deliverable
 
-We've provided some resources at <a href="/resources/dns-clients/#perform-dns-lookups-manually" target="_blank">Perform DNS Loookups Manually</a> to help you get started.
+Submit your raw capture file and a lab report including all answers and relevant observations from your analysis. As always, follow the formatting guidance we have given you for this course and be sure to include paste in the questions with your answers.
 
-Use dig to lookup the domain name of the website you selected. Open up a new tab in your browser and enter (one of) the IP address(es) returned by dig to discover where it will take you. If dig returned more than one address, open up a second tab and enter it now.
+## Instructions
 
-!!! Note 
-    Don't panic if you receive an error instead of a live site. Some servers host more than one website and need the name to help route you to the right place. Try another site, e.g., uw.edu, and see if you get different results.
+Before you start, take a moment to record some details about your computer and your Ethernet network adapter. These details may be helpful to you in your analysis:
 
-**Report**: 
+- Hostname:
+- MAC Address:
 
-2. What addresses did the dig command return? Copy dig results to your report (code block or screenshot).
+If you already started your Pi, shut it down and disconnect power before you begin.
 
-1. What did you observe when you browsed to the IP addresses directly?
+Launch a new Wireshark capture over the Ethernet connection to your Pi. Linux users should listen on the “All” interface and may want to disable their wireless connection before capturing to reduce noise and focus on the important details.
 
-1. Aside from **A** records containing IP addresses, did you discover any other DNS records from your query? List at least 3 other record types that DNS manages.
+With your capture running, power on the Pi. You’ll be keeping an eye on the capture in order to see what happens when your computer and your Pi first connect to the network.
 
-1. Look closely at the output of the dig command. How can you be sure that the query completed successfully? Identify the IP address of the server used to handle your query.
+- Identify the link-local addresses and mDNS names associated with your computer and your Pi.
+- Using your capture as a reference, identify the messages that your Pi sends while autoconfiguring its own IP addresses.
+- Describe the autoconfiguration process used by hosts to choose a link-local address and confirm that it is unique on the local network segment.
 
+With your capture still running, let’s try to contact your Pi. Try pinging your Pi based on the hostname “raspberrypi.local” (substitute your own hostname if you’ve already changed it). Likewise, try connecting to your pi via SSH.
 
-## Part III - dev tools
-Open up a new tab preferably in a chromium based browser (Chrome, Brave, etc...). Open up the dev tools (right click on page and click Inspect), and go to the *Network* option. 
+- Using your capture, identify an example of an IPv4 and IPv6 mDNS request.
+- Identify the multicast addresses used by mDNS in IPv4 and IPv6.
+- Using your capture, identify an example of an IPv4 and IPv6 mDNS response.
+- Are mDNS responses sent to a multicast address or to a specific unicast address.
+- Identify the destination addresses used to reach your Pi in the final ICMP echo request (ping) and SSH connection.
 
-In that very same tab paste in your selected web page into the URL bar and click enter. You should see all of the **GET** and **POST** requests that the browser made for that webpage load up in the dev tools.
+Lastly, as we did with DNS, let’s look at some tools that will allow us to manually query mDNS devices on our network. Unlike DNS, we should see that individual devices answer their own queries. Windows users can use the powershell command `Resolve-DNSName` while macOS and Linux users should be able to use `dns-sd`.
 
-Right-click the header of the Network Log table and select Domain. The domain of each resource is now shown.
+- Use `man` to look up more information about the relevant command and to determine the correct syntax for making an mDNS request to your Pi. Provide a screenshot of your mDNS request and the output received.
 
-[![dev tools show domain](https://developers.google.com/web/tools/chrome-devtools/network/imgs/tutorial/domain.png)](https://developers.google.com/web/tools/chrome-devtools/network/imgs/tutorial/domain.png)
+Perform your own research into these protocols and answer the following questions. We recommend starting with the resources listed at the end of this guide.
 
+- Describe the major difference between how link local addresses are assigned and used in IPv4 versus in IPv6.
+- In your own words, summarize how RFC 3927 says we can determine whether hosts are located on the same network link.
+- Based on what you’ve learned, describe how we are able to connect with a Pi based on a pre-defined hostname without the need for any infrastructure like a DHCP or DNS server.
+- Based on what you’ve learned about link-local addresses, describe how you might use Wireshark in conjunction with other network utilities to troubleshoot the connection to a headless device (i.e., a device like the Pi that you can only access over the network).
 
-Take some time to scroll through the domains, files, and file types your website was requesting.
+## Extra Credit
 
-**Report**: 
-
-6. From a quick glance what is the most common file type requested?
-
-1. Approximately how many *domains* do you see in that list that don't matchup with the website domain you initially visited?
-
-1. Why do you think this page is getting information from other websites?
-
-1. If you had to guess, how many DNS requests do you think were sent in order to fully load this page?
-
-
-
-## Part IV - wireshark
-Before examining DNS requests in Wireshark you will want to clear your DNS cache. Instructions on what that means, what it's for, and how to do so can be found here [314-docs/trouble/dns](https://bwalchen.github.io/314-docs/trouble/dns/#clear-dns-cache).
-
-
-Create a capture of you visiting your website by: 
-
-* Open Wireshark, begin a capture
-* Quickly open a new tab and visit your website in your browser
-* Once it has fully loaded end your Wireshark capture.
-
-Now **filter** for DNS packets only in the display filter.
-
-* Identify the DNS response containing the information you needed in order to convert your website name into an IP address.
-* Use the information contained within that packet for the following deliverable.
-
-
-!!! Hint
-    Learn how to use the search tool to find string content or research display filters that allow you to specify the domain name.
-
-**Report**: 
-
-10. Assuming almost all of the DNS requests you see in Wireshark right now are for the one website you visited, how many DNS requests do you see? 
-
-1. Overall were there less or more DNS queries than you'd expect?
-
-1. How did you identify the DNS packet(s) associated with the website you visited?
-
-1. Provide screenshots of the packet(s) (specifically of the DNS information in Packet Details).
-
-1. List the ip addresses you received for the website from the DNS server that resolved your request.
-
-1. Which *transport layer protocol* ([think OSI model](https://bwalchen.github.io/314-docs/course-prep/osi/)) is used to carry the DNS packet?
-
-1. Compare this DNS response to others in the capture (generate more if needed).
-
-1. Which port number(s) are shared in common across these DNS requests?
-
-
-
-## Part V - security
-Open two packets in bytes view, a dns and a http packet that is encrypted with tls.
-
-* Double click one of the DNS packets in order to be able to see the bytes view. 
-* Remove the dns display filter and replace it with tls (web traffic). 
-* Open one of the tls packets in byte view too.
-
-**Report**: 
-
-18. Examine the bytes view of the two packets. Do you see any human
-    readable values in the output?
-
-1. Looking at these two packets and others in your capture, does Wireshark provide any clues about whether or not your DNS is encrypted?
-
-1. Does it provide any clues on whether your web traffic is encrypted?
-
-Attacker:
-
-21. What information might an outside observer be able to glean about your computing activities by capturing your DNS traffic?
-
-1. Was any discernible information revealed (as far as you can tell) through your web traffic?
+- Perform an mDNS scavenger hunt with Wireshark on a couple of different networks. Provide a short (about ½ page) analysis of your search along with capture samples. What types of devices were you able to discover? How does mDNS make your life more convenient?

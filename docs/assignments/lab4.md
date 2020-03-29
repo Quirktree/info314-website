@@ -2,9 +2,7 @@
 
 [![](https://www.cloudflare.com/img/learning/cdn/tls-ssl/tcp-handshake-diagram.png)](https://www.cloudflare.com/img/learning/cdn/tls-ssl/tcp-handshake-diagram.png)
 
-[*Lab 4 Canvas Assignment Page*](https://canvas.uw.edu/courses/1355759/assignments/5195496/)
-
-
+[Lab 4 Assignment page on Canvas](https://canvas.uw.edu/courses/1373089/assignments/5369621)
 
 ## Overview  
 

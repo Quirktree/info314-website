@@ -1,110 +1,117 @@
-# Lab 7 - proxy part II
+# Lab 7 - proxy part 1
+
+![proxy image](https://hydrasky.com/wp-content/uploads/2017/10/proxy_diagram.png)
+
+[Lab 7 Assignment page on Canvas](https://canvas.uw.edu/courses/1373089/assignments/5369624)
 
 ## Python concepts
 
-* Slicing lists / strings
-* Converting strings to/from numbers
-* Creating and using enumerations
-* Format strings, e.g., `"{}: {}\r\n".format(header_name, header_value)`
+* program structure
+* find(), split(), strip()
+* slicing lists / strings
+* try / except
+* dictionary
+* control characters, e.g., `\r\n`
 
 ## Instructions
 
 ### Getting Started 
 
-As always, create a new branch dedicated to this lab within your http-proxy repository, and at the root of your repository, open up the `http-proxy.py` script you created in Lab 6 and continue working from the same file. 
+As always, create a new branch dedicated to this lab within your http-proxy repository, and at the root of your repository, add a new script named `http-proxy.py` based on `resources/template.py`. This file will be the main deliverable for your project.
 
-In the previous lab, we started to build the server component of your proxy. This component is designed to receive incoming requests from web clients and then eventually forward responses that were received from an upstream web server. The core of the server is established on a request parser, which we also started to develop in the last assignment.
+HTTP proxies incorporate server and client functionality into a single daemon. As a server, your proxy listens and process the requests it receives from browsers and other HTTP clients. As a client, your proxy will pass the clients' requests on to the intended destination and handle the responses in return.
 
-In this lab, we'll extend the parser to handle additional HTTP request types and also HTTP responses. Likewise, we'll start to build out the client component of the proxy by writing a new function that rebuilds an HTTP request from a previously parsed message. 
+In this task, we will work exclusively on the server functionality of the proxy. Specifically, we'll build a server that processes the incoming TCP stream and parses out HTTP GET requests. In future assignments, we'll extend our code to handle other message types and implement the client functionality.
 
-### Parsing Requests (cont.)
 
-Extend your parsing function to handle more complex HTTP requests, such as the POST or PUT type. While GET requests are terminated by an empty CRLF line after the headers, other request types append an additional message body.
+### Main Loop (Event Loop)
 
-From a parsing perspective, a POST or PUT request proceeds exactly like the GET request up until reading the final CRLF that follows the header section. In order to read the remainder of the message, we need to first find out the length of the body component. In HTTP 1.0, the body length is defined by an HTTP header called `Content-Length`.[^oversimplification] The value of `Content-Length` will be a numeric string that defines the length of the body payload. If the header exists and its integer value is non-zero, you should attempt to read _Content-Length_ bytes from the buffer and save as an additional field in your parsed message. 
+Use a while loop to repeatedly `accept()` and process incoming requests. For each active connection, you will be making calls to `Socket.recv()` in order to fetch the next chunk of data from the TCP stream and process it.
 
-If you succeed in parsing a complete message, you should remove the data from the buffer and return a dictionary containing the parts of your message back to the main event loop. If parsing fails, you should leave the data in the buffer and return to your connection handling loop to wait for the rest of the message.
+!!! info "What it means to work with streams"
+    Remember that TCP is a stream-oriented protocol and that the Sockets API is built around the metaphor of the stream of bytes. Each attempt to read data from a socket pulls data from the stream in small chunks, e.g., `Socket.recv(1024)` returns _up to 1024 bytes_ of data from the stream. 
 
-[^oversimplification]: This is an oversimplification of the RFC for HTTP/1.0, but it will be sufficient
-for our purposes.
+    Don't assume that `recv()` will return a complete HTTP message in one call. The Sockets API does not even guarantee that it will return the full number of bytes you requested. In order to know where messages begin and end, we have to inspect the incoming bytes based on HTTP message syntax.
 
-### Parsing Responses
-Structurally, there is almost no difference between an HTTP request with a message body and an HTTP response. In fact, the only difference from your parser's perspective is the order of fields in the first line of the message.[^http-syntax]
-
-Extend your parser to handle both types of messages based on an additional `message_type` argument to your parser function. Modify the behavior of the function to parse the first line properly based on this argument, include the `message_type` in the parsed message.
-
-A standard way to represent a value representing a message type is using an enumeration, e.g.:
+Since it is up to you to identify and reconstruct messages out of the stream, you should create a buffer that will hold your data while you work to identify complete HTTP messages. A buffer in this case is nothing more than a python bytes object that you append to each time a `recv()` returns successfully, for example:
 
 ```python
-# Required imports
-from enum import Enum, auto
+# Declare an empty buffer
+buffer = b''
 
-# Enumeration to represent message types 
-class MessageType(Enum):
-    REQUEST = auto()
-    RESPONSE = auto()
-
-# Use the is operator rather than == to test an enumeration …
-# if message[‘type’] is MessageType.REQUEST:
+# Receive new data and add it to the buffer
+data = conn.recv(1024)
+buffer = buffer + data
 ```
 
-[^http-syntax]: More information available at [HTTP syntax overview](/assignments/proxy-labs) 
+### Getting to HTTP Messages
 
-### Build Message
+In order to recognize HTTP messages, you need to parse the bytes you've received and determine whether you have a complete message. Your task is to build a simple HTTP parser that accepts a byte buffer and attempts to parse an HTTP GET request (ignore other request types for now). We recommend that your parser returns the parsed message as a dictionary (see below) along with the bytes that were still left over in the buffer.
 
-Before you wrap up this lab, let's create one more component of the parser, a new function that takes a dictionary like the one generated by your parser and builds a new message (returning the message as a byte string).[^really?] 
+As noted, the data coming from the socket will be in bytestring format, meaning it will appear as `b'data'`  and not `'data'` as with a normal string. You cannot use string methods such as `split()` on a btyestring. Therefore you will need to decode the btyestring with the `str()` or `decode()` method to turn it into a string.
 
-The message you build should be modified in the following manner:
+HTTP messages may be formatted as ASCII (per RFC 7230) or ISO-8859-1 (per historic RFCs). 
 
--   Replace the HTTP version you received with `HTTP/1.0`
--   Add or update a `Via` header (per RFC 7230) for the proxied connection, e.g.,
-    -   `Via: 1.0 127.0.0.1:9999`
-    -   If a `Via` already exists, append your entry as a comma separated value to the end of the existing header
+Decoding text as `iso-8859-1` will allow for the maximum versatility.
 
-[^really?]: I realize it seems strange to rebuild the message you just spent time tearing apart, but this approach gives you more leverage in terms of what functions your proxy can provide. For example, notice how easily we can modify the HTTP version and add new headers.
+Based on this description, we can create a python function that resembles the following:
 
-#### Tips
+```python
 
--   Use python format strings to recreate the line-delimited parts of the message, ensuring you terminate each line in `\r\n` and encode as `iso-8859-1`
+def parse_message(data)
+    # initialize an empty dictionary
+    message = {}
+
+    # parse bytes and assign key / value pairs such as ...
+    message['method'] = # HTTP method name such as GET
+    message['uri'] = # address or resource name from the request, such as www.uw.edu
+    message['version'] = # HTTP version such as HTTP/1.0
+    message['headers'] = [] # List of headers
+
+    # If parsing is successful, return a completed message (if applicable) and unused bytes
+    return message, unparsed_data
+
+    # If parsing fails, return the entire buffer and an indicator that parsing was incomplete
+    return None, data
+```
+
+#### Parsing
+HTTP messages follow a relatively simple syntax that can be used to make decisions about how to break the message into smaller parts (using tools like Python _slicing_ and the functions `find()`, `strip()`, and `split()`). 
+
+For GET requests, the message structure is based entirely around lines and the _Carriage Return / New Line_ line separators (think back to previous labs in which we sent GET requests using netcat). It's tempting for many students to read this and start parsing with a `data.split('\r\n')`. This strategy rarely works. 
+
+Instead, we recommend that you create a dedicated function to split a single line off the buffer. You can do this with `find()`, `strip()`, and _slices_.
+
+Before you go any further, make sure you have a basic understanding of HTTP/1.0 message structure. See [HTTP syntax overview](/assignments/proxy-labs) or [RFC 1945](https://tools.ietf.org/html/rfc1945).
 
 ### Output
 
-Once all parts of your code are working, print the following summary and close the connection. This will return to the start of your loop to listen for new connections).
+After successfully parsing a request, you should print the following summary and close the connection (return to the start of your loop to listen for new requests).
 
-**Request summary**  
+**Request summary**
 
-* Connection Source: < IP address returned from the call to Socket.accept() >  
-* HTTP Method: < Name of method, e.g., GET, OPTION, or POST  >  
-* Destination: < URI extracted from the request >  
-* Headers: < Comma delimited list of header names >
+* **Connection Source:** \<IP address returned from the call to Socket.accept()\>
+* **HTTP Method:** \<Name of method, e.g., GET, OPTION, or POST\>
+* **Destination:** \<URI extracted from the request\>
+* **Headers:** \<Comma delimited list of header names\>  
 
-**Ready to forward Request**
+### Testing your code with `test.py`
 
-* Target: < URI of server obtained from request >
-* Message: < Raw bytes of the rebuilt request >
+The resources directory of the project repository contains a simple python script called test.py that you can use to send HTTP requests from a file into your proxy code.
 
-??? note " What are these diamonds "<   >" ?"
-    These are placeholders. When you see these it means you should fill in information that is between them and then delete the symbols. It's a quick way of saying "hey something needs to be filled in" for the developer world.
-
-### Testing your code with test.py
-
-The resources directory of the project repository contains a simple
-python script called test.py that you can use to send HTTP requests from
-a file into your proxy code.
-
-```python
-# Send the request from sample-request.txt on port 9999 one line at a time with a short delay between
+``` bash
+# Send the request from sample-request.txt 
+# one line at a time with a short delay between
 python3 test.py 9999 sample-request.txt
 
-# Send the request from sample-request.txt on port 9999 250 bytes at a time with a short delay between
+# Send the request from sample-request.txt 250 bytes at a time 
+# with a short delay between
 python3 test.py 9999 sample-request.txt 250
 ```
 
-
 ### Capturing proxied requests for testing
 
-Use the following method to capture valid requests that you can use for
-testing:
+Use the following method to capture valid requests that you can use for testing:
 
 -   Open ncat to listen for incoming connections, e.g., `ncat -o <FILENAME> -l <PORT>`
 -   Configure Firefox with an HTTP proxy on `127.0.0.1 <PORT>`

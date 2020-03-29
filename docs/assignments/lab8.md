@@ -1,142 +1,115 @@
-# Lab 8 - proxy part III
+# Lab 8 - proxy part II
 
-In this lab, we'll wire together the remaining components of a proxy based on the functionality we have built to parse / reconstruct messages.
+[Lab 8 Assignment page on Canvas](https://canvas.uw.edu/courses/1373089/assignments/5369625)
+
+## Python concepts
+
+* Slicing lists / strings
+* Converting strings to/from numbers
+* Creating and using enumerations
+* Format strings, e.g., `"{}: {}\r\n".format(header_name, header_value)`
 
 ## Instructions
 
-### Getting Started
+### Getting Started 
 
-As always, create a new branch dedicated to this lab within your http-proxy repository, and at the root of your repository, open up the `http-proxy.py` script you have been working on in Lab 6 - 7. You will continue working with the same file for Lab 8.
+As always, create a new branch dedicated to this lab within your http-proxy repository, and at the root of your repository, open up the `http-proxy.py` script you created in Lab 6 and continue working from the same file. 
 
-In the last lab, we completed the parsing functionality needed by our proxy and added a function to reconstruct the HTTP message with a few changes &emdash; such as downgrading the connection to `HTTP/1.0`. 
+In the previous lab, we started to build the server component of your proxy. This component is designed to receive incoming requests from web clients and then eventually forward responses that were received from an upstream web server. The core of the server is established on a request parser, which we also started to develop in the last assignment.
 
+In this lab, we'll extend the parser to handle additional HTTP request types and also HTTP responses. Likewise, we'll start to build out the client component of the proxy by writing a new function that rebuilds an HTTP request from a previously parsed message. 
 
-!!! info "HTTP Version"
-    Please confirm that you have followed the instructions in previous labs to downgrade the HTTP version to HTTP/1.0. Newer versions of HTTP have more complicated connection management, where as HTTP/1.0 connections are used for just one request/response.
+### Parsing Requests (cont.)
 
-In this lab, we'll return our focus to the sockets in the main event loop in order to establish the remaining connections needed to proxy requests to the intended destinations and return responses to the client. 
+Extend your parsing function to handle more complex HTTP requests, such as the POST or PUT type. While GET requests are terminated by an empty CRLF line after the headers, other request types append an additional message body.
 
----
-### Server Port
-To streamline grading for this final task, please modify your current script to accept a port from the command-line, e.g., `python3 http-proxy.py 9999`. This argument should override any constant value that you've been using until now for the server's port.
+From a parsing perspective, a POST or PUT request proceeds exactly like the GET request up until reading the final CRLF that follows the header section. In order to read the remainder of the message, we need to first find out the length of the body component. In HTTP 1.0, the body length is defined by an HTTP header called `Content-Length`.[^oversimplification] The value of `Content-Length` will be a numeric string that defines the length of the body payload. If the header exists and its integer value is non-zero, you should attempt to read _Content-Length_ bytes from the buffer and save as an additional field in your parsed message. 
 
----
-### Connection Flow
-The overall connection flow is described below. Additional helper code is provided later in this section:
+If you succeed in parsing a complete message, you should remove the data from the buffer and return a dictionary containing the parts of your message back to the main event loop. If parsing fails, you should leave the data in the buffer and return to your connection handling loop to wait for the rest of the message.
 
--   Upon receipt of a valid request, parse the URI _(code provided)_ to determine the host and port for the destination server that's been requested by the client.
--   Within your event handling code, create a new TCP connection to the new host and port. _This is a client connection and will be established in the same manner as the connection in your echo client of Lab 5.
--   Reconstruct the request using the `build_message` function from the previous lab and send it out over your new server-facing socket.
--   Set up a new loop to listen on this socket until you have receivedthe HTTP response coming back from the web server _(You'll need to keep trying until you can parse the complete request)_. 
--   Reconstruct the response and send it back to the client over the client-facing connection.
--   Close the connection to the client and resume waiting for new connections.
+[^oversimplification]: This is an oversimplification of the RFC for HTTP/1.0, but it will be sufficient
+for our purposes.
 
----
-### Parsing the URI
+### Parsing Responses
+Structurally, there is almost no difference between an HTTP request with a message body and an HTTP response. In fact, the only difference from your parser's perspective is the order of fields in the first line of the message.[^http-syntax]
 
-In order to create a socket to a destination based on a URI, we need to
-parse out several components and determine the hostname/address and port
-that the client to the proxy had originally requested. The image below provides a good example demonstrating the different between a URL and URI.
+Extend your parser to handle both types of messages based on an additional `message_type` argument to your parser function. Modify the behavior of the function to parse the first line properly based on this argument, include the `message_type` in the parsed message.
 
-![URI example](https://prateekvjoshi.files.wordpress.com/2014/02/uri-vs-url-vs-urn.jpg)
-
-Since Python provides a URL parsing module, this is typically an easy task. In practice, however, there are quite a few edge cases. In order to constrain the difficulty of this lab, we are providing you with the
-following function to parse out the host and port.
+A standard way to represent a value representing a message type is using an enumeration, e.g.:
 
 ```python
-# Be sure to add the import to the top of your code
-from urllib.parse import urlparse
+# Required imports
+from enum import Enum, auto
 
-# returns the host and port
-# run by doing:  h, p = parse_uri(dest)
-def parse_uri(uri):
-    uri = urlparse(uri)
-    scheme = uri.scheme
-    host = uri.hostname
+# Enumeration to represent message types 
+class MessageType(Enum):
+    REQUEST = auto()
+    RESPONSE = auto()
 
-    # urlparse can't deal with partial URI's that don't include the 
-    # protocol, e.g., push.services.mozilla.com:443
-
-    if host: # correctly parsed
-        if uri.port:
-            port = uri.port
-        else:
-            port = socket.getservbyname(scheme)
-    else: # incorrectly parsed
-        uri = uri.path.split(':')
-        host = uri[0]
-        if len(uri) > 1:
-            port = int(uri[1])
-        else:
-            port = 80
-
-    return host, port
+# Use the is operator rather than == to test an enumeration …
+# if message[‘type’] is MessageType.REQUEST:
 ```
 
----
+[^http-syntax]: More information available at [HTTP syntax overview](/assignments/proxy-labs) 
 
-### Testing
+### Build Message
 
-While building the remaining functionality, the simplest mode of testing is to leverage the `test.py` script provided in your start repository
-(see instructions in Lab 7 and 8 for more details). When you reach the point that your code returns a successful HTTP response to the test
-script, you should move on to testing with the browser.
+Before you wrap up this lab, let's create one more component of the parser, a new function that takes a dictionary like the one generated by your parser and builds a new message (returning the message as a byte string).[^really?] 
 
-Since it provides standalone proxy configuration, Firefox is the easiest browser to use for testing. Other common browsers rely on OS level configuration for proxies and tend to cause more issues for students.
+The message you build should be modified in the following manner:
 
--   Open Firefox's general preferences/settings page
--   Scroll to the bottom of the page and select _Network Settings_ -&gt;
-_Settings_
--   Under _Configure Proxy Access to the Internet_, select _Manual
-proxy configuration_
--   Set the _HTTP Proxy_ to `127.0.0.1` with _Port_ `9999`
-(match the port you used to run your proxy)
--   Apply your settings and open a new tab to navigate to an HTTP-based site, e.g.,
-    -   http://www.washington.edu/
-    -   http://neverssl.com
-    -   http://mit.edu
+-   Replace the HTTP version you received with `HTTP/1.0`
+-   Add or update a `Via` header (per RFC 7230) for the proxied connection, e.g.,
+    -   `Via: 1.0 127.0.0.1:9999`
+    -   If a `Via` already exists, append your entry as a comma separated value to the end of the existing header
 
----
+[^really?]: I realize it seems strange to rebuild the message you just spent time tearing apart, but this approach gives you more leverage in terms of what functions your proxy can provide. For example, notice how easily we can modify the HTTP version and add new headers.
+
+#### Tips
+
+-   Use python format strings to recreate the line-delimited parts of the message, ensuring you terminate each line in `\r\n` and encode as `iso-8859-1`
 
 ### Output
 
-Upon completing this task successfully, your code should proxy a request to a server and return the response back to the client over the existing network connection. If you've done this successfully, the pages should load successfully in your browser when you view a site via unencrypted HTTP.
+Once all parts of your code are working, print the following summary and close the connection. This will return to the start of your loop to listen for new connections).
 
-You should also print out a visual log of incoming connections, combining elements of the request and response as explained here. The format we will use for this log is consistent with the HTTP access logs
-seen in popular web servers like nginx and Apache.
+**Request summary**  
 
-#### Log Entry Format
-Each line of the log contains the following entries separated by spaces:
+* Connection Source: < IP address returned from the call to Socket.accept() >  
+* HTTP Method: < Name of method, e.g., GET, OPTION, or POST  >  
+* Destination: < URI extracted from the request >  
+* Headers: < Comma delimited list of header names >
 
--   Remote host (client IP address)
--   Timestamp of when your proxy received the HTTP request
-    -   wrapped in square brackets
-    -   ??? hint "how to get time stamp in Python"
-        ```python
-        import datetime
-        now = datetime.datetime.now()
-        now.strftime('%d/%b/%Y:%H:%M:%S')
-        ```
--   The actual request-line received from the client
-    -   wrapped in double quotes
--   The HTTP status code returned by the target server in its response
--   Content-Length of the HTTP response, i.e., the number of bytes in
-the payload
-    -   zero if the payload is not present
--   Referer header, or a dash if not used
-    -   wrapped in double quotes
-    -   replace with a single dash if Referer is not present
--   User-Agent header (contains information about the client's
-browser/OS/etc)
-    -   wrapped in double quotes
-    -   replace with a single dash if the User-Agent is not present
+**Ready to forward Request**
 
-<br>
+* Target: < URI of server obtained from request >
+* Message: < Raw bytes of the rebuilt request >
 
+??? note " What are these diamonds "<   >" ?"
+    These are placeholders. When you see these it means you should fill in information that is between them and then delete the symbols. It's a quick way of saying "hey something needs to be filled in" for the developer world.
 
-**Examples**
+### Testing your code with test.py
 
-```
-127.0.0.1 [10/Oct/2000:13:55:36 -0700] "GET /apache_pb.gif HTTP/1.0" 200 2326 "http://www.example.com/start.html" "Mozilla/4.08 [en] (Win98; I ;Nav)"
+The resources directory of the project repository contains a simple
+python script called test.py that you can use to send HTTP requests from
+a file into your proxy code.
+
+```python
+# Send the request from sample-request.txt on port 9999 one line at a time with a short delay between
+python3 test.py 9999 sample-request.txt
+
+# Send the request from sample-request.txt on port 9999 250 bytes at a time with a short delay between
+python3 test.py 9999 sample-request.txt 250
 ```
 
-More information about the Apache access log is available at [scalyr detailed apache access log](https://www.scalyr.com/blog/detailed-introduction-apache-access-log/).
+
+### Capturing proxied requests for testing
+
+Use the following method to capture valid requests that you can use for
+testing:
+
+-   Open ncat to listen for incoming connections, e.g., `ncat -o <FILENAME> -l <PORT>`
+-   Configure Firefox with an HTTP proxy on `127.0.0.1 <PORT>`
+-   Enter the URL of an HTTP-only site into the FF address bar (the request will hang)
+-   Manually stop the request from the browser
+-   Verify that the request was captured in ncat (ncat will close automatically)
