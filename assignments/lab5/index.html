@@ -8,7 +8,7 @@
         <meta name="author" content="Clinton Campbell">
         <link rel="canonical" href="https://info314.tcpip.dev/assignments/lab5/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Lab 5 - INFO 314 Course Resources</title>
+        <title>Lab 5 - Analyze DNS & HTTP in Wireshark - INFO 314 Course Resources</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -163,19 +163,27 @@
                                 <ul class="dropdown-menu">
                                     
 <li >
-    <a href="../lab2/">Lab 2</a>
+    <a href="../lab1/">Lab 1 - Core Technical Skills</a>
 </li>
                                     
 <li >
-    <a href="../lab3/">Lab 3</a>
+    <a href="../lab2/">Lab 2 - Analyzing DHCP and ARP with Wireshark</a>
 </li>
                                     
 <li >
-    <a href="../lab4/">Lab 4</a>
+    <a href="../lab3/">Lab 3 - Analyze Zeroconf in Wireshark</a>
+</li>
+                                    
+<li >
+    <a href="../lab4/">Lab 4 - Analyze TCP with ncat and Wireshark</a>
 </li>
                                     
 <li class="active">
-    <a href="./">Lab 5</a>
+    <a href="./">Lab 5 - Analyze DNS & HTTP in Wireshark</a>
+</li>
+                                    
+<li >
+    <a href="../lab6/">Lab 6 - Socket Basics in Python</a>
 </li>
                                     
   <li class="dropdown-submenu">
@@ -187,15 +195,15 @@
 </li>
             
 <li >
-    <a href="../lab6/">Proxy Part 1 Instructions</a>
+    <a href="../lab7/">Proxy Part 1 (Lab 7)</a>
 </li>
             
 <li >
-    <a href="../lab7/">Proxy Part 2 Instructions</a>
+    <a href="../lab8/">Proxy Part 2 (Lab 8)</a>
 </li>
             
 <li >
-    <a href="../lab8/">Proxy Part 3 Instructions</a>
+    <a href="../lab9/">Proxy Part 3 (Lab 9)</a>
 </li>
     </ul>
   </li>
@@ -222,6 +230,14 @@
   <li class="dropdown-submenu">
     <a href="#">Guides</a>
     <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../resources/pi-materials/">Getting Pi Materials</a>
+</li>
+            
+<li >
+    <a href="../../resources/digital-ocean/">Digital Ocean Signup</a>
+</li>
             
 <li >
     <a href="../../resources/iptables/">Introduction to Iptables</a>
@@ -288,6 +304,9 @@
   </li>
                                 </ul>
                             </li>
+                            <li >
+                                <a href="../../contact/">Contact Us</a>
+                            </li>
                         </ul>
 
                     <ul class="nav navbar-nav navbar-right">
@@ -302,7 +321,7 @@
                                 </a>
                             </li>
                             <li >
-                                <a rel="prev" href="../proxy-labs/">
+                                <a rel="prev" href="../lab6/">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -317,51 +336,151 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#lab-5-socket-basics-in-python">Lab 5 - Socket Basics in Python</a></li>
+        <li class="main active"><a href="#lab-5-analyze-dns-http-in-wireshark">Lab 5 - Analyze DNS &amp; HTTP in Wireshark</a></li>
             <li><a href="#overview">Overview</a></li>
-            <li><a href="#instructions">Instructions</a></li>
-            <li><a href="#deliverables">Deliverables</a></li>
+            <li><a href="#part-i-website">Part I - website</a></li>
+            <li><a href="#part-ii-dig">Part II - dig</a></li>
+            <li><a href="#part-iii-dev-tools">Part III - dev tools</a></li>
+            <li><a href="#part-iv-wireshark">Part IV - wireshark</a></li>
+            <li><a href="#part-v-security">Part V - security</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="lab-5-socket-basics-in-python"><strong>Lab 5 - Socket Basics in Python</strong><a class="headerlink" href="#lab-5-socket-basics-in-python" title="Permanent link">&para;</a></h1>
-<p><img alt="echo server picture" src="https://1.bp.blogspot.com/-QRugwxV8vb0/WHbfmHTu7HI/AAAAAAAADug/V1pYGpEzTpQvcfaoVh8qZN5d2xyERp4HACLcB/s1600/echoImage.png" /></p>
+<h1 id="lab-5-analyze-dns-http-in-wireshark">Lab 5 - Analyze DNS &amp; HTTP in Wireshark<a class="headerlink" href="#lab-5-analyze-dns-http-in-wireshark" title="Permanent link">&para;</a></h1>
+<p><a href="https://www.elegantthemes.com/blog/wp-content/uploads/2018/03/what-is-dns.png"><img alt="DNS image" src="https://www.elegantthemes.com/blog/wp-content/uploads/2018/03/what-is-dns.png" /></a></p>
+<p><a href="https://canvas.uw.edu/courses/1373089/assignments/5369618">Lab 5 Assignment page on Canvas</a></p>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>In the remaining weeks of the quarter, we will create a network service using the Python sockets API. In this lab, we will introduce the basic concepts of network programming with a Sockets API and build a pair of toy applications.</p>
-<h2 id="instructions">Instructions<a class="headerlink" href="#instructions" title="Permanent link">&para;</a></h2>
+<p>The purpose of this lab is for students to gain hands on experience with DNS. By the end of the lab you will be familiar with:</p>
 <ul>
-<li>Accept the Github Classroom assignment (<a href="https://classroom.github.com/a/Q974X4tR">link</a>) and clone the base repository for the assignment.</li>
-<li>Review the first few sections of <a href="https://realpython.com/python-sockets/">Real Python: Sockets Programming in Python</a> (through <code>Echo Client and Server</code>).</li>
-<li>Within a new branch called <code>lab5-echo-server</code>:<ul>
-<li>Implement the basic <strong>echo client</strong> and <strong>echo server</strong> presented in the RealPython guide.</li>
-<li>Modify the echo client to allow you to include a custom message from the command line, e.g., <code>echo-client “yay python”</code>. (Hint: Use <code>sys.argv</code>)<sup id="fnref:arguments"><a class="footnote-ref" href="#fn:arguments">2</a></sup></li>
-<li>Encode<sup id="fnref:encoding"><a class="footnote-ref" href="#fn:encoding">1</a></sup> the message as <code>UTF-8</code> text before sending (see linked resources).</li>
-<li>Test your code and ensure that the applications work as intended.</li>
+<li><strong><code>dig</code></strong> (or PowerShell's <strong><code>Resolve-DnsName</code></strong> command)</li>
+<li>DNS queries</li>
+<li>security faults of DNS</li>
 </ul>
-</li>
-<li>Submit a working version of your code via pull request.</li>
-</ul>
-<h2 id="deliverables">Deliverables<a class="headerlink" href="#deliverables" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Open the lab report template (available in starter repository as lab5-report.md). In it, please answer the following questions:<ol>
-<li>There are two major variants of Python (version 2 and 3). Briefly explain why it is important to know which version you have installed and are using to run your code.</li>
-<li>In your own words, explain the difference between server and client sockets. How are these differences seen in the sockets API?</li>
-</ol>
-</li>
-<li>Complete the code and pull request as described above. Submit a link to your pull request via Canvas.</li>
-</ul>
-<div class="footnote">
-<hr />
+<p>We highly recommend using search engines to help you find solutions. As usual, there will be multiple ways to complete this lab. Please use the template provided on Canvas under the Assignment "Lab 3 - Analyze DNS &amp; HTTP in Wireshark" to complete your lab report.</p>
+<h2 id="part-i-website">Part I - website<a class="headerlink" href="#part-i-website" title="Permanent link">&para;</a></h2>
+<p>Pick a popular website that has a lot of content on it. Ideally it should contain advertisements. You will be using it throughout this lab.</p>
+<p><strong>Report</strong>: </p>
 <ol>
-<li id="fn:encoding">
-<p><a href="https://www.pythoncentral.io/encoding-and-decoding-strings-in-python-3-x/">https://www.pythoncentral.io/encoding-and-decoding-strings-in-python-3-x/</a>&#160;<a class="footnote-backref" href="#fnref:encoding" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<li>What website did you select?</li>
+</ol>
+<h2 id="part-ii-dig">Part II - dig<a class="headerlink" href="#part-ii-dig" title="Permanent link">&para;</a></h2>
+<p>Before jumping into more complicated scenarios we would like you to learn how to use the <strong><code>dig</code></strong> command as it is an incredibly helpful and simple tool.</p>
+<p>We've provided some resources at <a href="/resources/dns-clients/#perform-dns-lookups-manually" target="_blank">Perform DNS Loookups Manually</a> to help you get started.</p>
+<p>Use dig to lookup the domain name of the website you selected. Open up a new tab in your browser and enter (one of) the IP address(es) returned by dig to discover where it will take you. If dig returned more than one address, open up a second tab and enter it now.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Don't panic if you receive an error instead of a live site. Some servers host more than one website and need the name to help route you to the right place. Try another site, e.g., uw.edu, and see if you get different results.</p>
+</div>
+<p><strong>Report</strong>: </p>
+<ol start="2">
+<li>
+<p>What addresses did the dig command return? Copy dig results to your report (code block or screenshot).</p>
 </li>
-<li id="fn:arguments">
-<p><a href="https://stackabuse.com/command-line-arguments-in-python/">https://stackabuse.com/command-line-arguments-in-python/</a>&#160;<a class="footnote-backref" href="#fnref:arguments" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<li>
+<p>What did you observe when you browsed to the IP addresses directly?</p>
+</li>
+<li>
+<p>Aside from <strong>A</strong> records containing IP addresses, did you discover any other DNS records from your query? List at least 3 other record types that DNS manages.</p>
+</li>
+<li>
+<p>Look closely at the output of the dig command. How can you be sure that the query completed successfully? Identify the IP address of the server used to handle your query.</p>
 </li>
 </ol>
-</div></div>
+<h2 id="part-iii-dev-tools">Part III - dev tools<a class="headerlink" href="#part-iii-dev-tools" title="Permanent link">&para;</a></h2>
+<p>Open up a new tab preferably in a chromium based browser (Chrome, Brave, etc...). Open up the dev tools (right click on page and click Inspect), and go to the <em>Network</em> option. </p>
+<p>In that very same tab paste in your selected web page into the URL bar and click enter. You should see all of the <strong>GET</strong> and <strong>POST</strong> requests that the browser made for that webpage load up in the dev tools.</p>
+<p>Right-click the header of the Network Log table and select Domain. The domain of each resource is now shown.</p>
+<p><a href="https://developers.google.com/web/tools/chrome-devtools/network/imgs/tutorial/domain.png"><img alt="dev tools show domain" src="https://developers.google.com/web/tools/chrome-devtools/network/imgs/tutorial/domain.png" /></a></p>
+<p>Take some time to scroll through the domains, files, and file types your website was requesting.</p>
+<p><strong>Report</strong>: </p>
+<ol start="6">
+<li>
+<p>From a quick glance what is the most common file type requested?</p>
+</li>
+<li>
+<p>Approximately how many <em>domains</em> do you see in that list that don't matchup with the website domain you initially visited?</p>
+</li>
+<li>
+<p>Why do you think this page is getting information from other websites?</p>
+</li>
+<li>
+<p>If you had to guess, how many DNS requests do you think were sent in order to fully load this page?</p>
+</li>
+</ol>
+<h2 id="part-iv-wireshark">Part IV - wireshark<a class="headerlink" href="#part-iv-wireshark" title="Permanent link">&para;</a></h2>
+<p>Before examining DNS requests in Wireshark you will want to clear your DNS cache. Instructions on what that means, what it's for, and how to do so can be found here <a href="https://bwalchen.github.io/314-docs/trouble/dns/#clear-dns-cache">314-docs/trouble/dns</a>.</p>
+<p>Create a capture of you visiting your website by: </p>
+<ul>
+<li>Open Wireshark, begin a capture</li>
+<li>Quickly open a new tab and visit your website in your browser</li>
+<li>Once it has fully loaded end your Wireshark capture.</li>
+</ul>
+<p>Now <strong>filter</strong> for DNS packets only in the display filter.</p>
+<ul>
+<li>Identify the DNS response containing the information you needed in order to convert your website name into an IP address.</li>
+<li>Use the information contained within that packet for the following deliverable.</li>
+</ul>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>Learn how to use the search tool to find string content or research display filters that allow you to specify the domain name.</p>
+</div>
+<p><strong>Report</strong>: </p>
+<ol start="10">
+<li>
+<p>Assuming almost all of the DNS requests you see in Wireshark right now are for the one website you visited, how many DNS requests do you see? </p>
+</li>
+<li>
+<p>Overall were there less or more DNS queries than you'd expect?</p>
+</li>
+<li>
+<p>How did you identify the DNS packet(s) associated with the website you visited?</p>
+</li>
+<li>
+<p>Provide screenshots of the packet(s) (specifically of the DNS information in Packet Details).</p>
+</li>
+<li>
+<p>List the ip addresses you received for the website from the DNS server that resolved your request.</p>
+</li>
+<li>
+<p>Which <em>transport layer protocol</em> (<a href="https://bwalchen.github.io/314-docs/course-prep/osi/">think OSI model</a>) is used to carry the DNS packet?</p>
+</li>
+<li>
+<p>Compare this DNS response to others in the capture (generate more if needed).</p>
+</li>
+<li>
+<p>Which port number(s) are shared in common across these DNS requests?</p>
+</li>
+</ol>
+<h2 id="part-v-security">Part V - security<a class="headerlink" href="#part-v-security" title="Permanent link">&para;</a></h2>
+<p>Open two packets in bytes view, a dns and a http packet that is encrypted with tls.</p>
+<ul>
+<li>Double click one of the DNS packets in order to be able to see the bytes view. </li>
+<li>Remove the dns display filter and replace it with tls (web traffic). </li>
+<li>Open one of the tls packets in byte view too.</li>
+</ul>
+<p><strong>Report</strong>: </p>
+<ol start="18">
+<li>
+<p>Examine the bytes view of the two packets. Do you see any human
+    readable values in the output?</p>
+</li>
+<li>
+<p>Looking at these two packets and others in your capture, does Wireshark provide any clues about whether or not your DNS is encrypted?</p>
+</li>
+<li>
+<p>Does it provide any clues on whether your web traffic is encrypted?</p>
+</li>
+</ol>
+<p>Attacker:</p>
+<ol start="21">
+<li>
+<p>What information might an outside observer be able to glean about your computing activities by capturing your DNS traffic?</p>
+</li>
+<li>
+<p>Was any discernible information revealed (as far as you can tell) through your web traffic?</p>
+</li>
+</ol></div>
         </div>
 
         <footer class="col-md-12">
