@@ -16,6 +16,7 @@ To dive into Linux servers, we will have you use DigitalOcean, a web hosting pla
 1. Make a new account in DigitalOcean: [Sign-up Link](<https://www.digitalocean.com/?refcode=48b2136188ce&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=CopyPaste>)  
    **Please use our link to sign-up or you will not get any free credits!**  
    You can sign up with Google or GitHub if you'd like, or create new credentials, it doesn't matter
+   **Note: Some students were having issues using their @uw.edu email, I would suggest using something else, like a gmail account**
    
 2. Confirm your DigitalOcean account by clicking the link you are emailed after signing up
 
