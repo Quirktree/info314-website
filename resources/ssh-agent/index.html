@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Clinton Campbell">
-        <link rel="canonical" href="https://info314.tcpip.dev/resources/digital-ocean/">
+        <link rel="canonical" href="https://info314.tcpip.dev/resources/ssh-agent/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Digital Ocean Signup - INFO 314 Course Resources</title>
+        <title>Using ssh-agent - INFO 314 Course Resources</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -239,8 +239,8 @@
     <a href="../pi-materials/">Getting Pi Materials</a>
 </li>
             
-<li class="active">
-    <a href="./">Digital Ocean Signup</a>
+<li >
+    <a href="../digital-ocean/">Digital Ocean Signup</a>
 </li>
             
 <li >
@@ -271,8 +271,8 @@
     <a href="../setup-frr/">Install Free Range Routing (FRR)</a>
 </li>
             
-<li >
-    <a href="../ssh-agent/">Using ssh-agent</a>
+<li class="active">
+    <a href="./">Using ssh-agent</a>
 </li>
     </ul>
   </li>
@@ -324,12 +324,12 @@
                             </a>
                         </li>
                             <li >
-                                <a rel="next" href="../pi-materials/">
+                                <a rel="next" href="../setup-frr/">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li >
-                                <a rel="prev" href="../iptables/">
+                                <a rel="prev" href="../markdown/">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -344,41 +344,100 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#digital-ocean-signup">Digital Ocean Signup</a></li>
+        <li class="main active"><a href="#using-the-ssh-agent-to-manage-login-keys">Using the SSH Agent to Manage Login Keys</a></li>
+            <li><a href="#configuring-ssh-agent-for-macos">Configuring ssh-agent for macOS</a></li>
+            <li><a href="#configuring-ssh-agent-for-windows-10">Configuring ssh-agent for Windows 10</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="digital-ocean-signup">Digital Ocean Signup<a class="headerlink" href="#digital-ocean-signup" title="Permanent link">&para;</a></h1>
-<p>In our first lab, you will learn how to interact with a headless (no monitor, only a terminal) Linux server. We will interact with Linux a lot in this class, as your Raspberry Pi will run only as a headless Linux server.</p>
-<p>To dive into Linux servers, we will have you use DigitalOcean, a web hosting platform, to create a virtual machine. Please follow these instructions to sign up for DigitalOcean. </p>
-<div class="admonition warning important">
-<p class="admonition-title">Warning</p>
-<p><strong>Please use our link to sign-up or you will not get any free credits!</strong></p>
-</div>
-<p><img alt="Digital Ocean logo" src="../../img/do-logo.png" /></p>
-<p><strong>In order to be able to complete week 1's lab, you will need to complete the following steps before class</strong></p>
+<h1 id="using-the-ssh-agent-to-manage-login-keys">Using the SSH Agent to Manage Login Keys<a class="headerlink" href="#using-the-ssh-agent-to-manage-login-keys" title="Permanent link">&para;</a></h1>
+<p>SSH keys can provide a notable improvement over password-based security (with
+respect to certain threats), but they are not without inconvenience or risk.
+Most notably, if we don't use encryption with strong passphrases to keys on 
+disk, an intruder or piece of malware can more easily retrieve our keys and 
+use them to access any resources we are permitted to access. Moreover, when we 
+encrypt our private keys, we face the potential inconvenience of supplying the 
+passphrase each time we run <code>ssh</code>.</p>
+<p>To ease the burden of using keys in the proper manner, OpenSSH provides a 
+helper service, i.e., <code>ssh-agent</code>, to help you manage your private keys. Once 
+an identity has been added to the <code>ssh-agent</code>, the agent can use the private 
+key to log into servers without requiring you to enter a password for the 
+the server or supply the key's passphrase.</p>
+<p>The <code>ssh-agent</code> helper is available for both macOS and Windows 10 (as well as 
+Linux), but the configuration process varies for each system. By following 
+the instructions provided in this guide when you first set up your private 
+keys, you'll be able to take advantage of the security improvements offered 
+by key-based SSH authentication with OpenSSH on your macOS or Windows 10 device.</p>
+<h2 id="configuring-ssh-agent-for-macos">Configuring <code>ssh-agent</code> for macOS<a class="headerlink" href="#configuring-ssh-agent-for-macos" title="Permanent link">&para;</a></h2>
 <ol>
-<li>
-<p>Make a new account in DigitalOcean: <a href="https://www.digitalocean.com/?refcode=48b2136188ce&amp;utm_campaign=Referral_Invite&amp;utm_medium=Referral_Program&amp;utm_source=CopyPaste">Sign-up Link</a><br />
-<strong>Please use our link to sign-up or you will not get any free credits!</strong><br />
-   You can sign up with Google or GitHub if you'd like, or create new credentials, it doesn't matter</p>
-</li>
-<li>
-<p>Confirm your DigitalOcean account by clicking the link you are emailed after signing up</p>
-</li>
-<li>
-<p>Next, you'll be taken to a billing page for DigitalOcean. You will need to add a credit or debit card. Don't worry, <strong>we'll only be using free credits, you won't be charged on your card.</strong> As long as you close your virtual machine when we email you in a few weeks, you will be fine and spend nothing. <strong>Please don't use PayPal, because that requires you making an initial deposit of $5 in your account.</strong></p>
-</li>
-<li>
-<p>Next, you'll be taken to a page to create your first project. Skip this step by clicking your user icon in the top right of the screen and selecting 'Account'</p>
-</li>
+<li>Configure OpenSSH to work with <code>ssh-agent</code> and macOS KeyChain</li>
+<li>Launch the <code>ssh-agent</code> as a background service.</li>
+<li>Use <code>ssh-add</code> to load your keys into the agent.</li>
 </ol>
-<p><img alt="Digital Ocean Account View" src="../../img/do-Account.png" /></p>
-<ol start="5">
-<li>You should now see '$100.00 Credit Remaining' at the top-right of your window. If you do, you're good to go! On Tuesday (3/31), we will set up a server in DigitalOcean and introduce you to the tools that allow you to work remotely.</li>
+<h3 id="step-1">Step 1<a class="headerlink" href="#step-1" title="Permanent link">&para;</a></h3>
+<p>Edit or create <code>~/.ssh/config</code> so that <code>ssh-agent</code> and macOS KeyChain are used automatically to manage private keys and passphrases. This configuration is required by the version of <code>ssh</code> distributed by Apple since macOS Sierra 10.12.2. </p>
+<div class="codehilite"><pre><span></span>Host *
+    AddKeysToAgent yes
+    UseKeyChain yes
+</pre></div>
+
+<h3 id="step-2">Step 2<a class="headerlink" href="#step-2" title="Permanent link">&para;</a></h3>
+<p>Launch the <code>ssh-agent</code> as a background service.
+<div class="codehilite"><pre><span></span><span class="c1"># The eval $() syntax is used to update the current environment based on the output of the ssh-agent command</span>
+$ <span class="nb">eval</span> <span class="s2">&quot;</span><span class="k">$(</span>ssh-agent -s<span class="k">)</span><span class="s2">&quot;</span>
+</pre></div></p>
+<p>Add your key to the <code>ssh-agent</code> using the <code>ssh-add</code> utility. </p>
+<h3 id="step-3">Step 3<a class="headerlink" href="#step-3" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="c1"># The -K option is required for some versions of macOS. Omit if it returns an error.</span>
+ssh-add -K ~/.ssh/id_ed25519
+
+<span class="c1"># Check that your key is loaded by listing current keys in the agent</span>
+ssh-add -l
+</pre></div>
+
+<h2 id="configuring-ssh-agent-for-windows-10">Configuring <code>ssh-agent</code> for Windows 10<a class="headerlink" href="#configuring-ssh-agent-for-windows-10" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Enable the <code>ssh-agent</code> Windows Service (disabled by default).</li>
+<li>Configure Powershell to launch <code>ssh-agent</code> when you open a console.</li>
+<li>Use <code>ssh-add</code> to load your keys into the agent.</li>
 </ol>
-<p><img alt="Digital Ocean Credits" src="../../img/do-credits.png" /></p></div>
+<h3 id="step-1_1">Step 1<a class="headerlink" href="#step-1_1" title="Permanent link">&para;</a></h3>
+<p>Launch Powershell with administrator privileges and set the startup mode for the <code>ssh-agent</code> service to <code>Manual</code> since it is configured by default as <code>Disabled</code>.</p>
+<div class="codehilite"><pre><span></span><span class="nb">Set-Service</span> <span class="n">-Name</span> <span class="n">ssh-agent</span> <span class="n">-StartupType</span> <span class="n">Manual</span>
+</pre></div>
+
+<h3 id="step-2_1">Step 2<a class="headerlink" href="#step-2_1" title="Permanent link">&para;</a></h3>
+<p>Open a normal (non-administrator) Powershell console and edit/create a profile script to automatically launch the <code>ssh-agent</code> service. </p>
+<p>In order to do this, we need to enable the ability to run basic scripts on the system and then find the location of the script (automatically assigned by Windows to the <code>$PROFILE</code> variable).</p>
+<div class="codehilite"><pre><span></span><span class="c"># Modify Powershell policy to allow basic powershell scripts to run</span>
+<span class="nb">Set-ExecutionPolicy</span> <span class="n">-ExecutionPolicy</span> <span class="n">RemoteSigned</span> <span class="n">-Scope</span> <span class="n">CurrentUser</span>
+
+<span class="c"># Test whether the profile script exists</span>
+<span class="nb">Test-Path</span> <span class="nv">$PROFILE</span>
+
+<span class="c"># If the previous command returns False, create the file</span>
+<span class="nb">New-Item</span> <span class="n">-path</span> <span class="nv">$PROFILE</span> <span class="n">-type</span> <span class="n">file</span> <span class="n">-force</span>
+
+<span class="c"># Launch Notepad.exe to create a script</span>
+<span class="n">notepad</span><span class="p">.</span><span class="n">exe</span> <span class="nv">$PROFILE</span>
+</pre></div>
+
+<p>Use Notepad to add the following code to your profile script. This will be run each time you launch a new console.
+<div class="codehilite"><pre><span></span><span class="c"># Launch the service if it&#39;s not already running</span>
+<span class="nv">$agentService</span> <span class="p">=</span> <span class="nb">Get-Service</span> <span class="n">-Name</span> <span class="n">ssh-agent</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$agentService</span><span class="p">.</span><span class="n">Status</span> <span class="o">-ne</span> <span class="s2">&quot;Running&quot;</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nb">Start-Service</span> <span class="n">-Name</span> <span class="n">ssh-agent</span>
+<span class="p">}</span>
+</pre></div></p>
+<h3 id="step-3_1">Step 3<a class="headerlink" href="#step-3_1" title="Permanent link">&para;</a></h3>
+<p>Open a fresh Powershell console and add your keys to the agent.
+<div class="codehilite"><pre><span></span><span class="c"># Add the private key to the ssh-agent</span>
+<span class="n">ssh-add</span> <span class="nv">$HOME</span><span class="p">\.</span><span class="n">ssh</span><span class="p">\</span><span class="n">id_ed25519</span>
+
+<span class="c"># Check that your key is loaded by listing current keys in the agent</span>
+<span class="n">ssh-add</span> <span class="n">-l</span>
+</pre></div></p></div>
         </div>
 
         <footer class="col-md-12">
