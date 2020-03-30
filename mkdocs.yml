@@ -51,6 +51,7 @@ nav:
     - Concepts and Theory:
       - Domain Name System (DNS): notes/dns-overview.md
       - Routers: notes/router-overview.md
+      - Ethernet Switches: notes/ethernet-switches.md
     - Guides:
       - Getting Pi Materials: resources/pi-materials.md
       - Digital Ocean Signup: resources/digital-ocean.md
@@ -61,6 +62,7 @@ nav:
       - Special Network Interfaces (VLANs and Dummies): resources/vlans-and-dummies.md
       - Configuring Routing Links: resources/configure-routing-links.md
       - Install Free Range Routing (FRR): resources/setup-frr.md
+      - Using ssh-agent: resources/ssh-agent.md
     - Quick Reference:
       - Intro to Markdown: resources/markdown.md
       - Intro to Bash: resources/bash.md

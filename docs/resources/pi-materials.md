@@ -2,17 +2,21 @@
 
 ![Raspberry Pi 4 Model B](..\img\Pi4.jpg)
 
-**In this course, you will need to purchase a Raspberry Pi 4 B.**
+**In this course, you will need to purchase a Raspberry Pi 4 B.**  
+  
+**Ideally, we want you to have all materials in-hand by 4/14, but we will work with you individually if you have problems with getting hardware by then.**  
 
 Many of the labs and exercises in this course are built around the Raspberry Pi's hardware. The Pi is a compact, single-board computer that can be used to create a Linux-based router and other common network components.
 
 !!! warning Important
-    **Please let us know ASAP if a lockdown is preventing packages or if sellers are indicating major delays.**
+    **Please let us know ASAP if a lockdown is preventing packages or if sellers are indicating major delays.**  
     
-    **Also please keep a close eye on fulfillment times. All of the links provided here have reasonable times when we looked at them, but things can change quickly. Feel free to email with any questions.**
-  
+    **Also please keep a close eye on fulfillment times. All of the links provided here have reasonable times when we looked at them, but things can change quickly. Feel free to email with any questions.**  
+    
+
+
 ---
-  
+
 ## TL;DR
 
 **Within the US:**
