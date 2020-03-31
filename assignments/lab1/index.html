@@ -391,10 +391,10 @@
 <p>You have now proved that you have the <strong>private</strong> key that matched the <strong>public</strong> key.</p>
 </li>
 </ol>
-<p>To create your SSH keypair, use <code>ssh-keygen</code> as follows:</p>
+<p><strong>To create your SSH keypair, use <code>ssh-keygen</code> as follows:</strong></p>
 <ol>
-<li>With either Terminal (for Mac) or PowerShell/Git Bash (for Windows) run the following command with your own email address:
-    <code>ssh-keygen -t ed25519 -C &lt;YOUR@EMAIL&gt;</code></li>
+<li>With either Terminal (for Mac) or PowerShell/Git Bash (for Windows) run the following command with your own email address:<br />
+<code>ssh-keygen -t ed25519 -C &lt;YOUR@EMAIL&gt;</code></li>
 <li>You will be prompted for a file name for the private SSH key. Accept the default by pressing the Enter key.</li>
 <li>You will be prompted for a passphrase. This is important as it is used to protect your private SSH key. Make it something strong, like you would a password, and commit it to memory or write it down somewhere.</li>
 <li>If you are prompted to overwrite anything, type <code>n</code> and press the Enter key</li>
@@ -423,48 +423,73 @@
 <p>Right under the 'SSH keys' option in the 'Authentication' section, you'll see a button that says 'New SSH Key'. Press it, and you'll be prompted for your <strong>public</strong> SSH key.</p>
 <p>To get your <strong>public</strong> SSH key, enter the following in either Terminal (for Mac) or PowerShell/Git Bash (for Windows) </p>
 <p><code>cat  ~/.ssh/id_ed25519.pub</code></p>
-<p>!! Warning
-    Make sure to enter the .pub extension at the end of this line! Without the extension, you will get back your private key instead of your public key!</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Make sure to enter the .pub extension at the end of this line! Without the extension, you will get back your private key instead of your public key!</p>
+</div>
 <p>You should then see a string like this:</p>
 <p><img alt="SSH Public Key cat output" src="../../img/ssh-cat-output.png" /></p>
 <p><strong>Copy</strong> the string (from the ssh-ed25519 all the way to the end of your email) and paste it into the 'Add public SSH key' window in DigitalOcean like so:</p>
 <p><img alt="SSH Key into Digital Ocean" src="../../img/ssh-key-in-do.png" /></p>
-<p>Then type a name for the key (something like 'My Macbook Pro') and press 'Add SSH Key'</p>
+<p>Then type a name for the key (something like 'My Macbook Pro') and press 'Add SSH Key'  </p>
 <p>Now you are all set to create the Droplet. Scroll down to and press 'Create Droplet'. If you want, you can create a name for this server in the 'Choose a hostname' section.</p>
 <p>Wait for the droplet to be created. When it's finished, copy the IP address of the server for the next section. It's the number right next to the server's name.</p>
 <p><img alt="Digital Ocean server IP address" src="../../img/IP-do.png" /></p>
 <h2 id="connect-and-manage-your-server">Connect and Manage your Server<a class="headerlink" href="#connect-and-manage-your-server" title="Permanent link">&para;</a></h2>
 <h3 id="log-in-to-the-droplet-as-the-root-user-via-ssh">Log in to the droplet as the root user via SSH<a class="headerlink" href="#log-in-to-the-droplet-as-the-root-user-via-ssh" title="Permanent link">&para;</a></h3>
-<p>In order to manage our remote server, we’ll use SSH to connect remotely. Since we have already associated a set of SSH keys with the server, we will be able to log in the the server as the root user without directly entering a password.</p>
-<p>The syntax for ssh is: </p>
-<p><code>ssh &lt;USERNAME&gt;@&lt;SERVER&gt;</code></p>
+<p>In order to manage our remote server, we’ll use SSH to connect remotely. Since we have already associated a set of SSH keys with the server, we will be able to log in the the server as the 'root' user without directly entering a password.</p>
+<p>The 'root' user is the default user on a Linux system, and it has permission to do <em>anything</em>. This is much different from a standard user account, say 'John', who only has permission to write, read, or execute certain files, like his user directory. We will begin this lab by logging in as the 'root' user, but we will soon create another user on the server and use that instead. It's typically not advised to use the root user on a Linux system unless what you're doing requires it.</p>
+<p>The syntax for ssh is:   </p>
+<p><code>ssh &lt;USERNAME&gt;@&lt;SERVER&gt;</code> </p>
+<p>We'll log in as the 'root' user, and use the IP address we copied earlier:  </p>
 <p>e.g., <code>ssh root@104.248.59.220</code></p>
 <p>If you entered the command correctly, you should see something like:</p>
-<blockquote>
-<p>The authenticity of host '104.248.59.220 (104.248.59.220)' can't be established.
+<div class="codehilite"><pre><span></span>The authenticity of host &#39;104.248.59.220 (104.248.59.220)&#39; can&#39;t be established.
 ECDSA key fingerprint is SHA256:...
-Are you sure you want to continue connecting (yes/no)?</p>
-</blockquote>
+Are you sure you want to continue connecting (yes/no)?
+</pre></div>
+
 <p>This is your computer letting you know it's never connected to this server before. That's okay, so:</p>
 <p>Type <code>yes</code> and press enter.</p>
 <p>You will then be prompted with something like:</p>
-<blockquote>
-<p>Warning: Permanently added '104.248.59.220' (ECDSA) to the list of known hosts.
-Linux debian-info314-sp20 4.9.0-12-amd64 #1 SMP Debian 4.9.210-1 (2020-01-20) x86_64</p>
-<p>The programs included with the Debian GNU/Linux system are free software;
+<div class="codehilite"><pre><span></span>Warning: Permanently added &#39;104.248.59.220&#39; (ECDSA) to the list of known hosts.
+Linux debian-info314-sp20 4.9.0-12-amd64 #1 SMP Debian 4.9.210-1 (2020-01-20) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
 the exact distribution terms for each program are described in the
-individual files in /usr/share/doc/*/copyright.</p>
-<p>Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
-permitted by applicable law.</p>
-</blockquote>
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+</pre></div>
+
 <p>And finally you see something like this:</p>
-<blockquote>
-<p>root@debian-fdk542-432kgs:~#</p>
-</blockquote>
+<p><code>root@debian-fdk542-432kgs:~#</code> </p>
 <p>To receive credit for this lab, you need to create a transcript of all the commands you issue to the server.</p>
 <p>To do this, we will use the script command to capture your session. Enter:</p>
 <p><code>script root-session</code></p>
+<p>This will use the <code>script</code> program to create a log of all your shell input and save it to a file named <code>root-session</code></p>
+<p>You should see this message:</p>
+<p><code>Script started, file is root-session</code></p>
 <p>Now, everything you type in this shell will now be captured in a file named root-session within your home directory. </p>
+<p>If you need to exit the server anytime, just type <code>exit</code>.
+The first time you <code>exit</code> you'll get the output:
+<code>Script done, file is root-session</code>
+This lets you know that <code>script</code> has finished recording and have saved the transcript.
+Next, type <code>exit</code> once more and you will be logged out of the SSH session, receving the message:
+<div class="codehilite"><pre><span></span>logout
+Connection to 104.248.59.220 closed.
+</pre></div></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>It's important that if you exit from the server and then reconnect to it (via <code>ssh</code>) that you continue your script. This will ensure everything keeps being recorded and you will get full credit for the lab.  </p>
+<p>To continue the script, type:<br />
+<code>script -a root-session</code><br />
+after you SSH back into the server. You'll again be prompted with:<br />
+<div class="codehilite"><pre><span></span>Script started, file is root-session
+</pre></div></p>
+<p>which ensures that your next commands will be appended to the <code>root-session</code> file</p>
+</div>
 <h3 id="create-a-second-user-account">Create a second user account<a class="headerlink" href="#create-a-second-user-account" title="Permanent link">&para;</a></h3>
 <p>In most situations, we will not work directly as the root user, since this would pose additional security risks. In fact, many Linux distributions will prevent direct root login. Let’s create a new user and practice working with this configuration. </p>
 <p>Add a new user adduser clinton</p>
@@ -504,7 +529,9 @@ permitted by applicable law.</p>
 <p>Use a web browser to navigate to your IP address and load the default nginx site, e.g., <a href="http://134.209.4.234">http://134.209.4.234</a> </p>
 <p>Once you have completed these tasks, please close out the scripts from your root and user shell and use </p>
 <p>scp </p>
-<p>to transfer them to your computer.</p></div>
+<p>to transfer them to your computer.</p>
+<div class="codehilite"><pre><span></span>
+</pre></div></div>
         </div>
 
         <footer class="col-md-12">
