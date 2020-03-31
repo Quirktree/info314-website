@@ -50,10 +50,10 @@ In short, SSH works as follows in our scenario:
 
   
 
-To create your SSH keypair, use `ssh-keygen` as follows:
+**To create your SSH keypair, use `ssh-keygen` as follows:**
 
-1. With either Terminal (for Mac) or PowerShell/Git Bash (for Windows) run the following command with your own email address:
-    `ssh-keygen -t ed25519 -C <YOUR@EMAIL>`
+1. With either Terminal (for Mac) or PowerShell/Git Bash (for Windows) run the following command with your own email address:  
+`ssh-keygen -t ed25519 -C <YOUR@EMAIL>`
 2. You will be prompted for a file name for the private SSH key. Accept the default by pressing the Enter key.
 3. You will be prompted for a passphrase. This is important as it is used to protect your private SSH key. Make it something strong, like you would a password, and commit it to memory or write it down somewhere.
 4. If you are prompted to overwrite anything, type `n` and press the Enter key
@@ -75,7 +75,7 @@ To get your **public** SSH key, enter the following in either Terminal (for Mac)
 
 `cat  ~/.ssh/id_ed25519.pub`
 
-!! Warning
+!!! Warning
     Make sure to enter the .pub extension at the end of this line! Without the extension, you will get back your private key instead of your public key!
 
 You should then see a string like this:
@@ -87,9 +87,7 @@ You should then see a string like this:
 ![SSH Key into Digital Ocean](../img/ssh-key-in-do.png)
 
 
-Then type a name for the key (something like 'My Macbook Pro') and press 'Add SSH Key'
-
-
+Then type a name for the key (something like 'My Macbook Pro') and press 'Add SSH Key'  
 
 Now you are all set to create the Droplet. Scroll down to and press 'Create Droplet'. If you want, you can create a name for this server in the 'Choose a hostname' section.
 
@@ -101,20 +99,25 @@ Wait for the droplet to be created. When it's finished, copy the IP address of t
 
 ### Log in to the droplet as the root user via SSH
 
-In order to manage our remote server, we’ll use SSH to connect remotely. Since we have already associated a set of SSH keys with the server, we will be able to log in the the server as the root user without directly entering a password.
+In order to manage our remote server, we’ll use SSH to connect remotely. Since we have already associated a set of SSH keys with the server, we will be able to log in the the server as the 'root' user without directly entering a password.
 
-The syntax for ssh is: 
+The 'root' user is the default user on a Linux system, and it has permission to do *anything*. This is much different from a standard user account, say 'John', who only has permission to write, read, or execute certain files, like his user directory. We will begin this lab by logging in as the 'root' user, but we will soon create another user on the server and use that instead. It's typically not advised to use the root user on a Linux system unless what you're doing requires it.
 
-`ssh <USERNAME>@<SERVER>`
+The syntax for ssh is:   
+
+`ssh <USERNAME>@<SERVER> ` 
+
+We'll log in as the 'root' user, and use the IP address we copied earlier:  
 
 e.g., `ssh root@104.248.59.220`
 
 If you entered the command correctly, you should see something like:
 
-> The authenticity of host '104.248.59.220 (104.248.59.220)' can't be established.
-> ECDSA key fingerprint is SHA256:...
-> Are you sure you want to continue connecting (yes/no)?
-
+```
+The authenticity of host '104.248.59.220 (104.248.59.220)' can't be established.
+ECDSA key fingerprint is SHA256:...
+Are you sure you want to continue connecting (yes/no)?
+```
 
 
 This is your computer letting you know it's never connected to this server before. That's okay, so:
@@ -125,21 +128,22 @@ Type `yes` and press enter.
 
 You will then be prompted with something like:
 
-> Warning: Permanently added '104.248.59.220' (ECDSA) to the list of known hosts.
-> Linux debian-info314-sp20 4.9.0-12-amd64 #1 SMP Debian 4.9.210-1 (2020-01-20) x86_64
->
-> The programs included with the Debian GNU/Linux system are free software;
-> the exact distribution terms for each program are described in the
-> individual files in /usr/share/doc/*/copyright.
->
-> Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
-> permitted by applicable law.
+```
+Warning: Permanently added '104.248.59.220' (ECDSA) to the list of known hosts.
+Linux debian-info314-sp20 4.9.0-12-amd64 #1 SMP Debian 4.9.210-1 (2020-01-20) x86_64
 
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+```
 
 
 And finally you see something like this:
 
-> root@debian-fdk542-432kgs:~#
+``` root@debian-fdk542-432kgs:~#``` 
 
 
 
@@ -149,9 +153,35 @@ To do this, we will use the script command to capture your session. Enter:
 
 `script root-session`
 
+This will use the `script` program to create a log of all your shell input and save it to a file named `root-session`
+
+You should see this message:
+
+```Script started, file is root-session```
+
 Now, everything you type in this shell will now be captured in a file named root-session within your home directory. 
 
+If you need to exit the server anytime, just type `exit`.
+The first time you `exit` you'll get the output:
+```Script done, file is root-session```
+This lets you know that `script` has finished recording and have saved the transcript.
+Next, type `exit` once more and you will be logged out of the SSH session, receving the message:
+```
+logout
+Connection to 104.248.59.220 closed.
+```
 
+!!! Warning
+    It's important that if you exit from the server and then reconnect to it (via `ssh`) that you continue your script. This will ensure everything keeps being recorded and you will get full credit for the lab.  
+      
+    To continue the script, type:  
+    `script -a root-session`  
+    after you SSH back into the server. You'll again be prompted with:  
+    ```
+    Script started, file is root-session
+    ```
+    
+    which ensures that your next commands will be appended to the `root-session` file
 
 ### Create a second user account
 
@@ -242,3 +272,7 @@ Once you have completed these tasks, please close out the scripts from your root
 scp 
 
 to transfer them to your computer.
+
+```
+
+```
