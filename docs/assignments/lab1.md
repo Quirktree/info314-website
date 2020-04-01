@@ -325,7 +325,7 @@ Test that you successfully copied your public key to the server and can access t
 
 `ssh <YOUR_USERNAME>@<SERVER_IP>`
 
-**You should <u>not</u> be prompted for your password, it should use the SSH key as before.**
+**You should <u>not</u> be prompted for your UNIX/Linux user password you set, it should instead use the SSH key as before, and if you set it, ask for the SSH passphrase.**
 
 Once you are logged back in, resume your script by running 
 
