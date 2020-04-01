@@ -333,7 +333,7 @@ Once you are logged back in, resume your script by running
 
 Install the nginx web service using the command:
 
-`sudo apt install nginx.`
+`sudo apt install nginx`
 
 Verify that the service installed correctly by running 
 
