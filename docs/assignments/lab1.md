@@ -109,7 +109,9 @@ The syntax for ssh is:
 
 We'll log in as the 'root' user, and use the IP address we copied earlier:  
 
-e.g., `ssh root@104.248.59.220`
+e.g., `ssh root@<SERVER_IP>`
+
+for me that's `ssh root@104.248.59.220`
 
 If you entered the command correctly, you should see something like:
 
@@ -173,7 +175,7 @@ Connection to 104.248.59.220 closed.
 
 !!! Warning
     It's important that if you exit from the server and then reconnect to it (via `ssh`) that you continue your script. This will ensure everything keeps being recorded and you will get full credit for the lab.  
-      
+
     To continue the script, type:  
     `script -a root-session`  
     after you SSH back into the server. You'll again be prompted with:  
@@ -181,37 +183,81 @@ Connection to 104.248.59.220 closed.
     Script started, file is root-session
     ```
     
-    which ensures that your next commands will be appended to the `root-session` file
+    which ensures that your next commands will be appended to the `root-session` file 
+
 
 ### Create a second user account
 
 In most situations, we will not work directly as the root user, since this would pose additional security risks. In fact, many Linux distributions will prevent direct root login. Let’s create a new user and practice working with this configuration. 
 
-Add a new user adduser clinton
+Add a new user by entering this (where <YOUR_USERNAME> is your name or something else you'll remember)
 
-Add the user to the *sudo* group usermod -aG sudo clinton
+`adduser <YOUR_USERNAME>`
+
+you'll be prompted for other information, such as a password and a name. Give the account a password you'll remember, and skip the other fields (such as name) by pressing 'Enter'.
+
+Then, add the user to the *sudo* group:
+
+`usermod -aG sudo <YOUR_USERNAME>`
+
+This allows the new user to use `sudo` before commands. Using `sudo` allows a user who is not `root` to use `root` privaleges on a per-command basis.
 
 By default, DigitalOcean prevents users from connecting via SSH without an SSH key. This is the correct decision from the security perspective, but we will disable it temporarily in order to explore beneath the hood.
 
-Modify /etc/ssh/sshd_config to enable password-based login by opening it in a terminal-based editor, e.g., nano /etc/ssh/sshd_config.
+Modify `/etc/ssh/sshd_config` to enable password-based login by editing it as follows:
 
-Find the PasswordAuthentication no setting and prefix it with a # comment character.
+First, open `sshd_config` in `nano` by using:
 
-Settings don’t take effect automatically. Use the systemctl tool to restart the sshd service, i.e., systemctl restart sshd.
+`nano /etc/ssh/sshd_config`
+
+This will open `nano`. 
+`nano` is a terminal-based editor, and is very simple.
+You can only move the cursor by using the arrow keys.
+To copy text from a file using `nano`, select it using your mouse and then copy it as usual (Control+C on Windows, Command + C on Mac)
+
+
+In `nano`, Find the: 
+`PasswordAuthentication no` 
+setting and prefix it with a `#` comment character, so it should read:
+`#PasswordAuthentication no`
+
+Then save the document in `nano` by pressing: Control + X in Windows, Command + X in Mac.
+
+Settings don’t take effect automatically. Use the systemctl tool to restart the sshd service:
+
+`systemctl restart sshd`
 
 
 
 ### Log in as your new user
 
-In a new terminal window, log in as the new user via SSH using the password you created above.
+**In a new terminal window**, log in as the new user via SSH using the password you created above.
 
-Capture a script of your session by calling script  user-session. The results of this command will be saved in a file named user-session.
+Capture a script of your session by calling:
 
-When you log in, run pwd and make note of the directory. This is your home directory. Notice that the home directory for each user is different.
+`script user-session`
 
-Try listing the contents of the root user’s home directory by typing ls -al /root. You should receive a permission denied error. The /root path is owned by the root user and has permissions restricted so that other users cannot read, write, or execute the directory or anything else it contains.
+The results of this command will be saved in a file named user-session.
 
-Since root is a special user, the restriction does not apply in the other direction. Demonstrate this difference in permissions by listing the contents of the new user’s home directory from the root user’s shell, e.g., ls -al /home/clinton from your root login and view the contents of my user’s home directory.
+When you log in, run:
+
+`pwd`
+
+and make note of the directory. 
+
+This is your home directory. Notice that the home directory for each user is different.
+
+Try listing the contents of the root user’s home directory by typing:
+
+`ls -al /root`
+
+You should receive a permission denied error. The /root path is owned by the root user and has permissions restricted so that other users cannot read, write, or execute the directory or anything else it contains.
+
+Since root is a special user, the restriction does not apply in the other direction. Demonstrate this difference in permissions by listing the contents of the new user’s home directory from the **root user’s shell**, e.g., 
+
+`ls -al /home/clinton` 
+
+from your root login and view the contents of my user’s home directory.
 
 By default in basic Linux distributions, the root user has complete control over all system and user resources and is even able to take on the identity of other users without knowing their passwords.
 
@@ -219,37 +265,55 @@ By default in basic Linux distributions, the root user has complete control over
 
 #### Running Administrative Commands
 
-Many of the administration tasks we need to complete throughout the quarter require root level permissions. Since we’ve already established that we will deliberately work as a non-root user, we should determine a method to elevate our privileges. In Linux and other Unix-based operating systems, the command that allows us to do this is called sudo. By prefixing any valid shell command or program name with sudo, we will assume the identity of root at runtime.
+Many of the administration tasks we need to complete throughout the quarter require root level permissions. Since we’ve already established that we will deliberately work as a non-root user, we should determine a method to elevate our privileges. In Linux and other Unix-based operating systems, the command that allows us to do this is called `sudo`. By prefixing any valid shell command or program name with `sudo`, we will assume the identity of `root` at runtime.
 
-Test this out by comparing the results of whoami with the results of sudo whoami.
+Test this out by comparing the results of (**within the new user's shell**)
 
-The next step will require us to log out of our current ssh session. Before you do this, type CTRL-D to end the current script session. You should see a message stating that the script is complete. You may now log out of ssh by running the exit command.
+`whoami` 
+
+with the results of 
+
+`sudo whoami`
+
+The next step will require us to log out of our current ssh session. Before you do this, type `exit` to end the current script session. You should see a message stating that the script is complete. You may now log out of ssh by running the exit command.
 
 
 
 ### Add SSH keys for your user
 
-As you’ve seen, we can log into the root account without entering a password because of the SSH keys that we created at the beginning of this lab, but logging into our new user account requires a password (which is a much weaker configuration from a security perspective).
+As you’ve seen, we can log into the `root` account without entering a password because of the SSH keys that we created at the beginning of this lab, but logging into our new user account requires a password (which is a much weaker configuration from a security perspective).
 
-Let’s resolve this by adding our public ssh key to the new user account on our Droplet. First switch back to your root shell and examine the files saved in the .ssh folder of root’s home directory. Remember that you can use ls -al to view a folder. 
+Let’s resolve this by adding our public SSH key to the new user account on our Droplet. 
 
-The additional options given after the command specify that hidden files (beginning with a period) will be displayed and that the details about each file or directory will also be shown.
+First **switch back to your root shell** and examine the files saved in the `.ssh` folder of root’s home directory. 
 
-Note that you can also use the cat command to view the contents of a file in that directory.
+To do this, we'll switch to the `.ssh` directory using `cd`.
 
-What you should see in the specified path is a file named authorized_keys that contains a copy of your SSH public key on a line by itself. We’ll be creating a similar file in the home directory of our new user. On each login attempt, the SSH server checks for authorized_keys designated for the user and loads 
+`cd` stands for 'Change Directory' and will let you switch the folder you are in.
 
-You can also use ssh to remotely execute the command without having to open a full SSH session:
+To change to the `.ssh` folder type:
 
-ssh clinton@134.209.4.234 'mkdir -p ~/.ssh'
+`cd .ssh`
 
-With the directory in place, copy your public key (most likely ~/.ssh/id_ed25519.pub) to the Droplet using the scp command. scp is part of the OpenSSH client package and is used to copy files between paths on local and remote hosts. You will notice that it uses ssh syntax to identify the remote location followed by a colon and the actual source or target path at the remote location. 
+Now you can use `ls -al` to view the contents of the folder once you are in it.
+
+What you should see in the specified path is a file named `authorized_keys` that contains a copy of your SSH public key on a line by itself. We’ll be creating a similar file in the home directory of our new user. On each login attempt, the SSH server checks for `authorized_keys` designated for the user and loads.
+
+First, within **a new terminal window**, type:
+
+`ssh <YOUR_USERNAME>@<SERVER_IP> 'mkdir -p ~/.ssh'`
+
+This creates a quick SSH session into your user, and makes a new directory called `.ssh` for that user.
+
+
+
+Next, you'll copy your public key (`$HOME/.ssh/id_ed25519.pub`) to the Droplet using the `scp` command. `scp` is part of the OpenSSH client package and is used to copy files between paths on local and remote hosts. You will notice that it uses `ssh` syntax to identify the remote location followed by a colon and the actual source or target path at the remote location:
+
+
 
 **NOTE: The following command is entered as one line but is wrapped due to the constraints of the editor.**
 
-
-
-scp $HOME/.ssh/id_ed25519.pub clinton@134.209.4.234:.ssh/authorized_keys
+`scp $HOME/.ssh/id_ed25519.pub <YOUR_USERNAME>@<SERVER_IP>:.ssh/authorized_keys`
 
 Be aware that scp respects file permissions. When connecting as my non-root user, I cannot read or write to locations that are restricted to other users or root. 
 
@@ -257,22 +321,47 @@ Be aware that scp respects file permissions. When connecting as my non-root user
 
 ### Install a web server
 
-Test that you successfully copied your public key to the server and can access the Droplet as your non-root user without having to enter a server password.
+Test that you successfully copied your public key to the server and can access the Droplet as your non-root user without having to enter a server password:
 
-Once you are logged back in, resume your script by running script -a user-session. Note the addition of the -a parameter which will cause script to append to the existing file.
+`ssh <YOUR_USERNAME>@<SERVER_IP>`
 
-Install the nginx web service using the command sudo apt install nginx. 
+**You should <u>not</u> be prompted for your password, it should use the SSH key as before.**
 
-Verify that the service installed correctly by running systemctl status nginx and confirming that the nginx service is loaded and running.
+Once you are logged back in, resume your script by running 
 
-Use a web browser to navigate to your IP address and load the default nginx site, e.g., <http://134.209.4.234> 
+`script -a user-session`
 
-Once you have completed these tasks, please close out the scripts from your root and user shell and use 
+Install the nginx web service using the command:
 
-scp 
+`sudo apt install nginx.`
 
-to transfer them to your computer.
+Verify that the service installed correctly by running 
 
-```
+`systemctl status nginx`
 
-```
+and confirming that the nginx service is loaded and running.
+
+Use a web browser to navigate to **your IP address** and load the default nginx site, e.g., <http://<SERVER_IP>> , in my case <http://134.209.4.234> 
+
+Once you have completed these tasks, please close out the scripts from your root and user shell by typing `exit` twice on each shell.
+
+
+Now on your computer **(no longer on the server!)**, use `scp` to copy the scripts over by typing:
+
+`scp root@<SERVER_IP>:root-session $HOME/Desktop `
+
+and
+
+`scp <YOUR_USERNAME>@<SERVER_IP>:user-session $HOME/Desktop `
+
+They will be on your desktop.
+
+
+
+## Deliverables
+
+For your deliverables, you will need to submit three files.
+
+- Your user-session file (user-session)
+- Your root-session file (root-session)
+- A completed lab report using the markdown template provided above, exported to PDF. The lab report can be found at [Lab 1 Assignment page on Canvas](https://canvas.uw.edu/courses/1373089/assignments/5369614) 
