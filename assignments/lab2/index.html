@@ -72,12 +72,16 @@
   </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li >
     <a href="../lab1/">Lab 1 - Core Technical Skills</a>
+</li>
+                                    
+<li class="active">
+    <a href="./">Lab 2 - Analyzing DHCP and ARP with Wireshark</a>
 </li>
                                 </ul>
                             </li>
@@ -195,6 +199,16 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
+                            <li >
+                                <a rel="next" href="../lab1/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../../notes/dns-overview/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
                             <li>
                                 <a href="https://github.com/quirktree/info314-website">quirktree/info314-website</a>
                             </li>
@@ -256,14 +270,14 @@
 <p>Follow the instructions linked on <a href="/resources/host-config/#renewing-dhcp-leases">the resources site</a> to complete this process.</p>
 <h3 id="report">Report<a class="headerlink" href="#report" title="Permanent link">&para;</a></h3>
 <ol>
-<li>Based on your capture, create an outline of a complete DHCP exchange. For each message:<ul>
+<li>Based on your capture, create an outline of your complete DHCP exchange. <u>For each message:</u><ul>
 <li>Include a screenshot of the packet details summary.</li>
 <li>Include a brief written summary, identifying: DHCP message type, DHCP transaction ID, source and destination Ethernet addresses, source and destination IP addresses, and UDP source and destination UDP ports associated.</li>
 </ul>
 </li>
 <li>How can you determine which messages were sent by your own device versus the DHCP server?</li>
 <li>Based on the outline you created above, determine the purpose of the 0.0.0.0 address appearing within the DHCP exchange.</li>
-<li>What Ethernet-layer address corresponds to the 255.255.255.255 IP address? Using online resources as necessary, determine the purpose of these special addresses.</li>
+<li>What Ethernet-layer (Layer 2) address corresponds to the 255.255.255.255 (Layer 3) IP address? Using online resources as necessary, determine the purpose of these special addresses.</li>
 <li>Which of the fields that you have observed can be used to distinguish between different conversations between the same client and server?</li>
 </ol>
 <p>If you look closely at the packet details for each message, you'll notice that each DHCP message contains a variety of options. In DHCP, options allow DHCP clients and servers to adapt the protocol to their own needs. Like many other protocols, DHCP encodes options as a <em>type</em>, a <em>length</em>, and a <em>value</em>. Based on this structure, we can continue to extend the protocol without needing to change the basic foundation.</p>
@@ -283,7 +297,11 @@
 <p>Remove any existing display filters and create a new filter that will only show ARP related traffic. (Hint: type <code>arp</code> in the display filter input).</p>
 <h3 id="report_1">Report<a class="headerlink" href="#report_1" title="Permanent link">&para;</a></h3>
 <ol start="13">
-<li>Outline a complete ARP exchange (request and response), including a screenshot and a brief summary of each message.</li>
+<li>Outline a complete ARP exchange (request and response). <u>For each message:</u> <ul>
+<li>Include a screenshot of the packet details summary.  </li>
+<li>Include a brief written summary, identifying: ARP Opcode, Sender and Target Ethernet addresses, Sender and Target IP addresses.</li>
+</ul>
+</li>
 <li>Identify the 48-bit hardware address associated with your network interface and use this information to specify which message(s) originated from your local device?</li>
 <li>Determine which messages are sent to a broadcast destination.</li>
 <li>Why do you think the ARP protocol makes use of the broadcast destination?</li>
