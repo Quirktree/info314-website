@@ -63,12 +63,12 @@ Follow the instructions linked on [the resources site](/resources/host-config/#r
 
 ### Report
 
-1.  Based on your capture, create an outline of a complete DHCP exchange. For each message:
+1.  Based on your capture, create an outline of your complete DHCP exchange. <u>For each message:</u>
     *   Include a screenshot of the packet details summary.
     *   Include a brief written summary, identifying: DHCP message type, DHCP transaction ID, source and destination Ethernet addresses, source and destination IP addresses, and UDP source and destination UDP ports associated.
 1.  How can you determine which messages were sent by your own device versus the DHCP server?
 1.  Based on the outline you created above, determine the purpose of the 0.0.0.0 address appearing within the DHCP exchange.
-1.  What Ethernet-layer address corresponds to the 255.255.255.255 IP address? Using online resources as necessary, determine the purpose of these special addresses.
+1.  What Ethernet-layer (Layer 2) address corresponds to the 255.255.255.255 (Layer 3) IP address? Using online resources as necessary, determine the purpose of these special addresses.
 1.  Which of the fields that you have observed can be used to distinguish between different conversations between the same client and server?
 
 If you look closely at the packet details for each message, you'll notice that each DHCP message contains a variety of options. In DHCP, options allow DHCP clients and servers to adapt the protocol to their own needs. Like many other protocols, DHCP encodes options as a *type*, a *length*, and a *value*. Based on this structure, we can continue to extend the protocol without needing to change the basic foundation.
@@ -92,11 +92,13 @@ Remove any existing display filters and create a new filter that will only show 
 
 ### Report
 
-13. Outline a complete ARP exchange (request and response), including a screenshot and a brief summary of each message.
-1.  Identify the 48-bit hardware address associated with your network interface and use this information to specify which message(s) originated from your local device?
-1.  Determine which messages are sent to a broadcast destination.
-1. Why do you think the ARP protocol makes use of the broadcast destination?
-1.  Aside from the broadcast address, what other differences do you notice between the contents of ARP requests and replies?
-1. Spend a moment comparing the overall packet structure (as seen in the Packet Details view) between DHCP and ARP. Identify any *layers* that are present in one protocol but not in the other.
-1. In order for a network message to be considered an IP packet, the message must contain an Internet Protocol layer that includes an IP header for the rest of the message. Does the ARP protocol use IP packets to communicate?
-1.  Describe in your own words how ARP works to allow hosts to communicate in a Layer-2 network based on IP address. Use your capture to illustrate your points.
+13. Outline a complete ARP exchange (request and response). <u>For each message:</u> 
+    - Include a screenshot of the packet details summary.  
+    - Include a brief written summary, identifying: ARP Opcode, Sender and Target Ethernet addresses, Sender and Target IP addresses.
+14. Identify the 48-bit hardware address associated with your network interface and use this information to specify which message(s) originated from your local device?
+15. Determine which messages are sent to a broadcast destination.
+16. Why do you think the ARP protocol makes use of the broadcast destination?
+17. Aside from the broadcast address, what other differences do you notice between the contents of ARP requests and replies?
+18. Spend a moment comparing the overall packet structure (as seen in the Packet Details view) between DHCP and ARP. Identify any *layers* that are present in one protocol but not in the other.
+19. In order for a network message to be considered an IP packet, the message must contain an Internet Protocol layer that includes an IP header for the rest of the message. Does the ARP protocol use IP packets to communicate?
+20. Describe in your own words how ARP works to allow hosts to communicate in a Layer-2 network based on IP address. Use your capture to illustrate your points.
