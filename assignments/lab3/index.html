@@ -217,9 +217,12 @@
         <li class="main active"><a href="#lab-3-analyze-zeroconf-in-wireshark">Lab 3 - Analyze Zeroconf in Wireshark</a></li>
             <li><a href="#overview">Overview</a></li>
             <li><a href="#resources">Resources</a></li>
-            <li><a href="#deliverable">Deliverable</a></li>
-            <li><a href="#instructions">Instructions</a></li>
-            <li><a href="#extra-credit">Extra Credit</a></li>
+            <li><a href="#part-i-identification">Part I - Identification</a></li>
+            <li><a href="#part-ii-powering-on-your-pi">Part II - Powering on your Pi</a></li>
+            <li><a href="#part-iii-contacting-your-pi">Part III - Contacting your Pi</a></li>
+            <li><a href="#part-iv-manually-querying-mdns-devices">Part IV - Manually Querying mDNS devices</a></li>
+            <li><a href="#part-v-protocol-research">Part V - Protocol Research</a></li>
+            <li><a href="#extra-credit-optional">Extra Credit (Optional)</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -228,51 +231,84 @@
 <p><a href="https://canvas.uw.edu/courses/1373089/assignments/5369619">Lab 3 Assignment page on Canvas</a></p>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>Most of the time, our discussion about IP addresses are focused on globally routable addresses or on RFC1918 private addresses. In this lab, we are going to explore another type of address that can be used without any explicit configuration (either by a user or network administrator). We’re also going to look at how these addresses fit in to a group of protocols called the zero-configuration networking (zeroconf) protocols and explore how zeroconf appears in this class and in our daily use of network technology.</p>
-<p>This lab will require a combination of Wireshark analysis and Internet research. We’ve provided links to several references as a starting point, but you are free to look up other resources as needed. Please cite all sources in your deliverable.</p>
+<p>This lab will require a combination of Wireshark analysis and Internet research. We’ve provided links to several references as a starting point, but you are free to look up other resources as needed. </p>
+<p><em>Please cite all sources in your deliverable.</em></p>
 <h2 id="resources">Resources<a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
 <p><a href="https://en.wikipedia.org/wiki/Link-local_address">https://en.wikipedia.org/wiki/Link-local_address (Links to an external site.)</a></p>
 <p><a href="https://tools.ietf.org/html/rfc3927">https://tools.ietf.org/html/rfc3927 (Links to an external site.)</a></p>
 <p><a href="https://en.wikipedia.org/wiki/.local">https://en.wikipedia.org/wiki/.local (Links to an external site.)</a></p>
 <p><a href="https://en.wikipedia.org/wiki/Zero-configuration_networking">https://en.wikipedia.org/wiki/Zero-configuration_networking (Links to an external site.)</a></p>
-<h2 id="deliverable">Deliverable<a class="headerlink" href="#deliverable" title="Permanent link">&para;</a></h2>
-<p>Submit your raw capture file and a lab report including all answers and relevant observations from your analysis. As always, follow the formatting guidance we have given you for this course and be sure to include paste in the questions with your answers.</p>
-<h2 id="instructions">Instructions<a class="headerlink" href="#instructions" title="Permanent link">&para;</a></h2>
-<p>Before you start, take a moment to record some details about your computer and your Ethernet network adapter. These details may be helpful to you in your analysis:</p>
-<ul>
-<li>Hostname:</li>
-<li>MAC Address:</li>
+<h2 id="part-i-identification">Part I - Identification<a class="headerlink" href="#part-i-identification" title="Permanent link">&para;</a></h2>
+<p><strong>Report:</strong></p>
+<ol>
+<li>Before you start, take a moment to record some details about your computer and your Ethernet network adapter. These details may be helpful to you in your analysis:<ul>
+<li>Hostname (Computer, Pi)</li>
+<li>MAC Address (Computer, Pi)</li>
 </ul>
+</li>
+</ol>
+<h2 id="part-ii-powering-on-your-pi">Part II - Powering on your Pi<a class="headerlink" href="#part-ii-powering-on-your-pi" title="Permanent link">&para;</a></h2>
 <p>If you already started your Pi, shut it down and disconnect power before you begin.</p>
 <p>Launch a new Wireshark capture over the Ethernet connection to your Pi. Linux users should listen on the “All” interface and may want to disable their wireless connection before capturing to reduce noise and focus on the important details.</p>
 <p>With your capture running, power on the Pi. You’ll be keeping an eye on the capture in order to see what happens when your computer and your Pi first connect to the network.</p>
-<ul>
-<li>Identify the link-local addresses and mDNS names associated with your computer and your Pi.</li>
-<li>Using your capture as a reference, identify the messages that your Pi sends while autoconfiguring its own IP addresses.</li>
-<li>Describe the autoconfiguration process used by hosts to choose a link-local address and confirm that it is unique on the local network segment.</li>
-</ul>
+<p><strong>Report:</strong></p>
+<ol start="2">
+<li>
+<p>Identify the link-local addresses and mDNS names associated with your computer and your Pi.</p>
+</li>
+<li>
+<p>Using your capture as a reference, identify the messages that your Pi sends while autoconfiguring its own IP addresses.</p>
+</li>
+<li>
+<p>Describe the autoconfiguration process used by hosts to choose a link-local address and confirm that it is unique on the local network segment.</p>
+</li>
+</ol>
+<h2 id="part-iii-contacting-your-pi">Part III - Contacting your Pi<a class="headerlink" href="#part-iii-contacting-your-pi" title="Permanent link">&para;</a></h2>
 <p>With your capture still running, let’s try to contact your Pi. Try pinging your Pi based on the hostname “raspberrypi.local” (substitute your own hostname if you’ve already changed it). Likewise, try connecting to your pi via SSH.</p>
-<ul>
-<li>Using your capture, identify an example of an IPv4 and IPv6 mDNS request.</li>
-<li>Identify the multicast addresses used by mDNS in IPv4 and IPv6.</li>
-<li>Using your capture, identify an example of an IPv4 and IPv6 mDNS response.</li>
-<li>Are mDNS responses sent to a multicast address or to a specific unicast address.</li>
-<li>Identify the destination addresses used to reach your Pi in the final ICMP echo request (ping) and SSH connection.</li>
-</ul>
-<p>Lastly, as we did with DNS, let’s look at some tools that will allow us to manually query mDNS devices on our network. Unlike DNS, we should see that individual devices answer their own queries. Windows users can use the powershell command <code>Resolve-DNSName</code> while macOS and Linux users should be able to use <code>dns-sd</code>.</p>
-<ul>
+<p><strong>Report:</strong> </p>
+<ol start="5">
+<li>
+<p>Using your capture, identify an example of an IPv4 and IPv6 mDNS request.</p>
+</li>
+<li>
+<p>Identify the multicast addresses used by mDNS in IPv4 and IPv6.</p>
+</li>
+<li>
+<p>Using your capture, identify an example of an IPv4 and IPv6 mDNS response.</p>
+</li>
+<li>
+<p>Are mDNS responses sent to a multicast address or to a specific unicast address.</p>
+</li>
+<li>
+<p>Identify the destination addresses used to reach your Pi in the final ICMP echo request (ping) and SSH connection.</p>
+</li>
+</ol>
+<h2 id="part-iv-manually-querying-mdns-devices">Part IV - Manually Querying mDNS devices<a class="headerlink" href="#part-iv-manually-querying-mdns-devices" title="Permanent link">&para;</a></h2>
+<p>Lastly, let’s look at some tools that will allow us to manually query mDNS devices on our network. Unlike DNS, we should see that individual devices answer their own queries. Windows users can use the powershell command <code>Resolve-DNSName</code> while macOS and Linux users should be able to use <code>dns-sd</code>.</p>
+<p><strong>Report:</strong></p>
+<ol start="10">
 <li>Use <code>man</code> to look up more information about the relevant command and to determine the correct syntax for making an mDNS request to your Pi. Provide a screenshot of your mDNS request and the output received.</li>
-</ul>
+</ol>
+<h2 id="part-v-protocol-research">Part V - Protocol Research<a class="headerlink" href="#part-v-protocol-research" title="Permanent link">&para;</a></h2>
 <p>Perform your own research into these protocols and answer the following questions. We recommend starting with the resources listed at the end of this guide.</p>
-<ul>
-<li>Describe the major difference between how link local addresses are assigned and used in IPv4 versus in IPv6.</li>
-<li>In your own words, summarize how RFC 3927 says we can determine whether hosts are located on the same network link.</li>
-<li>Based on what you’ve learned, describe how we are able to connect with a Pi based on a pre-defined hostname without the need for any infrastructure like a DHCP or DNS server.</li>
-<li>Based on what you’ve learned about link-local addresses, describe how you might use Wireshark in conjunction with other network utilities to troubleshoot the connection to a headless device (i.e., a device like the Pi that you can only access over the network).</li>
-</ul>
-<h2 id="extra-credit">Extra Credit<a class="headerlink" href="#extra-credit" title="Permanent link">&para;</a></h2>
-<ul>
+<ol start="11">
+<li>
+<p>Describe the major difference between how link local addresses are assigned and used in IPv4 versus in IPv6.</p>
+</li>
+<li>
+<p>In your own words, summarize how RFC 3927 says we can determine whether hosts are located on the same network link.</p>
+</li>
+<li>
+<p>Based on what you’ve learned, describe how we are able to connect with a Pi based on a pre-defined hostname without the need for any infrastructure like a DHCP or DNS server.</p>
+</li>
+<li>
+<p>Based on what you’ve learned about link-local addresses, describe how you might use Wireshark in conjunction with other network utilities to troubleshoot the connection to a headless device (i.e., a device like the Pi that you can only access over the network).</p>
+</li>
+</ol>
+<h2 id="extra-credit-optional">Extra Credit (Optional)<a class="headerlink" href="#extra-credit-optional" title="Permanent link">&para;</a></h2>
+<ol start="15">
 <li>Perform an mDNS scavenger hunt with Wireshark on a couple of different networks. Provide a short (about ½ page) analysis of your search along with capture samples. What types of devices were you able to discover? How does mDNS make your life more convenient?</li>
-</ul></div>
+</ol></div>
         </div>
 
         <footer class="col-md-12">
