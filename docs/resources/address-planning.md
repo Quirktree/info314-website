@@ -1,4 +1,4 @@
-# Basic IP Address Planning (2020-01-22)
+# Basic IP Address Planning (2020-04-09)
 
 Don't try to build a network without a plan. A good network design is built on parameters and constraints that are appropriate for the intended use-cases. This guide offers a simple procedure that can serve as a starting point for basic planning needs.
 
@@ -20,13 +20,11 @@ As you get started, you will need to make decisions about how you will configure
 
 **Static Addresses** Dynamic address assignment won't work for every scenario, e.g., when an address should be fixed and a dependency on DHCP isn't possible. Some devices, including the DHCP server itself should be directly configured. We describe their addresses as static because they are coded into a network node's configuration and won't change base on external factors.
 
-**DHCP Reservations** Static address assignment provides a maximum degree of control when we want a device to stay at a fixed address, e.g., servers and printers, but introduces additional management cost since devices have to be configured on an individual basis. With a reservation, we can register a device based on its MAC address and ensure that DHCP serves it a pre-defined configuration when it joins the network. 
-
 ## Procedure
 
 ### Step 1 - Examine address needs
 
-Determine the number of addresses required, accounting for static, reserved, and DHCP address pools.
+Determine the number of addresses required, accounting for static, and DHCP Leased address pools.
 
 Identify additional address constraints, such as the number of distinct subnets needed or potential subnet conflicts
 
@@ -46,10 +44,10 @@ To complete the set of basic configuration parameters, compute the broadcast add
 
 ### Step 4 - Document important addresses and ranges
 
-Finally, let's connect the dots between what we've done in the first three steps by splitting your subnet up according to static, reserved, and dynamic addresses.
+Finally, let's connect the dots between what we've done in the first three steps by splitting your subnet up according to static, and dynamic addresses.
 
-Static addresses will usually be assigned to core network devices, e.g., a router or DHCP server, that should operate independently of DHCP. For other devices that need consistent addresses -- perhaps DNS servers or printers -- you can assign a reserved address.
+Static addresses will usually be assigned to core network devices, e.g., a router or DHCP server, that should operate independently of DHCP. For other devices that need consistent addresses -- perhaps DNS servers or printers -- you can also assign a static address.
 
 If you operate multiple networks, it is helpful to be consistent with your static assignments. For example, most network administrators will assign the router to either the first or last address in the subnet. Don't deviate from convention unless you have a good reason.
 
-Once you've documented your static and reserved addresses, identify a range of addresses within your subnet that can be used for the DHCP address pool. This should be a contiguous block of addresses and it cannot overlap with your a) network ID, b) subnet broadcast address, or c) static or reserved addresses that you've defined.
+Once you've documented your static addresses, identify a range of addresses within your subnet that can be used for the DHCP address pool. This should be a contiguous block of addresses and it cannot overlap with your a) network ID, b) subnet broadcast address, or c) static addresses that you've defined.
