@@ -55,6 +55,7 @@ nav:
     - Guides:
       - Getting Pi Materials: resources/pi-materials.md
       - Digital Ocean Signup: resources/digital-ocean.md
+      - Basic IP Address Planning: resources/address-planning.md
       - Introduction to Iptables: resources/iptables.md
       - Understanding Netfilter/Iptables Hooks: resources/netfilter-hooks.md
       - Linux Wireless Configuration: resources/wifi-reference.md
