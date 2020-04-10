@@ -134,9 +134,9 @@ The following template supplies all of the parameters needed to attach to Eduroa
 
 ## Using "University of Washington" instead of "eduroam"
 
-As of 1/27/20, there is an issue we are facing with the "eduroam" network.
+If eduoroam does not work for you, please let us know. **If you are given explicit instructions to connect "University of Washington" WiFi instead, then use these instructions.**
 
-Temporarily, we recommend using the "University of Washington" WiFi instead.
+**DO NOT connect to "University of Washington" without explicit permission for us**
 
 **Please setup your Pi for connecting to eduroam, but follow this guide if that does not work.**
 
