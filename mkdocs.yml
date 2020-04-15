@@ -38,7 +38,7 @@ nav:
   - Labs:
     - Lab 1 - Core Technical Skills: assignments/lab1.md
     - Lab 2 - Analyzing DHCP and ARP with Wireshark: assignments/lab2.md
-    #- Lab 3 - Analyze Zeroconf in Wireshark: assignments/lab3.md
+    - Lab 3 - Analyze Zeroconf in Wireshark: assignments/lab3.md
     #- Lab 4 - Analyze TCP with ncat and Wireshark: assignments/lab4.md
     #- Lab 5 - Analyze DNS & HTTP in Wireshark: assignments/lab5.md
     #- Lab 6 - Socket Basics in Python: assignments/lab6.md
