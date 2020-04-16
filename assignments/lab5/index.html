@@ -8,7 +8,7 @@
         <meta name="author" content="Clinton Campbell">
         <link rel="canonical" href="https://info314.tcpip.dev/assignments/lab5/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Lab 5 - Analyze DNS & HTTP in Wireshark - INFO 314 Course Resources</title>
+        <title>Lab 5 - Analyze TCP with ncat and Wireshark - INFO 314 Course Resources</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -67,6 +67,20 @@
             
 <li >
     <a href="../../resources/wifi-reference/">Wifi Reference</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">2 - Set up a DHCP Server</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../resources/address-planning/">IP Address Planning Reference</a>
+</li>
+            
+<li >
+    <a href="../dhcp-setup/">Installing and Configuring the ISC DHCP Server</a>
 </li>
     </ul>
   </li>
@@ -218,151 +232,209 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#lab-5-analyze-dns-http-in-wireshark">Lab 5 - Analyze DNS &amp; HTTP in Wireshark</a></li>
+        <li class="main active"><a href="#lab-5-analyze-tcp-with-ncat-and-wireshark">Lab 5 - Analyze TCP with ncat and Wireshark</a></li>
             <li><a href="#overview">Overview</a></li>
-            <li><a href="#part-i-website">Part I - website</a></li>
-            <li><a href="#part-ii-dig">Part II - dig</a></li>
-            <li><a href="#part-iii-dev-tools">Part III - dev tools</a></li>
-            <li><a href="#part-iv-wireshark">Part IV - wireshark</a></li>
-            <li><a href="#part-v-security">Part V - security</a></li>
+            <li><a href="#setup">Setup</a></li>
+            <li><a href="#part-i-tcp-analysis-introduction">Part I - TCP Analysis Introduction</a></li>
+            <li><a href="#part-ii-plaintext-http-analysis-neverssl">Part II - Plaintext (http) Analysis - NeverSSL</a></li>
+            <li><a href="#part-iii-encrypted-https-analysis-wikipedia">Part III - Encrypted (https) Analysis - Wikipedia</a></li>
+            <li><a href="#part-iv-general-tcp-analysis">Part IV - General TCP Analysis</a></li>
+            <li><a href="#bonus-optional">Bonus (Optional)</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="lab-5-analyze-dns-http-in-wireshark">Lab 5 - Analyze DNS &amp; HTTP in Wireshark<a class="headerlink" href="#lab-5-analyze-dns-http-in-wireshark" title="Permanent link">&para;</a></h1>
-<p><a href="https://www.elegantthemes.com/blog/wp-content/uploads/2018/03/what-is-dns.png"><img alt="DNS image" src="https://www.elegantthemes.com/blog/wp-content/uploads/2018/03/what-is-dns.png" /></a></p>
-<p><a href="https://canvas.uw.edu/courses/1373089/assignments/5369618">Lab 5 Assignment page on Canvas</a></p>
+<h1 id="lab-5-analyze-tcp-with-ncat-and-wireshark">Lab 5 - Analyze TCP with ncat and Wireshark<a class="headerlink" href="#lab-5-analyze-tcp-with-ncat-and-wireshark" title="Permanent link">&para;</a></h1>
+<p><a href="https://www.cloudflare.com/img/learning/cdn/tls-ssl/tcp-handshake-diagram.png"><img alt="" src="https://www.cloudflare.com/img/learning/cdn/tls-ssl/tcp-handshake-diagram.png" /></a></p>
+<p><a href="https://canvas.uw.edu/courses/1373089/assignments/5369621">Lab 4 Assignment page on Canvas</a></p>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>The purpose of this lab is for students to gain hands on experience with DNS. By the end of the lab you will be familiar with:</p>
+<p>The purpose of this lab is for students to gain hands on experience with TCP connections. By the end of the lab you will be familiar with:</p>
 <ul>
-<li><strong><code>dig</code></strong> (or PowerShell's <strong><code>Resolve-DnsName</code></strong> command)</li>
-<li>DNS queries</li>
-<li>security faults of DNS</li>
+<li><code>ncat</code> </li>
+<li>TCP handshakes</li>
+<li>http </li>
+<li>https</li>
+<li>Security faults of http</li>
 </ul>
-<p>We highly recommend using search engines to help you find solutions. As usual, there will be multiple ways to complete this lab. Please use the template provided on Canvas under the Assignment "Lab 3 - Analyze DNS &amp; HTTP in Wireshark" to complete your lab report.</p>
-<h2 id="part-i-website">Part I - website<a class="headerlink" href="#part-i-website" title="Permanent link">&para;</a></h2>
-<p>Pick a popular website that has a lot of content on it. Ideally it should contain advertisements. You will be using it throughout this lab.</p>
-<p><strong>Report</strong>: </p>
-<ol>
-<li>What website did you select?</li>
-</ol>
-<h2 id="part-ii-dig">Part II - dig<a class="headerlink" href="#part-ii-dig" title="Permanent link">&para;</a></h2>
-<p>Before jumping into more complicated scenarios we would like you to learn how to use the <strong><code>dig</code></strong> command as it is an incredibly helpful and simple tool.</p>
-<p>We've provided some resources at <a href="/resources/dns-clients/#perform-dns-lookups-manually" target="_blank">Perform DNS Loookups Manually</a> to help you get started.</p>
-<p>Use dig to lookup the domain name of the website you selected. Open up a new tab in your browser and enter (one of) the IP address(es) returned by dig to discover where it will take you. If dig returned more than one address, open up a second tab and enter it now.</p>
+<p>We highly recommend using search engines to help you find solutions.</p>
+<h2 id="setup">Setup<a class="headerlink" href="#setup" title="Permanent link">&para;</a></h2>
+<p>For this lab, we are going to use the incredibly versatile <a href="https://nmap.org/ncat/"><code>ncat</code></a> utility to directly read and write data to and from HTTP(s) servers.</p>
+<p>Some of you may already be familiar with a similar tool known as <strong>netcat</strong> (<code>nc</code> from the command line on most Linux or macOS machines). <code>ncat</code> is a re-implementation of netcat that adds some handy features (like SSL/TLS connections).</p>
+<h3 id="windows">Windows<a class="headerlink" href="#windows" title="Permanent link">&para;</a></h3>
+<p>Please follow instructions to install <code>ncat</code> from <a href="https://nmap.org/ncat/">https://nmap.org/ncat/</a>. You can accomplish this either by installing the <code>nmap</code> port scanner suite or by installing the <a href="http://nmap.org/dist/ncat-portable-5.59BETA1.zip">portable executable</a>. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Don't panic if you receive an error instead of a live site. Some servers host more than one website and need the name to help route you to the right place. Try another site, e.g., uw.edu, and see if you get different results.</p>
+<p>You may need to update your system path to include the directory in which you installed <code>ncat</code>.</p>
 </div>
-<p><strong>Report</strong>: </p>
-<ol start="2">
+<h3 id="macos-and-linux">macOS and Linux<a class="headerlink" href="#macos-and-linux" title="Permanent link">&para;</a></h3>
+<p>Install <code>nmap</code> from your preferred package manager (e.g., <code>apt</code> or <code>brew</code>) or follow instructions provided at <a href="https://nmap.org/download.html">nmap.org</a>.</p>
+<h2 id="part-i-tcp-analysis-introduction">Part I - TCP Analysis Introduction<a class="headerlink" href="#part-i-tcp-analysis-introduction" title="Permanent link">&para;</a></h2>
+<h3 id="capture">Capture<a class="headerlink" href="#capture" title="Permanent link">&para;</a></h3>
+<p>The instructions below can be used to manually perform an HTTP exchange with a server via the <code>ncat</code> tool. This process approximates the exchange that occurs between your web browser and a web server after you enter a URL into the address bar or click on a hyperlink.</p>
+<div class="admonition faq">
+<p class="admonition-title">Why don't I see any output?</p>
+<p>At this point, we're interacting directly with a server in a text-based protocol. The server will wait silently for you to enter a valid message. Per RFC 2616, the request you are sending is multiple lines and is terminated by two <strong>new lines</strong>. </p>
+<p>If you wait too long or submit something that violates the specification, the server will respond with an error and close the connection.</p>
+</div>
+<h3 id="capture-instructions">Capture Instructions<a class="headerlink" href="#capture-instructions" title="Permanent link">&para;</a></h3>
+<ol>
 <li>
-<p>What addresses did the dig command return? Copy dig results to your report (code block or screenshot).</p>
+<p>Create a <a href="https://wiki.wireshark.org/CaptureFilters">capture filter</a> that will select traffic from TCP ports 80 <em>or</em> 443.</p>
 </li>
 <li>
-<p>What did you observe when you browsed to the IP addresses directly?</p>
+<p>Launch a new Wireshark capture on your primary network interface with the capture filter from Step 1.</p>
 </li>
 <li>
-<p>Aside from <strong>A</strong> records containing IP addresses, did you discover any other DNS records from your query? List at least 3 other record types that DNS manages.</p>
+<p>Launch a couple of new terminals (mac/linux) or Powershell consoles (windows) and follow these steps to make HTTP requests to neverssl.com and wikipedia.org (in separate consoles):</p>
+<ul>
+<li><strong>NeverSSL</strong><ul>
+<li>a. Open a new connection:<ul>
+<li><code>ncat neverssl.com 80</code></li>
+</ul>
+</li>
+<li>b. Start a new HTTP requests (terminated with <strong>a newline</strong>)<ul>
+<li><code>GET / HTTP/1.1</code></li>
+</ul>
+</li>
+<li>c. Add a <strong>Host header</strong> followed by  <strong>two new lines</strong><ul>
+<li><code>Host: neverssl.com</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Wikipedia</strong><ul>
+<li>a. Open a new connection:<ul>
+<li><code>ncat --ssl www.wikipedia.org 443</code></li>
+</ul>
+</li>
+<li>b. Start a new HTTP requests (terminated with <strong>a newline</strong>)<ul>
+<li><code>GET / HTTP/1.1</code></li>
+</ul>
+</li>
+<li>c. Add a <strong>Host header</strong> followed by  <strong>two new lines</strong><ul>
+<li><code>Host: www.wikipedia.org</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 </li>
 <li>
-<p>Look closely at the output of the dig command. How can you be sure that the query completed successfully? Identify the IP address of the server used to handle your query.</p>
+<p>Close your connections with <em>CTRL-C</em></p>
+</li>
+<li>
+<p>End your Wireshark capture and save a copy of the capture to complete the remaining analysis.</p>
+</li>
+<li>
+<p>Save the <code>ncat</code> output to a notepad or file (for questions 3 &amp; 4 on the lab report).</p>
 </li>
 </ol>
-<h2 id="part-iii-dev-tools">Part III - dev tools<a class="headerlink" href="#part-iii-dev-tools" title="Permanent link">&para;</a></h2>
-<p>Open up a new tab preferably in a chromium based browser (Chrome, Brave, etc...). Open up the dev tools (right click on page and click Inspect), and go to the <em>Network</em> option. </p>
-<p>In that very same tab paste in your selected web page into the URL bar and click enter. You should see all of the <strong>GET</strong> and <strong>POST</strong> requests that the browser made for that webpage load up in the dev tools.</p>
-<p>Right-click the header of the Network Log table and select Domain. The domain of each resource is now shown.</p>
-<p><a href="https://developers.google.com/web/tools/chrome-devtools/network/imgs/tutorial/domain.png"><img alt="dev tools show domain" src="https://developers.google.com/web/tools/chrome-devtools/network/imgs/tutorial/domain.png" /></a></p>
-<p>Take some time to scroll through the domains, files, and file types your website was requesting.</p>
-<p><strong>Report</strong>: </p>
-<ol start="6">
+<h3 id="report">Report<a class="headerlink" href="#report" title="Permanent link">&para;</a></h3>
+<ol>
 <li>
-<p>From a quick glance what is the most common file type requested?</p>
+<p>What capture filter did you use to select TCP traffic on ports 80 and 443?</p>
 </li>
 <li>
-<p>Approximately how many <em>domains</em> do you see in that list that don't matchup with the website domain you initially visited?</p>
+<p>Briefly describe the difference between a capture filter and a display filter. In what way do they serve different purposes?  </p>
 </li>
 <li>
-<p>Why do you think this page is getting information from other websites?</p>
+<p>Paste in the first 10 lines of Wikipedia's server's response from the <code>ncat</code> output.</p>
 </li>
 <li>
-<p>If you had to guess, how many DNS requests do you think were sent in order to fully load this page?</p>
+<p>Paste in the first 10 lines of NeverSSL's server's response from the <code>ncat</code> output. </p>
 </li>
 </ol>
-<h2 id="part-iv-wireshark">Part IV - wireshark<a class="headerlink" href="#part-iv-wireshark" title="Permanent link">&para;</a></h2>
-<p>Before examining DNS requests in Wireshark you will want to clear your DNS cache. Instructions on what that means, what it's for, and how to do so can be found here <a href="https://bwalchen.github.io/314-docs/trouble/dns/#clear-dns-cache">314-docs/trouble/dns</a>.</p>
-<p>Create a capture of you visiting your website by: </p>
+<h2 id="part-ii-plaintext-http-analysis-neverssl">Part II - Plaintext (http) Analysis - NeverSSL<a class="headerlink" href="#part-ii-plaintext-http-analysis-neverssl" title="Permanent link">&para;</a></h2>
+<p>Perform a search in Wireshark (<em>CMD-F</em> or <em>CTRL-F</em>) to find the <em>string</em> <code>neverssl.com</code> in <em>packet details</em>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You'll need to adjust the options for your search via dropdowns</p>
+</div>
+<p>This search <em>should</em> lead you to the reassembled HTTP session. Review the summary of the reassembled TCP segments provided inside the <em>Packet Details</em>. For an alternate perspective, right click on any frame belonging to the connection and select <em>Follow -&gt; TCP Stream</em>. Finally, right click on any frame in the connection and select <em>Prepare Conversation Filter -&gt; TCP</em></p>
+<h3 id="report_1">Report<a class="headerlink" href="#report_1" title="Permanent link">&para;</a></h3>
+<ol start="5">
+<li>
+<p>Fill out the table in the lab report template for the first 10 frames of the NeverSSL connection in Wireshark by identifying each frame's:  </p>
 <ul>
-<li>Open Wireshark, begin a capture</li>
-<li>Quickly open a new tab and visit your website in your browser</li>
-<li>Once it has fully loaded end your Wireshark capture.</li>
+<li>Frame #</li>
+<li>Source (<em>client</em> or <em>server</em>)</li>
+<li>Flags</li>
+<li>Sequence number</li>
+<li>Acknowledgement number</li>
+<li>Length of payload (additional data)  </li>
 </ul>
-<p>Now <strong>filter</strong> for DNS packets only in the display filter.</p>
-<ul>
-<li>Identify the DNS response containing the information you needed in order to convert your website name into an IP address.</li>
-<li>Use the information contained within that packet for the following deliverable.</li>
-</ul>
-<div class="admonition hint">
+<p>(If you are confused about table syntax in Markdown, go <a href="https://guides.github.com/features/mastering-markdown/#GitHub-flavored-markdown">here</a> and scroll to to "Tables")</p>
+</li>
+<li>
+<p>Which information is used by the client to identify messages from the connection?  </p>
+</li>
+<li>
+<p>Which information is used by the server to identify messages from the connection?  </p>
+</li>
+<li>
+<p>Fill out the table in the lab report template for the last 5 frames of the NeverSSL connection in Wireshark  </p>
+</li>
+</ol>
+<h2 id="part-iii-encrypted-https-analysis-wikipedia">Part III - Encrypted (https) Analysis - Wikipedia<a class="headerlink" href="#part-iii-encrypted-https-analysis-wikipedia" title="Permanent link">&para;</a></h2>
+<p>Perform a new search in Wireshark to find <code>wikipedia.org</code>. Be careful with this search since the search term appears in the page content from <code>neverssl.com</code>. Once you have identified the a frame from this TCP connection, prepare a new conversation filter so that you can take a closer look at the session.</p>
+<div class="admonition tip">
 <p class="admonition-title">Hint</p>
-<p>Learn how to use the search tool to find string content or research display filters that allow you to specify the domain name.</p>
+<p>We are looking for the term to appear in a <strong>Secure Sockets Layer</strong> option. We won't actually see the contents of our HTTPS session since the connection is encrypted by the time we enter it.</p>
 </div>
-<p><strong>Report</strong>: </p>
-<ol start="10">
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It may be helpful to create a table or illustration that lists significant frames and their role in the session.</p>
+</div>
+<h3 id="report_2">Report<a class="headerlink" href="#report_2" title="Permanent link">&para;</a></h3>
+<ol start="9">
 <li>
-<p>Assuming almost all of the DNS requests you see in Wireshark right now are for the one website you visited, how many DNS requests do you see? </p>
+<p>Fill out the table in the lab report template for the first 10 frames of the Wikipedia connection in Wireshark  </p>
 </li>
 <li>
-<p>Overall were there less or more DNS queries than you'd expect?</p>
+<p>Fill out the table in the lab report template for the last 5 frames of the Wikipedia connection in Wireshark </p>
 </li>
 <li>
-<p>How did you identify the DNS packet(s) associated with the website you visited?</p>
+<p>What is the frame number of the first frame to contain a Server Sockets Layer header?  </p>
 </li>
 <li>
-<p>Provide screenshots of the packet(s) (specifically of the DNS information in Packet Details).</p>
+<p>Looking at the first frames of the SSL/TLS session, identify the messages sent in the TLS handshake (hint: look for Handshake Type in the packet details).  </p>
 </li>
 <li>
-<p>List the ip addresses you received for the website from the DNS server that resolved your request.</p>
+<p>Create a display filter to show the server side of the conversation only.  </p>
 </li>
 <li>
-<p>Which <em>transport layer protocol</em> (<a href="https://bwalchen.github.io/314-docs/course-prep/osi/">think OSI model</a>) is used to carry the DNS packet?</p>
-</li>
-<li>
-<p>Compare this DNS response to others in the capture (generate more if needed).</p>
-</li>
-<li>
-<p>Which port number(s) are shared in common across these DNS requests?</p>
+<p>Can you find any stream anomalies, e.g., duplicate data, out-of-order segments, or duplicate ACK numbers? (Hint: These are labeled in the Info field of the packet list)</p>
 </li>
 </ol>
-<h2 id="part-v-security">Part V - security<a class="headerlink" href="#part-v-security" title="Permanent link">&para;</a></h2>
-<p>Open two packets in bytes view, a dns and a http packet that is encrypted with tls.</p>
+<h2 id="part-iv-general-tcp-analysis">Part IV - General TCP Analysis<a class="headerlink" href="#part-iv-general-tcp-analysis" title="Permanent link">&para;</a></h2>
+<h3 id="report_3">Report<a class="headerlink" href="#report_3" title="Permanent link">&para;</a></h3>
+<ol start="15">
+<li>
+<p>What function does the opening handshake of TCP accomplish?</p>
+</li>
+<li>
+<p>Describe how you would identify stream anomalies by using sequence and acknowledgement numbers of TCP segments.</p>
+</li>
+</ol>
+<h2 id="bonus-optional">Bonus (Optional)<a class="headerlink" href="#bonus-optional" title="Permanent link">&para;</a></h2>
+<h3 id="report_4">Report<a class="headerlink" href="#report_4" title="Permanent link">&para;</a></h3>
+<ol start="17">
+<li><strong>(5 points)</strong> Create a basic sequence diagram of the TCP segments sent in <em>wikipedia.org</em> session.</li>
+</ol>
+<details class="danger"><summary>Do not diagram all 100+</summary><p>Do not diagram all 100+ frames of the wikipedia.org session, but you should include enough to illustrate the TLS handshake, the first few frames of encrypted data, and the closing of the TCP socket.</p>
+</details>
+<p>You can draw this out on paper and submit a scan or use any other tool capable of building diagrams. Take a look at <a href="https://websequencediagrams.com">https://websequencediagrams.com</a>.</p>
+<p>Your diagram should include annotations for the following details:</p>
 <ul>
-<li>Double click one of the DNS packets in order to be able to see the bytes view. </li>
-<li>Remove the dns display filter and replace it with tls (web traffic). </li>
-<li>Open one of the tls packets in byte view too.</li>
+<li>Frame # (on each message)</li>
+<li>TCP Flags (on the setup/teardown handshake)</li>
+<li>TLS Handshake Protocol steps (if applicable)</li>
+<li># of bytes transferred (messages carrying data)</li>
 </ul>
-<p><strong>Report</strong>: </p>
-<ol start="18">
-<li>
-<p>Examine the bytes view of the two packets. Do you see any human
-    readable values in the output?</p>
-</li>
-<li>
-<p>Looking at these two packets and others in your capture, does Wireshark provide any clues about whether or not your DNS is encrypted?</p>
-</li>
-<li>
-<p>Does it provide any clues on whether your web traffic is encrypted?</p>
-</li>
-</ol>
-<p>Attacker:</p>
-<ol start="21">
-<li>
-<p>What information might an outside observer be able to glean about your computing activities by capturing your DNS traffic?</p>
-</li>
-<li>
-<p>Was any discernible information revealed (as far as you can tell) through your web traffic?</p>
-</li>
-</ol></div>
+<blockquote>
+<p>Hint: Be careful to exclude reassembled messages from your diagram (e.g., frames labeled HTTP that represent multiple TCP segments).</p>
+</blockquote>
+<p><img style="height:400px;max-width:600px;" src="https://serverdensity-wpengine.netdna-ssl.com/wp-content/uploads/2017/02/Blog_TCP_IP_V2.png" /></p></div>
         </div>
 
         <footer class="col-md-12">
