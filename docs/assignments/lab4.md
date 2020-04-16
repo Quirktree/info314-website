@@ -1,191 +1,129 @@
-# Lab 4 - Analyze TCP with ncat and Wireshark
+# Lab 4 - Analyze DNS & HTTP in Wireshark
+[![DNS image](https://www.elegantthemes.com/blog/wp-content/uploads/2018/03/what-is-dns.png)](https://www.elegantthemes.com/blog/wp-content/uploads/2018/03/what-is-dns.png)
 
-[![](https://www.cloudflare.com/img/learning/cdn/tls-ssl/tcp-handshake-diagram.png)](https://www.cloudflare.com/img/learning/cdn/tls-ssl/tcp-handshake-diagram.png)
+[Lab 5 Assignment page on Canvas](https://canvas.uw.edu/courses/1373089/assignments/5369618)
 
-[Lab 4 Assignment page on Canvas](https://canvas.uw.edu/courses/1373089/assignments/5369621)
+## Overview
 
-## Overview  
+The purpose of this lab is for students to gain hands on experience with DNS. By the end of the lab you will be familiar with:
 
-The purpose of this lab is for students to gain hands on experience with TCP connections. By the end of the lab you will be familiar with:
+- **`dig`** (or PowerShell's **`Resolve-DnsName`** command)
+- DNS queries
+- security faults of DNS
 
-- `ncat` 
-- TCP handshakes
-- http 
-- https
-- Security faults of http
-
-We highly recommend using search engines to help you find solutions.
+We highly recommend using search engines to help you find solutions. As usual, there will be multiple ways to complete this lab. Please use the template provided on Canvas under the Assignment "Lab 3 - Analyze DNS & HTTP in Wireshark" to complete your lab report.
 
 
 
-## Setup
+## Part I - website
+Pick a popular website that has a lot of content on it. Ideally it should contain advertisements. You will be using it throughout this lab.
 
-For this lab, we are going to use the incredibly versatile [`ncat`](https://nmap.org/ncat/) utility to directly read and write data to and from HTTP(s) servers.
+**Report**: 
 
-Some of you may already be familiar with a similar tool known as **netcat** (`nc` from the command line on most Linux or macOS machines). `ncat` is a re-implementation of netcat that adds some handy features (like SSL/TLS connections).
+1. What website did you select?
 
-### Windows 
-Please follow instructions to install `ncat` from https://nmap.org/ncat/. You can accomplish this either by installing the `nmap` port scanner suite or by installing the [portable executable](http://nmap.org/dist/ncat-portable-5.59BETA1.zip). 
+## Part II - dig
+Before jumping into more complicated scenarios we would like you to learn how to use the **`dig`** command as it is an incredibly helpful and simple tool.
 
-Please test your installation by running `ncat` from a new Powershell console. 
-!!! Note
-    You may need to update your system path to include the directory in which you installed `ncat`.
+We've provided some resources at <a href="/resources/dns-clients/#perform-dns-lookups-manually" target="_blank">Perform DNS Loookups Manually</a> to help you get started.
 
-### macOS and Linux
-Install `nmap` from your preferred package manager (e.g., `apt` or `brew`) or follow instructions provided at [nmap.org](https://nmap.org/download.html).
-
-
-
-## Part I - TCP Analysis Introduction
-
-### Capture
-
-The instructions below can be used to manually perform an HTTP exchange with a server via the `ncat` tool. This process approximates the exchange that occurs between your web browser and a web server after you enter a URL into the address bar or click on a hyperlink.
-
-!!! faq "Why don't I see any output?"
-    At this point, we're interacting directly with a server in a text-based protocol. The server will wait silently for you to enter a valid message. Per RFC 2616, the request you are sending is multiple lines and is terminated by two **new lines**. 
-
-
-    If you wait too long or submit something that violates the specification, the server will respond with an error and close the connection.
-
-### Capture Instructions
-
-1. Create a [capture filter](https://wiki.wireshark.org/CaptureFilters) that will select traffic from TCP ports 80 *or* 443.
-
-2. Launch a new Wireshark capture on your primary network interface with the capture filter from Step 1.
-
-3. Launch a couple of new terminals (mac/linux) or Powershell consoles (windows) and follow these steps to make HTTP requests to neverssl.com and wikipedia.org (in separate consoles):
-    - **NeverSSL**
-        - a. Open a new connection:
-            - `ncat neverssl.com 80`
-        - b. Start a new HTTP requests (terminated with **a newline**)
-            - `GET / HTTP/1.1`
-        - c. Add a **Host header** followed by  **two new lines**
-            - `Host: neverssl.com`
-    - **Wikipedia**
-        - a. Open a new connection:
-            - `ncat --ssl www.wikipedia.org 443`
-        - b. Start a new HTTP requests (terminated with **a newline**)
-            - `GET / HTTP/1.1`
-        - c. Add a **Host header** followed by  **two new lines**
-            - `Host: www.wikipedia.org`
-    
-4. Close your connections with _CTRL-C_
-
-5. End your Wireshark capture and save a copy of the capture to complete the remaining analysis.
-
-6. Save the `ncat` output to a notepad or file (for questions 3 & 4 on the lab report).
-
-    
-
-### Report
-
-1. What capture filter did you use to select TCP traffic on ports 80 and 443?
-
-2. Briefly describe the difference between a capture filter and a display filter. In what way do they serve different purposes?  
-
-3. Paste in the first 10 lines of Wikipedia's server's response from the `ncat` output.
-
-4. Paste in the first 10 lines of NeverSSL's server's response from the `ncat` output. 
-
-   
-
-## Part II - Plaintext (http) Analysis - NeverSSL
-
-Perform a search in Wireshark (_CMD-F_ or _CTRL-F_) to find the _string_ `neverssl.com` in _packet details_.
+Use dig to lookup the domain name of the website you selected. Open up a new tab in your browser and enter (one of) the IP address(es) returned by dig to discover where it will take you. If dig returned more than one address, open up a second tab and enter it now.
 
 !!! Note 
-    You'll need to adjust the options for your search via dropdowns
+    Don't panic if you receive an error instead of a live site. Some servers host more than one website and need the name to help route you to the right place. Try another site, e.g., uw.edu, and see if you get different results.
 
-This search _should_ lead you to the reassembled HTTP session. Review the summary of the reassembled TCP segments provided inside the _Packet Details_. For an alternate perspective, right click on any frame belonging to the connection and select _Follow -> TCP Stream_. Finally, right click on any frame in the connection and select _Prepare Conversation Filter -> TCP_
+**Report**: 
 
-### Report
+2. What addresses did the dig command return? Copy dig results to your report (code block or screenshot).
 
-5. Fill out the table in the lab report template for the first 10 frames of the NeverSSL connection in Wireshark by identifying each frame's:  
-   
-    - Frame #
-    - Source (_client_ or _server_)
-    - Flags
-    - Sequence number
-    - Acknowledgement number
-    - Length of payload (additional data)  
-    
-    (If you are confused about table syntax in Markdown, go [here](https://guides.github.com/features/mastering-markdown/#GitHub-flavored-markdown) and scroll to to "Tables")
+1. What did you observe when you browsed to the IP addresses directly?
 
-6. Which information is used by the client to identify messages from the connection?  
+1. Aside from **A** records containing IP addresses, did you discover any other DNS records from your query? List at least 3 other record types that DNS manages.
 
-7. Which information is used by the server to identify messages from the connection?  
-
-8. Fill out the table in the lab report template for the last 5 frames of the NeverSSL connection in Wireshark  
-
-## Part III - Encrypted (https) Analysis - Wikipedia
-
-Perform a new search in Wireshark to find `wikipedia.org`. Be careful with this search since the search term appears in the page content from `neverssl.com`. Once you have identified the a frame from this TCP connection, prepare a new conversation filter so that you can take a closer look at the session.
-
-!!! Tip "Hint" 
-    We are looking for the term to appear in a **Secure Sockets Layer** option. We won't actually see the contents of our HTTPS session since the connection is encrypted by the time we enter it.
-
-!!! note
-    It may be helpful to create a table or illustration that lists significant frames and their role in the session.
-
-### Report
-
-9. Fill out the table in the lab report template for the first 10 frames of the Wikipedia connection in Wireshark  
-
-   
-
-10. Fill out the table in the lab report template for the last 5 frames of the Wikipedia connection in Wireshark 
-
-    
-
-11. What is the frame number of the first frame to contain a Server Sockets Layer header?  
-
-    
-
-12. Looking at the first frames of the SSL/TLS session, identify the messages sent in the TLS handshake (hint: look for Handshake Type in the packet details).  
-
-    
-
-13. Create a display filter to show the server side of the conversation only.  
-
-    
-
-14. Can you find any stream anomalies, e.g., duplicate data, out-of-order segments, or duplicate ACK numbers? (Hint: These are labeled in the Info field of the packet list)
-
-    
-
-## Part IV - General TCP Analysis 
-
-### Report
-
-15. What function does the opening handshake of TCP accomplish?
-
-    
-
-16. Describe how you would identify stream anomalies by using sequence and acknowledgement numbers of TCP segments.
-
-    
+1. Look closely at the output of the dig command. How can you be sure that the query completed successfully? Identify the IP address of the server used to handle your query.
 
 
-## Bonus (Optional)
+## Part III - dev tools
+Open up a new tab preferably in a chromium based browser (Chrome, Brave, etc...). Open up the dev tools (right click on page and click Inspect), and go to the *Network* option. 
 
-### Report
+In that very same tab paste in your selected web page into the URL bar and click enter. You should see all of the **GET** and **POST** requests that the browser made for that webpage load up in the dev tools.
 
-17. **(5 points)** Create a basic sequence diagram of the TCP segments sent in _wikipedia.org_ session.
+Right-click the header of the Network Log table and select Domain. The domain of each resource is now shown.
 
-??? danger "Do not diagram all 100+" 
-    Do not diagram all 100+ frames of the wikipedia.org session, but you should include enough to illustrate the TLS handshake, the first few frames of encrypted data, and the closing of the TCP socket.
+[![dev tools show domain](https://developers.google.com/web/tools/chrome-devtools/network/imgs/tutorial/domain.png)](https://developers.google.com/web/tools/chrome-devtools/network/imgs/tutorial/domain.png)
 
-You can draw this out on paper and submit a scan or use any other tool capable of building diagrams. Take a look at https://websequencediagrams.com.
 
-Your diagram should include annotations for the following details:
+Take some time to scroll through the domains, files, and file types your website was requesting.
 
-- Frame # (on each message)
-- TCP Flags (on the setup/teardown handshake)
-- TLS Handshake Protocol steps (if applicable)
-- \# of bytes transferred (messages carrying data)
+**Report**: 
 
-> Hint: Be careful to exclude reassembled messages from your diagram (e.g., frames labeled HTTP that represent multiple TCP segments).
+6. From a quick glance what is the most common file type requested?
 
-<img style="height:400px;max-width:600px;" src="https://serverdensity-wpengine.netdna-ssl.com/wp-content/uploads/2017/02/Blog_TCP_IP_V2.png" />
+1. Approximately how many *domains* do you see in that list that don't matchup with the website domain you initially visited?
 
+1. Why do you think this page is getting information from other websites?
+
+1. If you had to guess, how many DNS requests do you think were sent in order to fully load this page?
+
+
+
+## Part IV - wireshark
+Before examining DNS requests in Wireshark you will want to clear your DNS cache. Instructions on what that means, what it's for, and how to do so can be found here [314-docs/trouble/dns](https://bwalchen.github.io/314-docs/trouble/dns/#clear-dns-cache).
+
+
+Create a capture of you visiting your website by: 
+
+* Open Wireshark, begin a capture
+* Quickly open a new tab and visit your website in your browser
+* Once it has fully loaded end your Wireshark capture.
+
+Now **filter** for DNS packets only in the display filter.
+
+* Identify the DNS response containing the information you needed in order to convert your website name into an IP address.
+* Use the information contained within that packet for the following deliverable.
+
+
+!!! Hint
+    Learn how to use the search tool to find string content or research display filters that allow you to specify the domain name.
+
+**Report**: 
+
+10. Assuming almost all of the DNS requests you see in Wireshark right now are for the one website you visited, how many DNS requests do you see? 
+
+1. Overall were there less or more DNS queries than you'd expect?
+
+1. How did you identify the DNS packet(s) associated with the website you visited?
+
+1. Provide screenshots of the packet(s) (specifically of the DNS information in Packet Details).
+
+1. List the ip addresses you received for the website from the DNS server that resolved your request.
+
+1. Which *transport layer protocol* ([think OSI model](https://bwalchen.github.io/314-docs/course-prep/osi/)) is used to carry the DNS packet?
+
+1. Compare this DNS response to others in the capture (generate more if needed).
+
+1. Which port number(s) are shared in common across these DNS requests?
+
+
+
+## Part V - security
+Open two packets in bytes view, a dns and a http packet that is encrypted with tls.
+
+* Double click one of the DNS packets in order to be able to see the bytes view. 
+* Remove the dns display filter and replace it with tls (web traffic). 
+* Open one of the tls packets in byte view too.
+
+**Report**: 
+
+18. Examine the bytes view of the two packets. Do you see any human
+    readable values in the output?
+
+1. Looking at these two packets and others in your capture, does Wireshark provide any clues about whether or not your DNS is encrypted?
+
+1. Does it provide any clues on whether your web traffic is encrypted?
+
+Attacker:
+
+21. What information might an outside observer be able to glean about your computing activities by capturing your DNS traffic?
+
+1. Was any discernible information revealed (as far as you can tell) through your web traffic?

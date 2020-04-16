@@ -17,9 +17,9 @@ nav:
       - Raspberry Pi Setup: assignments/pi-setup.md
       - networkd Setup: assignments/networkd-setup.md
       - Wifi Reference: resources/wifi-reference.md
-    #- 2 - Set up a DHCP Server:
-    #  - IP Address Planning Reference: resources/address-planning.md
-    #  - Installing and Configuring the ISC DHCP Server: assignments/dhcp-setup.md
+    - 2 - Set up a DHCP Server:
+     - IP Address Planning Reference: resources/address-planning.md
+     - Installing and Configuring the ISC DHCP Server: assignments/dhcp-setup.md
     #- 3 - Configure Routing and NAT:
     #  - Router Setup: assignments/router-setup.md
     #  - Introduction to iptables: resources/iptables.md
@@ -39,8 +39,8 @@ nav:
     - Lab 1 - Core Technical Skills: assignments/lab1.md
     - Lab 2 - Analyzing DHCP and ARP with Wireshark: assignments/lab2.md
     - Lab 3 - Analyze Zeroconf in Wireshark: assignments/lab3.md
-    #- Lab 4 - Analyze TCP with ncat and Wireshark: assignments/lab4.md
-    #- Lab 5 - Analyze DNS & HTTP in Wireshark: assignments/lab5.md
+    #- Lab 4 - Analyze DNS & HTTP in Wireshark: assignments/lab4.md
+    #- Lab 5 - Analyze TCP with ncat and Wireshark: assignments/lab5.md
     #- Lab 6 - Socket Basics in Python: assignments/lab6.md
     #- Proxy Labs: 
     #  - Proxy Project Overview: assignments/proxy-labs.md
