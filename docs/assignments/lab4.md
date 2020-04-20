@@ -1,7 +1,7 @@
 # Lab 4 - Analyze DNS & HTTP in Wireshark
 [![DNS image](https://www.elegantthemes.com/blog/wp-content/uploads/2018/03/what-is-dns.png)](https://www.elegantthemes.com/blog/wp-content/uploads/2018/03/what-is-dns.png)
 
-[Lab 5 Assignment page on Canvas](https://canvas.uw.edu/courses/1373089/assignments/5369618)
+[Lab 4 Assignment page on Canvas](https://canvas.uw.edu/courses/1373089/assignments/5369618)
 
 ## Overview
 
