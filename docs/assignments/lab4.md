@@ -38,9 +38,9 @@ Use dig to lookup the domain name of the website you selected. Open up a new tab
 
 1. What did you observe when you browsed to the IP addresses directly?
 
-1. Aside from **A** records containing IP addresses, did you discover any other DNS records from your query? List at least 3 other record types that DNS manages.
+1. Aside from **A** records containing IP addresses, did you discover any other DNS records from your query? List at least 3 other record types that DNS manages (use Google to look up other kinds of records if your query returned less than 3 types!)
 
-1. Look closely at the output of the dig command. How can you be sure that the query completed successfully? Identify the IP address of the server used to handle your query.
+1. Look closely at the output of the `dig` command. How can you be sure that the query completed successfully? Identify the IP address of the server used to handle your query. If you used PowerShell's `Resolve-DnsName` then you won't see the server IP that answered your request. Instead use `ipconfig /all` and find the IP under `DNS Servers` under your network interface.
 
 
 ## Part III - dev tools
