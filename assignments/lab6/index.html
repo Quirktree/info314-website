@@ -84,20 +84,6 @@
 </li>
     </ul>
   </li>
-                                    
-  <li class="dropdown-submenu">
-    <a href="#">3 - Configure Routing and NAT</a>
-    <ul class="dropdown-menu">
-            
-<li >
-    <a href="../router-setup/">Router Setup</a>
-</li>
-            
-<li >
-    <a href="../../resources/iptables/">Introduction to iptables</a>
-</li>
-    </ul>
-  </li>
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -118,10 +104,6 @@
                                     
 <li >
     <a href="../lab4/">Lab 4 - Analyze DNS & HTTP in Wireshark</a>
-</li>
-                                    
-<li >
-    <a href="../lab5/">Lab 5 - Analyze TCP with ncat and Wireshark</a>
 </li>
                                 </ul>
                             </li>
@@ -257,7 +239,6 @@
         <li class="main active"><a href="#lab-6-socket-basics-in-python">Lab 6 - Socket Basics in Python</a></li>
             <li><a href="#overview">Overview</a></li>
             <li><a href="#instructions">Instructions</a></li>
-            <li><a href="#deliverables">Deliverables</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -269,25 +250,15 @@
 <p>In the remaining weeks of the quarter, we will create a network service using the Python sockets API. In this lab, we will introduce the basic concepts of network programming with a Sockets API and build a pair of toy applications.</p>
 <h2 id="instructions">Instructions<a class="headerlink" href="#instructions" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Accept the Github Classroom assignment (<a href="https://classroom.github.com/a/Q974X4tR">link</a>) and clone the base repository for the assignment.</li>
+<li>Accept the Github Classroom assignment ADD GITHUB CLASSROOM LINK HERE and clone the base repository for the assignment using <code>git clone &lt;URL&gt;</code></li>
 <li>Review the first few sections of <a href="https://realpython.com/python-sockets/">Real Python: Sockets Programming in Python</a> (through <code>Echo Client and Server</code>).</li>
-<li>Within a new branch called <code>lab5-echo-server</code>:<ul>
+<li>Create a new branch called <code>lab6-echo-server</code> with <code>git checkout -b lab6-echo-server</code>. Within your new branch:<ul>
 <li>Implement the basic <strong>echo client</strong> and <strong>echo server</strong> presented in the RealPython guide.</li>
 <li>Modify the echo client to allow you to include a custom message from the command line, e.g., <code>echo-client “yay python”</code>. (Hint: Use <code>sys.argv</code>)<sup id="fnref:arguments"><a class="footnote-ref" href="#fn:arguments">2</a></sup></li>
 <li>Encode<sup id="fnref:encoding"><a class="footnote-ref" href="#fn:encoding">1</a></sup> the message as <code>UTF-8</code> text before sending (see linked resources).</li>
 <li>Test your code and ensure that the applications work as intended.</li>
 </ul>
 </li>
-<li>Submit a working version of your code via pull request.</li>
-</ul>
-<h2 id="deliverables">Deliverables<a class="headerlink" href="#deliverables" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Open the lab report template (available in starter repository as lab5-report.md). In it, please answer the following questions:<ol>
-<li>There are two major variants of Python (version 2 and 3). Briefly explain why it is important to know which version you have installed and are using to run your code.</li>
-<li>In your own words, explain the difference between server and client sockets. How are these differences seen in the sockets API?</li>
-</ol>
-</li>
-<li>Complete the code and pull request as described above. Submit a link to your pull request via Canvas.</li>
 </ul>
 <div class="footnote">
 <hr />
