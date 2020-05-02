@@ -10,20 +10,13 @@ In the remaining weeks of the quarter, we will create a network service using th
 
 ## Instructions
 
-* Accept the Github Classroom assignment ([link](https://classroom.github.com/a/Q974X4tR)) and clone the base repository for the assignment.
+* Accept the Github Classroom assignment ADD GITHUB CLASSROOM LINK HERE and clone the base repository for the assignment using `git clone <URL>`
 * Review the first few sections of [Real Python: Sockets Programming in Python](https://realpython.com/python-sockets/) (through `Echo Client and Server`).
-* Within a new branch called `lab5-echo-server`:
+* Create a new branch called `lab6-echo-server` with `git checkout -b lab6-echo-server`. Within your new branch:
 	* Implement the basic **echo client** and **echo server** presented in the RealPython guide.
 	* Modify the echo client to allow you to include a custom message from the command line, e.g., `echo-client “yay python”`. (Hint: Use `sys.argv`)[^arguments]
 	* Encode[^encoding] the message as `UTF-8` text before sending (see linked resources).
 	* Test your code and ensure that the applications work as intended.
-* Submit a working version of your code via pull request.
-
-## Deliverables
-* Open the lab report template (available in starter repository as lab5-report.md). In it, please answer the following questions:
-	1. There are two major variants of Python (version 2 and 3). Briefly explain why it is important to know which version you have installed and are using to run your code.
-	2. In your own words, explain the difference between server and client sockets. How are these differences seen in the sockets API?
-* Complete the code and pull request as described above. Submit a link to your pull request via Canvas.
 
 [^encoding]: [https://www.pythoncentral.io/encoding-and-decoding-strings-in-python-3-x/](https://www.pythoncentral.io/encoding-and-decoding-strings-in-python-3-x/)
 [^arguments]: [https://stackabuse.com/command-line-arguments-in-python/](https://stackabuse.com/command-line-arguments-in-python/) 
