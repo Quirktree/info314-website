@@ -31,6 +31,16 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
+     <loc>https://info314.tcpip.dev/assignments/router-setup/</loc>
+     <lastmod>2020-05-05</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/resources/iptables/</loc>
+     <lastmod>2020-05-05</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
      <loc>https://info314.tcpip.dev/assignments/lab1/</loc>
      <lastmod>2020-05-05</lastmod>
      <changefreq>daily</changefreq>
@@ -47,6 +57,16 @@
     </url>
     <url>
      <loc>https://info314.tcpip.dev/assignments/lab4/</loc>
+     <lastmod>2020-05-05</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/assignments/lab5/</loc>
+     <lastmod>2020-05-05</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/assignments/lab6/</loc>
      <lastmod>2020-05-05</lastmod>
      <changefreq>daily</changefreq>
     </url>

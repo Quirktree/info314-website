@@ -8,7 +8,7 @@
         <meta name="author" content="Clinton Campbell">
         <link rel="canonical" href="https://info314.tcpip.dev/assignments/lab6/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>**Lab 6 - Socket Basics in Python** - INFO 314 Course Resources</title>
+        <title>Lab 6 - Python and Socket Basics - INFO 314 Course Resources</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -84,9 +84,23 @@
 </li>
     </ul>
   </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">3 - Configure Routing and NAT</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../router-setup/">Router Setup</a>
+</li>
+            
+<li >
+    <a href="../../resources/iptables/">Introduction to iptables</a>
+</li>
+    </ul>
+  </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -104,6 +118,14 @@
                                     
 <li >
     <a href="../lab4/">Lab 4 - Analyze DNS & HTTP in Wireshark</a>
+</li>
+                                    
+<li >
+    <a href="../lab5/">Lab 5 - Analyze TCP with ncat and Wireshark</a>
+</li>
+                                    
+<li class="active">
+    <a href="./">Lab 6 - Python and Socket Basics</a>
 </li>
                                 </ul>
                             </li>
@@ -225,6 +247,16 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
+                            <li >
+                                <a rel="next" href="../lab5/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../../notes/dns-overview/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
                             <li>
                                 <a href="https://github.com/quirktree/info314-website">quirktree/info314-website</a>
                             </li>
@@ -239,6 +271,8 @@
         <li class="main active"><a href="#lab-6-socket-basics-in-python">Lab 6 - Socket Basics in Python</a></li>
             <li><a href="#overview">Overview</a></li>
             <li><a href="#instructions">Instructions</a></li>
+            <li><a href="#report">Report</a></li>
+            <li><a href="#resources">Resources</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
@@ -247,30 +281,78 @@
 <p><img alt="echo server picture" src="https://1.bp.blogspot.com/-QRugwxV8vb0/WHbfmHTu7HI/AAAAAAAADug/V1pYGpEzTpQvcfaoVh8qZN5d2xyERp4HACLcB/s1600/echoImage.png" /></p>
 <p><a href="https://canvas.uw.edu/courses/1373089/assignments/5369622">Lab 6 Assignment page on Canvas</a></p>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>In the remaining weeks of the quarter, we will create a network service using the Python sockets API. In this lab, we will introduce the basic concepts of network programming with a Sockets API and build a pair of toy applications.</p>
+<p>In the remaining weeks of the quarter, we will create a network service using the Python sockets API. In this lab, we will explore the basic use of the sockets API along with some related topics about text and data representation in network protocols.</p>
 <h2 id="instructions">Instructions<a class="headerlink" href="#instructions" title="Permanent link">&para;</a></h2>
+<p>Accept the Github Classroom assignment ADD GITHUB CLASSROOM LINK HERE and clone the base repository for the assignment using <code>git clone &lt;URL&gt;</code>.</p>
 <ul>
-<li>Accept the Github Classroom assignment ADD GITHUB CLASSROOM LINK HERE and clone the base repository for the assignment using <code>git clone &lt;URL&gt;</code></li>
-<li>Review the first few sections of <a href="https://realpython.com/python-sockets/">Real Python: Sockets Programming in Python</a> (through <code>Echo Client and Server</code>).</li>
-<li>Create a new branch called <code>lab6-echo-server</code> with <code>git checkout -b lab6-echo-server</code>. Within your new branch:<ul>
-<li>Implement the basic <strong>echo client</strong> and <strong>echo server</strong> presented in the RealPython guide.</li>
-<li>Modify the echo client to allow you to include a custom message from the command line, e.g., <code>echo-client “yay python”</code>. (Hint: Use <code>sys.argv</code>)<sup id="fnref:arguments"><a class="footnote-ref" href="#fn:arguments">2</a></sup></li>
-<li>Encode<sup id="fnref:encoding"><a class="footnote-ref" href="#fn:encoding">1</a></sup> the message as <code>UTF-8</code> text before sending (see linked resources).</li>
-<li>Test your code and ensure that the applications work as intended.</li>
+<li>This repository contains a markdown template for your lab report and starter code for the projects we will work on during the remaining weeks of the course.</li>
+<li>Create a new branch called <code>lab6-echo-server</code> with <code>git checkout -b lab6-echo-server</code>. </li>
 </ul>
+<p>Review the first few sections of <strong><a href="https://realpython.com/python-sockets/">Real Python: Sockets Programming in Python</a></strong> (through <code>Echo Client and Server</code>).</p>
+<ul>
+<li>Complete the questions in the report section below, referencing additional materials as needed. The report template is in the Github repository.</li>
+</ul>
+<p>Complete the programming tasks:</p>
+<ul>
+<li>Use the provided code for <strong>echo_server.py</strong> and <strong>echo_client.py</strong> to complete the following tasks:</li>
+<li>Create a server based on the RealPython <strong>echo server</strong> that implements the four modes of operation described below.<ol>
+<li>Echo input back to client</li>
+<li>Send a personalized welcome back to the client, e.g., "world" =&gt; "Hello, world!"</li>
+<li>Parse the first line of an arbitrary HTTP request into a Python dictionary</li>
+<li>Parse a single HTTP header into a Python dictionary</li>
+</ol>
 </li>
+<li>Create a client based on the RealPython <strong>echo client</strong> and use it to test your server implementation. </li>
+<li>Test your code to ensure that all parts work as intended.</li>
 </ul>
-<div class="footnote">
-<hr />
+<h2 id="report">Report<a class="headerlink" href="#report" title="Permanent link">&para;</a></h2>
+<p><em>Questions 1 - 5 are focused on the Python Sockets library and intended to help you better understand the sample code you are building from. Pay close attention to the reading and cite additional resources as needed.</em></p>
 <ol>
-<li id="fn:encoding">
-<p><a href="https://www.pythoncentral.io/encoding-and-decoding-strings-in-python-3-x/">https://www.pythoncentral.io/encoding-and-decoding-strings-in-python-3-x/</a>&#160;<a class="footnote-backref" href="#fnref:encoding" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<li>
+<p>What two values are returned by the accept() function in the Python socket library?</p>
 </li>
-<li id="fn:arguments">
-<p><a href="https://stackabuse.com/command-line-arguments-in-python/">https://stackabuse.com/command-line-arguments-in-python/</a>&#160;<a class="footnote-backref" href="#fnref:arguments" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<li>
+<p>Briefly describe the difference between bind(), listen(), and accept()?</p>
+</li>
+<li>
+<p>How can we get a server socket to listen and accept connections on all available IPv4 interfaces and addresses?</p>
+</li>
+<li>
+<p>How do we create a server socket that restricts communication to processes running on the same host?</p>
+</li>
+<li>
+<p>What happens if a client or server calls recv() on a connection, but there isn't any data waiting to be processed?</p>
 </li>
 </ol>
-</div></div>
+<p><em>Questions 6 - 10 are focused on character encoding as discussed in the lab. Cite additional resources as needed.</em></p>
+<ol start="6">
+<li>
+<p>How many characters are in the basic ASCII character set? How many bits are required to represent an ASCII character value?</p>
+</li>
+<li>
+<p>How many bytes are used to encode an ASCII value in UTF-8?</p>
+</li>
+<li>
+<p>What is the UTF-8 encoding of your favorite emoji (provide the answer in hex)?</p>
+</li>
+<li>
+<p>Which character encoding is specified by the RFCs for HTTP/1.0 and HTTP/1.1?</p>
+</li>
+<li>
+<p>What line ending is used to delimit request and response headers in HTTP/1.0 and HTTP/1.1?</p>
+</li>
+</ol>
+<h2 id="resources">Resources<a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong><a href="https://realpython.com/python-sockets/">Real Python: Sockets Programming in Python</a></strong></li>
+<li><strong><a href="https://medium.com/better-programming/strings-unicode-and-bytes-in-python-3-everything-you-always-wanted-to-know-27dc02ff2686">Strings, Unicode, and Bytes in Python 3</a></strong></li>
+<li><strong><a href="https://realpython.com/python-encodings-guide/">Real Python: Python Encodings Guide</a></strong></li>
+<li><strong><a href="https://en.wikipedia.org/wiki/Newline">Line Endings (Wikipedia)</a></strong></li>
+<li><strong><a href="https://developer.mozilla.org/en-US/docs/Glossary/CRLF">CRLF (Mozilla Developer Glossary</a></strong></li>
+<li><strong><a href="https://drstearns.github.io/tutorials/http/">How HTTP Works under the Hood</a></strong></li>
+<li><strong><a href="https://tools.ietf.org/html/rfc1945">Hypertext Transfer Protocol -- HTTP/1.0</a></strong></li>
+<li><strong><a href="https://tools.ietf.org/html/rfc2616">Hypertext Transfer Protocol -- HTTP/1.1</a></strong></li>
+</ul></div>
         </div>
 
         <footer class="col-md-12">
