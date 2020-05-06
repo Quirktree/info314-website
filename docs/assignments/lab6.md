@@ -8,6 +8,8 @@
 
 In the remaining weeks of the quarter, we will create a network service using the Python sockets API. In this lab, we will explore the basic use of the sockets API along with some related topics about text and data representation in network protocols.
 
+If you need help with getting started with Python, Jarett has created a video tutorial with timestamps for each section here: <https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=685386aa-3431-4e2a-a46a-ab600050535b>
+
 
 ## Instructions
 
@@ -25,8 +27,8 @@ Complete the programming tasks:
 * Use the provided code for **echo_server.py** and **echo_client.py** to complete the following tasks:
 * Create a server based on the RealPython **echo server** that implements the four modes of operation described below.
 	1. Echo input back to client
-	2. Send a personalized welcome back to the client, e.g., "world" => "Hello, world!"
-	3. Parse the first line of an arbitrary HTTP request into a Python dictionary
+	2. Send a personalized welcome back to the client, e.g., "world" => "Hello, world!" (1:15:21 in the Python Tutorial video may help with command-line arguments)
+	3. Parse the first line of an arbitrary HTTP request into a Python dictionary (16:39 in the Python Tutorial video may help with dictionaries)
 	4. Parse a single HTTP header into a Python dictionary
 * Create a client based on the RealPython **echo client** and use it to test your server implementation. 
 * Test your code to ensure that all parts work as intended.
