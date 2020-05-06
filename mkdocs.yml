@@ -23,8 +23,8 @@ nav:
     - 3 - Configure Routing and NAT:
       - Router Setup: assignments/router-setup.md
       - Introduction to iptables: resources/iptables.md
-    #- 4 - Configure a DNS Resolver:
-    #  - DNS Resolver Setup: assignments/resolver-setup.md
+    - 4 - Configure a DNS Resolver:
+      - DNS Resolver Setup: assignments/resolver-setup.md
     #- Report - NAT and DNS Analysis:
     #  - Instructions: assignments/analysis-report.md
     #  - Installing TShark: resources/tshark-install.md
