@@ -11,7 +11,7 @@ In the remaining weeks of the quarter, we will create a network service using th
 
 ## Instructions
 
-Accept the Github Classroom assignment ADD GITHUB CLASSROOM LINK HERE and clone the base repository for the assignment using `git clone <URL>`.
+Accept the Github Classroom assignment (https://classroom.github.com/a/UQQt38l5) and clone the base repository for the assignment using `git clone <URL>`.
 
 * This repository contains a markdown template for your lab report and starter code for the projects we will work on during the remaining weeks of the course.
 * Create a new branch called `lab6-echo-server` with `git checkout -b lab6-echo-server`. 
