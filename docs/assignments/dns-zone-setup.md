@@ -102,7 +102,7 @@ Your LAN clients should be able to query the new domain without any additional c
 
 Following the same process you've encountered in previous guides add the `domain-name` option to your subnet configuration. 
 
-This option configures your LAN clients to recognize your internal domain name as a default domain name when attempting to resolve hosts, e.g., `dig titan` would resolve records for `titan.gradebook.pi`.
+This option configures your LAN clients to recognize your domain name as a default domain name when attempting to resolve hosts, e.g., `dig titan` would resolve records for `titan.gradebook.pi`.
 
 ## Additional Resources
 * [A Comparison of DNS Server Types](https://www.digitalocean.com/community/tutorials/a-comparison-of-dns-server-types-how-to-choose-the-right-dns-configuration)
