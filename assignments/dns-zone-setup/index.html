@@ -8,7 +8,7 @@
         <meta name="author" content="Clinton Campbell">
         <link rel="canonical" href="https://info314.tcpip.dev/assignments/dns-zone-setup/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Authoritative Name Server (last edited 2020-02-17) - INFO 314 Course Resources</title>
+        <title>Authoritative Zone Setup - INFO 314 Course Resources</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -49,7 +49,7 @@
                             <li >
                                 <a href="../..">Home</a>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -105,6 +105,34 @@
             
 <li >
     <a href="../resolver-setup/">DNS Resolver Setup</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">Report - NAT and DNS Analysis</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../analysis-report/">Instructions</a>
+</li>
+            
+<li >
+    <a href="../../resources/tshark-install/">Installing TShark</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">5 - Configure an Authoritative Name Server</a>
+    <ul class="dropdown-menu">
+            
+<li class="active">
+    <a href="./">Authoritative Zone Setup</a>
+</li>
+            
+<li >
+    <a href="../../resources/zone-file-format/">DNS Zone Reference</a>
 </li>
     </ul>
   </li>
@@ -257,6 +285,16 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
+                            <li >
+                                <a rel="next" href="../../resources/tshark-install/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../../resources/zone-file-format/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
                             <li>
                                 <a href="https://github.com/quirktree/info314-website">quirktree/info314-website</a>
                             </li>
@@ -366,7 +404,7 @@ zone &quot;gradebook.pi&quot; IN {
 <h2 id="update-dhcp">Update DHCP<a class="headerlink" href="#update-dhcp" title="Permanent link">&para;</a></h2>
 <p>Your LAN clients should be able to query the new domain without any additional configuration; however, we will take the opportunity to make one additional update to DHCP. </p>
 <p>Following the same process you've encountered in previous guides add the <code>domain-name</code> option to your subnet configuration. </p>
-<p>This option configures your LAN clients to recognize your internal domain name as a default domain name when attempting to resolve hosts, e.g., <code>dig titan</code> would resolve records for <code>titan.gradebook.pi</code>.</p>
+<p>This option configures your LAN clients to recognize your domain name as a default domain name when attempting to resolve hosts, e.g., <code>dig titan</code> would resolve records for <code>titan.gradebook.pi</code>.</p>
 <h2 id="additional-resources">Additional Resources<a class="headerlink" href="#additional-resources" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://www.digitalocean.com/community/tutorials/a-comparison-of-dns-server-types-how-to-choose-the-right-dns-configuration">A Comparison of DNS Server Types</a></li>

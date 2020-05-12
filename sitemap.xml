@@ -2,187 +2,207 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
      <loc>https://info314.tcpip.dev/</loc>
-     <lastmod>2020-05-05</lastmod>
+     <lastmod>2020-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://info314.tcpip.dev/assignments/pi-setup/</loc>
-     <lastmod>2020-05-05</lastmod>
+     <lastmod>2020-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://info314.tcpip.dev/assignments/networkd-setup/</loc>
-     <lastmod>2020-05-05</lastmod>
+     <lastmod>2020-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://info314.tcpip.dev/resources/wifi-reference/</loc>
-     <lastmod>2020-05-05</lastmod>
+     <lastmod>2020-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://info314.tcpip.dev/resources/address-planning/</loc>
-     <lastmod>2020-05-05</lastmod>
+     <lastmod>2020-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://info314.tcpip.dev/assignments/dhcp-setup/</loc>
-     <lastmod>2020-05-05</lastmod>
+     <lastmod>2020-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://info314.tcpip.dev/assignments/router-setup/</loc>
-     <lastmod>2020-05-05</lastmod>
+     <lastmod>2020-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://info314.tcpip.dev/resources/iptables/</loc>
-     <lastmod>2020-05-05</lastmod>
+     <lastmod>2020-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://info314.tcpip.dev/assignments/resolver-setup/</loc>
-     <lastmod>2020-05-05</lastmod>
+     <lastmod>2020-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>https://info314.tcpip.dev/assignments/lab1/</loc>
-     <lastmod>2020-05-05</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://info314.tcpip.dev/assignments/lab2/</loc>
-     <lastmod>2020-05-05</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://info314.tcpip.dev/assignments/lab3/</loc>
-     <lastmod>2020-05-05</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://info314.tcpip.dev/assignments/lab4/</loc>
-     <lastmod>2020-05-05</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://info314.tcpip.dev/assignments/lab5/</loc>
-     <lastmod>2020-05-05</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://info314.tcpip.dev/assignments/lab6/</loc>
-     <lastmod>2020-05-05</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://info314.tcpip.dev/notes/dns-overview/</loc>
-     <lastmod>2020-05-05</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://info314.tcpip.dev/notes/router-overview/</loc>
-     <lastmod>2020-05-05</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://info314.tcpip.dev/notes/ethernet-switches/</loc>
-     <lastmod>2020-05-05</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://info314.tcpip.dev/resources/pi-materials/</loc>
-     <lastmod>2020-05-05</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://info314.tcpip.dev/resources/digital-ocean/</loc>
-     <lastmod>2020-05-05</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://info314.tcpip.dev/resources/address-planning/</loc>
-     <lastmod>2020-05-05</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://info314.tcpip.dev/resources/iptables/</loc>
-     <lastmod>2020-05-05</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://info314.tcpip.dev/resources/netfilter-hooks/</loc>
-     <lastmod>2020-05-05</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://info314.tcpip.dev/resources/wifi-reference/</loc>
-     <lastmod>2020-05-05</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://info314.tcpip.dev/resources/zone-file-format/</loc>
-     <lastmod>2020-05-05</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://info314.tcpip.dev/resources/vlans-and-dummies/</loc>
-     <lastmod>2020-05-05</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://info314.tcpip.dev/resources/configure-routing-links/</loc>
-     <lastmod>2020-05-05</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://info314.tcpip.dev/resources/setup-frr/</loc>
-     <lastmod>2020-05-05</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://info314.tcpip.dev/resources/ssh-agent/</loc>
-     <lastmod>2020-05-05</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://info314.tcpip.dev/resources/markdown/</loc>
-     <lastmod>2020-05-05</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://info314.tcpip.dev/resources/bash/</loc>
-     <lastmod>2020-05-05</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://info314.tcpip.dev/resources/host-config/</loc>
-     <lastmod>2020-05-05</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
-     <loc>https://info314.tcpip.dev/resources/wireshark-install/</loc>
-     <lastmod>2020-05-05</lastmod>
+     <loc>https://info314.tcpip.dev/assignments/analysis-report/</loc>
+     <lastmod>2020-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://info314.tcpip.dev/resources/tshark-install/</loc>
-     <lastmod>2020-05-05</lastmod>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/assignments/dns-zone-setup/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/resources/zone-file-format/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/assignments/lab1/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/assignments/lab2/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/assignments/lab3/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/assignments/lab4/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/assignments/lab5/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/assignments/lab6/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/notes/dns-overview/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/notes/router-overview/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/notes/ethernet-switches/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/resources/pi-materials/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/resources/digital-ocean/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/resources/address-planning/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/resources/iptables/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/resources/netfilter-hooks/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/resources/wifi-reference/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/resources/zone-file-format/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/resources/vlans-and-dummies/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/resources/configure-routing-links/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/resources/setup-frr/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/resources/ssh-agent/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/resources/markdown/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/resources/bash/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/resources/host-config/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/resources/wireshark-install/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/resources/tshark-install/</loc>
+     <lastmod>2020-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://info314.tcpip.dev/resources/manage-dhcp/</loc>
-     <lastmod>2020-05-05</lastmod>
+     <lastmod>2020-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://info314.tcpip.dev/resources/dns-clients/</loc>
-     <lastmod>2020-05-05</lastmod>
+     <lastmod>2020-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://info314.tcpip.dev/contact/</loc>
-     <lastmod>2020-05-05</lastmod>
+     <lastmod>2020-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
