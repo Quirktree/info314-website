@@ -26,11 +26,11 @@ nav:
     - 4 - Configure a DNS Resolver:
       - DNS Resolver Setup: assignments/resolver-setup.md
     - Report - NAT and DNS Analysis:
-     - Instructions: assignments/analysis-report.md
-     - Installing TShark: resources/tshark-install.md
+      - Instructions: assignments/analysis-report.md
+      - Installing TShark: resources/tshark-install.md
     - 5 - Configure an Authoritative Name Server:
-     - Authoritative Zone Setup: assignments/dns-zone-setup.md
-     - DNS Zone Reference: resources/zone-file-format.md
+      - Authoritative Zone Setup: assignments/dns-zone-setup.md
+      - DNS Zone Reference: resources/zone-file-format.md
     #- Final WAN Project:
     #  - Project Requirements: assignments/final-project.md
     #- Extra Credit:
