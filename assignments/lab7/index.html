@@ -8,7 +8,7 @@
         <meta name="author" content="Clinton Campbell">
         <link rel="canonical" href="https://info314.tcpip.dev/assignments/lab7/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Lab 7 - proxy part 1 - INFO 314 Course Resources</title>
+        <title>Proxy Part 1 (Lab 7) - INFO 314 Course Resources</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -138,7 +138,7 @@
   </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -165,6 +165,20 @@
 <li >
     <a href="../lab6/">Lab 6 - Python and Socket Basics</a>
 </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">Proxy Labs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../proxy-labs/">Proxy Project Overview</a>
+</li>
+            
+<li class="active">
+    <a href="./">Proxy Part 1 (Lab 7)</a>
+</li>
+    </ul>
+  </li>
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -285,6 +299,16 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
+                            <li >
+                                <a rel="next" href="../proxy-labs/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../../notes/dns-overview/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
                             <li>
                                 <a href="https://github.com/quirktree/info314-website">quirktree/info314-website</a>
                             </li>
@@ -305,7 +329,7 @@
 
 <h1 id="lab-7-proxy-part-1">Lab 7 - proxy part 1<a class="headerlink" href="#lab-7-proxy-part-1" title="Permanent link">&para;</a></h1>
 <p><img alt="proxy image" src="https://hydrasky.com/wp-content/uploads/2017/10/proxy_diagram.png" /></p>
-<p><a href="https://canvas.uw.edu/courses/1373089/assignments/5369624">Lab 7 Assignment page on Canvas</a></p>
+<p><a href="">TODO Lab 7 Assignment page on Canvas</a></p>
 <h2 id="python-concepts">Python concepts<a class="headerlink" href="#python-concepts" title="Permanent link">&para;</a></h2>
 <ul>
 <li>program structure</li>
@@ -317,31 +341,44 @@
 </ul>
 <h2 id="instructions">Instructions<a class="headerlink" href="#instructions" title="Permanent link">&para;</a></h2>
 <h3 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h3>
-<p>As always, create a new branch dedicated to this lab within your http-proxy repository, and at the root of your repository, add a new script named <code>http-proxy.py</code> based on <code>resources/template.py</code>. This file will be the main deliverable for your project.</p>
-<p>HTTP proxies incorporate server and client functionality into a single daemon. As a server, your proxy listens and process the requests it receives from browsers and other HTTP clients. As a client, your proxy will pass the clients' requests on to the intended destination and handle the responses in return.</p>
+<p>As always, create a new branch dedicated to this lab within your http-proxy repository. All code development for this task should take place in <code>http-proxy.py</code>.</p>
+<p>HTTP proxies incorporate server and client functionality into a single daemon. As a server, your proxy listens and process the requests it receives from browsers and other HTTP clients. As a client, your proxy will pass the clients' requests on to the intended destination and handle the responses in return. We can implement this behavior by creating both types of sockets within the same application and passing the relevant information between them.</p>
 <p>In this task, we will work exclusively on the server functionality of the proxy. Specifically, we'll build a server that processes the incoming TCP stream and parses out HTTP GET requests. In future assignments, we'll extend our code to handle other message types and implement the client functionality.</p>
 <h3 id="main-loop-event-loop">Main Loop (Event Loop)<a class="headerlink" href="#main-loop-event-loop" title="Permanent link">&para;</a></h3>
-<p>Use a while loop to repeatedly <code>accept()</code> and process incoming requests. For each active connection, you will be making calls to <code>Socket.recv()</code> in order to fetch the next chunk of data from the TCP stream and process it.</p>
-<div class="admonition info">
-<p class="admonition-title">What it means to work with streams</p>
-<p>Remember that TCP is a stream-oriented protocol and that the Sockets API is built around the metaphor of the stream of bytes. Each attempt to read data from a socket pulls data from the stream in small chunks, e.g., <code>Socket.recv(1024)</code> returns <em>up to 1024 bytes</em> of data from the stream. </p>
-<p>Don't assume that <code>recv()</code> will return a complete HTTP message in one call. The Sockets API does not even guarantee that it will return the full number of bytes you requested. In order to know where messages begin and end, we have to inspect the incoming bytes based on HTTP message syntax.</p>
+<p>To start out this lab, it will be helpful to reference the server logic you created in the <code>main</code> function of your echo server. On the server side, our proxy will build on connection and communication flow we established in that task. Namely, we want to provide a way for a web browser to repeatedly open new connections in order to send HTTP requests and receive the corresponding response (one request/response per connection).</p>
+<p>Within the echo server, you wrote a loop that would receive the next connection from <code>accept()</code> and begin to process it. This loop is the basis for handling the connections that will be made from web browsers that are configured to speak through the proxy. You should be aware, however, that the connection handling process for a proxy is more complex than what we created for the echo server. </p>
+<p>To provide a minimally functional echo server, we could get away with making a single call to <code>Socket.recv()</code> per connection. This would accept the first chunk of data received and enable us to echo it back from the client. There are limitations on this approach since it doesn't take advantage of the <em>stream</em>-based nature of a TCP connection (or even fully recognize its constraints). The benefit to us, however, is that we didn't have to think to critically about how to recognize the end of an <em>echo request</em>.</p>
+<h4 id="stream-oriented-protocols-and-the-sockets-api">Stream-Oriented Protocols and the Sockets API<a class="headerlink" href="#stream-oriented-protocols-and-the-sockets-api" title="Permanent link">&para;</a></h4>
+<p>As you move forward in the next few labs, you will need to wrestle with what it means to work with a stream-oriented protocol and the way in which that is implemented within the Sockets API. The main implication of the stream metaphor is that we don't have an easy way to recognize where messages (like HTTP requests and responses) start and end. </p>
+<p>The only thing we can take for granted when we call <code>Socket.recv()</code>, is that we received a new chunk of data from the stream. Depending on the behavior of the TCP client and server, the chunk of data could represent an entire message (as we assumed for our echo), part of a message, or even multiple messages. Likewise, we need to be aware that a call to <code>Socket.recv()</code> when we have already received everything from the other side will hang until a timeout occurs and the connection is closed.</p>
+<p>Further discussion of this can be found in the latter sections of the <a href="https://realpython.com/python-sockets/#application-client-and-server">Real Python tutorial</a></p>
+<p>In order to read from a stream, you will need to wrap <code>Socket.recv()</code> within an infinite loop, breaking out only when you can determine that you've received a complete message <strong>-or-</strong> when you detect that the connection is closed from the other side. In order to know where messages begin and end, we have to inspect the incoming bytes based on HTTP message syntax, which will be the primary goal of this lab.</p>
+<p><strong>This is worth repeating one more time:</strong></p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Don't assume that <code>recv()</code> will return a complete HTTP message in one call. The Sockets API does not even guarantee that it will return the full number of bytes you requested, i.e., <code>Socket.recv(1024)</code> returns <em>up to 1024 bytes</em> of data from the stream. </p>
 </div>
+<h4 id="store-incomplete-messages-in-a-buffer">Store Incomplete Messages in a Buffer<a class="headerlink" href="#store-incomplete-messages-in-a-buffer" title="Permanent link">&para;</a></h4>
 <p>Since it is up to you to identify and reconstruct messages out of the stream, you should create a buffer that will hold your data while you work to identify complete HTTP messages. A buffer in this case is nothing more than a python bytes object that you append to each time a <code>recv()</code> returns successfully, for example:</p>
 <div class="codehilite"><pre><span></span><span class="c1"># Declare an empty buffer</span>
 <span class="n">buffer</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span>
 
-<span class="c1"># Receive new data and add it to the buffer</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
-<span class="n">buffer</span> <span class="o">=</span> <span class="n">buffer</span> <span class="o">+</span> <span class="n">data</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+
+    <span class="c1"># break if the connection was closed</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
+        <span class="k">break</span>
+
+    <span class="c1"># add new data to the buffer.</span>
+    <span class="n">buffer</span> <span class="o">=</span> <span class="n">buffer</span> <span class="o">+</span> <span class="n">data</span>
 </pre></div>
 
-<h3 id="getting-to-http-messages">Getting to HTTP Messages<a class="headerlink" href="#getting-to-http-messages" title="Permanent link">&para;</a></h3>
-<p>In order to recognize HTTP messages, you need to parse the bytes you've received and determine whether you have a complete message. Your task is to build a simple HTTP parser that accepts a byte buffer and attempts to parse an HTTP GET request (ignore other request types for now). We recommend that your parser returns the parsed message as a dictionary (see below) along with the bytes that were still left over in the buffer.</p>
-<p>As noted, the data coming from the socket will be in bytestring format, meaning it will appear as <code>b'data'</code>  and not <code>'data'</code> as with a normal string. You cannot use string methods such as <code>split()</code> on a btyestring. Therefore you will need to decode the btyestring with the <code>str()</code> or <code>decode()</code> method to turn it into a string.</p>
-<p>HTTP messages may be formatted as ASCII (per RFC 7230) or ISO-8859-1 (per historic RFCs). </p>
-<p>Decoding text as <code>iso-8859-1</code> will allow for the maximum versatility.</p>
-<p>Based on this description, we can create a python function that resembles the following:</p>
+<h3 id="working-http-messages">Working HTTP Messages<a class="headerlink" href="#working-http-messages" title="Permanent link">&para;</a></h3>
+<p>In order to recognize HTTP messages, we will attempt to <em>parse</em> our buffer each time we add new data in order to test whether we can read the message through to its proper end. When this operation succeeds, we will be able to move forward into the client portion of the proxy that we'll explore in upcoming labs. While this operation fails, we will continue to receive new data and add it to our buffer as discussed in the previous section.</p>
+<p>Your main task for this lab is to build a simple HTTP parser that accepts a byte buffer and attempts to parse the most basic type of HTTP message, i.e., an HTTP/1.0 GET request (ignore other types of requests for now). In order to parse a GET request, you will read through the message a line at a time until you receive back-to-back CRLF (HTTP end-of-line) sequences indicating that you've reached the end of the HTTP headers. This task may require a small amount of research into <a href="https://tools.ietf.org/html/rfc1945">RFC-1945</a> to review the HTTP/1.0 specification, but it builds directly off of the string and byte manipulation operations you practiced in the previous lab.</p>
+<p>From a code standpoint, please encapsulate your parsing logic in a function called <code>parse_message</code>. This message should accept a buffer of bytes as input and return two values, i.e., a parsed message stored in a python dictionary and a byte buffer containing data that was left after parsing the message (which could be part of another request). If you are not able to parse the message completely, you can indicate this by returning <code>None</code> and the original byte buffer.</p>
+<p>Based on this description, your parsing function should resemble:</p>
 <div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">parse_message</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
     <span class="c1"># initialize an empty dictionary</span>
     <span class="n">message</span> <span class="o">=</span> <span class="p">{}</span>
@@ -360,10 +397,15 @@
 </pre></div>
 
 <h4 id="parsing">Parsing<a class="headerlink" href="#parsing" title="Permanent link">&para;</a></h4>
-<p>HTTP messages follow a relatively simple syntax that can be used to make decisions about how to break the message into smaller parts (using tools like Python <em>slicing</em> and the functions <code>find()</code>, <code>strip()</code>, and <code>split()</code>). </p>
+<p>HTTP messages follow a relatively simple syntax that can be used to make decisions about how to break the message into smaller parts (using tools like Python <em>slicing</em> and the functions <code>find()</code>, <code>strip()</code>, and <code>split()</code>).  Assume that all messages are conformant with HTTP/1.0 and encoded as ISO-8859-1.</p>
 <p>For GET requests, the message structure is based entirely around lines and the <em>Carriage Return / New Line</em> line separators (think back to previous labs in which we sent GET requests using netcat). It's tempting for many students to read this and start parsing with a <code>data.split('\r\n')</code>. This strategy rarely works. </p>
 <p>Instead, we recommend that you create a dedicated function to split a single line off the buffer. You can do this with <code>find()</code>, <code>strip()</code>, and <em>slices</em>.</p>
-<p>Before you go any further, make sure you have a basic understanding of HTTP/1.0 message structure. See <a href="/assignments/proxy-labs">HTTP syntax overview</a> or <a href="https://tools.ietf.org/html/rfc1945">RFC 1945</a>.</p>
+<p>Before you go any further, make sure you have a basic understanding of HTTP/1.0 message structure. RFC-1945 is the ultimate authority for message structure, but I recommend checking out the other resources as well for a concise overview of the request/response format.</p>
+<ul>
+<li><strong><a href="https://tools.ietf.org/html/rfc1945">RFC-1945</a></strong></li>
+<li><strong><a href="https://drstearns.github.io/tutorials/http/">How HTTP Works under the Hood</a></strong></li>
+<li><strong><a href="/assignments/proxy-labs">HTTP syntax overview</a></strong></li>
+</ul>
 <h3 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h3>
 <p>After successfully parsing a request, you should print the following summary and close the connection (return to the start of your loop to listen for new requests).</p>
 <p><strong>Request summary</strong></p>
@@ -371,8 +413,16 @@
 <li><strong>Connection Source:</strong> \&lt;IP address returned from the call to Socket.accept()></li>
 <li><strong>HTTP Method:</strong> \&lt;Name of method, e.g., GET, OPTION, or POST></li>
 <li><strong>Destination:</strong> \&lt;URI extracted from the request></li>
-<li><strong>Headers:</strong> \&lt;Comma delimited list of header names>  </li>
+<li><strong>Headers:</strong> \&lt;Comma delimited list of header names></li>
 </ul>
+<div class="admonition info">
+<p class="admonition-title">Producing a comma-delimited list of header names</p>
+<p>If you're unfamiliar with python, you might find it challenging to produce the final part of this summary. The following method assumes you've stored your headers in a list, and that each header is parsed into a dictionary with a <code>name</code> and <code>value</code> as presented in the previous lab, i.e., <code>[{'name': 'Host', 'value': 'www.google.com'}, ...]</code></p>
+<div class="codehilite"><pre><span></span>    <span class="n">header_names</span> <span class="o">=</span> <span class="p">[</span> <span class="n">h</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">headers</span> <span class="p">]</span> <span class="c1"># loop over all headers and save the name field in a list</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">header_names</span><span class="p">)</span> <span class="c1"># join a list of strings with a comma</span>
+</pre></div>
+
+</div>
 <h3 id="testing-your-code-with-testpy">Testing your code with <code>test.py</code><a class="headerlink" href="#testing-your-code-with-testpy" title="Permanent link">&para;</a></h3>
 <p>The resources directory of the project repository contains a simple python script called test.py that you can use to send HTTP requests from a file into your proxy code.</p>
 <div class="codehilite"><pre><span></span><span class="c1"># Send the request from sample-request.txt </span>
@@ -385,7 +435,7 @@ python3 test.py <span class="m">9999</span> sample-request.txt <span class="m">2
 </pre></div>
 
 <h3 id="capturing-proxied-requests-for-testing">Capturing proxied requests for testing<a class="headerlink" href="#capturing-proxied-requests-for-testing" title="Permanent link">&para;</a></h3>
-<p>Use the following method to capture valid requests that you can use for testing:</p>
+<p>A couple of sample requests are included in the directory, but the following method may be helpful if you would like to capture valid requests that you can use for testing:</p>
 <ul>
 <li>Open ncat to listen for incoming connections, e.g., <code>ncat -o &lt;FILENAME&gt; -l &lt;PORT&gt;</code></li>
 <li>Configure Firefox with an HTTP proxy on <code>127.0.0.1 &lt;PORT&gt;</code></li>

@@ -96,6 +96,16 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
+     <loc>https://info314.tcpip.dev/assignments/proxy-labs/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>https://info314.tcpip.dev/assignments/lab7/</loc>
+     <lastmod>2020-05-12</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
      <loc>https://info314.tcpip.dev/notes/dns-overview/</loc>
      <lastmod>2020-05-12</lastmod>
      <changefreq>daily</changefreq>
