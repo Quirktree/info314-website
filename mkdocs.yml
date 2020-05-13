@@ -42,9 +42,9 @@ nav:
     - Lab 4 - Analyze DNS & HTTP in Wireshark: assignments/lab4.md
     - Lab 5 - Analyze TCP with ncat and Wireshark: assignments/lab5.md
     - Lab 6 - Python and Socket Basics: assignments/lab6.md
-    #- Proxy Labs: 
-    #  - Proxy Project Overview: assignments/proxy-labs.md
-    #  - Proxy Part 1 (Lab 7): assignments/lab7.md
+    - Proxy Labs: 
+      - Proxy Project Overview: assignments/proxy-labs.md
+      - Proxy Part 1 (Lab 7): assignments/lab7.md
     #  - Proxy Part 2 (Lab 8): assignments/lab8.md
     #  - Proxy Part 3 (Lab 9): assignments/lab9.md
   - Resources:
