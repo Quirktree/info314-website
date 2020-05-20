@@ -31,10 +31,10 @@ nav:
     - 5 - Configure an Authoritative Name Server:
       - Authoritative Zone Setup: assignments/dns-zone-setup.md
       - DNS Zone Reference: resources/zone-file-format.md
+    - Extra Credit:
+      - VLAN Challenge: assignments/vlan-challenge.md
     #- Final WAN Project:
     #  - Project Requirements: assignments/final-project.md
-    #- Extra Credit:
-    #  - VLAN Challenge: assignments/vlan-challenge.md
   - Labs:
     - Lab 1 - Core Technical Skills: assignments/lab1.md
     - Lab 2 - Analyzing DHCP and ARP with Wireshark: assignments/lab2.md
@@ -45,7 +45,7 @@ nav:
     - Proxy Labs: 
       - Proxy Project Overview: assignments/proxy-labs.md
       - Proxy Part 1 (Lab 7): assignments/lab7.md
-    #  - Proxy Part 2 (Lab 8): assignments/lab8.md
+      - Proxy Part 2 (Lab 8): assignments/lab8.md
     #  - Proxy Part 3 (Lab 9): assignments/lab9.md
   - Resources:
     - Concepts and Theory:
