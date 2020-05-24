@@ -62,6 +62,7 @@ nav:
       - Zone File Reference: resources/zone-file-format.md
       - Special Network Interfaces (VLANs and Dummies): resources/vlans-and-dummies.md
       - Configuring Routing Links: resources/configure-routing-links.md
+      - Install and Configure WireGuard: resources/setup-wireguard.md
       - Install Free Range Routing (FRR): resources/setup-frr.md
       - Using ssh-agent: resources/ssh-agent.md
     - Quick Reference:
