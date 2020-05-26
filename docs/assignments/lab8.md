@@ -33,7 +33,7 @@ In HTTP 1.0, the body length is defined by an HTTP header called `Content-Length
 
 ```python
 if header['name'] == 'Content-Length':
-    message['Content-Length'] == int(header['value'])
+    message['Content-Length'] = int(header['value'])
 ```
 
 Taking into account that a message may contain a payload, we need to make sure that `parse_message` waits for the complete payload before returning a valid message back to the main recv() loop. You will need to check for several possible edge cases in order to handle this correctly.
@@ -169,7 +169,7 @@ a file into your proxy code.
 ```
 # Send the request from sample-request.txt on port 9999 250 bytes at a time with a short delay between
 
-python3 test.py 9999 get-request.http 250
+python3 test.py 9999 get_request.http 250
 ```
 
 Note: Testing at this stage can be more challenging. Please ask for help via the course Slack if you need it.
