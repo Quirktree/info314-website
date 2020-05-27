@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Clinton Campbell">
-        <link rel="canonical" href="https://info314.tcpip.dev/resources/vlans-and-dummies/">
+        <link rel="canonical" href="https://info314.tcpip.dev/resources/loopback-interfaces/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Special Network Interfaces (VLANs and Dummies) - INFO 314 Course Resources</title>
+        <title>Loopback Interfaces - INFO 314 Course Resources</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -191,6 +191,10 @@
 <li >
     <a href="../../assignments/lab8/">Proxy Part 2 (Lab 8)</a>
 </li>
+            
+<li >
+    <a href="../../assignments/lab9/">Proxy Part 3 (Lab 9)</a>
+</li>
     </ul>
   </li>
                                 </ul>
@@ -198,6 +202,28 @@
                             <li class="dropdown active">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Resources <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">Getting Started</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../pi-materials/">Getting Pi Materials</a>
+</li>
+            
+<li >
+    <a href="../digital-ocean/">Digital Ocean Signup</a>
+</li>
+            
+<li >
+    <a href="../markdown/">Intro to Markdown</a>
+</li>
+            
+<li >
+    <a href="../bash/">Intro to Bash</a>
+</li>
+    </ul>
+  </li>
                                     
   <li class="dropdown-submenu">
     <a href="#">Concepts and Theory</a>
@@ -221,70 +247,12 @@
     <a href="#">Guides</a>
     <ul class="dropdown-menu">
             
-<li >
-    <a href="../pi-materials/">Getting Pi Materials</a>
-</li>
-            
-<li >
-    <a href="../digital-ocean/">Digital Ocean Signup</a>
-</li>
-            
-<li >
-    <a href="../address-planning/">Basic IP Address Planning</a>
-</li>
-            
-<li >
-    <a href="../iptables/">Introduction to Iptables</a>
-</li>
-            
-<li >
-    <a href="../netfilter-hooks/">Understanding Netfilter/Iptables Hooks</a>
-</li>
-            
-<li >
-    <a href="../wifi-reference/">Linux Wireless Configuration</a>
-</li>
-            
-<li >
-    <a href="../zone-file-format/">Zone File Reference</a>
-</li>
-            
-<li class="active">
-    <a href="./">Special Network Interfaces (VLANs and Dummies)</a>
-</li>
-            
-<li >
-    <a href="../configure-routing-links/">Configuring Routing Links</a>
-</li>
-            
-<li >
-    <a href="../setup-wireguard/">Install and Configure WireGuard</a>
-</li>
-            
-<li >
-    <a href="../setup-frr/">Install Free Range Routing (FRR)</a>
-</li>
-            
-<li >
-    <a href="../ssh-agent/">Using ssh-agent</a>
-</li>
-    </ul>
-  </li>
-                                    
   <li class="dropdown-submenu">
-    <a href="#">Quick Reference</a>
+    <a href="#">Common Tools</a>
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../markdown/">Intro to Markdown</a>
-</li>
-            
-<li >
-    <a href="../bash/">Intro to Bash</a>
-</li>
-            
-<li >
-    <a href="../host-config/">Mac/Win/Linux Networking</a>
+    <a href="../ssh-agent/">Using ssh-agent</a>
 </li>
             
 <li >
@@ -293,6 +261,98 @@
             
 <li >
     <a href="../tshark-install/">Install TShark</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">DNS</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../zone-file-format/">Zone File Reference</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">General Network Configuration</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../wifi-reference/">Linux Wireless Configuration</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Iptables</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../iptables/">Introduction to Iptables</a>
+</li>
+            
+<li >
+    <a href="../netfilter-hooks/">Understanding Netfilter/Iptables Hooks</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Planning</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../address-planning/">Basic IP Address Planning</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Routing and VPNs</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../setup-frr/">Install Free Range Routing (FRR)</a>
+</li>
+            
+<li >
+    <a href="../setup-wireguard/">Install and Configure WireGuard</a>
+</li>
+            
+<li >
+    <a href="../configure-routing-links/">Configuring Routing Links</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Special Network Interfaces</a>
+    <ul class="dropdown-menu">
+            
+<li class="active">
+    <a href="./">Loopback Interfaces</a>
+</li>
+            
+<li >
+    <a href="../dummy-interfaces/">Dummy Interfaces</a>
+</li>
+            
+<li >
+    <a href="../vlan-interfaces/">VLAN Interfaces</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">Troubleshooting</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../host-config/">Mac/Win/Linux Networking</a>
 </li>
             
 <li >
@@ -318,12 +378,12 @@
                             </a>
                         </li>
                             <li >
-                                <a rel="next" href="../zone-file-format/">
+                                <a rel="next" href="../configure-routing-links/">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li >
-                                <a rel="prev" href="../configure-routing-links/">
+                                <a rel="prev" href="../dummy-interfaces/">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -338,91 +398,39 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#configuring-vlans-and-dummy-interfaces-in-networkd">Configuring VLANs and Dummy Interfaces in Networkd</a></li>
-            <li><a href="#vlans">VLANs</a></li>
-            <li><a href="#dummy-interfaces">Dummy Interfaces</a></li>
+        <li class="main active"><a href="#working-with-loopbacks-in-networkd">Working with Loopbacks in Networkd</a></li>
+        <li class="main "><a href="#configuring-additional-loopback-addresses">Configuring additional loopback addresses</a></li>
             <li><a href="#resources">Resources</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="configuring-vlans-and-dummy-interfaces-in-networkd">Configuring VLANs and Dummy Interfaces in Networkd<a class="headerlink" href="#configuring-vlans-and-dummy-interfaces-in-networkd" title="Permanent link">&para;</a></h1>
-<h2 id="vlans">VLANs<a class="headerlink" href="#vlans" title="Permanent link">&para;</a></h2>
-<p>VLAN functionality in networkd enables Linux hosts to participate in VLANs based on explicit tagging of ethernet frames. VLANs provide a valuable layer of logical configurability on top of physical network infrastructure. VLAN connections are presented in Linux as software-defined network interfaces that can be configured and utilized just like other types of network interfaces.</p>
-<h3 id="creating-vlan-interfaces">Creating VLAN Interfaces<a class="headerlink" href="#creating-vlan-interfaces" title="Permanent link">&para;</a></h3>
-<p>Networkd supports various software-defined interface types that are created based on <code>.netdev</code> files in the networkd configuration directories. A <code>.netdev</code> for a VLAN sets <code>Kind=vlan</code> and defines the numeric ID used to tag VLAN traffic on the wire in order to keep it separate from other traffic. </p>
+<h1 id="working-with-loopbacks-in-networkd">Working with Loopbacks in Networkd<a class="headerlink" href="#working-with-loopbacks-in-networkd" title="Permanent link">&para;</a></h1>
+<p>When we have worked with IP addresses, we have mostly though about them as being configured in association with a particular network interface on a device. One challenge with this configuration is that addresses attached to a physical network interface will not be brought up if the link is unavailable. In certain use cases, we will want an address that operates independently of the physical links. A common application of this configuration, for example, is dynamic routing. </p>
+<p>Two of the mechanisms that Linux provides in service of this goal are loopbacks and dummy interfaces <a href="/resources/dummy-interfaces">(read more)</a>. The focus of this guide is on configuration of the loopback interface.</p>
+<h1 id="configuring-additional-loopback-addresses">Configuring additional loopback addresses<a class="headerlink" href="#configuring-additional-loopback-addresses" title="Permanent link">&para;</a></h1>
+<p>Linux allows exactly one loopback interface called <code>lo</code> to be allocated on a given system. You should already be familiar with this interface as the home of the locally scoped 127.0.0.1 localhost address. While we can't create a new interface, we are permitted to add new addresses to the existing loopback. Unlike the localhost address, these addresses will be globally scoped and remotely accessible.</p>
+<p>Addresses can be configued using the <code>ip address</code> command for a manual, non-persistent configuration or via systemd-networkd <code>.network</code> files.</p>
 <div class="admonition example">
-<p class="admonition-title">Creating a VLAN interface</p>
-<p><strong><code>/etc/systemd/network/15-vlan25.netdev</code></strong></p>
-<div class="codehilite"><pre><span></span>[NetDev]
-Name=vlan25
-Kind=vlan
-
-[VLAN]
-# Specify the tag
-Id=25
+<p class="admonition-title">Manually configuring secondary loopback addresses</p>
+<div class="codehilite"><pre><span></span>ip addr add dev lo 10.10.10.10/32
 </pre></div>
 
 </div>
-<h3 id="add-vlans-to-a-physical-interface">Add VLANs to a Physical Interface<a class="headerlink" href="#add-vlans-to-a-physical-interface" title="Permanent link">&para;</a></h3>
-<p>In order to send and receive tagged traffic over a network link, we need to associate the newly created VLAN interfaces with the physical LAN interface. In networkd, this can be done by adding one or more VLAN properties to the physical interface's <code>.network</code> configuration. After doing this, tagged frames will be presented to the operating system as originating from the associated VLAN interface. Likewise, traffic that is sent through a VLAN interface will be tagged with the specified ID before being sent on the network.</p>
 <div class="admonition example">
-<p class="admonition-title">Linking a VLAN interface to a physical interface</p>
-<p><strong><code>/etc/systemd/network/20-eth0.network</code></strong>
+<p class="admonition-title">Configuring a persistent loopback address</p>
+<p><strong><code>/etc/systemd/network/10-lo.network</code></strong>
 <div class="codehilite"><pre><span></span>[Match]
-Name=eth0
+Name=lo
 
-[Network]
-# Existing Configuration
-Address=192.168.0.1/24
-
-# Tagged VLANs Referenced by Interface Name
-VLAN=vlan25
-VLAN=vlan50
-</pre></div></p>
-</div>
-<h3 id="network-configuration-for-vlan-interfaces">Network Configuration for VLAN Interfaces<a class="headerlink" href="#network-configuration-for-vlan-interfaces" title="Permanent link">&para;</a></h3>
-<p>Attaching the VLANs to a physical interface enables traffic to be sent and received from the virtual interface via tagged frames on the physical link. At the moment, however, our VLAN interfaces do not have any network-level settings attached to them.</p>
-<p>Depending on the task at hand and the configuration of the Linux host, you may configure the new interfaces by any method(s) available, including networkd:</p>
-<div class="admonition example">
-<p class="admonition-title">Sample VLAN interface configuration</p>
-<p><strong><code>/etc/systemd/network/25-vlan25.network</code></strong></p>
-<div class="superfences-tabs">
-<input name="__tabs_1" type="radio" id="__tab_1_0" checked="checked" />
-<label for="__tab_1_0">DHCP</label>
-<div class="superfences-content"><div class="codehilite"><pre><span></span>[Match]
-Name=vlan25
-
-[Network]
-DHCP=ipv4
-</pre></div></div>
-<input name="__tabs_1" type="radio" id="__tab_1_1" />
-<label for="__tab_1_1">Static IP</label>
-<div class="superfences-content"><div class="codehilite"><pre><span></span>[Match]
-Name=vlan25
-
-[Network]
-Address=172.16.0.1/24
-DNS=1.1.1.1
-</pre></div></div>
-</div>
-</div>
-<h2 id="dummy-interfaces">Dummy Interfaces<a class="headerlink" href="#dummy-interfaces" title="Permanent link">&para;</a></h2>
-<p>When we set up labs with multiple services hosted on a single physical node, it can be useful to virtualize additional network connections and interfaces to allow us to extend the logical topology of the system. Dummy interfaces are treated much like standard network interfaces, although they do not require a physical connection and do not go up and down based on link status. Like a standard ethernet interface, a dummy interface can be configured with an IP address and other layer-3 settings. Likewise, we can bind daemons to sockets on our dummy interfaces and respond to network requests received at these addresses. </p>
-<h3 id="creating-the-interface">Creating the Interface<a class="headerlink" href="#creating-the-interface" title="Permanent link">&para;</a></h3>
-<p>Adding a .netdev definition with <code>Kind=dummy</code> will trigger networkd to add a dummy interface and make it visible to other standard networking tools.</p>
-<div class="admonition example">
-<p class="admonition-title">Creating a Dummy Interface</p>
-<p><strong><code>/etc/systemd/network/10-dmz0.netdev</code></strong>
-<div class="codehilite"><pre><span></span>[NetDev]
-Name=dmz0
-Kind=dummy
+# Each address is placed in a [Address] section
+[Address]
+Address=10.10.10.10/32
 </pre></div></p>
 </div>
 <h2 id="resources">Resources<a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="https://wiki.archlinux.org/index.php/VLAN">https://wiki.archlinux.org/index.php/VLAN</a></li>
-<li><a href="https://manpages.debian.org/stretch/systemd/systemd.netdev.5.en.html">https://manpages.debian.org/stretch/systemd/systemd.netdev.5.en.html</a></li>
+<li><a href="https://manpages.debian.org/buster/systemd/systemd.network.5.en.html">https://manpages.debian.org/buster/systemd/systemd.network.5.en.html</a></li>
 <li><a href="https://wiki.archlinux.org/index.php/systemd-networkd">https://wiki.archlinux.org/index.php/systemd-networkd</a></li>
 </ul></div>
         </div>

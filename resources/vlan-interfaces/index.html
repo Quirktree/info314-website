@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Clinton Campbell">
-        <link rel="canonical" href="https://info314.tcpip.dev/resources/markdown/">
+        <link rel="canonical" href="https://info314.tcpip.dev/resources/vlan-interfaces/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Intro to Markdown - INFO 314 Course Resources</title>
+        <title>VLAN Interfaces - INFO 314 Course Resources</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -215,8 +215,8 @@
     <a href="../digital-ocean/">Digital Ocean Signup</a>
 </li>
             
-<li class="active">
-    <a href="./">Intro to Markdown</a>
+<li >
+    <a href="../markdown/">Intro to Markdown</a>
 </li>
             
 <li >
@@ -339,8 +339,8 @@
     <a href="../dummy-interfaces/">Dummy Interfaces</a>
 </li>
             
-<li >
-    <a href="../vlan-interfaces/">VLAN Interfaces</a>
+<li class="active">
+    <a href="./">VLAN Interfaces</a>
 </li>
     </ul>
   </li>
@@ -378,12 +378,12 @@
                             </a>
                         </li>
                             <li >
-                                <a rel="next" href="../digital-ocean/">
+                                <a rel="next" href="../dummy-interfaces/">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li >
-                                <a rel="prev" href="../bash/">
+                                <a rel="prev" href="../host-config/">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -398,36 +398,74 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#intro-to-markdown">Intro to Markdown</a></li>
-            <li><a href="#what-is-markdown">What is Markdown?</a></li>
-            <li><a href="#how-do-i-get-started">How do I get started?</a></li>
-            <li><a href="#editors">Editors</a></li>
+        <li class="main active"><a href="#configuring-vlans-in-networkd">Configuring VLANs in Networkd</a></li>
+            <li><a href="#creating-vlan-interfaces">Creating VLAN Interfaces</a></li>
+            <li><a href="#add-vlans-to-a-physical-interface">Add VLANs to a Physical Interface</a></li>
+            <li><a href="#network-configuration-for-vlan-interfaces">Network Configuration for VLAN Interfaces</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="intro-to-markdown">Intro to Markdown<a class="headerlink" href="#intro-to-markdown" title="Permanent link">&para;</a></h1>
-<p><img alt="Markdown logo" src="../../img/markdown_logo.png" /></p>
-<h2 id="what-is-markdown">What is Markdown?<a class="headerlink" href="#what-is-markdown" title="Permanent link">&para;</a></h2>
-<p>"Markdown allows you to write using an easy-to-read, easy-to-write plain text format, then convert it to structurally valid XHTML (or HTML)" <a href="https://readwrite.com/2012/04/17/why-you-need-to-learn-markdown/">source</a>. You will be expected to use this syntax for most of your reports. Every lab you do in this course will require a lab report, and a markdown template will be provided to make your life easier. You will also find a file called <code>README.md</code> in the root of all of your GitHub repo folders that you will need to edit to describe your projects.</p>
-<h2 id="how-do-i-get-started">How do I get started?<a class="headerlink" href="#how-do-i-get-started" title="Permanent link">&para;</a></h2>
-<p>Don't worry if you are unfamiliar with Markdown, it's really easy to pick up. First, let's learn the syntax required to write a document in Markdown. Github has great documentation on all of the things you can do with it here: <a href="https://guides.github.com/features/mastering-markdown/"> mastering-markdown</a> guide. Once you've taken a look at it, you can follow this interactive tutorial: <a href="https://www.markdowntutorial.com/">markdowntutorial.com</a>.</p>
-<h2 id="editors">Editors<a class="headerlink" href="#editors" title="Permanent link">&para;</a></h2>
-<p>Now that you've got the syntax down, it's time to download and set up an editor. Most text-editing applications will work with markdown files (<code>.md</code>), but they won't allow you to preview what your document will look like with all the formatting, it will just look like <code>plain ##text## #with# -markdown formatting</code>. Instead, you should use an editor developed with markdown in mind. There are two options presented in this course.</p>
-<h3 id="option-one-standalone-editor-typora">Option One - Standalone Editor Typora<a class="headerlink" href="#option-one-standalone-editor-typora" title="Permanent link">&para;</a></h3>
-<p><img alt="Using Typora for Markdown Editing" src="../../img/typora_preview.png" /></p>
-<p>A simple option for an editor is Typora. Typora is a simple Markdown viewer for Windows, Mac OS X, and Linux that allows you to preview and edit your Markdown document in both a source code and presentation format. You can switch between these formats with <code>Ctrl + /</code> on Windows or <code>Cmd + /</code> on Mac. You can download Typora <a href="https://www.typora.io/">here</a> (download links are at the bottom of the page). </p>
-<h4 id="markdown-pdf-when-using-typora">Markdown -&gt; PDF when using Typora<a class="headerlink" href="#markdown-pdf-when-using-typora" title="Permanent link">&para;</a></h4>
-<p>Often you will need to attach images to a lab report. Unless you want to upload multiple files (the markdown document, plus the images with exact names for markdown to find them) it is recommended that you compile your lab report into a PDF after completion and submit that. In Typora, you can do this by clicking <code>File &gt; Export &gt; PDF</code>.</p>
-<h3 id="option-two-using-vs-code">Option Two - Using VS Code<a class="headerlink" href="#option-two-using-vs-code" title="Permanent link">&para;</a></h3>
-<p><a href="https://i.github-camo.com/49795e7aa84c3510ca7a56c903d1c3ecb42e896d/68747470733a2f2f636c6f75642e67697468756275736572636f6e74656e742e636f6d2f6173736574732f3337383032332f31303031333038362f32346361643233652d363134392d313165352d393065362d3636333030393231303231382e706e67"><img alt="Using VS Code for Markdown Editing" src="https://i.github-camo.com/49795e7aa84c3510ca7a56c903d1c3ecb42e896d/68747470733a2f2f636c6f75642e67697468756275736572636f6e74656e742e636f6d2f6173736574732f3337383032332f31303031333038362f32346361643233652d363134392d313165352d393065362d3636333030393231303231382e706e67" /></a></p>
-<p>A slightly more complex option is to use Visual Studio Code. This might be the best option for you if you already use VS Code to program in other languages. To use VS Code to edit markdown documents, I recommend installing a couple extensions on VS code in order to make your life easier: <code>Markdown Preview Github</code> and <code>Markdown All in One</code>.</p>
-<p>Each has instructions at the time of installation on how to use them.</p>
-<h4 id="markdown-pdf-when-using-vs-code">Markdown -&gt; PDF when using VS Code<a class="headerlink" href="#markdown-pdf-when-using-vs-code" title="Permanent link">&para;</a></h4>
-<p>Often you will need to attach images to a lab report. Unless you want to upload multiple files (the markdown document, plus the images with exact names for markdown to find them) it is recommended that you compile your lab report into a PDF after completion and submit that. If you use VS Code as a Markdown editor, you should use a command line tool such as <strong><code>grip</code></strong> to export Markdown documents to pdf.</p>
-<p><strong><code>grip</code></strong> is a command line tool that will easily convert your markdown file to a <code>pdf</code> or <code>html</code> file.</p>
-<p>Installation instruction github.com/joeyespo/grip</p>
-<p>Usage: <code>grip &lt;file name&gt;.md --export</code></p></div>
+<h1 id="configuring-vlans-in-networkd">Configuring VLANs in Networkd<a class="headerlink" href="#configuring-vlans-in-networkd" title="Permanent link">&para;</a></h1>
+<p>VLAN functionality in networkd enables Linux hosts to participate in VLANs based on explicit tagging of ethernet frames. VLANs provide a valuable layer of logical configurability on top of physical network infrastructure. VLAN connections are presented in Linux as software-defined network interfaces that can be configured and utilized just like other types of network interfaces.</p>
+<h2 id="creating-vlan-interfaces">Creating VLAN Interfaces<a class="headerlink" href="#creating-vlan-interfaces" title="Permanent link">&para;</a></h2>
+<p>Networkd supports various software-defined interface types that are created based on <code>.netdev</code> files in the networkd configuration directories. A <code>.netdev</code> for a VLAN sets <code>Kind=vlan</code> and defines the numeric ID used to tag VLAN traffic on the wire in order to keep it separate from other traffic. </p>
+<div class="admonition example">
+<p class="admonition-title">Creating a VLAN interface</p>
+<p><strong><code>/etc/systemd/network/15-vlan25.netdev</code></strong></p>
+<div class="codehilite"><pre><span></span>[NetDev]
+Name=vlan25
+Kind=vlan
+
+[VLAN]
+# Specify the tag
+Id=25
+</pre></div>
+
+</div>
+<h2 id="add-vlans-to-a-physical-interface">Add VLANs to a Physical Interface<a class="headerlink" href="#add-vlans-to-a-physical-interface" title="Permanent link">&para;</a></h2>
+<p>In order to send and receive tagged traffic over a network link, we need to associate the newly created VLAN interfaces with the physical LAN interface. In networkd, this can be done by adding one or more VLAN properties to the physical interface's <code>.network</code> configuration. After doing this, tagged frames will be presented to the operating system as originating from the associated VLAN interface. Likewise, traffic that is sent through a VLAN interface will be tagged with the specified ID before being sent on the network.</p>
+<div class="admonition example">
+<p class="admonition-title">Linking a VLAN interface to a physical interface</p>
+<p><strong><code>/etc/systemd/network/20-eth0.network</code></strong>
+<div class="codehilite"><pre><span></span>[Match]
+Name=eth0
+
+[Network]
+# Existing Configuration
+Address=192.168.0.1/24
+
+# Tagged VLANs Referenced by Interface Name
+VLAN=vlan25
+VLAN=vlan50
+</pre></div></p>
+</div>
+<h2 id="network-configuration-for-vlan-interfaces">Network Configuration for VLAN Interfaces<a class="headerlink" href="#network-configuration-for-vlan-interfaces" title="Permanent link">&para;</a></h2>
+<p>Attaching the VLANs to a physical interface enables traffic to be sent and received from the virtual interface via tagged frames on the physical link. At the moment, however, our VLAN interfaces do not have any network-level settings attached to them.</p>
+<p>Depending on the task at hand and the configuration of the Linux host, you may configure the new interfaces by any method(s) available, including networkd:</p>
+<div class="admonition example">
+<p class="admonition-title">Sample VLAN interface configuration</p>
+<p><strong><code>/etc/systemd/network/25-vlan25.network</code></strong></p>
+<div class="superfences-tabs">
+<input name="__tabs_1" type="radio" id="__tab_1_0" checked="checked" />
+<label for="__tab_1_0">DHCP</label>
+<div class="superfences-content"><div class="codehilite"><pre><span></span>[Match]
+Name=vlan25
+
+[Network]
+DHCP=ipv4
+</pre></div></div>
+<input name="__tabs_1" type="radio" id="__tab_1_1" />
+<label for="__tab_1_1">Static IP</label>
+<div class="superfences-content"><div class="codehilite"><pre><span></span>[Match]
+Name=vlan25
+
+[Network]
+Address=172.16.0.1/24
+DNS=1.1.1.1
+</pre></div></div>
+</div>
+</div></div>
         </div>
 
         <footer class="col-md-12">
