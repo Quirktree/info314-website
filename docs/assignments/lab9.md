@@ -8,82 +8,75 @@ In this lab, we'll wire together the remaining components of a proxy based on th
 
 ### Getting Started
 
-As always, create a new branch dedicated to this lab within your http-proxy repository, and at the root of your repository, open up the `http-proxy.py` script you have been working on in Lab 6 - 7. You will continue working with the same file for Lab 8.
+As always, create a new branch dedicated to this lab within your http-proxy repository. All code development for this task should take place in `http-proxy.py`.
 
-In the last lab, we completed the parsing functionality needed by our proxy and added a function to reconstruct the HTTP message with a few changes &emdash; such as downgrading the connection to `HTTP/1.0`. 
+In the last lab, we completed three major tasks: a) extended our parse_message function to handle different types of HTTP requests, b) created a function to build a message based on the dictionary structure created by the parser, and c) opened a new client socket based for each request received by the proxy.
 
+The main objectives of this lab will be to extend parsing functionality to handle HTTP responses as well as requests and to complete our end-to-end message flow.
 
 !!! info "HTTP Version"
     Please confirm that you have followed the instructions in previous labs to downgrade the HTTP version to HTTP/1.0. Newer versions of HTTP have more complicated connection management, where as HTTP/1.0 connections are used for just one request/response.
 
-In this lab, we'll return our focus to the sockets in the main event loop in order to establish the remaining connections needed to proxy requests to the intended destinations and return responses to the client. 
-
 ---
-### Server Port
-To streamline grading for this final task, please modify your current script to accept a port from the command-line, e.g., `python3 http-proxy.py 9999`. This argument should override any constant value that you've been using until now for the server's port.
 
----
-### Connection Flow
-The overall connection flow is described below. Additional helper code is provided later in this section:
+### Parsing Responses
+Structurally, there is almost no difference between an HTTP request with a message body and an HTTP response. In fact, the only difference from your parser's perspective is the order of fields in the first line of the message.[^http-syntax]
 
--   Upon receipt of a valid request, parse the URI _(code provided)_ to determine the host and port for the destination server that's been requested by the client.
--   Within your event handling code, create a new TCP connection to the new host and port. _This is a client connection and will be established in the same manner as the connection in your echo client of Lab 5.
--   Reconstruct the request using the `build_message` function from the previous lab and send it out over your new server-facing socket.
--   Set up a new loop to listen on this socket until you have receivedthe HTTP response coming back from the web server _(You'll need to keep trying until you can parse the complete request)_. 
--   Reconstruct the response and send it back to the client over the client-facing connection.
--   Close the connection to the client and resume waiting for new connections.
+If we know the type of message we're parsing before we start, it's easy to extend your parse_message() function to handle HTTP requests and responses. For our needs, this is an easy requirement since the proxy will always know whether it's receiving a request vs. a response based on which socket is in use.
 
----
-### Parsing the URI
+To build this functionality for yourself, add a `message_type` argument to your parser function. Modify the behavior of the function to parse the first line properly based on this argument, and include the `message_type` in the parsed message. Once you're confident that this is working, update your build_message function to check the type field and produce the appropriate bytes. 
 
-In order to create a socket to a destination based on a URI, we need to
-parse out several components and determine the hostname/address and port
-that the client to the proxy had originally requested. The image below provides a good example demonstrating the different between a URL and URI.
+There are many ways to handle a field like message_type. The most obvious, though inefficient, approach is to simply pass a string value such as `REQUEST` or `RESPONSE` and to test for the value when it is used. 
 
-![URI example](https://prateekvjoshi.files.wordpress.com/2014/02/uri-vs-url-vs-urn.jpg)
+From a software engineering perspective, we prefer (but don't require) you to use a data type that is built for this purpose, i.e., the enumeration. Enumerations are data types that map a fixed set of values to numeric constants, and they're useful for any type where we need to compare to a predefined list such as the type of socket or the bit flags of a TCP header.
 
-Since Python provides a URL parsing module, this is typically an easy task. In practice, however, there are quite a few edge cases. In order to constrain the difficulty of this lab, we are providing you with the
-following function to parse out the host and port.
+While they require a little more effort, enumerations provide advantages in terms of compile-time error detection and run-time efficiency (over string comparisons).
+
+The code below demonstrates how to create and use a MessageType enumeration within your code. 
 
 ```python
-# Be sure to add the import to the top of your code
-from urllib.parse import urlparse
+# Required imports
+from enum import Enum, auto
 
-# returns the host and port
-# run by doing:  h, p = parse_uri(dest)
-def parse_uri(uri):
-    uri = urlparse(uri)
-    scheme = uri.scheme
-    host = uri.hostname
+# Enumeration to represent message types 
+class MessageType(Enum):
+    REQUEST = auto() # constant values are auto-assigned
+    RESPONSE = auto() # constant values are auto-assigned
 
-    # urlparse can't deal with partial URI's that don't include the 
-    # protocol, e.g., push.services.mozilla.com:443
+# Use the is operator rather than == to test an enumeration …
+def parse_message(data, message_type):
+    ...
+    message['type'] = message_type
+    if message['type'] is MessageType.REQUEST:
+        # parse request fields ...
 
-    if host: # correctly parsed
-        if uri.port:
-            port = uri.port
-        else:
-            port = socket.getservbyname(scheme)
-    else: # incorrectly parsed
-        uri = uri.path.split(':')
-        host = uri[0]
-        if len(uri) > 1:
-            port = int(uri[1])
-        else:
-            port = 80
+def main():
+    ...
 
-    return host, port
+    # parse an incoming request
+    parse_message(buffer, MessageType.REQUEST)
+
 ```
 
----
+[^http-syntax]: More information available at [HTTP syntax overview](/assignments/proxy-labs) 
+
+### Connection Flow
+With your parse/build code working correctly, your proxy is almost complete. Turn you attention to completing the connection flow between a browser and the final destination of a request. A summary of this message flow for a single request/response appears below.
+
+-   Upon receipt of a valid request, parse the URI to determine the host and port for the destination server that's been requested by the client.
+-   Within your event handling loop, create a client socket to the destination associated with the new request. The host and port are provided by the previous step.
+-   Reconstruct the request using the `build_message` function from the previous lab and send it out over your new client socket.
+-   Set up a new loop to listen on this socket until you have received the HTTP response coming back from the web server. As with the original HTTP request, you'll need to keep trying until you can parse the complete request. 
+-   The browser is still waiting for a response to its request. Reconstruct the response and send it back to the browser over the original server socket.
+-   Close the connection to the client and resume waiting for new connections.
 
 ### Testing
 
-While building the remaining functionality, the simplest mode of testing is to leverage the `test.py` script provided in your start repository
-(see instructions in Lab 7 and 8 for more details). When you reach the point that your code returns a successful HTTP response to the test
-script, you should move on to testing with the browser.
+You may wish to start out using the test.py function for testing purposes in this lab, though its capabilities are limited. In particular, test.py cannot properly send a response in "line mode" (you have to provide an integer argument to tell it to break the message into fixed size chunks).
 
-Since it provides standalone proxy configuration, Firefox is the easiest browser to use for testing. Other common browsers rely on OS level configuration for proxies and tend to cause more issues for students.
+When you reach the point that your code returns a successful HTTP response to the test script, you should move on to testing with the browser.
+
+Firefox is the easiest browser to use for testing since it provides standalone proxy configuration. Other common browsers rely on OS level configuration for proxies and tend to cause more issues for students.
 
 -   Open Firefox's general preferences/settings page
 -   Scroll to the bottom of the page and select _Network Settings_ -&gt;
@@ -103,10 +96,11 @@ proxy configuration_
 
 Upon completing this task successfully, your code should proxy a request to a server and return the response back to the client over the existing network connection. If you've done this successfully, the pages should load successfully in your browser when you view a site via unencrypted HTTP.
 
-You should also print out a visual log of incoming connections, combining elements of the request and response as explained here. The format we will use for this log is consistent with the HTTP access logs
-seen in popular web servers like nginx and Apache.
+You should also print out a brief summary of each request and response received for troubleshooting purposes. The exact format does not matter -- we will refine the output in the next lab.
 
-#### Log Entry Format
+<!-- You should also print out a visual log of incoming connections, combining elements of the request and response as explained here. The format we will use for this log is consistent with the HTTP access logs seen in popular web servers like nginx and Apache. -->
+
+<!-- #### Log Entry Format
 Each line of the log contains the following entries separated by spaces:
 
 -   Remote host (client IP address)
@@ -134,13 +128,13 @@ browser/OS/etc)
     -   wrapped in double quotes
     -   replace with a single dash if the User-Agent is not present
 
-<br>
+<br> -->
 
 
-**Examples**
+<!-- **Examples**
 
 ```
 127.0.0.1 [10/Oct/2000:13:55:36 -0700] "GET /apache_pb.gif HTTP/1.0" 200 2326 "http://www.example.com/start.html" "Mozilla/4.08 [en] (Win98; I ;Nav)"
 ```
 
-More information about the Apache access log is available at [scalyr detailed apache access log](https://www.scalyr.com/blog/detailed-introduction-apache-access-log/).
+More information about the Apache access log is available at [scalyr detailed apache access log](https://www.scalyr.com/blog/detailed-introduction-apache-access-log/). -->

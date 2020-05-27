@@ -46,27 +46,7 @@ If you succeed in parsing a complete message, save the bytes into the message di
 
 [^oversimplification]: This is an oversimplification of the RFC for HTTP/1.0, but it will be sufficient for our purposes.
 
-<!-- ### Parsing Responses
-Structurally, there is almost no difference between an HTTP request with a message body and an HTTP response. In fact, the only difference from your parser's perspective is the order of fields in the first line of the message.[^http-syntax]
 
-Extend your parser to handle both types of messages based on an additional `message_type` argument to your parser function. Modify the behavior of the function to parse the first line properly based on this argument, include the `message_type` in the parsed message.
-
-A standard way to represent a value representing a message type is using an enumeration, e.g.:
-
-```python
-# Required imports
-from enum import Enum, auto
-
-# Enumeration to represent message types 
-class MessageType(Enum):
-    REQUEST = auto()
-    RESPONSE = auto()
-
-# Use the is operator rather than == to test an enumeration …
-# if message[‘type’] is MessageType.REQUEST:
-```
-
-[^http-syntax]: More information available at [HTTP syntax overview](/assignments/proxy-labs)  -->
 
 ### Get Destination URL
 

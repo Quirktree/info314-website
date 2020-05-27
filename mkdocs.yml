@@ -46,31 +46,41 @@ nav:
       - Proxy Project Overview: assignments/proxy-labs.md
       - Proxy Part 1 (Lab 7): assignments/lab7.md
       - Proxy Part 2 (Lab 8): assignments/lab8.md
-    #  - Proxy Part 3 (Lab 9): assignments/lab9.md
+      - Proxy Part 3 (Lab 9): assignments/lab9.md
   - Resources:
+    - Getting Started:
+      - Getting Pi Materials: resources/pi-materials.md
+      - Digital Ocean Signup: resources/digital-ocean.md
+      - Intro to Markdown: resources/markdown.md
+      - Intro to Bash: resources/bash.md
     - Concepts and Theory:
       - Domain Name System (DNS): notes/dns-overview.md
       - Routers: notes/router-overview.md
       - Ethernet Switches: notes/ethernet-switches.md
     - Guides:
-      - Getting Pi Materials: resources/pi-materials.md
-      - Digital Ocean Signup: resources/digital-ocean.md
-      - Basic IP Address Planning: resources/address-planning.md
-      - Introduction to Iptables: resources/iptables.md
-      - Understanding Netfilter/Iptables Hooks: resources/netfilter-hooks.md
-      - Linux Wireless Configuration: resources/wifi-reference.md
-      - Zone File Reference: resources/zone-file-format.md
-      - Special Network Interfaces (VLANs and Dummies): resources/vlans-and-dummies.md
-      - Configuring Routing Links: resources/configure-routing-links.md
-      - Install and Configure WireGuard: resources/setup-wireguard.md
-      - Install Free Range Routing (FRR): resources/setup-frr.md
-      - Using ssh-agent: resources/ssh-agent.md
-    - Quick Reference:
-      - Intro to Markdown: resources/markdown.md
-      - Intro to Bash: resources/bash.md
+      - Common Tools:
+        - Using ssh-agent: resources/ssh-agent.md
+        - Install Wireshark: resources/wireshark-install.md
+        - Install TShark: resources/tshark-install.md
+      - DNS:
+        - Zone File Reference: resources/zone-file-format.md
+      - General Network Configuration:
+        - Linux Wireless Configuration: resources/wifi-reference.md
+      - Iptables:
+        - Introduction to Iptables: resources/iptables.md
+        - Understanding Netfilter/Iptables Hooks: resources/netfilter-hooks.md
+      - Planning:
+        - Basic IP Address Planning: resources/address-planning.md
+      - Routing and VPNs:
+        - Install Free Range Routing (FRR): resources/setup-frr.md
+        - Install and Configure WireGuard: resources/setup-wireguard.md
+        - Configuring Routing Links: resources/configure-routing-links.md
+      - Special Network Interfaces:
+        - Loopback Interfaces : resources/loopback-interfaces.md
+        - Dummy Interfaces : resources/dummy-interfaces.md
+        - VLAN Interfaces : resources/vlan-interfaces.md
+    - Troubleshooting:
       - Mac/Win/Linux Networking: resources/host-config.md
-      - Install Wireshark: resources/wireshark-install.md
-      - Install TShark: resources/tshark-install.md
       - Troubleshooting DHCP: resources/manage-dhcp.md
       - Managing DNS Clients: resources/dns-clients.md
   - Contact Us: contact.md
