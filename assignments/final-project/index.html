@@ -8,7 +8,7 @@
         <meta name="author" content="Clinton Campbell">
         <link rel="canonical" href="https://info314.tcpip.dev/assignments/final-project/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>**Final Network Project** (last edited 2020-03-11) - INFO 314 Course Resources</title>
+        <title>Final Network Project (last edited 2020-05-28) - INFO 314 Course Resources</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -388,181 +388,228 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#final-network-project-last-edited-2020-03-11">Final Network Project (last edited 2020-03-11)</a></li>
+        <li class="main active"><a href="#final-network-project-last-edited-2020-05-28">Final Network Project (last edited 2020-05-28)</a></li>
             <li><a href="#overview">Overview</a></li>
             <li><a href="#before-you-start">Before you start</a></li>
             <li><a href="#project-details">Project Details</a></li>
-            <li><a href="#extra-credit">Extra Credit</a></li>
-            <li><a href="#important-links">Important Links</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="final-network-project-last-edited-2020-03-11"><strong>Final Network Project</strong> (last edited 2020-03-11)<a class="headerlink" href="#final-network-project-last-edited-2020-03-11" title="Permanent link">&para;</a></h1>
+<h1 id="final-network-project-last-edited-2020-05-28">Final Network Project (last edited 2020-05-28)<a class="headerlink" href="#final-network-project-last-edited-2020-05-28" title="Permanent link">&para;</a></h1>
 <h2 id="overview"><strong>Overview</strong><a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<hr />
 <p>Working in your group, design and implement a networked system that mirrors the concept of an Internet Service Provider (ISP) with customer networks. Your primary objective in this exercise is to adapt what you've completed in previous tasks to meet the requirements specified below.</p>
 <p>Although you will be working together as a group on this project, each participant will take the lead on configuring their own network device to integrate into the ISP network.</p>
 <p>Additional configuration guidance will be made available through Slack. We will walk through new tasks together in our remaining lectures/labs.</p>
 <div class="admonition important">
 <p class="admonition-title">Important Instructions</p>
-<p>Before you get started, please browse to following link and fill out IP and DNS info:</p>
+<p>As soon as possible, please browse to following link and provide the requested information about your group's WireGuard configuration and individual .pi Name Servers:</p>
 <ul>
-<li><a href="https://docs.google.com/spreadsheets/d/1Bxp3wKK4W0cgG3RDtyWJg1VPGIyQEE0qn2TV0Y84Gx0/edit?usp=sharing">PICANN Registry</a></li>
+<li><a href="https://docs.google.com/spreadsheets/d/1A3uCrVmrwoPdA0LvMH6IyRkU1_BLXhbVRjIadtc__E0/edit?usp=sharing">PICANN Registry</a></li>
 </ul>
 <p>Take time to plan out the network design and IP address usage with your group before you build. This plan is a mandatory deliverable and will be required before implementation assistance is given.</p>
 <p>We recommend that you sketch out an initial diagram of the entire network and create a checklist of major settings for each device.</p>
 </div>
 <h2 id="before-you-start"><strong>Before you start</strong><a class="headerlink" href="#before-you-start" title="Permanent link">&para;</a></h2>
+<hr />
 <p>Each of your group members need to have completed the individual project checkpoints before proceeding with the configuration necessary for the final network. Each pi should function as a network gateway while also providing DHCP and private DNS services to an Ethernet-based LAN.</p>
 <h2 id="project-details"><strong>Project Details</strong><a class="headerlink" href="#project-details" title="Permanent link">&para;</a></h2>
 <hr />
-<h3 id="overview_1">Overview<a class="headerlink" href="#overview_1" title="Permanent link">&para;</a></h3>
-<p>Each group is required to fulfill the following requirements by building off of previous checkpoints and additional resources.</p>
-<div class="admonition important">
-<p class="admonition-title">Differences between videos/specifications</p>
-<p>As a resource, I have provided videos that walk through various parts of this project. Please note that some of these videos were made in previous quarters. There may be minor differences between current project requirements and what is discussed in the video. It is important that you follow the current written specifications.</p>
-</div>
-<p>Perform IP address planning and network renumbering on a group and individual basis based on the address ranges provided by the instructor. </p>
+<p>The following outline summarizes the steps that are needed to inter-network your individual LANs and join them up to the global, PiCANN internet core. Once you have completed these tasks, you will be able to route traffic across our class network and participate in friendly email exchanges with your classmates on the .pi top level domain!</p>
+<ol>
+<li>With your group, <ins>review</ins> the ASN and address ranges defined at PiCANN and <ins>assign and ASN and distinct subnet</ins> to each group member.</li>
+<li>With your group, <ins>configure</ins> a Debian 10.3 VM at DigitalOcean (or other cloud provider) to act as an <ins>ISP router</ins> for your group using VPN-based routing links.</li>
+<li><ins>Design a new address plan</ins> for your LAN/WAN presence based on the address range assigned in Step 1 and including a <ins>minimum of two subnets</ins>.</li>
+<li>After reviewing your work on previous checkpoints, <ins>"re-number" your LAN segment</ins> using the new LAN subnet, updating the configuration of networkd, DHCP, iptables, and BIND as required for the task.</li>
+<li><ins>Configure a routing link</ins> between your Pi-based router and the cloud-based ISP, setting up both ends of the VPN and the BGP peering relationships.</li>
+<li>Review the documentation you created for your .pi domain in Checkpoint #5 and <ins>update your DNS plan</ins> according to your new address plan.</li>
+<li><ins>Configure additional "DMZ" addresses</ins> on your Pi and <ins>update your DNS zone configuration</ins> to serve the new addresses correctly.</li>
+<li><ins>Install and configure</ins> the Docker-based mail servers based on your own network settings. </li>
+<li>Work with your group to <ins>test and document</ins> your work, ensuring that routing and DNS are working consistently across your shared ISP and individual Edge routers.</li>
+<li>Using your shiny new webmail service, send an email to <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#99;&#108;&#105;&#110;&#116;&#111;&#110;&#64;&#103;&#114;&#97;&#100;&#101;&#98;&#111;&#111;&#107;&#46;&#112;&#105;">&#99;&#108;&#105;&#110;&#116;&#111;&#110;&#64;&#103;&#114;&#97;&#100;&#101;&#98;&#111;&#111;&#107;&#46;&#112;&#105;</a>.</li>
+</ol>
+<h3 id="planning-and-documentation"><strong>Planning and Documentation</strong><a class="headerlink" href="#planning-and-documentation" title="Permanent link">&para;</a></h3>
+<hr />
+<p>Up until this point, you have each configured your networks with private address ranges of your own choosing. While this is convenient for getting started, it doesn't lend itself well to a class-wide internet where each device must have its own unique addresses. Going forward, we will ask you to re-number your networks to use the assigned address blocks.</p>
+<h4 id="specifications"><strong>Specifications</strong><a class="headerlink" href="#specifications" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Assign an ASN and a distinct subnet to each member of your team. All ASNs and subnets must fall within the larger range provided for your group.</li>
+<li>Select an additional ASN to use for peering between your ISP router and the PiCANN core. Update the PiCANN peering directory with this information.</li>
+<li>Document your team's address range and individual assignments within a markdown document called final-planning.md. This document should be uploaded to your team's repository as soon as possible for referenced during the remaining parts of the project.</li>
+</ol>
+<h3 id="isp-router"><strong>ISP Router</strong><a class="headerlink" href="#isp-router" title="Permanent link">&para;</a></h3>
+<hr />
+<p>As a group, you will need to set up a new Debian 10.3 droplet at Digital Ocean, install WireGuard and Free Range Routing packages, and configure a WireGuard and BGP to create a routing link with the core network. This link will provide connectivity to the other groups in the class, and the peering relationship you create with the core router will be used to exchange routes between upstream and downstream routers. </p>
+<p>Completion of this task will require collaboration with the Instruction team. Consult the [PiCANN] registry for VPN/BGP parameters that your group will use to peer with the core router. Fill in the missing values with your public key and the ASN that you assigned to the ISP router. Notify the instruction team via Slack so that we can complete the upstream configuration.</p>
+<h4 id="specifications_1"><strong>Specifications</strong><a class="headerlink" href="#specifications_1" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Create a new VM using the $5/mo specs and the SSH key of one of your group members. You may also wish to enable IPv6 (can improve connectivity if any of your team mmembers have IPv6 capable ISPs (such as Comcast).</li>
+<li>Update /root/.ssh/authorized_keys on your VM to include public keys for each of your group members as well as the following key for the instructor: <code>ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBJTZTstXqjM7lEaFj/pnRNEztiZYu4yhKBZDrUCYMi5 clinton@info314</code>.</li>
+<li>Install WireGuard and Free Range Routing (FRR) based on the instructions given in class and the guides posted on this site.</li>
+<li>Create a new private/public key pair and add the public key to PiCANN along with the public IPv4 address of your router.</li>
+<li>Referencing your groups configuration parameters in PiCANN, configure a persistent VPN interface to connect to the core based on the <em>legacy Debian networking</em> approach.</li>
+<li>Configure FRR to enable BGP and establish a peer relationship with the PiCANN core.</li>
+<li>Refer to the documentation from Checkpoint #3 to enable IPv4 forwarding with <em>sysctl</em> and create <em>iptables</em> rules to allow packets to be forwarded from your WireGuard tunnel interface. As with Checkpoint #3, set the default forwarding policy to drop packets.</li>
+<li>Make sure that you have updated the peering worksheet in PiCANN with missing parameters and notify the Instruction team that your peer is ready to connect.</li>
+</ol>
+<h3 id="lanwan-address-planning"><strong>LAN/WAN Address Planning</strong><a class="headerlink" href="#lanwan-address-planning" title="Permanent link">&para;</a></h3>
+<hr />
+<h4 id="specifications_2"><strong>Specifications</strong><a class="headerlink" href="#specifications_2" title="Permanent link">&para;</a></h4>
 <ul>
-<li>IP address<ul>
-<li>assignments can be found in the <a href="https://docs.google.com/spreadsheets/d/1Bxp3wKK4W0cgG3RDtyWJg1VPGIyQEE0qn2TV0Y84Gx0/edit?usp=sharing">PICANN Registry</a></li>
-<li>Video guide on Authoritative server, external IP, external DNS: <a href="https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=65c5c73b-5d96-455b-8ee9-aa5e001e40c3">Panapto Recording</a></li>
-<li><a href="https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=07ea5431-49f2-4022-b209-ab7001454435">Address Planning for Final Project (video)</a></li>
-</ul>
-</li>
-<li>VLANS:<ul>
-<li><a href="https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=abcfc06f-b904-4cfc-8de9-aa64000aa3a0">VLAN and Switch Planning (video)</a></li>
-<li>Planning: VLAN and switch planning worksheet</li>
-</ul>
-</li>
-<li><strong>Your network plans must be documented before requesting implementation assistance from instruction team</strong></li>
-</ul>
-<p>Once you've completed all network planning and documentation you may move on to the following sections.</p>
-<ul>
-<li>Build a “core router” that will function as the ISP for your other networks. In addition to providing connectivity between routers, you will provide public Internet access for the rest of your group. The router will eventually be connected to other groups to form a private in-class Internet.<ul>
-<li><a href="https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=fc325b42-6bed-4542-8940-ab700140b0c3">Project Topology (video)</a></li>
-<li><a href="https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=abcfc06f-b904-4cfc-8de9-aa64000aa3a0">VLAN and Switch Planning (video)</a></li>
-</ul>
-</li>
-<li>Build two or more “edge routers” that will allow your partners to connect to the Internet as customers of the ISP. Each router should serve one or more LAN subnets. In your final configuration, you should rely on the ISP connection for public Internet access, i.e., you won't be connecting the edge routers to public wifi directly except for setup purposes.</li>
-<li>Using Free Range Routing (FRR), configure BGP peering on the routing links between the ISP routers and customers’ edge routers.<ul>
-<li><a href="/resources/setup-frr">Setup FRRouting</a></li>
-<li><a href="https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=abd934e0-9a2b-4c4e-9e76-aa63017e78f0">Install FRR and Unifi Controller (video)</a></li>
-<li><a href="/resources/configure-routing-links">Configure BGP peering</a></li>
-<li><a href="https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=b55f0a5f-4dc4-4fee-b8ee-aa64001a1d50">FRR and BGP routing configuration (video)</a></li>
-</ul>
-</li>
-<li>Configure public domains, authoritative servers, and (optionally) email for each of your networks. One router in your group should also host the .pi TLD at 10.10.10.10 (BGP Anycast) via a provided Docker image.</li>
-<li><strong>[ SKIP ME ]</strong> Configure a Ubiquiti Unifi switch based on instructor instructions to support the system topology.<ul>
-<li><a href="https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=daee7090-819a-4768-83dd-aa630185d228">Setting up VLANs on a Unifi Switch (video)</a></li>
-</ul>
-</li>
-</ul>
-<h3 id="renumbering-ip-addresses">Renumbering IP Addresses<a class="headerlink" href="#renumbering-ip-addresses" title="Permanent link">&para;</a></h3>
-<ul>
-<li>A block of IP addresses have been assigned to each group via the <a href="https://docs.google.com/spreadsheets/d/1Bxp3wKK4W0cgG3RDtyWJg1VPGIyQEE0qn2TV0Y84Gx0/edit?usp=sharing">PICANN Registry</a></li>
-<li>Assign a range of addresses to each group member based on this block.</li>
-<li>Each group member should further subnet their own range into 2 - 4 distinct subnets.<ul>
+<li>Each group member should subnet their PiCANN subnet into 2 - 4 distinct subnets.<ul>
 <li>A minimum of two subnets per LAN are needed to meet the base project requirements.</li>
-<li>If you would like to experiment with more complex firewall rules and/or setting up a wireless LAN, we recommend four subnets.</li>
+<li>If you would like to experiment with more complex configurations later we recommend four subnets.</li>
 </ul>
 </li>
-<li>Use one of your subnets for your internal LAN (providing DHCP and other services to devices accessing through Ethernet). A second subnet should be dedicated to any public-facing services. </li>
+<li>Use one of your subnets for your internal LAN (providing DHCP and other services to devices accessing through Ethernet). A second subnet should be dedicated to any public-facing services. We'll often associate this subnet with your "DMZ". </li>
 </ul>
-<h3 id="core-router-setup">Core Router Setup<a class="headerlink" href="#core-router-setup" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Managing network interfaces<ul>
-<li>Use wlan0 to provide access to the public Internet to your customers (NAT is required)</li>
-<li><strong>[ORIGINAL]</strong> Set up tagged VLAN interfaces to connect with each edge router.</li>
-<li><strong>[UPDATED]</strong> Set up at least one VLAN interace, as would be required to connect with one of the Edge routers included in your network plan.</li>
-<li>See <a href="https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=984e3939-da15-414a-9af4-aa640010989e">Setting up VLAN interfaces in Linux (video)</a>.</li>
-</ul>
-</li>
-<li>Firewall rules<ul>
-<li>Our network is private, so use connection state with your forwarding rules to make sure inbound packets (from wlan0) are dropped when they aren't related to established sessions</li>
-<li>Within our network, traffic should be routed rather freely. In other words, make sure you aren't dropping packets that are being forwarded from your LAN or one of your partners' routing links.</li>
-</ul>
-</li>
-<li>Private LAN<ul>
-<li>Even though your router's primary role is infrastructure for your group, you should still set up a basic LAN that you'll connect to for management purposes. This should meet the base requirements described for LAN services.</li>
-</ul>
-</li>
-</ul>
-<h3 id="edge-network-setup">Edge Network Setup<a class="headerlink" href="#edge-network-setup" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Managing network interfaces<ul>
-<li>Create a tagged VLAN to connect with the core router. You must coordinate the VLAN ID with the core router and the switch.</li>
-<li>See <a href="https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=984e3939-da15-414a-9af4-aa640010989e">Setting up VLAN interfaces in Linux (video)</a>.</li>
-</ul>
-</li>
-<li>Managing firewall rules<ul>
-<li>You'll have no need for NAT as long as you set up your LAN inside your allocated IP range (see the previously linked registry)</li>
-<li>You may set the default FORWARD policy to ACCEPT to ensure that traffic can be routed between partners.</li>
-</ul>
-</li>
-</ul>
-<div class="admonition info">
-<p class="admonition-title">Extra Credit</p>
-<ul>
-<li>Configure the default FORWARD policy to DROP traffic.</li>
-<li>You can allow traffic to be forwarded into your network (from wlan0) if it's related to a session your LAN client's initiated</li>
-<li>You can allow traffic into your device or network from the other routing links if it is destined to a public-facing service (i.e., Authoritative DNS, SMTP, or Webmail).</li>
-<li>Configure DROP policies for the INPUT and OUTPUT chains that manage traffic to/from the router.</li>
-</ul>
-</div>
-<h3 id="ubiquiti-switch">Ubiquiti Switch<a class="headerlink" href="#ubiquiti-switch" title="Permanent link">&para;</a></h3>
-<h4 id="91-skip-this-section-93"><strong>[ SKIP THIS SECTION ]</strong><a class="headerlink" href="#91-skip-this-section-93" title="Permanent link">&para;</a></h4>
-<p>See <a href="https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=abcfc06f-b904-4cfc-8de9-aa64000aa3a0">VLAN and Switch Planning</a>, <a href="https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=abd934e0-9a2b-4c4e-9e76-aa63017e78f0">Installing FRR and Ubiquiti Controller</a>, and <a href="https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=daee7090-819a-4768-83dd-aa630185d228">Configuring Unifi Switch</a>.</p>
-<ul>
-<li>Configure a VLAN that each group member shares with their own Pi. Set the VLAN up as native (untagged) for both the Pi and the PC connection to the switch.</li>
-<li>Set up tagged VLANs for each routing link. Create a profile for the port associated with each of your Pi’s and add the VLANs to the profile according to which connections are available to that Pi.</li>
-<li>Reserve one port for the connection to the “core network”. This port should be natively associated with the VLAN created for the core routing link.</li>
-</ul>
-<h3 id="lan-services">LAN Services<a class="headerlink" href="#lan-services" title="Permanent link">&para;</a></h3>
-<ul>
-<li>Configure a DNS resolver (either caching or forwarding) to handle requests outside of your private zone. This was the outcome of Checkpoint &num;4.</li>
-<li>Configure DHCP services to distribute addresses and configuration within your LAN to end-users ([use the pre-defined address allocations for your group]). This was the outcome of Checkpoint &num;2, though you will need to adjust your address range.</li>
-<li><strong>(EXTRA CREDIT OPTION)</strong> Configure a private DNS zone, e.g., corp.gradebook.pi, and use BIND views to restrict access to your private zone and the DNS resolver so that it is not available outside of your local LAN.</li>
-</ul>
-<h3 id="public-services">Public Services<a class="headerlink" href="#public-services" title="Permanent link">&para;</a></h3>
-<p>See <a href="https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=65c5c73b-5d96-455b-8ee9-aa5e001e40c3">Configuring External IP and DNS</a>.</p>
-<ul>
-<li>Configure a public DNS zone for each network (ISP + customer networks) and set up records for each of your public services (you may choose to centralize authoritative DNS at the ISP, but each student must configure their own zone file).</li>
-<li><strong>[ SKIP ME ]</strong> (ONE PER GROUP) Host an authoritative DNS slave for the .pi TLD. This server will be hosted publicly on 10.10.10.10 and routed via BGP Anycast. A dockerized container and instructions to deploy are included in the repo linked below.</li>
-<li><strong>(EXTRA CREDIT OPTION)</strong> Configure <a href="https://github.com/i314-campbell-sp19/docker-mail">email</a> for each of your public domains using the provided docker containers.</li>
-</ul>
-<h2 id="extra-credit"><strong>Extra Credit</strong><a class="headerlink" href="#extra-credit" title="Permanent link">&para;</a></h2>
+<h3 id="edge-network-setup"><strong>Edge Network Setup</strong><a class="headerlink" href="#edge-network-setup" title="Permanent link">&para;</a></h3>
 <hr />
-<p>If you're up for the challenge, there are several other ways to earn extra credit toward your final grade by completing the following tasks.</p>
-<ul>
-<li><strong>(1 pt)</strong> Install and configure the <a href="https://github.com/i314-campbell-sp19/docker-mail">Pi Mail</a> Docker containers in order to host email on your domain/network.<ul>
-<li>Extra credit will be given to each student who successfully completes this task.</li>
+<p>After you complete your final planning for your LAN and public address ranges, you should "re-number" your LAN connection to use the new LAN address range. To save yourself significant troubleshooting time, proceed carefully with this task and make sure that you apply updates to networkd, DHCP, iptables, and BIND as required to support the new addresses. It will likely be helpful to review your previous work and the guides for the past Checkpoints (especially 1 - 4). </p>
+<p>The next task in store for you is to establish connectivity and routing to the ISP VM that your group configured earlier. This is a two-part process, as you will need to create a WireGuard interface and configure peering on both routers (Debian VM and Pi). Keep in mind at this point that there are slight differences in the implementation on each end of this connection. The WireGuard configuration on the Debian VM relies on <em>legacy Debian networking</em> configuration while the Pi will be configured with the built-in WireGuard capabilities of <em>systemd-networkd</em>. We have provided reference documentation and video demos for each scenario.</p>
+<p>The tasks you are completing are not extremely difficult, but there are ample opportunities for confusion. You should review instructions and make sure that your planning documents include all of the IP addresses and other values that you will need. Having this information well organized can be the difference between finishing this task in an hour versus spending several hours debugging.</p>
+<h4 id="specifications_3"><strong>Specifications</strong><a class="headerlink" href="#specifications_3" title="Permanent link">&para;</a></h4>
+<ol>
+<li>Update all network-based services on your LAN to use the new IP address ranges as determined by your group assignments and your own address planning.</li>
+<li>Follow the linked resources to install WireGuard and Free Range Routing (FRR) on your Pi-based router.</li>
+<li>Create a new WireGuard interface and configure it to peer with the Debian-based ISP router shared with your group.<ul>
+<li>Configure both ends of the VPN tunnel with IP addresses selected from your public/DMZ subnet. These addresses should be documented on your report.</li>
 </ul>
 </li>
-<li><strong>(1 pt)</strong> Add a wireless access point to your Edge LANs. The wlan0 port is capable of operating as a software-based access point using the hostapd package in the Debian repositories.<ul>
-<li>At least two group members must complete this configuration. Instructions will be provided.</li>
+<li>Enable the FRR BGP daemon and configure your new router based on the provided guides. In order to do this, you will need an ASN and an additional public address to use as a router ID. Make sure that both values are included in your documentation.<ul>
+<li>Log into the ISP router and update its BGP router settings to recognize your Pi-based router as a neighbor You will need the tunnel addresses from the previous step and the ASN identifiers assigned by your group to the ISP and your Edge network.</li>
+<li>Repeat the configuration process on your local router, setting up a peering (neighbor) relationship with the ISP.</li>
+<li>Use the <em>network</em> directive to configure your local BGP to advertise the entire LAN/WAN subnet range that you were assigned by your group.</li>
 </ul>
 </li>
-<li><strong>(2 pt)</strong> Extend your Iptables rules to support a default DROP policy on the INPUT chain, making sure that you have full utility of all of your private and public services.<ul>
-<li>Apply this configuration to each of your customer networks, adapting for any differences in configuration for that network.</li>
-</ul>
-</li>
-<li><strong>(1 pt)</strong> Extend your IPTables rules to support a default DROP policy on the OUTPUT chain, making sure that you have full utility of all of your private and public services.<ul>
-<li>Apply this configuration to each of your customer networks, adapting for any differences in configuration for that network.</li>
-</ul>
-</li>
-<li><strong>[ SKIP ME ]</strong> (1 pt) Perform TCP-based nmap scans of your networks from inside and outside. Summarize the major findings for each network.<ul>
-<li>You should have 2 scans per Pi. One scanning IP addresses for that team member from inside their LAN and one scanning from a different LAN.</li>
-</ul>
-</li>
-</ul>
-<h2 id="important-links"><strong>Important Links</strong><a class="headerlink" href="#important-links" title="Permanent link">&para;</a></h2>
+<li>Update iptables to enable packet forwarding from your new WireGuard interface.</li>
+</ol>
+<h3 id="enabling-public-services"><strong>Enabling Public Services</strong><a class="headerlink" href="#enabling-public-services" title="Permanent link">&para;</a></h3>
+<h3 id="links-and-resources"><strong>Links and Resources</strong><a class="headerlink" href="#links-and-resources" title="Permanent link">&para;</a></h3>
 <hr />
 <ul>
-<li><a href="https://docs.google.com/spreadsheets/d/1Bxp3wKK4W0cgG3RDtyWJg1VPGIyQEE0qn2TV0Y84Gx0/edit?usp=sharing">PICANN</a>: DNS Registry and IP Reservations</li>
-<li><strong>[ SKIP ME ]</strong> dotPI TLD:  Instructions and docker components needed to load a dockerized BIND on 10.10.10.10 for the .pi TLD</li>
+<li><a href="https://docs.google.com/spreadsheets/d/1A3uCrVmrwoPdA0LvMH6IyRkU1_BLXhbVRjIadtc__E0/edit?usp=sharing">PICANN Registry</a></li>
 <li><a href="https://github.com/i314-campbell-sp19/docker-mail">Pi Mail</a>: Instructions and docker components needed to configure SMTP, IMAP, and a webmail server on your Pi</li>
-</ul></div>
+<li><a href="/resources/setup-wireguard">Installing WireGuard</a></li>
+<li><a href="/resources/setup-frr">Installing Free Range Routing (FRR)</a></li>
+<li><a href="/resources/wireguard-configuration">WireGuard Peering</a></li>
+<li><a href="/resources/configure-routing-links">Configure Routing Links</a></li>
+</ul>
+<!--
+Each group is required to fulfill the following requirements by building off of previous checkpoints and additional resources.
+
+!!! important "Differences between videos/specifications"
+    As a resource, I have provided videos that walk through various parts of this project. Please note that some of these videos were made in previous quarters. There may be minor differences between current project requirements and what is discussed in the video. It is important that you follow the current written specifications.
+
+
+Perform IP address planning and network renumbering on a group and individual basis based on the address ranges provided by the instructor. 
+
+  - IP address
+      -  assignments can be found in the [PICANN Registry](https://docs.google.com/spreadsheets/d/1Bxp3wKK4W0cgG3RDtyWJg1VPGIyQEE0qn2TV0Y84Gx0/edit?usp=sharing)
+      - Video guide on Authoritative server, external IP, external DNS: [Panapto Recording](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=65c5c73b-5d96-455b-8ee9-aa5e001e40c3)
+      - [Address Planning for Final Project (video)](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=07ea5431-49f2-4022-b209-ab7001454435)
+  - VLANS:
+      - [VLAN and Switch Planning (video)](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=abcfc06f-b904-4cfc-8de9-aa64000aa3a0)
+      - Planning: VLAN and switch planning worksheet
+  - **Your network plans must be documented before requesting implementation assistance from instruction team**
+
+Once you've completed all network planning and documentation you may move on to the following sections.
+
+- Build a “core router” that will function as the ISP for your other networks. In addition to providing connectivity between routers, you will provide public Internet access for the rest of your group. The router will eventually be connected to other groups to form a private in-class Internet.
+    - [Project Topology (video)](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=fc325b42-6bed-4542-8940-ab700140b0c3)
+    - [VLAN and Switch Planning (video)](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=abcfc06f-b904-4cfc-8de9-aa64000aa3a0)
+- Build two or more “edge routers” that will allow your partners to connect to the Internet as customers of the ISP. Each router should serve one or more LAN subnets. In your final configuration, you should rely on the ISP connection for public Internet access, i.e., you won't be connecting the edge routers to public wifi directly except for setup purposes.
+- Using Free Range Routing (FRR), configure BGP peering on the routing links between the ISP routers and customers’ edge routers.
+    - [Setup FRRouting](/resources/setup-frr)
+    - [Install FRR and Unifi Controller (video)](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=abd934e0-9a2b-4c4e-9e76-aa63017e78f0)
+    - [Configure BGP peering](/resources/configure-routing-links)
+    - [FRR and BGP routing configuration (video)](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=b55f0a5f-4dc4-4fee-b8ee-aa64001a1d50)
+- Configure public domains, authoritative servers, and (optionally) email for each of your networks. One router in your group should also host the .pi TLD at 10.10.10.10 (BGP Anycast) via a provided Docker image.
+- **\[ SKIP ME \]** Configure a Ubiquiti Unifi switch based on instructor instructions to support the system topology.
+    - [Setting up VLANs on a Unifi Switch (video)](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=daee7090-819a-4768-83dd-aa630185d228)
+
+### Renumbering IP Addresses
+- A block of IP addresses have been assigned to each group via the [PICANN Registry](https://docs.google.com/spreadsheets/d/1Bxp3wKK4W0cgG3RDtyWJg1VPGIyQEE0qn2TV0Y84Gx0/edit?usp=sharing)
+- Assign a range of addresses to each group member based on this block.
+- Each group member should further subnet their own range into 2 - 4 distinct subnets.
+    - A minimum of two subnets per LAN are needed to meet the base project requirements.
+    - If you would like to experiment with more complex firewall rules and/or setting up a wireless LAN, we recommend four subnets.
+- Use one of your subnets for your internal LAN (providing DHCP and other services to devices accessing through Ethernet). A second subnet should be dedicated to any public-facing services. 
+
+### Core Router Setup
+- Managing network interfaces
+    - Use wlan0 to provide access to the public Internet to your customers (NAT is required)
+    - **\[ORIGINAL\]** Set up tagged VLAN interfaces to connect with each edge router.
+    - **\[UPDATED\]** Set up at least one VLAN interace, as would be required to connect with one of the Edge routers included in your network plan.
+    - See [Setting up VLAN interfaces in Linux (video)](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=984e3939-da15-414a-9af4-aa640010989e).
+- Firewall rules
+    - Our network is private, so use connection state with your forwarding rules to make sure inbound packets (from wlan0) are dropped when they aren't related to established sessions
+    - Within our network, traffic should be routed rather freely. In other words, make sure you aren't dropping packets that are being forwarded from your LAN or one of your partners' routing links.
+- Private LAN
+    - Even though your router's primary role is infrastructure for your group, you should still set up a basic LAN that you'll connect to for management purposes. This should meet the base requirements described for LAN services.
+
+### Edge Network Setup
+- Managing network interfaces
+    - Create a tagged VLAN to connect with the core router. You must coordinate the VLAN ID with the core router and the switch.
+    - See [Setting up VLAN interfaces in Linux (video)](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=984e3939-da15-414a-9af4-aa640010989e).
+- Managing firewall rules
+    - You'll have no need for NAT as long as you set up your LAN inside your allocated IP range (see the previously linked registry)
+    - You may set the default FORWARD policy to ACCEPT to ensure that traffic can be routed between partners.
+
+!!! info "Extra Credit"
+    - Configure the default FORWARD policy to DROP traffic.
+    - You can allow traffic to be forwarded into your network (from wlan0) if it's related to a session your LAN client's initiated
+    - You can allow traffic into your device or network from the other routing links if it is destined to a public-facing service (i.e., Authoritative DNS, SMTP, or Webmail).
+    - Configure DROP policies for the INPUT and OUTPUT chains that manage traffic to/from the router.
+
+### Ubiquiti Switch
+
+#### **\[ SKIP THIS SECTION \]**
+
+See [VLAN and Switch Planning](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=abcfc06f-b904-4cfc-8de9-aa64000aa3a0), [Installing FRR and Ubiquiti Controller](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=abd934e0-9a2b-4c4e-9e76-aa63017e78f0), and [Configuring Unifi Switch](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=daee7090-819a-4768-83dd-aa630185d228).
+
+- Configure a VLAN that each group member shares with their own Pi. Set the VLAN up as native (untagged) for both the Pi and the PC connection to the switch.
+- Set up tagged VLANs for each routing link. Create a profile for the port associated with each of your Pi’s and add the VLANs to the profile according to which connections are available to that Pi.
+- Reserve one port for the connection to the “core network”. This port should be natively associated with the VLAN created for the core routing link.
+
+### LAN Services
+- Configure a DNS resolver (either caching or forwarding) to handle requests outside of your private zone. This was the outcome of Checkpoint &num;4.
+- Configure DHCP services to distribute addresses and configuration within your LAN to end-users ([use the pre-defined address allocations for your group]). This was the outcome of Checkpoint &num;2, though you will need to adjust your address range.
+- **(EXTRA CREDIT OPTION)** Configure a private DNS zone, e.g., corp.gradebook.pi, and use BIND views to restrict access to your private zone and the DNS resolver so that it is not available outside of your local LAN.
+
+### Public Services
+See [Configuring External IP and DNS](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=65c5c73b-5d96-455b-8ee9-aa5e001e40c3).
+
+- Configure a public DNS zone for each network (ISP + customer networks) and set up records for each of your public services (you may choose to centralize authoritative DNS at the ISP, but each student must configure their own zone file).
+- **\[ SKIP ME \]** (ONE PER GROUP) Host an authoritative DNS slave for the .pi TLD. This server will be hosted publicly on 10.10.10.10 and routed via BGP Anycast. A dockerized container and instructions to deploy are included in the repo linked below.
+- **(EXTRA CREDIT OPTION)** Configure [email](https://github.com/i314-campbell-sp19/docker-mail) for each of your public domains using the provided docker containers.
+
+
+## **Extra Credit**
+---
+
+If you're up for the challenge, there are several other ways to earn extra credit toward your final grade by completing the following tasks.
+
+- **(1 pt)** Install and configure the [Pi Mail](https://github.com/i314-campbell-sp19/docker-mail) Docker containers in order to host email on your domain/network.
+    - Extra credit will be given to each student who successfully completes this task.
+- **(1 pt)** Add a wireless access point to your Edge LANs. The wlan0 port is capable of operating as a software-based access point using the hostapd package in the Debian repositories.
+    - At least two group members must complete this configuration. Instructions will be provided.
+- **(2 pt)** Extend your Iptables rules to support a default DROP policy on the INPUT chain, making sure that you have full utility of all of your private and public services.
+    - Apply this configuration to each of your customer networks, adapting for any differences in configuration for that network.
+- **(1 pt)** Extend your IPTables rules to support a default DROP policy on the OUTPUT chain, making sure that you have full utility of all of your private and public services.
+    - Apply this configuration to each of your customer networks, adapting for any differences in configuration for that network.
+- **\[ SKIP ME \]** (1 pt) Perform TCP-based nmap scans of your networks from inside and outside. Summarize the major findings for each network.
+    - You should have 2 scans per Pi. One scanning IP addresses for that team member from inside their LAN and one scanning from a different LAN.
+
+
+## **Important Links**
+---
+
+- [PICANN](https://docs.google.com/spreadsheets/d/1Bxp3wKK4W0cgG3RDtyWJg1VPGIyQEE0qn2TV0Y84Gx0/edit?usp=sharing): DNS Registry and IP Reservations
+- **\[ SKIP ME \]** dotPI TLD:  Instructions and docker components needed to load a dockerized BIND on 10.10.10.10 for the .pi TLD
+- [Pi Mail](https://github.com/i314-campbell-sp19/docker-mail): Instructions and docker components needed to configure SMTP, IMAP, and a webmail server on your Pi
+--></div>
         </div>
 
         <footer class="col-md-12">
