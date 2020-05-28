@@ -1,6 +1,7 @@
-# **Final Network Project** (last edited 2020-03-11)
+# Final Network Project (last edited 2020-05-28)
 
 ## **Overview**
+---
 Working in your group, design and implement a networked system that mirrors the concept of an Internet Service Provider (ISP) with customer networks. Your primary objective in this exercise is to adapt what you've completed in previous tasks to meet the requirements specified below.
 
 Although you will be working together as a group on this project, each participant will take the lead on configuring their own network device to integrate into the ISP network.
@@ -8,21 +9,108 @@ Although you will be working together as a group on this project, each participa
 Additional configuration guidance will be made available through Slack. We will walk through new tasks together in our remaining lectures/labs.
 
 !!! important "Important Instructions"
-    Before you get started, please browse to following link and fill out IP and DNS info:
+    As soon as possible, please browse to following link and provide the requested information about your group's WireGuard configuration and individual .pi Name Servers:
 
-    - [PICANN Registry](https://docs.google.com/spreadsheets/d/1Bxp3wKK4W0cgG3RDtyWJg1VPGIyQEE0qn2TV0Y84Gx0/edit?usp=sharing)
+    - [PICANN Registry](https://docs.google.com/spreadsheets/d/1A3uCrVmrwoPdA0LvMH6IyRkU1_BLXhbVRjIadtc__E0/edit?usp=sharing)
 
     Take time to plan out the network design and IP address usage with your group before you build. This plan is a mandatory deliverable and will be required before implementation assistance is given.
     
     We recommend that you sketch out an initial diagram of the entire network and create a checklist of major settings for each device.
 
 ## **Before you start**
+---
+
 Each of your group members need to have completed the individual project checkpoints before proceeding with the configuration necessary for the final network. Each pi should function as a network gateway while also providing DHCP and private DNS services to an Ethernet-based LAN.
 
 ## **Project Details**
 ---
 
-### Overview
+The following outline summarizes the steps that are needed to inter-network your individual LANs and join them up to the global, PiCANN internet core. Once you have completed these tasks, you will be able to route traffic across our class network and participate in friendly email exchanges with your classmates on the .pi top level domain!
+
+1. With your group, <ins>review</ins> the ASN and address ranges defined at PiCANN and <ins>assign and ASN and distinct subnet</ins> to each group member.
+1. With your group, <ins>configure</ins> a Debian 10.3 VM at DigitalOcean (or other cloud provider) to act as an <ins>ISP router</ins> for your group using VPN-based routing links.
+1. <ins>Design a new address plan</ins> for your LAN/WAN presence based on the address range assigned in Step 1 and including a <ins>minimum of two subnets</ins>.
+1. After reviewing your work on previous checkpoints, <ins>"re-number" your LAN segment</ins> using the new LAN subnet, updating the configuration of networkd, DHCP, iptables, and BIND as required for the task.
+1. <ins>Configure a routing link</ins> between your Pi-based router and the cloud-based ISP, setting up both ends of the VPN and the BGP peering relationships.
+1. Review the documentation you created for your .pi domain in Checkpoint #5 and <ins>update your DNS plan</ins> according to your new address plan.
+1. <ins>Configure additional "DMZ" addresses</ins> on your Pi and <ins>update your DNS zone configuration</ins> to serve the new addresses correctly.
+1. <ins>Install and configure</ins> the Docker-based mail servers based on your own network settings. 
+1. Work with your group to <ins>test and document</ins> your work, ensuring that routing and DNS are working consistently across your shared ISP and individual Edge routers.
+1. Using your shiny new webmail service, send an email to clinton@gradebook.pi.
+
+### **Planning and Documentation**
+---
+Up until this point, you have each configured your networks with private address ranges of your own choosing. While this is convenient for getting started, it doesn't lend itself well to a class-wide internet where each device must have its own unique addresses. Going forward, we will ask you to re-number your networks to use the assigned address blocks.
+
+#### **Specifications**
+
+1. Assign an ASN and a distinct subnet to each member of your team. All ASNs and subnets must fall within the larger range provided for your group.
+1. Select an additional ASN to use for peering between your ISP router and the PiCANN core. Update the PiCANN peering directory with this information.
+1. Document your team's address range and individual assignments within a markdown document called final-planning.md. This document should be uploaded to your team's repository as soon as possible for referenced during the remaining parts of the project.
+
+### **ISP Router**
+---
+
+As a group, you will need to set up a new Debian 10.3 droplet at Digital Ocean, install WireGuard and Free Range Routing packages, and configure a WireGuard and BGP to create a routing link with the core network. This link will provide connectivity to the other groups in the class, and the peering relationship you create with the core router will be used to exchange routes between upstream and downstream routers. 
+
+Completion of this task will require collaboration with the Instruction team. Consult the [PiCANN] registry for VPN/BGP parameters that your group will use to peer with the core router. Fill in the missing values with your public key and the ASN that you assigned to the ISP router. Notify the instruction team via Slack so that we can complete the upstream configuration.
+
+#### **Specifications**
+
+1. Create a new VM using the $5/mo specs and the SSH key of one of your group members. You may also wish to enable IPv6 (can improve connectivity if any of your team mmembers have IPv6 capable ISPs (such as Comcast).
+1. Update /root/.ssh/authorized_keys on your VM to include public keys for each of your group members as well as the following key for the instructor: `ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBJTZTstXqjM7lEaFj/pnRNEztiZYu4yhKBZDrUCYMi5 clinton@info314`.
+1. Install WireGuard and Free Range Routing (FRR) based on the instructions given in class and the guides posted on this site.
+1. Create a new private/public key pair and add the public key to PiCANN along with the public IPv4 address of your router.
+1. Referencing your groups configuration parameters in PiCANN, configure a persistent VPN interface to connect to the core based on the _legacy Debian networking_ approach.
+1. Configure FRR to enable BGP and establish a peer relationship with the PiCANN core.
+1. Refer to the documentation from Checkpoint #3 to enable IPv4 forwarding with _sysctl_ and create _iptables_ rules to allow packets to be forwarded from your WireGuard tunnel interface. As with Checkpoint #3, set the default forwarding policy to drop packets.
+1. Make sure that you have updated the peering worksheet in PiCANN with missing parameters and notify the Instruction team that your peer is ready to connect.
+
+### **LAN/WAN Address Planning**
+---
+
+#### **Specifications**
+
+- Each group member should subnet their PiCANN subnet into 2 - 4 distinct subnets.
+    - A minimum of two subnets per LAN are needed to meet the base project requirements.
+    - If you would like to experiment with more complex configurations later we recommend four subnets.
+- Use one of your subnets for your internal LAN (providing DHCP and other services to devices accessing through Ethernet). A second subnet should be dedicated to any public-facing services. We'll often associate this subnet with your "DMZ". 
+
+### **Edge Network Setup**
+---
+
+After you complete your final planning for your LAN and public address ranges, you should "re-number" your LAN connection to use the new LAN address range. To save yourself significant troubleshooting time, proceed carefully with this task and make sure that you apply updates to networkd, DHCP, iptables, and BIND as required to support the new addresses. It will likely be helpful to review your previous work and the guides for the past Checkpoints (especially 1 - 4). 
+
+The next task in store for you is to establish connectivity and routing to the ISP VM that your group configured earlier. This is a two-part process, as you will need to create a WireGuard interface and configure peering on both routers (Debian VM and Pi). Keep in mind at this point that there are slight differences in the implementation on each end of this connection. The WireGuard configuration on the Debian VM relies on _legacy Debian networking_ configuration while the Pi will be configured with the built-in WireGuard capabilities of _systemd-networkd_. We have provided reference documentation and video demos for each scenario.
+
+The tasks you are completing are not extremely difficult, but there are ample opportunities for confusion. You should review instructions and make sure that your planning documents include all of the IP addresses and other values that you will need. Having this information well organized can be the difference between finishing this task in an hour versus spending several hours debugging.
+
+#### **Specifications**
+
+1. Update all network-based services on your LAN to use the new IP address ranges as determined by your group assignments and your own address planning.
+1. Follow the linked resources to install WireGuard and Free Range Routing (FRR) on your Pi-based router.
+1. Create a new WireGuard interface and configure it to peer with the Debian-based ISP router shared with your group.
+    - Configure both ends of the VPN tunnel with IP addresses selected from your public/DMZ subnet. These addresses should be documented on your report.
+1. Enable the FRR BGP daemon and configure your new router based on the provided guides. In order to do this, you will need an ASN and an additional public address to use as a router ID. Make sure that both values are included in your documentation.
+    - Log into the ISP router and update its BGP router settings to recognize your Pi-based router as a neighbor You will need the tunnel addresses from the previous step and the ASN identifiers assigned by your group to the ISP and your Edge network.
+    - Repeat the configuration process on your local router, setting up a peering (neighbor) relationship with the ISP.
+    - Use the _network_ directive to configure your local BGP to advertise the entire LAN/WAN subnet range that you were assigned by your group.
+1. Update iptables to enable packet forwarding from your new WireGuard interface.
+
+### **Enabling Public Services**
+
+### **Links and Resources**
+---
+
+- [PICANN Registry](https://docs.google.com/spreadsheets/d/1A3uCrVmrwoPdA0LvMH6IyRkU1_BLXhbVRjIadtc__E0/edit?usp=sharing)
+- [Pi Mail](https://github.com/i314-campbell-sp19/docker-mail): Instructions and docker components needed to configure SMTP, IMAP, and a webmail server on your Pi
+- [Installing WireGuard](/resources/setup-wireguard)
+- [Installing Free Range Routing (FRR)](/resources/setup-frr)
+- [WireGuard Peering](/resources/wireguard-configuration)
+- [Configure Routing Links](/resources/configure-routing-links)
+
+
+<!--
 Each group is required to fulfill the following requirements by building off of previous checkpoints and additional resources.
 
 !!! important "Differences between videos/specifications"
@@ -135,3 +223,4 @@ If you're up for the challenge, there are several other ways to earn extra credi
 - [PICANN](https://docs.google.com/spreadsheets/d/1Bxp3wKK4W0cgG3RDtyWJg1VPGIyQEE0qn2TV0Y84Gx0/edit?usp=sharing): DNS Registry and IP Reservations
 - **\[ SKIP ME \]** dotPI TLD:  Instructions and docker components needed to load a dockerized BIND on 10.10.10.10 for the .pi TLD
 - [Pi Mail](https://github.com/i314-campbell-sp19/docker-mail): Instructions and docker components needed to configure SMTP, IMAP, and a webmail server on your Pi
+-->
