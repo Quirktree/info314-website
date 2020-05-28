@@ -33,8 +33,14 @@ nav:
       - DNS Zone Reference: resources/zone-file-format.md
     - Extra Credit:
       - VLAN Challenge: assignments/vlan-challenge.md
-    #- Final WAN Project:
-    #  - Project Requirements: assignments/final-project.md
+    - Final WAN Project:
+      - Project Requirements: assignments/final-project.md
+      - Resources:
+        - PiCANN Registry: https://docs.google.com/spreadsheets/d/1A3uCrVmrwoPdA0LvMH6IyRkU1_BLXhbVRjIadtc__E0/edit?usp=sharing
+        - Installing WireGuard: resources/setup-wireguard.md
+        - Installing Free Range Routing: resources/setup-frr.md
+        - WireGuard Configuration: resources/wireguard-configuration.md
+        - Configure Routing Links: resources/configure-routing-links.md
   - Labs:
     - Lab 1 - Core Technical Skills: assignments/lab1.md
     - Lab 2 - Analyzing DHCP and ARP with Wireshark: assignments/lab2.md
