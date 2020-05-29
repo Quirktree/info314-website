@@ -479,6 +479,9 @@ PrivateKey=X/n17o9G+4o84NT4l53uV3Jf13WKiA9EVs9l3onsEno=
 PublicKey=AglT3WUjY0j9Ic/SvfGGmGQ1r39MoQqlXDq9+hjOKhU=
 AllowedIPs=0.0.0.0/0
 Endpoint=1.2.3.4:51821
+
+# Recommended only on routers that do not provide their own listener
+PersistentKeepalive=25
 </pre></div></p>
 <p><strong>/etc/systemd/network/99-wg0.network</strong>
 <div class="codehilite"><pre><span></span>[Match]
