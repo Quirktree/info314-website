@@ -41,6 +41,9 @@ Linux does not define a canonical approach to network configuration. Traditional
     PublicKey=AglT3WUjY0j9Ic/SvfGGmGQ1r39MoQqlXDq9+hjOKhU=
     AllowedIPs=0.0.0.0/0
     Endpoint=1.2.3.4:51821
+    
+    # Recommended only on routers that do not provide their own listener
+    PersistentKeepalive=25
     ```
 
     __/etc/systemd/network/99-wg0.network__
