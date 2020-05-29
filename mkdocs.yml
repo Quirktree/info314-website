@@ -41,6 +41,7 @@ nav:
         - Installing Free Range Routing: resources/setup-frr.md
         - WireGuard Configuration: resources/wireguard-configuration.md
         - Configure Routing Links: resources/configure-routing-links.md
+        - Configure Dummy Interfaces: resources/dummy-interfaces.md
   - Labs:
     - Lab 1 - Core Technical Skills: assignments/lab1.md
     - Lab 2 - Analyzing DHCP and ARP with Wireshark: assignments/lab2.md
