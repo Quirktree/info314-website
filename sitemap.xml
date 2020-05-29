@@ -101,6 +101,11 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
+     <loc>https://info314.tcpip.dev/resources/dummy-interfaces/</loc>
+     <lastmod>2020-05-28</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
      <loc>https://info314.tcpip.dev/assignments/lab1/</loc>
      <lastmod>2020-05-28</lastmod>
      <changefreq>daily</changefreq>

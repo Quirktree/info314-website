@@ -178,6 +178,10 @@
 <li >
     <a href="../../resources/configure-routing-links/">Configure Routing Links</a>
 </li>
+            
+<li >
+    <a href="../../resources/dummy-interfaces/">Configure Dummy Interfaces</a>
+</li>
     </ul>
   </li>
     </ul>
@@ -475,15 +479,18 @@
 <li>Work with your group to <ins>test and document</ins> your work, ensuring that routing and DNS are working consistently across your shared ISP and individual Edge routers.</li>
 <li>Using your shiny new webmail service, send an email to <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#99;&#108;&#105;&#110;&#116;&#111;&#110;&#64;&#103;&#114;&#97;&#100;&#101;&#98;&#111;&#111;&#107;&#46;&#112;&#105;">&#99;&#108;&#105;&#110;&#116;&#111;&#110;&#64;&#103;&#114;&#97;&#100;&#101;&#98;&#111;&#111;&#107;&#46;&#112;&#105;</a>.</li>
 </ol>
-<h3 id="planning-and-documentation"><strong>Planning and Documentation</strong><a class="headerlink" href="#planning-and-documentation" title="Permanent link">&para;</a></h3>
+<h3 id="planning"><strong>Planning</strong><a class="headerlink" href="#planning" title="Permanent link">&para;</a></h3>
 <hr />
-<p>Up until this point, you have each configured your networks with private address ranges of your own choosing. While this is convenient for getting started, it doesn't lend itself well to a class-wide internet where each device must have its own unique addresses. Going forward, we will ask you to re-number your networks to use the assigned address blocks.</p>
+<p>Up until this point, you have each configured your networks with private address ranges of your own choosing. While this is convenient for getting started, it doesn't lend itself well to a class-wide internet where each device must have its own unique addresses. Going forward, we will ask you to re-number your networks to use the assigned address blocks. This will require a small amount of collaboration within your group to assign sub-ranges.</p>
 <h4 id="specifications"><strong>Specifications</strong><a class="headerlink" href="#specifications" title="Permanent link">&para;</a></h4>
 <ol>
 <li>Assign an ASN and a distinct subnet to each member of your team. All ASNs and subnets must fall within the larger range provided for your group.</li>
 <li>Select an additional ASN to use for peering between your ISP router and the PiCANN core. Update the PiCANN peering directory with this information.</li>
 <li>Document your team's address range and individual assignments within a markdown document called final-planning.md. This document should be uploaded to your team's repository as soon as possible for referenced during the remaining parts of the project.</li>
 </ol>
+<h3 id="documentation"><strong>Documentation</strong><a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h3>
+<hr />
+<p>As you work through each part of this project, carefully document the decisions that you make. The process of planning and recording documentation will help you to avoid mistakes and simplify the troubleshooting process. Likewise, you will be asked to provide a comprehensive view of your network design within your GitHub repository. Detailed documentation requirements are provided within the Canvas assignments.</p>
 <h3 id="isp-router"><strong>ISP Router</strong><a class="headerlink" href="#isp-router" title="Permanent link">&para;</a></h3>
 <hr />
 <p>As a group, you will need to set up a new Debian 10.3 droplet at Digital Ocean, install WireGuard and Free Range Routing packages, and configure a WireGuard and BGP to create a routing link with the core network. This link will provide connectivity to the other groups in the class, and the peering relationship you create with the core router will be used to exchange routes between upstream and downstream routers. </p>
@@ -521,6 +528,7 @@
 <li>Follow the linked resources to install WireGuard and Free Range Routing (FRR) on your Pi-based router.</li>
 <li>Create a new WireGuard interface and configure it to peer with the Debian-based ISP router shared with your group.<ul>
 <li>Configure both ends of the VPN tunnel with IP addresses selected from your public/DMZ subnet. These addresses should be documented on your report.</li>
+<li>Since your Pi router is most likely located behind a NAT, it will not be possible for the ISP router to open/reopen the WireGuard tunnel for traffic directed to your Pi. Configure a <em>persistent keep-alive</em> of 25 seconds in the WireGuard peer settings on the Pi.</li>
 </ul>
 </li>
 <li>Enable the FRR BGP daemon and configure your new router based on the provided guides. In order to do this, you will need an ASN and an additional public address to use as a router ID. Make sure that both values are included in your documentation.<ul>
@@ -531,7 +539,33 @@
 </li>
 <li>Update iptables to enable packet forwarding from your new WireGuard interface.</li>
 </ol>
-<h3 id="enabling-public-services"><strong>Enabling Public Services</strong><a class="headerlink" href="#enabling-public-services" title="Permanent link">&para;</a></h3>
+<h3 id="pi-dns-resolution"><strong>.Pi DNS Resolution</strong><a class="headerlink" href="#pi-dns-resolution" title="Permanent link">&para;</a></h3>
+<hr />
+<p>Add the following section to your /etc/bind/named.conf.local. If you've configured separate views for internal and external name resolution, this will be inserted into the internal view.</p>
+<div class="codehilite"><pre><span></span>zone &quot;pi&quot; IN {
+  type slave;
+  masters { 10.10.10.10; };
+};
+</pre></div>
+
+<h3 id="public-services"><strong>Public Services</strong><a class="headerlink" href="#public-services" title="Permanent link">&para;</a></h3>
+<hr />
+<p>Use systemd-networkd to create and configure a persistent <em>dummy</em> interface on the Pi as described in the attached resources. This interface will represent the "demilitarized-zone" of your network within which you will host your public services. For each service, you will need to set up an IP from your public subnet within the DMZ.</p>
+<p>Follow the instructions provided in the <a href="https://github.com/i314-campbell-sp19/docker-mail">Pi Mail</a> repository to install Docker and configure the SMTP, IMAP, and Rainloop containers to serve email for your domain. Be sure to map each of these servers to a public IP address within your DMZ.</p>
+<p>Set up your Authoritatitive Name Server to listen on a public IP address within your DMZ. Update all records, e.g., MX and webmail, to point to the correct IP addresses based on your final network planning.</p>
+<h3 id="making-improvements-and-extra-credit"><strong>Making Improvements and Extra Credit</strong><a class="headerlink" href="#making-improvements-and-extra-credit" title="Permanent link">&para;</a></h3>
+<hr />
+<ul>
+<li>Add an Anycast route to 10.10.10.10 and host a copy of the .pi top-level-domain</li>
+<li>Configure a private DNS zone, e.g., corp.gradebook.pi, and use BIND views to restrict access to your private zone and the DNS resolver so that it is not available outside of your local LAN.</li>
+<li>Configure policy-based routing to send all of your DNS traffic through the VPN (may be necessary if your ISP is messing with your DNS).</li>
+<li><strong>Carefully</strong> perform hardening of your firewall rules to provide stronger security for your LAN and your router.</li>
+<li>Add a wireless access point to your Edge LANs. The wlan0 port is capable of operating as a software-based access point using the hostapd package in the Debian repositories.</li>
+</ul>
+<h4 id="firewall-rules"><strong>Firewall Rules</strong><a class="headerlink" href="#firewall-rules" title="Permanent link">&para;</a></h4>
+<p><strong>Carefully</strong> perform hardening of your firewall rules to provide stronger security for your LAN and your router.</p>
+<p>Use the forward chain to prevent new connections into your LAN subnet from the routing link. In order for your users to access the rest of the Internet from your, you must still allow related/established connections back into your LAN.</p>
+<p><strong>Carefully</strong> extend your Iptables rules to support a default DROP policy on the INPUT and OUTPUT chains, making sure that you have full utility of all of your private and public services. When experimenting with default policies on the INPUT or OUTPUT chain, you should <em>ALWAYS</em> use the <em>iptables-apply</em> command to test your rules and confirm that you are still able to create new SSH sessions. Make sure that you have written appropriate rules to accept traffic for authorized services, such as DHCP, SSH, and DNS, before changing the policy.</p>
 <h3 id="links-and-resources"><strong>Links and Resources</strong><a class="headerlink" href="#links-and-resources" title="Permanent link">&para;</a></h3>
 <hr />
 <ul>
@@ -541,6 +575,7 @@
 <li><a href="/resources/setup-frr">Installing Free Range Routing (FRR)</a></li>
 <li><a href="/resources/wireguard-configuration">WireGuard Peering</a></li>
 <li><a href="/resources/configure-routing-links">Configure Routing Links</a></li>
+<li><a href="/resources/dummy-interfaces">Configure Dummy Interfaces</a></li>
 </ul>
 <!--
 Each group is required to fulfill the following requirements by building off of previous checkpoints and additional resources.
