@@ -444,21 +444,32 @@
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#configure-a-routing-link-for-bgp-peers">Configure a Routing Link for BGP Peers</a></li>
             <li><a href="#determine-requirements">Determine Requirements</a></li>
-            <li><a href="#prepare-interfaces">Prepare Interfaces</a></li>
+            <li><a href="#preparing-interfaces-for-the-unnumbered-bgp-configuration">Preparing Interfaces for the "Unnumbered" BGP Configuration</a></li>
             <li><a href="#configure-frrouting">Configure FRRouting</a></li>
+            <li><a href="#finalizing-your-configuration">Finalizing your Configuration</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
 <h1 id="configure-a-routing-link-for-bgp-peers">Configure a Routing Link for BGP Peers<a class="headerlink" href="#configure-a-routing-link-for-bgp-peers" title="Permanent link">&para;</a></h1>
 <h2 id="determine-requirements">Determine Requirements<a class="headerlink" href="#determine-requirements" title="Permanent link">&para;</a></h2>
-<p>In order to configure your your router to peer with other BGP routers, you will need to identify several parameters associated with the routing configuration. First, identify your ASN and select a unique IP address that you will assign as the router ID. Next determine which interface to use for the routing link, and identify the address ranges to be advertised to neighboring routers.</p>
-<p>We'll use the following values in this example:
-- Interface for routing link: <code>vlan10</code>
-- Autonomous System Number (ASN): <code>65000</code>
-- Router ID: <code>172.23.0.129</code>
-- Advertise Network(s): <code>172.23.0.0/24</code></p>
-<h2 id="prepare-interfaces">Prepare Interfaces<a class="headerlink" href="#prepare-interfaces" title="Permanent link">&para;</a></h2>
+<p>In order to configure your router to peer with other BGP routers, you will need to identify several parameters associated with the routing configuration. These parameters can differ somewhat depending on the type of link you use, i.e., physical or tunnel-based, and other constraints. This guide presents two different scenarios: a) VLANs over a physical Ethernet connection and b) WireGuard to establish a tunnel-link between two routers.</p>
+<p>In all cases, we need an Autonomous System Number (ASN) for each Autonomous System and we need a unique IP address that will identify each router (regardless of which interface is used). This latter parameter is called the router ID.</p>
+<p>For each routing link, we also need to provide a way for the routing peers to deliver packets from host-to-host -- implying the use of IP addresses. Free Range Routing (FRR) supports an "unnumbered" address configuration which saves us the trouble of planning out addresses on the links; however, this configuration depends on link-local IPv6 capabilities that won't work as expected over a WireGuard tunnel. In these cases, BGP can make use of peer-to-peer addresses configured on the WireGuard network interfaces.</p>
+<p>!!! "example" Configuration Parameters for VLAN-based peers over Ethernet
+    - Interface for routing link: <code>vlan10</code>
+    - Autonomous System Number (ASN): <code>65009</code> (local) peering to <code>65000</code> (remote)
+    - Router ID: <code>172.27.2.1</code>
+    - Advertise Network(s): <code>172.27.2.0/24</code></p>
+<p>!!! "example" Configuration Parameters for VPN-based peers
+    - Interface for routing link: <code>vpn0</code>
+    - Tunnel IP's: <code>10.99.0.3</code> (local) to <code>10.99.0.2</code> (remote)
+    - Autonomous System Number (ASN): <code>65009</code> (local) peering to <code>65000</code> (remote)
+    - Router ID: <code>172.27.2.1</code>
+    - Advertise Network(s): <code>172.27.2.0/24</code></p>
+<h2 id="preparing-interfaces-for-the-unnumbered-bgp-configuration">Preparing Interfaces for the "Unnumbered" BGP Configuration<a class="headerlink" href="#preparing-interfaces-for-the-unnumbered-bgp-configuration" title="Permanent link">&para;</a></h2>
+<p>!!! "attention" Ethernet Only
+    This section does not apply to routing configuration over WireGuard VPN links</p>
 <p>To begin, we need to prepare the interface that we'll be using to peer with neighboring routers. In the past, this would have meant configuring IPv4 addresses for each side of the connection; however, we will be taking advantage of <em>unnumbered BGP</em> to identify and connect to our peers based on auto-configured IPv6 addresses. This simplification is welcome since the addresses we assign on point-to-point routing links generally serve no purpose other than facilitating communication between the adjacent routers.</p>
 <p>Our main task is to enable auto-configuration for IPv6 and to disable auto-configuration privacy extensions so that our MAC address will be encoded into the <em>link-local</em> IPv6 address for the interface. We also need to ensure that the routing interface will listen for and accept <em>ICMPv6 router advertisements</em> from its peer.</p>
 <h3 id="configure-interface">Configure interface<a class="headerlink" href="#configure-interface" title="Permanent link">&para;</a></h3>
@@ -481,11 +492,13 @@ IPv6PrivacyExtensions=no
 <p>We'll perform this configuration within the FRR VTY shell (<em>launch using <code>vtysh</code></em>):</p>
 <div class="codehilite"><pre><span></span>configure terminal
 interface lo
-ip address 172.23.0.129/32
+ip address 172.27.2.128/32
 quit    
 </pre></div>
 
-<h3 id="additional-unnumbered-routing-configuration">Additional unnumbered routing configuration<a class="headerlink" href="#additional-unnumbered-routing-configuration" title="Permanent link">&para;</a></h3>
+<h3 id="additional-unnumbered-routing-configuration">Additional "unnumbered" routing configuration<a class="headerlink" href="#additional-unnumbered-routing-configuration" title="Permanent link">&para;</a></h3>
+<p>!!! "attention" Ethernet Only
+    This section does not apply to routing configuration over WireGuard VPN links</p>
 <p>Routers in an unnumbered peering relationship rely on ICMPv6 router advertisements to discover peers on a routing link. We previously configured our interface to accept these messages, but we still need to set up the routing daemon to generate the messages on the specified interface. </p>
 <p>The following commands will turn on ICMPv6 router advertisements and set an interval of one advertisement every 5 seconds (as recommended by FRR documentation).</p>
 <p>Enter the following commands in the VTY shell:</p>
@@ -497,24 +510,45 @@ quit
 </pre></div>
 
 <h3 id="configure-bgp-routing">Configure BGP Routing<a class="headerlink" href="#configure-bgp-routing" title="Permanent link">&para;</a></h3>
-<p>Once the preliminary configuration is complete, we can setup the BGP daemon to peer on the specified interface. The following example will enable a new router in ASN 65000 that peers over the <code>vlan10</code> interface and advertises routes for 172.23.0.0/24.</p>
-<p>Enter the following commands in VTY shell: </p>
+<p>Once the preliminary configuration is complete, we can setup the BGP daemon to peer on the specified interface. The following examples provide the VTYSH commands needed to enable a new router in ASN 65009 to peer with a neighboring autonomous system and advertises routes for 172.27.2.0/24. Each example follows a common pattern:</p>
+<ol>
+<li>Enter the configuration mode of VTYSH using <code>configure terminal</code></li>
+<li>Configure the BGP routing features by specifying your local ASN e.g., <code>router bgp 65009</code></li>
+<li>Set the router ID using <code>bgp router-id 172.27.2.128</code>. <ul>
+<li>We set this address up earlier as a loopback since it will be seen on all routing links</li>
+</ul>
+</li>
+<li>Issue one or more <code>neighbor</code> statements, specifying either the interface (for unnumbered links) or the remote peer's address for other links.</li>
+<li>Issue one or more <code>network</code> statements, enabling FRR to advertise routes associated with the given prefix.</li>
+</ol>
+<h4 id="configuring-an-unnumbered-routing-peer-over-ethernet">Configuring an "unnumbered" routing peer over Ethernet<a class="headerlink" href="#configuring-an-unnumbered-routing-peer-over-ethernet" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span>configure terminal
-router bgp 65000 
-bgp router-id 172.23.0.129 
+router bgp 65009
+bgp router-id 172.27.2.128
 neighbor vlan10 interface remote-as external
-network 172.23.0.0/24
+network 172.27.2.0/24
 quit
 </pre></div>
 
-<p>Supporting multiple routing links on a single router requires a simple modification to this script to add additional <code>neighbor</code> statements. If you've already configured other details, you don't need to repeat them to add an aditional neighbor. Enter the following commands to resume editing your existing router:</p>
+<h4 id="configuring-a-routing-peer-based-on-layer-3-adddresses-works-for-wireguard">Configuring a routing peer based on layer-3 adddresses (works for WireGuard)<a class="headerlink" href="#configuring-a-routing-peer-based-on-layer-3-adddresses-works-for-wireguard" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span>configure terminal
-router bgp 65000
+router bgp 65009
+bgp router-id 172.27.2.128
+neighbor 10.99.0.2 remote-as 65000
+network 172.27.2.0/24
+quit
 </pre></div>
 
+<h2 id="finalizing-your-configuration">Finalizing your Configuration<a class="headerlink" href="#finalizing-your-configuration" title="Permanent link">&para;</a></h2>
 <h3 id="save-your-changes">Save Your Changes<a class="headerlink" href="#save-your-changes" title="Permanent link">&para;</a></h3>
 <p>Don't forget that live updates to FRR are not persistent. Rebooting the router or restarting <code>frr</code> will dispose of any settings that are not written to the startup config.</p>
 <p>To save your changes, you need to be in <em>enable</em> mode. Exit out of <em>configure</em> mode, if necessary, and call <code>copy running-config startup-config</code> or <code>write memory</code>.</p>
+<h3 id="making-further-updates">Making Further Updates<a class="headerlink" href="#making-further-updates" title="Permanent link">&para;</a></h3>
+<p>Supporting multiple routing links on a single router requires a simple modification to this script to add additional <code>neighbor</code> statements. If you've already configured other details, you don't need to repeat them to add an aditional neighbor. Enter the following commands to resume editing your existing router:</p>
+<div class="codehilite"><pre><span></span>configure terminal
+router bgp 65009
+</pre></div>
+
 <p>From the Linux commandline, you can view the current <em>startup configuration</em> within <code>/etc/frr/frr.conf</code>.</p></div>
         </div>
 
