@@ -124,4 +124,4 @@ configure terminal
 router bgp 65009
 ```
 
-From the Linux commandline, you can view the current _startup configuration_ within `/etc/frr/frr.conf`.
+From the Linux commandline, you can view the current _startup configuration_ within `/etc/frr/frr.conf`. Be careful making edits directly to this configuration. VTYSH is preferred since it will prevent you from creating an invalid setting that breaks the service. If you do make a direct edit, you will need to restart the `frr` service manually using `systemctl`.
