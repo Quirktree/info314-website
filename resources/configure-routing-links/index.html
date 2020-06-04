@@ -549,7 +549,7 @@ quit
 router bgp 65009
 </pre></div>
 
-<p>From the Linux commandline, you can view the current <em>startup configuration</em> within <code>/etc/frr/frr.conf</code>.</p></div>
+<p>From the Linux commandline, you can view the current <em>startup configuration</em> within <code>/etc/frr/frr.conf</code>. Be careful making edits directly to this configuration. VTYSH is preferred since it will prevent you from creating an invalid setting that breaks the service. If you do make a direct edit, you will need to restart the <code>frr</code> service manually using <code>systemctl</code>.</p></div>
         </div>
 
         <footer class="col-md-12">
