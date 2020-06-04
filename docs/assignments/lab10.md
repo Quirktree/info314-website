@@ -1,6 +1,6 @@
-# Lab 9 - proxy part III
+# Lab 10 - proxy part IV
 
-[Lab 9 Assignment page on Canvas](https://canvas.uw.edu/courses/1373089/assignments/5369626)
+[Lab 10 Assignment page on Canvas](https://canvas.uw.edu/courses/1373089/assignments/5467235)
 
 In this lab, we'll wire together the remaining components of a proxy based on the functionality we have built to parse / reconstruct messages.
 
