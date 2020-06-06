@@ -466,8 +466,8 @@ ip link set up dev wg0
 <div class="admonition example">
 <p class="admonition-title">Configuring wireguard persistently with systemd-networkd</p>
 <p>After creating the files below, make sure that ownership and permissions are set to protect private keys.
-<div class="codehilite"><pre><span></span>sudo chown root:systemd-network /etc/systemd/99-wg0.netdev
-sudo chmod 640 /etc/systemd/99-wg0.netdev
+<div class="codehilite"><pre><span></span>sudo chown root:systemd-network /etc/systemd/network/99-wg0.netdev
+sudo chmod 640 /etc/systemd/network/99-wg0.netdev
 </pre></div></p>
 <p><strong>/etc/systemd/network/99-wg0.netdev</strong>
 <div class="codehilite"><pre><span></span>[NetDev]
