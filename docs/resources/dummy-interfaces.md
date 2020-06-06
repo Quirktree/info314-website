@@ -29,8 +29,9 @@ In order to configure a dummy interface persistently on a system running network
     [Match]
     Name=dmz0
 
-    [Address]
+    [Network]
     Address=10.10.10.10/32
+    # Include an Address statement for each IP required
     ```
     
 
