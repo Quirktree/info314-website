@@ -22,8 +22,8 @@ Linux does not define a canonical approach to network configuration. Traditional
 !!! example "Configuring wireguard persistently with systemd-networkd"
     After creating the files below, make sure that ownership and permissions are set to protect private keys.
     ```
-    sudo chown root:systemd-network /etc/systemd/99-wg0.netdev
-    sudo chmod 640 /etc/systemd/99-wg0.netdev
+    sudo chown root:systemd-network /etc/systemd/network/99-wg0.netdev
+    sudo chmod 640 /etc/systemd/network/99-wg0.netdev
     ```
 
     __/etc/systemd/network/99-wg0.netdev__
