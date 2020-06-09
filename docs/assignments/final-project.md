@@ -1,4 +1,4 @@
-# Final Network Project (last edited 2020-05-28)
+# Final Network Project (last edited 2020-06-09)
 
 ## **Overview**
 ---
@@ -120,7 +120,7 @@ zone "pi" IN {
 };
 ```
 
-!!! "note"
+!!! note
     If you've configured separate views for internal and external name resolution, this will be inserted into the internal view.
 
 #### Override DNS resolution on the Pi
@@ -137,7 +137,7 @@ DHCP=yes
 DNS=127.0.0.1
 ```
 
-!!! "important"
+!!! important
     You will likely need to reboot your Pi before this new setting is respected.
 
 ### **Public Services**
