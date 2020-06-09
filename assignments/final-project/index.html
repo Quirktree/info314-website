@@ -442,7 +442,7 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#final-network-project-last-edited-2020-05-28">Final Network Project (last edited 2020-05-28)</a></li>
+        <li class="main active"><a href="#final-network-project-last-edited-2020-06-09">Final Network Project (last edited 2020-06-09)</a></li>
             <li><a href="#overview">Overview</a></li>
             <li><a href="#before-you-start">Before you start</a></li>
             <li><a href="#project-details">Project Details</a></li>
@@ -450,7 +450,7 @@
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="final-network-project-last-edited-2020-05-28">Final Network Project (last edited 2020-05-28)<a class="headerlink" href="#final-network-project-last-edited-2020-05-28" title="Permanent link">&para;</a></h1>
+<h1 id="final-network-project-last-edited-2020-06-09">Final Network Project (last edited 2020-06-09)<a class="headerlink" href="#final-network-project-last-edited-2020-06-09" title="Permanent link">&para;</a></h1>
 <h2 id="overview"><strong>Overview</strong><a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <hr />
 <p>Working in your group, design and implement a networked system that mirrors the concept of an Internet Service Provider (ISP) with customer networks. Your primary objective in this exercise is to adapt what you've completed in previous tasks to meet the requirements specified below.</p>
@@ -554,8 +554,10 @@
 };
 </pre></div>
 
-<p>!!! "note"
-    If you've configured separate views for internal and external name resolution, this will be inserted into the internal view.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you've configured separate views for internal and external name resolution, this will be inserted into the internal view.</p>
+</div>
 <h4 id="override-dns-resolution-on-the-pi">Override DNS resolution on the Pi<a class="headerlink" href="#override-dns-resolution-on-the-pi" title="Permanent link">&para;</a></h4>
 <p>You have likely noticed that when you run a <code>dig</code> query from your Pi, the query will not be sent to the resolver running on your Pi. Instead, by default, these queries are sent to the addresses provided to you by DHCP on your wireless network. This leads to a case where the hosts on your network can resolve .pi domains while the Pi itself cannot.</p>
 <p>We can easily override this behavior by modifying <code>/etc/systemd/network/99-wlan.network</code> to add a the localhost address as a static DNS location. While your Pi will still receive additional addresses from DHCP, your Pi will only use these as a fallback. The updated configuration is shown below. </p>
@@ -567,8 +569,10 @@ DHCP=yes
 DNS=127.0.0.1
 </pre></div>
 
-<p>!!! "important"
-    You will likely need to reboot your Pi before this new setting is respected.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>You will likely need to reboot your Pi before this new setting is respected.</p>
+</div>
 <h3 id="public-services"><strong>Public Services</strong><a class="headerlink" href="#public-services" title="Permanent link">&para;</a></h3>
 <hr />
 <p>Use systemd-networkd to create and configure a persistent <em>dummy</em> interface on the Pi as described in the attached resources. This interface will represent the "demilitarized-zone" of your network within which you will host your public services. For each service, you will need to set up an IP from your public subnet within the DMZ.</p>
