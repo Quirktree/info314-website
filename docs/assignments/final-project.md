@@ -107,7 +107,11 @@ The tasks you are completing are not extremely difficult, but there are ample op
 ### **.Pi DNS Resolution**
 ---
 
-Add the following section to your /etc/bind/named.conf.local. If you've configured separate views for internal and external name resolution, this will be inserted into the internal view.
+We've intentionally set up all of our domains within the non-existent .pi top-level domain and are limiting the resolution of these domains to our class network. By default, our resolvers won't be able to perform queries against other .pi domains since the recursive process depends on relationship between the ICANN root and the top-level domain registries. 
+
+Our TLD is not present in those data stores, so we need to offer it a little help to resolve .pi domains. The work-around we're employing is to have each of your resolvers maintain a copy of the .pi zone so that it can directly discover the authoritative name servers of your peers' domains.
+
+The primary name server for .pi is running at the 10.10.10.10 address. By adding the following section to your /etc/bind/named.conf.local, your pi will perform a _zone transfer_ with 10.10.10.10 and then periodically refresh based on the settings specified in the SOA for the TLD.
 
 ```
 zone "pi" IN {
@@ -115,6 +119,26 @@ zone "pi" IN {
   masters { 10.10.10.10; };
 };
 ```
+
+!!! "note"
+    If you've configured separate views for internal and external name resolution, this will be inserted into the internal view.
+
+#### Override DNS resolution on the Pi
+You have likely noticed that when you run a `dig` query from your Pi, the query will not be sent to the resolver running on your Pi. Instead, by default, these queries are sent to the addresses provided to you by DHCP on your wireless network. This leads to a case where the hosts on your network can resolve .pi domains while the Pi itself cannot.
+
+We can easily override this behavior by modifying `/etc/systemd/network/99-wlan.network` to add a the localhost address as a static DNS location. While your Pi will still receive additional addresses from DHCP, your Pi will only use these as a fallback. The updated configuration is shown below. 
+
+```
+[Match]
+Name=wlan*
+
+[Network]
+DHCP=yes
+DNS=127.0.0.1
+```
+
+!!! "important"
+    You will likely need to reboot your Pi before this new setting is respected.
 
 ### **Public Services**
 ---
@@ -124,6 +148,34 @@ Follow the instructions provided in the [Pi Mail](https://github.com/i314-campbe
 
 Set up your Authoritatitive Name Server to listen on a public IP address within your DMZ. Update all records, e.g., MX and webmail, to point to the correct IP addresses based on your final network planning.
 
+#### **Allow External DNS Queries**
+
+At this point, we are expecting the Bind9 daemon to perform two different roles, acting as a recursive resolver and as an authoritative name server. While Bind9 is more than capable of performing both tasks, this can be a risky configuration. In particular, our authoritative server has to be open to everyone, but an unrestricted resolver is like a welcome mat for attackers who may attempt cache poisoning attacks and botnets that will use it to amplify DDoS attacks.
+
+In Checkpoint #4, we took steps to prevent these types of attacks by declaring an access control list (ACL) and using it to restrict which IP addresses are allowed to make recursive queries. The configuration appears in `named.conf.options` as follows:
+
+```
+acl goodclients {
+	localhost;
+	172.27.2.0/26;
+};
+
+options {
+	directory "/var/cache/bind";
+
+	recursion yes;
+	allow-query { goodclients; };
+...
+```
+
+In this configuration, your name server won't be able to receive a query outside of your own LAN. With a simple change to the last two lines, we can open up our name server to the outside world while still providing some basic security against misuse.
+
+```
+	allow-recursion { trusted; };   // change from `recursion yes;`
+	allow-query { any; };           // change from `{ goodclients; };`
+```
+
+Please be aware that we would look for stronger separation between these roles in a real-world scenario. At the very least, we might employ a feature of Bind9 called _views_. Or we could run multiple instances of Bind9 on separate IP addresses (or entirely separate servers).
 
 ### **Making Improvements and Extra Credit**
 ---
