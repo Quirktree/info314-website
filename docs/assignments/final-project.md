@@ -171,7 +171,7 @@ options {
 In this configuration, your name server won't be able to receive a query outside of your own LAN. With a simple change to the last two lines, we can open up our name server to the outside world while still providing some basic security against misuse.
 
 ```
-	allow-recursion { trusted; };   // change from `recursion yes;`
+	allow-recursion { goodclients; };   // change from `recursion yes;`
 	allow-query { any; };           // change from `{ goodclients; };`
 ```
 
