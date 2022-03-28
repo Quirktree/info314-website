@@ -12,21 +12,21 @@
         <meta name="author" content="Clinton Campbell">
       
       
-        <link rel="canonical" href="https://info314.tcpip.dev/assignments/lab3/">
+        <link rel="canonical" href="https://info314.tcpip.dev/labs/sockets/lab10/">
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.7">
     
     
       
-        <title>Lab 3 - Analyze Zeroconf in Wireshark - INFO 314 Course Resources</title>
+        <title>Lab 10 - proxy part IV - INFO 314 Course Resources</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.9d5733d3.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.9d5733d3.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.e6a45f82.min.css">
         
       
     
@@ -41,9 +41,9 @@
       
     
     
-      <link rel="stylesheet" href="../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -71,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#lab-3-analyze-zeroconf-in-wireshark" class="md-skip">
+        <a href="#lab-10-proxy-part-iv" class="md-skip">
           Skip to content
         </a>
       
@@ -87,7 +87,7 @@
 
 <header class="md-header md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="INFO 314 Course Resources" class="md-header__button md-logo" aria-label="INFO 314 Course Resources" data-md-component="logo">
+    <a href="../../.." title="INFO 314 Course Resources" class="md-header__button md-logo" aria-label="INFO 314 Course Resources" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
@@ -106,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Lab 3 - Analyze Zeroconf in Wireshark
+              Lab 10 - proxy part IV
             
           </span>
         </div>
@@ -197,7 +197,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="../.." class="md-tabs__link">
+    <a href="../../.." class="md-tabs__link">
       Home
     </a>
   </li>
@@ -217,7 +217,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../pi-setup/" class="md-tabs__link">
+      <a href="../../../assignments/pi-setup/" class="md-tabs__link">
         Projects
       </a>
     </li>
@@ -229,15 +229,13 @@
         
   
   
-    
-  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../lab1/" class="md-tabs__link md-tabs__link--active">
+      <a href="../../../assignments/wireshark01/" class="md-tabs__link">
         Labs
       </a>
     </li>
@@ -258,7 +256,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../resources/pi-materials/" class="md-tabs__link">
+      <a href="../../../resources/markdown/" class="md-tabs__link">
         Resources
       </a>
     </li>
@@ -273,7 +271,7 @@
 
 
   <li class="md-tabs__item">
-    <a href="../../contact/" class="md-tabs__link">
+    <a href="../../../contact/" class="md-tabs__link">
       Contact Us
     </a>
   </li>
@@ -306,7 +304,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="INFO 314 Course Resources" class="md-nav__button md-logo" aria-label="INFO 314 Course Resources" data-md-component="logo">
+    <a href="../../.." title="INFO 314 Course Resources" class="md-nav__button md-logo" aria-label="INFO 314 Course Resources" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
@@ -337,7 +335,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         Home
       </a>
     </li>
@@ -406,7 +404,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pi-setup/" class="md-nav__link">
+      <a href="../../../assignments/pi-setup/" class="md-nav__link">
         Raspberry Pi Setup
       </a>
     </li>
@@ -420,7 +418,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../networkd-setup/" class="md-nav__link">
+      <a href="../../../assignments/networkd-setup/" class="md-nav__link">
         networkd Setup
       </a>
     </li>
@@ -434,7 +432,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resources/wifi-reference/" class="md-nav__link">
+      <a href="../../../resources/wifi-reference/" class="md-nav__link">
         Wifi Reference
       </a>
     </li>
@@ -483,7 +481,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resources/address-planning/" class="md-nav__link">
+      <a href="../../../resources/address-planning/" class="md-nav__link">
         IP Address Planning Reference
       </a>
     </li>
@@ -497,7 +495,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dhcp-setup/" class="md-nav__link">
+      <a href="../../../assignments/dhcp-setup/" class="md-nav__link">
         Installing and Configuring the ISC DHCP Server
       </a>
     </li>
@@ -546,7 +544,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../router-setup/" class="md-nav__link">
+      <a href="../../../assignments/router-setup/" class="md-nav__link">
         Router Setup
       </a>
     </li>
@@ -560,7 +558,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resources/iptables/" class="md-nav__link">
+      <a href="../../../resources/iptables/" class="md-nav__link">
         Introduction to iptables
       </a>
     </li>
@@ -609,7 +607,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../resolver-setup/" class="md-nav__link">
+      <a href="../../../assignments/resolver-setup/" class="md-nav__link">
         DNS Resolver Setup
       </a>
     </li>
@@ -658,7 +656,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../analysis-report/" class="md-nav__link">
+      <a href="../../../assignments/analysis-report/" class="md-nav__link">
         Instructions
       </a>
     </li>
@@ -672,7 +670,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resources/tshark-install/" class="md-nav__link">
+      <a href="../../../resources/tshark-install/" class="md-nav__link">
         Installing TShark
       </a>
     </li>
@@ -721,7 +719,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dns-zone-setup/" class="md-nav__link">
+      <a href="../../../assignments/dns-zone-setup/" class="md-nav__link">
         Authoritative Zone Setup
       </a>
     </li>
@@ -735,7 +733,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resources/zone-file-format/" class="md-nav__link">
+      <a href="../../../resources/zone-file-format/" class="md-nav__link">
         DNS Zone Reference
       </a>
     </li>
@@ -750,99 +748,16 @@
 
             
           
-            
-              
-  
-  
-  
-    
-      
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_7" type="checkbox" id="__nav_2_7" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_2_7">
-          Extra Credit
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Extra Credit" data-md-level="2">
-        <label class="md-nav__title" for="__nav_2_7">
-          <span class="md-nav__icon md-icon"></span>
-          Extra Credit
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../vlan-challenge/" class="md-nav__link">
-        VLAN Challenge
-      </a>
-    </li>
-  
-
-            
-          
         </ul>
       </nav>
     </li>
   
 
-            
-          
-            
-              
-  
-  
-  
     
       
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_8" type="checkbox" id="__nav_2_8" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_2_8">
-          Final WAN Project
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Final WAN Project" data-md-level="2">
-        <label class="md-nav__title" for="__nav_2_8">
-          <span class="md-nav__icon md-icon"></span>
-          Final WAN Project
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../final-project/" class="md-nav__link">
-        Project Requirements
-      </a>
-    </li>
-  
 
-            
-          
-            
-              
   
   
   
@@ -850,141 +765,7 @@
     <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_8_2" type="checkbox" id="__nav_2_8_2" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_2_8_2">
-          Resources
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Resources" data-md-level="3">
-        <label class="md-nav__title" for="__nav_2_8_2">
-          <span class="md-nav__icon md-icon"></span>
-          Resources
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="https://docs.google.com/spreadsheets/d/1A3uCrVmrwoPdA0LvMH6IyRkU1_BLXhbVRjIadtc__E0/edit?usp=sharing" class="md-nav__link">
-        PiCANN Registry
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../resources/setup-wireguard/" class="md-nav__link">
-        Installing WireGuard
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../resources/setup-frr/" class="md-nav__link">
-        Installing Free Range Routing
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../resources/wireguard-configuration/" class="md-nav__link">
-        WireGuard Configuration
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../resources/configure-routing-links/" class="md-nav__link">
-        Configure Routing Links
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../resources/dummy-interfaces/" class="md-nav__link">
-        Configure Dummy Interfaces
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-    
-  
-  
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
       
       
       
@@ -1007,274 +788,9 @@
   
   
     <li class="md-nav__item">
-      <a href="../lab1/" class="md-nav__link">
-        Lab 1 - Core Technical Skills
+      <a href="../../../assignments/wireshark01/" class="md-nav__link">
+        Lab 1 - Analyzing DHCP and ARP with Wireshark
       </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../lab2/" class="md-nav__link">
-        Lab 2 - Analyzing DHCP and ARP with Wireshark
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-    
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Lab 3 - Analyze Zeroconf in Wireshark
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        Lab 3 - Analyze Zeroconf in Wireshark
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    Overview
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#resources" class="md-nav__link">
-    Resources
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-i-identification" class="md-nav__link">
-    Part I - Identification
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-ii-powering-on-your-pi" class="md-nav__link">
-    Part II - Powering on your Pi
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-iii-contacting-your-pi" class="md-nav__link">
-    Part III - Contacting your Pi
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-iv-manually-querying-mdns-devices" class="md-nav__link">
-    Part IV - Manually Querying mDNS devices
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-v-protocol-research" class="md-nav__link">
-    Part V - Protocol Research
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#extra-credit-optional" class="md-nav__link">
-    Extra Credit (Optional)
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../lab4/" class="md-nav__link">
-        Lab 4 - Analyze DNS & HTTP in Wireshark
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../lab5/" class="md-nav__link">
-        Lab 5 - Analyze TCP with ncat and Wireshark
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../lab6/" class="md-nav__link">
-        Lab 6 - Python and Socket Basics
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    
-      
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_7" type="checkbox" id="__nav_3_7" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_3_7">
-          Proxy Labs
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Proxy Labs" data-md-level="2">
-        <label class="md-nav__title" for="__nav_3_7">
-          <span class="md-nav__icon md-icon"></span>
-          Proxy Labs
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../proxy-labs/" class="md-nav__link">
-        Proxy Project Overview
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../lab7/" class="md-nav__link">
-        Proxy Part 1 (Lab 7)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../lab8/" class="md-nav__link">
-        Proxy Part 2 (Lab 8)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../lab9/" class="md-nav__link">
-        Proxy Part 3 (Lab 9)
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../lab10/" class="md-nav__link">
-        Proxy Part 4 (Lab 10)
-      </a>
-    </li>
-  
-
-            
-          
-        </ul>
-      </nav>
     </li>
   
 
@@ -1348,35 +864,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resources/pi-materials/" class="md-nav__link">
-        Getting Pi Materials
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../resources/digital-ocean/" class="md-nav__link">
-        Digital Ocean Signup
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../resources/markdown/" class="md-nav__link">
+      <a href="../../../resources/markdown/" class="md-nav__link">
         Intro to Markdown
       </a>
     </li>
@@ -1390,7 +878,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resources/bash/" class="md-nav__link">
+      <a href="../../../resources/bash/" class="md-nav__link">
         Intro to Bash
       </a>
     </li>
@@ -1439,7 +927,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../notes/dns-overview/" class="md-nav__link">
+      <a href="../../../notes/dns-overview/" class="md-nav__link">
         Domain Name System (DNS)
       </a>
     </li>
@@ -1453,7 +941,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../notes/router-overview/" class="md-nav__link">
+      <a href="../../../notes/router-overview/" class="md-nav__link">
         Routers
       </a>
     </li>
@@ -1467,7 +955,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../notes/ethernet-switches/" class="md-nav__link">
+      <a href="../../../notes/ethernet-switches/" class="md-nav__link">
         Ethernet Switches
       </a>
     </li>
@@ -1542,7 +1030,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resources/ssh-agent/" class="md-nav__link">
+      <a href="../../../resources/ssh-agent/" class="md-nav__link">
         Using ssh-agent
       </a>
     </li>
@@ -1556,7 +1044,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resources/wireshark-install/" class="md-nav__link">
+      <a href="../../../resources/wireshark-install/" class="md-nav__link">
         Install Wireshark
       </a>
     </li>
@@ -1570,7 +1058,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resources/tshark-install/" class="md-nav__link">
+      <a href="../../../resources/tshark-install/" class="md-nav__link">
         Install TShark
       </a>
     </li>
@@ -1617,7 +1105,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resources/zone-file-format/" class="md-nav__link">
+      <a href="../../../resources/zone-file-format/" class="md-nav__link">
         Zone File Reference
       </a>
     </li>
@@ -1664,7 +1152,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resources/wifi-reference/" class="md-nav__link">
+      <a href="../../../resources/wifi-reference/" class="md-nav__link">
         Linux Wireless Configuration
       </a>
     </li>
@@ -1711,7 +1199,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resources/iptables/" class="md-nav__link">
+      <a href="../../../resources/iptables/" class="md-nav__link">
         Introduction to Iptables
       </a>
     </li>
@@ -1725,7 +1213,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resources/netfilter-hooks/" class="md-nav__link">
+      <a href="../../../resources/netfilter-hooks/" class="md-nav__link">
         Understanding Netfilter/Iptables Hooks
       </a>
     </li>
@@ -1772,7 +1260,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resources/address-planning/" class="md-nav__link">
+      <a href="../../../resources/address-planning/" class="md-nav__link">
         Basic IP Address Planning
       </a>
     </li>
@@ -1819,7 +1307,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resources/setup-frr/" class="md-nav__link">
+      <a href="../../../resources/setup-frr/" class="md-nav__link">
         Install Free Range Routing (FRR)
       </a>
     </li>
@@ -1833,7 +1321,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resources/setup-wireguard/" class="md-nav__link">
+      <a href="../../../resources/setup-wireguard/" class="md-nav__link">
         Install and Configure WireGuard
       </a>
     </li>
@@ -1847,7 +1335,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resources/configure-routing-links/" class="md-nav__link">
+      <a href="../../../resources/configure-routing-links/" class="md-nav__link">
         Configuring Routing Links
       </a>
     </li>
@@ -1894,7 +1382,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resources/loopback-interfaces/" class="md-nav__link">
+      <a href="../../../resources/loopback-interfaces/" class="md-nav__link">
         Loopback Interfaces
       </a>
     </li>
@@ -1908,7 +1396,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resources/dummy-interfaces/" class="md-nav__link">
+      <a href="../../../resources/dummy-interfaces/" class="md-nav__link">
         Dummy Interfaces
       </a>
     </li>
@@ -1922,7 +1410,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resources/vlan-interfaces/" class="md-nav__link">
+      <a href="../../../resources/vlan-interfaces/" class="md-nav__link">
         VLAN Interfaces
       </a>
     </li>
@@ -1978,7 +1466,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resources/host-config/" class="md-nav__link">
+      <a href="../../../resources/host-config/" class="md-nav__link">
         Mac/Win/Linux Networking
       </a>
     </li>
@@ -1992,7 +1480,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resources/manage-dhcp/" class="md-nav__link">
+      <a href="../../../resources/manage-dhcp/" class="md-nav__link">
         Troubleshooting DHCP
       </a>
     </li>
@@ -2006,7 +1494,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resources/dns-clients/" class="md-nav__link">
+      <a href="../../../resources/dns-clients/" class="md-nav__link">
         Managing DNS Clients
       </a>
     </li>
@@ -2035,7 +1523,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../contact/" class="md-nav__link">
+      <a href="../../../contact/" class="md-nav__link">
         Contact Us
       </a>
     </li>
@@ -2069,58 +1557,43 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    Overview
+  <a href="#getting-started" class="md-nav__link">
+    Getting Started
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#resources" class="md-nav__link">
-    Resources
+  <a href="#http-headers-revisited" class="md-nav__link">
+    HTTP Headers Revisited
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#part-i-identification" class="md-nav__link">
-    Part I - Identification
+  <a href="#testing-and-debugging" class="md-nav__link">
+    Testing and Debugging
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#part-ii-powering-on-your-pi" class="md-nav__link">
-    Part II - Powering on your Pi
+  <a href="#standardize-output" class="md-nav__link">
+    Standardize Output
+  </a>
+  
+    <nav class="md-nav" aria-label="Standardize Output">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#log-entry-format" class="md-nav__link">
+    Log Entry Format
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#part-iii-contacting-your-pi" class="md-nav__link">
-    Part III - Contacting your Pi
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-iv-manually-querying-mdns-devices" class="md-nav__link">
-    Part IV - Manually Querying mDNS devices
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#part-v-protocol-research" class="md-nav__link">
-    Part V - Protocol Research
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#extra-credit-optional" class="md-nav__link">
-    Extra Credit (Optional)
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2138,88 +1611,68 @@
                 
 
 
-<h1 id="lab-3-analyze-zeroconf-in-wireshark">Lab 3 - Analyze Zeroconf in Wireshark<a class="headerlink" href="#lab-3-analyze-zeroconf-in-wireshark" title="Permanent link">&para;</a></h1>
-<p><a href="https://canvas.uw.edu/courses/1373089/assignments/5369619">Lab 3 Assignment page on Canvas</a></p>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>Most of the time, our discussion about IP addresses are focused on globally routable addresses or on RFC1918 private addresses. In this lab, we are going to explore another type of address that can be used without any explicit configuration (either by a user or network administrator). We’re also going to look at how these addresses fit in to a group of protocols called the zero-configuration networking (zeroconf) protocols and explore how zeroconf appears in this class and in our daily use of network technology.</p>
-<p>This lab will require a combination of Wireshark analysis and Internet research. We’ve provided links to several references as a starting point, but you are free to look up other resources as needed. </p>
-<p><em>Please cite all sources in your deliverable.</em></p>
-<h2 id="resources">Resources<a class="headerlink" href="#resources" title="Permanent link">&para;</a></h2>
-<p><a href="https://en.wikipedia.org/wiki/Link-local_address">https://en.wikipedia.org/wiki/Link-local_address (Links to an external site.)</a></p>
-<p><a href="https://tools.ietf.org/html/rfc3927">https://tools.ietf.org/html/rfc3927 (Links to an external site.)</a></p>
-<p><a href="https://en.wikipedia.org/wiki/.local">https://en.wikipedia.org/wiki/.local (Links to an external site.)</a></p>
-<p><a href="https://en.wikipedia.org/wiki/Zero-configuration_networking">https://en.wikipedia.org/wiki/Zero-configuration_networking (Links to an external site.)</a></p>
-<h2 id="part-i-identification">Part I - Identification<a class="headerlink" href="#part-i-identification" title="Permanent link">&para;</a></h2>
-<p><strong>Report:</strong></p>
-<ol>
-<li>Before you start, take a moment to record some details about your computer and your Ethernet network adapter. These details may be helpful to you in your analysis:<ul>
-<li>Hostname (Computer, Pi)</li>
-<li>MAC Address (Computer, Pi)</li>
+<h1 id="lab-10-proxy-part-iv">Lab 10 - proxy part IV<a class="headerlink" href="#lab-10-proxy-part-iv" title="Permanent link">&para;</a></h1>
+<p><a href="https://canvas.uw.edu/courses/1373089/assignments/5467235">Lab 10 Assignment page on Canvas</a></p>
+<p>In this lab, we'll wire together the remaining components of a proxy based on the functionality we have built to parse / reconstruct messages.</p>
+<h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
+<p>Create a new branch called <code>final-proxy-submission</code> dedicated to this lab within your http-proxy repository. All code development for this task should take place in <code>http-proxy.py</code>.</p>
+<p>In the last lab, we extended the parse_message function to recognize HTTP response messages and completed the second half of the request/response forwarding connection flow. </p>
+<div class="admonition info">
+<p class="admonition-title">HTTP Version</p>
+<p>Please confirm that you have followed the instructions in previous labs to downgrade the HTTP version to HTTP/1.0. Newer versions of HTTP have more complicated connection management, where as HTTP/1.0 connections are used for just one request/response.</p>
+</div>
+<p>Our goal in this last lab is to complete any debugging and cleanup of the code and to replace the current printed output with a one-line summary from each connection.</p>
+<h2 id="http-headers-revisited">HTTP Headers Revisited<a class="headerlink" href="#http-headers-revisited" title="Permanent link">&para;</a></h2>
+<p>We have previously implemented an oversimplified version of the HTTP header, and on occasion, we may encounter a header that our proxy will be unable to parse due to the concept of continuation lines in RFC 1945. </p>
+<blockquote>
+<p>HTTP/1.0 headers may be folded onto multiple lines if each continuation line begins with a space or horizontal tab. </p>
+</blockquote>
+<p>Extend your header parsing logic so that it can recognize a continuation line (prefixed with one or more space/tab characters) and append it's contents to the value section of the most recently parsed header.</p>
+<h2 id="testing-and-debugging">Testing and Debugging<a class="headerlink" href="#testing-and-debugging" title="Permanent link">&para;</a></h2>
+<p>Test your proxy thoroughly within the browser (Firefox recommended for this task). You should be able to visit a variety of HTTP-based (non-encrypted) websites and see that pages can load without causing any unexpected exceptions within the proxy. Academic institutions tend to be good candidates for this task since they are much more likely to work over HTTP without redirecting to a secure version of the site.</p>
+<p>If you encounter any crashes or sites that will not load, attempt to debug the issue. Quite often, this is an indication that you forgot to handle the necessary edge cases in the HTTP message format, such as zero-length responses.</p>
+<h2 id="standardize-output">Standardize Output<a class="headerlink" href="#standardize-output" title="Permanent link">&para;</a></h2>
+<p>In previous labs, we focused more on the functionality of the proxy rather than the output. Before submitting your final work, clean up your existing output and print a single-line summary of each connection as described here. The format we will use for this log is consistent with the HTTP access logs seen in popular web servers like nginx and Apache. </p>
+<h3 id="log-entry-format">Log Entry Format<a class="headerlink" href="#log-entry-format" title="Permanent link">&para;</a></h3>
+<p>Each line of the log contains the following entries separated by spaces:</p>
+<ul>
+<li>Requester host (client IP address)</li>
+<li>Timestamp of when your proxy received the HTTP request<ul>
+<li>wrapped in square brackets</li>
+<li>
+<details class="hint">
+<summary>Hint: how to get time stamp in Python</summary>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="n">now</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">/%b/%Y:%H:%M:%S&#39;</span><span class="p">)</span>
+</code></pre></div></details>
+</li>
 </ul>
 </li>
-</ol>
-<h2 id="part-ii-powering-on-your-pi">Part II - Powering on your Pi<a class="headerlink" href="#part-ii-powering-on-your-pi" title="Permanent link">&para;</a></h2>
-<p>If you already started your Pi, shut it down and disconnect power before you begin.</p>
-<p>Launch a new Wireshark capture over the Ethernet connection to your Pi. Linux users should listen on the “All” interface and may want to disable their wireless connection before capturing to reduce noise and focus on the important details.</p>
-<p>With your capture running, power on the Pi. You’ll be keeping an eye on the capture in order to see what happens when your computer and your Pi first connect to the network.</p>
-<p><strong>Report:</strong></p>
-<ol start="2">
-<li>
-<p>Identify the link-local addresses and mDNS names associated with your computer and your Pi.</p>
+<li>The actual request-line received from the client (wrapped in double quotes)</li>
+<li>The HTTP status code returned by the target server in its response</li>
+<li>Content-Length of the HTTP response, i.e., the number of bytes in
+the payload<ul>
+<li>zero if the payload is not present</li>
+</ul>
 </li>
-<li>
-<p>Using your capture as a reference, identify the messages that your Pi sends while autoconfiguring its own IP addresses.</p>
+<li>Referer header<ul>
+<li>wrap the header in double quotes</li>
+<li>replace with a single dash (no quotes) if Referer is not present</li>
+</ul>
 </li>
-<li>
-<p>Describe the autoconfiguration process used by hosts to choose a link-local address and confirm that it is unique on the local network segment.</p>
+<li>User-Agent header (contains information about the client's
+browser/OS/etc)<ul>
+<li>wrap the header in double quotes</li>
+<li>replace with a single dash (no quotes) if the User-Agent is not present
+<br> </li>
+</ul>
 </li>
-</ol>
-<h2 id="part-iii-contacting-your-pi">Part III - Contacting your Pi<a class="headerlink" href="#part-iii-contacting-your-pi" title="Permanent link">&para;</a></h2>
-<p>With your capture still running, let’s try to contact your Pi. Try pinging your Pi based on the hostname “raspberrypi.local” (substitute your own hostname if you’ve already changed it). Likewise, try connecting to your pi via SSH.</p>
-<p><strong>Report:</strong> </p>
-<ol start="5">
-<li>
-<p>Using your capture, identify an example of an IPv4 and IPv6 mDNS request.</p>
-</li>
-<li>
-<p>Identify the multicast addresses used by mDNS in IPv4 and IPv6.</p>
-</li>
-<li>
-<p>Using your capture, identify an example of an IPv4 and IPv6 mDNS response.</p>
-</li>
-<li>
-<p>Are mDNS responses sent to a multicast address or to a specific unicast address.</p>
-</li>
-<li>
-<p>Identify the destination addresses used to reach your Pi in the final ICMP echo request (ping) and SSH connection.</p>
-</li>
-</ol>
-<h2 id="part-iv-manually-querying-mdns-devices">Part IV - Manually Querying mDNS devices<a class="headerlink" href="#part-iv-manually-querying-mdns-devices" title="Permanent link">&para;</a></h2>
-<p>Lastly, let’s look at some tools that will allow us to manually query mDNS devices on our network. Unlike DNS, we should see that individual devices answer their own queries. Windows users can use the powershell command <code>Resolve-DNSName</code> while macOS and Linux users should be able to use <code>dns-sd</code>.</p>
-<p><strong>Report:</strong></p>
-<ol start="10">
-<li>Use <code>man</code> to look up more information about the relevant command and to determine the correct syntax for making an mDNS request to your Pi. Provide a screenshot of your mDNS request and the output received.</li>
-</ol>
-<h2 id="part-v-protocol-research">Part V - Protocol Research<a class="headerlink" href="#part-v-protocol-research" title="Permanent link">&para;</a></h2>
-<p>Perform your own research into these protocols and answer the following questions. We recommend starting with the resources listed at the end of this guide.</p>
-<ol start="11">
-<li>
-<p>Describe the major difference between how link local addresses are assigned and used in IPv4 versus in IPv6.</p>
-</li>
-<li>
-<p>In your own words, summarize how RFC 3927 says we can determine whether hosts are located on the same network link.</p>
-</li>
-<li>
-<p>Based on what you’ve learned, describe how we are able to connect with a Pi based on a pre-defined hostname without the need for any infrastructure like a DHCP or DNS server.</p>
-</li>
-<li>
-<p>Based on what you’ve learned about link-local addresses, describe how you might use Wireshark in conjunction with other network utilities to troubleshoot the connection to a headless device (i.e., a device like the Pi that you can only access over the network).</p>
-</li>
-</ol>
-<h2 id="extra-credit-optional">Extra Credit (Optional)<a class="headerlink" href="#extra-credit-optional" title="Permanent link">&para;</a></h2>
-<ol start="15">
-<li>Perform an mDNS scavenger hunt with Wireshark on a couple of different networks. Provide a short (about ½ page) analysis of your search along with capture samples. What types of devices were you able to discover? How does mDNS make your life more convenient?</li>
-</ol>
+</ul>
+<p><strong>Examples</strong></p>
+<div class="highlight"><pre><span></span><code>127.0.0.1 [10/Oct/2000:13:55:36 -0700] &quot;GET /apache_pb.gif HTTP/1.0&quot; 200 2326 &quot;http://www.example.com/start.html&quot; &quot;Mozilla/4.08 [en] (Win98; I ;Nav)&quot;
+</code></pre></div>
+<p>More information about the Apache access log is available at <a href="https://www.scalyr.com/blog/detailed-introduction-apache-access-log/">scalyr detailed apache access log</a>.</p>
 
               
             </article>
@@ -2234,41 +1687,6 @@
       </main>
       
         <footer class="md-footer">
-  
-    <nav class="md-footer__inner md-grid" aria-label="Footer">
-      
-        
-        <a href="../lab2/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Lab 2 - Analyzing DHCP and ARP with Wireshark" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              Lab 2 - Analyzing DHCP and ARP with Wireshark
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="../lab4/" class="md-footer__link md-footer__link--next" aria-label="Next: Lab 4 - Analyze DNS &amp; HTTP in Wireshark" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              Lab 4 - Analyze DNS & HTTP in Wireshark
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -2294,10 +1712,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.sections"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.5e67fbfe.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.sections"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.5e67fbfe.min.js"}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e87a5f81.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.e87a5f81.min.js"></script>
       
     
   </body>
