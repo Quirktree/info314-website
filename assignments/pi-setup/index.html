@@ -71,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#raspberry-pi-setup-guide-2022-03-26" class="md-skip">
+        <a href="#raspberry-pi-setup-guide-2022-03-29" class="md-skip">
           Skip to content
         </a>
       
@@ -467,6 +467,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#enable-the-built-in-openssh-client" class="md-nav__link">
+    Enable the built-in OpenSSH Client
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#text-editor" class="md-nav__link">
     Text Editor
   </a>
@@ -738,7 +745,21 @@
   
     <li class="md-nav__item">
       <a href="../../resources/wifi-reference/" class="md-nav__link">
-        Wifi Reference
+        Wireless Configuration Reference
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resources/uw-wireless/" class="md-nav__link">
+        UW Wireless Reference
       </a>
     </li>
   
@@ -1885,6 +1906,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#enable-the-built-in-openssh-client" class="md-nav__link">
+    Enable the built-in OpenSSH Client
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#text-editor" class="md-nav__link">
     Text Editor
   </a>
@@ -2140,7 +2168,7 @@
                 
 
 
-<h1 id="raspberry-pi-setup-guide-2022-03-26">Raspberry Pi Setup Guide (2022-03-26)<a class="headerlink" href="#raspberry-pi-setup-guide-2022-03-26" title="Permanent link">&para;</a></h1>
+<h1 id="raspberry-pi-setup-guide-2022-03-29">Raspberry Pi Setup Guide (2022-03-29)<a class="headerlink" href="#raspberry-pi-setup-guide-2022-03-29" title="Permanent link">&para;</a></h1>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>This guide will walk you through the steps necessary to install Raspberry Pi OS on your Pi and connect it to Wifi. While we encourage you to search online and use other resources when you encounter questions, it's important that you follow our instructions closely. Though there are many different guides that can help you accomplish the same objectives, this guide has been built based on the needs and requirements of our projects and introduces you to tools you will need throughout the quarter.</p>
 <p>The core sections of this guide will walk you through the following steps:</p>
@@ -2161,6 +2189,14 @@
 <p>Before you start setting up your Pi, please review the tasks in the following section. These steps are particularly important for students running Windows and Linux.</p>
 <h2 id="before-you-start">Before you start<a class="headerlink" href="#before-you-start" title="Permanent link">&para;</a></h2>
 <h3 id="windows-users">Windows Users<a class="headerlink" href="#windows-users" title="Permanent link">&para;</a></h3>
+<h4 id="enable-the-built-in-openssh-client">Enable the built-in OpenSSH Client<a class="headerlink" href="#enable-the-built-in-openssh-client" title="Permanent link">&para;</a></h4>
+<p>All current versions of Windows 10 and 11 ship with an OpenSSH client, though the feature may be disabled by default. Follow the instructions here to enable this feature.</p>
+<ol>
+<li>Navigate to <em>Settings</em> -&gt; <em>Apps</em> -&gt; <em>Optional features</em></li>
+<li>Click on <em>Add an optional feature</em></li>
+<li>Enter <em>OpenSSH</em> and select the <em>OpenSSH Client</em></li>
+<li>Click next to install</li>
+</ol>
 <h4 id="text-editor">Text Editor<a class="headerlink" href="#text-editor" title="Permanent link">&para;</a></h4>
 <p>Among the many subtle differences between Windows and Unix-based machines is a difference in the control characters used to terminate lines in text files. In many cases, this difference will prevent Linux from parsing a file you've written and copied from Windows.</p>
 <p>To avoid this issue, install a code-oriented text editor that can be configured to use Unix-style line endings and use it exclusively for the labs and projects throughout this course. <strong>Visual Studio Code</strong> and <strong>Atom</strong> are common options.</p>
@@ -2394,12 +2430,15 @@ save_config
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
 </code></pre></div>
-<p>If you are editing the file on your own computer, paste these lines at the top of the file and add the rest of your changes below them. You will be adding a network definition for each WLAN that you want to use. Detailed configuration instructions are available in <a href="/resources/wifi-reference/">WPA Supplicant Configuration Reference</a>.</p>
+<p>If you are editing the file on your own computer, paste these lines at the top of the file and add the rest of your changes below them. You will be adding a network definition for each WLAN that you want to use. Detailed configuration instructions are available in <a href="/resources/wifi-reference/" target="_blank">WPA Supplicant Configuration Reference</a>.</p>
 <p>For this project, use the configuration reference to set up the following networks:</p>
 <ol>
-<li>Eduroam</li>
-<li>(Optional) UW MPSK Network</li>
-<li>(Optional) Home Network</li>
+<li><a href="/resources/wifi-reference/#wpa2-enterprise-networks" target="_blank">Eduroam (w/ Certificate Based Authentication)</a></li>
+<li><a href="/resources/wifi-reference/#wpa2-personal-networks" target="_blank">(Optional) UW MPSK Network</a><ul>
+<li><a href="/resources/uw-wireless/#uw-mpsk-network-onboarding" target="_blank">Requires Device Registration</a></li>
+</ul>
+</li>
+<li><a href="/resources/wifi-reference/#wpa2-personal-networks" target="_blank">(Optional) Home Network</a></li>
 </ol>
 <h3 id="testing-wireless-connections">Testing Wireless Connections<a class="headerlink" href="#testing-wireless-connections" title="Permanent link">&para;</a></h3>
 <p>When you are finished updating <code>wpa_supplicant.conf</code> reconfigure the wireless interface by calling <code>wpa_cli -i wlan0 reconfigure</code>. The command should return <code>OK</code> after a few seconds. Check that you are attached to the wireless network by calling <code>wpa_cli -i wlan0 status</code>.</p>
