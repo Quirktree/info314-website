@@ -1086,8 +1086,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#connecting-to-a-server" class="md-nav__link">
+    Connecting to a Server
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#create-ssh-client-keys" class="md-nav__link">
     Create SSH client keys
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#register-client-keys-with-a-server" class="md-nav__link">
+    Register Client Keys with a Server
   </a>
   
 </li>
@@ -1648,8 +1662,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#connecting-to-a-server" class="md-nav__link">
+    Connecting to a Server
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#create-ssh-client-keys" class="md-nav__link">
     Create SSH client keys
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#register-client-keys-with-a-server" class="md-nav__link">
+    Register Client Keys with a Server
   </a>
   
 </li>
@@ -1670,6 +1698,34 @@
 
 <h1 id="getting-started-with-ssh">Getting Started with SSH<a class="headerlink" href="#getting-started-with-ssh" title="Permanent link">&para;</a></h1>
 <p>SSH stands for 'Secure Shell'. A 'shell' is a command line interface, such as the one's you've seen in Terminal, PowerShell, or Git Bash. Throughout this course, you'll be using the shell, remotely, to configure Linux. </p>
+<h2 id="connecting-to-a-server">Connecting to a Server<a class="headerlink" href="#connecting-to-a-server" title="Permanent link">&para;</a></h2>
+<p>The basic syntax for ssh is:   </p>
+<p><code>ssh &lt;USERNAME&gt;@&lt;HOST&gt;</code>   </p>
+<p>For example, in order to connect to a new install of Raspberry Pi OS, enter <code>ssh pi@raspberrypi.local</code>. If successful, you should receive a message and prompt that you must respond to in order to continue:</p>
+<div class="highlight"><pre><span></span><code>The authenticity of host &#39;raspberrypi.local (fe80::0f0e:0d0c:0b0a:0908%en9)&#39; can&#39;t be established.
+ED25519 key fingerprint is SHA256:gy7+oAsjNc5gvP7aaR9k9Wl/oMdCLjAy2MJL8ZaQ9N0.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])?
+</code></pre></div>
+<p>This message indicates that your local SSH client is attempting to authenticate the remote server. While SSH clients have the option to authenticate with a password, SSH servers are only able to authenticate themselves using keys. </p>
+<p>Since we've never connected to this server, the client is asking whether to trust the public key information that has been presented. If you accept, SSH will store a fingerprint locally and pull it up whenever you reach out to the same hostname or IP address. This mechanism is known as <em>Trust on First Use (TOFU)</em>.</p>
+<p>Type <code>yes</code> and press <span class="keys"><kbd class="key-enter">Enter</kbd></span> to continue. </p>
+<p>If the server authenticates you successfully, it should return a login message and a prompt. If authentication fails, you should be prompted for a password or disconnected (if the user doesn't exist or password authentication is disabled).</p>
+<div class="admonition example">
+<p class="admonition-title">Successful connection with client certificates</p>
+<div class="highlight"><pre><span></span><code>Warning: Permanently added &#39;raspberrypi.local&#39; (ED25519) to the list of known hosts.
+Linux raspberrypi 5.10.103-v8+ #1530 SMP PREEMPT Tue Mar 8 13:06:35 GMT 2022 aarch64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Thu Mar 31 00:32:28 2022 from fe80::0102:0304:0506:0708%eth0
+pi@raspberrypi:~ $
+</code></pre></div>
+</div>
 <h2 id="create-ssh-client-keys">Create SSH client keys<a class="headerlink" href="#create-ssh-client-keys" title="Permanent link">&para;</a></h2>
 <p>When you are connecting to a remote server, you'll need a way to authenticate yourself and login to your server. While you can use a standard password, it is not a smart security practice. Rather, it's important to learn to generate and use a public keypair for SSH.</p>
 <p>A keypair is composed of a <strong>private</strong> key and a <strong>public</strong> key. Your <strong>public</strong> key can be given out, to say, GitHub or DigitalOcean, while your <strong>private</strong> key should never leave your device. </p>
@@ -1678,16 +1734,31 @@
 <ol>
 <li>With either Terminal (for Mac) or PowerShell/Git Bash (for Windows) run the following command with your own email address:<br />
 <code>ssh-keygen -t ed25519 -C &lt;DESCRIPTION&gt;</code></li>
-<li>When prompted for a file name for the private SSH key. Accept the default by pressing the Enter key.<sup id="fnref:location"><a class="footnote-ref" href="#fn:location">1</a></sup></li>
+<li>When prompted for a file name for the private SSH key. Accept the default by pressing ++Enter++.<sup id="fnref:location"><a class="footnote-ref" href="#fn:location">1</a></sup></li>
 <li>You will be prompted for a passphrase. This is important as it is used to protect your private SSH key. Make it something strong, like you would a password, and commit it to memory or write it down somewhere.</li>
 </ol>
 <p>Assuming that you accepted the default location above, your keys will be saved to <code>~/.ssh/id_ed25519</code> (private) and <code>~/.ssh/id_ed25519.pub</code> (public).</p>
 <p><strong><em>(OPTIONAL STEP)</em></strong> To avoid having to enter the passphrase every time you use your private key, continue to set up the <em>ssh-agent</em> as described <a href="/resources/ssh-agent.md">in this tutorial</a>.</p>
+<h2 id="register-client-keys-with-a-server">Register Client Keys with a Server<a class="headerlink" href="#register-client-keys-with-a-server" title="Permanent link">&para;</a></h2>
+<p>In order to connect to a server using an SSH keypair, the server will need a copy of the public key to associate with a user account on the system. By default, each user will have a <code>.ssh</code> folder in their home directory. When a user attempts to log in via an SSH connection, the server will look for a file named <code>~/.ssh/authorized_keys</code> containing a list of public keys. The client proceeds to authenticate itself by proving to the server that it is in possession of a matching private key.</p>
+<p>To use this feature on a Linux server, create the <code>.ssh</code> directory in your home directory (on the server). If you're already logged in, you can create the directory using <code>mkdir -p ~/.ssh</code>. After that is done, type <code>exit</code> to terminate the connection and return to your local command prompt.  </p>
+<details class="faq">
+<summary>FAQ: Why aren't <code>ssh</code> and <code>scp</code> working</summary>
+<p>Please review the previous set of instructions closely. The commands below are run from your <strong>local</strong> shell. Running them inside of an existing SSH session will not have the effect you are looking for.</p>
+</details>
+<p>With the directory in place, copy your public key (most likely <code>~/.ssh/id_ed25519.pub</code>) to the server using the <code>scp</code> command<sup id="fnref:scp_syntax"><a class="footnote-ref" href="#fn:scp_syntax">2</a></sup></p>
+<div class="highlight"><pre><span></span><code>scp <span class="nv">$HOME</span>/.ssh/id_ed25519.pub pi@raspberrypi.local:.ssh/authorized_keys
+</code></pre></div>
 <div class="footnote">
 <hr />
 <ol>
 <li id="fn:location">
-<p>By default, your SSH keys will be saved to <strong><code>~/.ssh</code></strong>. If you are prompted to overwrite an existing key, you can cancel the process by typing <code>n</code> and pressing <span class="keys"><kbd class="key-enter">Enter</kbd></span> or <span class="keys"><kbd class="key-enter">Enter</kbd></span>.&#160;<a class="footnote-backref" href="#fnref:location" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>By default, your SSH keys will be saved to <strong><code>~/.ssh</code></strong>. If you are prompted to overwrite an existing key, you can cancel the process by typing <code>n</code> and pressing <span class="keys"><kbd class="key-enter">Enter</kbd></span>.&#160;<a class="footnote-backref" href="#fnref:location" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:scp_syntax">
+<p>The first parameter to scp specifies the name of the local file. The example is copying the public key named id_ed25519.pub from the current user's home directory.</p>
+<p>The second parameter to scp names the user (<code>pi</code>), the host (<code>raspberrypi.local</code>), and the remote destination for the file (<code>.ssh/authorized_keys</code>). </p>
+<p>Like <code>ssh</code>, <code>scp</code> is a user-based tool and will be executed relative to the home directory of the authenticated user (<code>/home/pi</code>). We can override the default by specifying an absolute path beginning with a <code>/</code>, e.g., <code>/home/pi/.ssh/authorized_keys</code>.&#160;<a class="footnote-backref" href="#fnref:scp_syntax" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
