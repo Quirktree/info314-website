@@ -1678,11 +1678,19 @@
 <ol>
 <li>With either Terminal (for Mac) or PowerShell/Git Bash (for Windows) run the following command with your own email address:<br />
 <code>ssh-keygen -t ed25519 -C &lt;DESCRIPTION&gt;</code></li>
-<li>When prompted for a file name for the private SSH key. Accept the default by pressing the Enter key.</li>
+<li>When prompted for a file name for the private SSH key. Accept the default by pressing the Enter key.<sup id="fnref:location"><a class="footnote-ref" href="#fn:location">1</a></sup></li>
 <li>You will be prompted for a passphrase. This is important as it is used to protect your private SSH key. Make it something strong, like you would a password, and commit it to memory or write it down somewhere.</li>
-<li>If you are prompted to overwrite an existing key, you can cancel the process by typing <code>n</code> and pressing <span class="keys"><kbd class="key-enter">Enter</kbd></span> or <span class="keys"><kbd class="key-enter">Enter</kbd></span>.</li>
 </ol>
+<p>Assuming that you accepted the default location above, your keys will be saved to <code>~/.ssh/id_ed25519</code> (private) and <code>~/.ssh/id_ed25519.pub</code> (public).</p>
 <p><strong><em>(OPTIONAL STEP)</em></strong> To avoid having to enter the passphrase every time you use your private key, continue to set up the <em>ssh-agent</em> as described <a href="/resources/ssh-agent.md">in this tutorial</a>.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:location">
+<p>By default, your SSH keys will be saved to <strong><code>~/.ssh</code></strong>. If you are prompted to overwrite an existing key, you can cancel the process by typing <code>n</code> and pressing <span class="keys"><kbd class="key-enter">Enter</kbd></span> or <span class="keys"><kbd class="key-enter">Enter</kbd></span>.&#160;<a class="footnote-backref" href="#fnref:location" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
 
               
             </article>
