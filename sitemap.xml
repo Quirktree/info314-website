@@ -206,6 +206,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://info314.tcpip.dev/resources/ssh-primer/</loc>
+         <lastmod>2022-03-30</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://info314.tcpip.dev/resources/tshark-install/</loc>
          <lastmod>2022-03-30</lastmod>
          <changefreq>daily</changefreq>

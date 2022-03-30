@@ -12,14 +12,14 @@
         <meta name="author" content="Clinton Campbell">
       
       
-        <link rel="canonical" href="https://info314.tcpip.dev/resources/setup-frr/">
+        <link rel="canonical" href="https://info314.tcpip.dev/resources/ssh-primer/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.7">
     
     
       
-        <title>Install Free Range Routing (FRR) - INFO 314 Course Resources</title>
+        <title>Getting Started with SSH - INFO 314 Course Resources</title>
       
     
     
@@ -71,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#getting-started-with-free-range-routing-frr-on-raspbian" class="md-skip">
+        <a href="#getting-started-with-ssh" class="md-skip">
           Skip to content
         </a>
       
@@ -106,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Install Free Range Routing (FRR)
+              Getting Started with SSH
             
           </span>
         </div>
@@ -1022,12 +1022,14 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3_1" type="checkbox" id="__nav_4_3_1" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3_1" type="checkbox" id="__nav_4_3_1" checked>
       
       
       
@@ -1048,11 +1050,52 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../ssh-primer/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Getting Started with SSH
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Getting Started with SSH
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#create-ssh-client-keys" class="md-nav__link">
+    Create SSH client keys
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1327,14 +1370,12 @@
               
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3_6" type="checkbox" id="__nav_4_3_6" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_3_6" type="checkbox" id="__nav_4_3_6" >
       
       
       
@@ -1355,100 +1396,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Install Free Range Routing (FRR)
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../setup-frr/" class="md-nav__link">
         Install Free Range Routing (FRR)
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#initial-setup" class="md-nav__link">
-    Initial Setup
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#learn-the-basics-of-navigating-vty-shell-basics" class="md-nav__link">
-    Learn the basics of navigating VTY Shell Basics
-  </a>
-  
-    <nav class="md-nav" aria-label="Learn the basics of navigating VTY Shell Basics">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#launch-vty-shell" class="md-nav__link">
-    Launch VTY shell
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vtysh-modes" class="md-nav__link">
-    VTYSH modes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#save-configuration-from-enable-mode" class="md-nav__link">
-    Save Configuration (from enable mode)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#show-the-running-config-from-enable-mode" class="md-nav__link">
-    Show the Running Config (from enable mode)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#shortcuts" class="md-nav__link">
-    Shortcuts
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1696,57 +1648,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#initial-setup" class="md-nav__link">
-    Initial Setup
+  <a href="#create-ssh-client-keys" class="md-nav__link">
+    Create SSH client keys
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#learn-the-basics-of-navigating-vty-shell-basics" class="md-nav__link">
-    Learn the basics of navigating VTY Shell Basics
-  </a>
-  
-    <nav class="md-nav" aria-label="Learn the basics of navigating VTY Shell Basics">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#launch-vty-shell" class="md-nav__link">
-    Launch VTY shell
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#vtysh-modes" class="md-nav__link">
-    VTYSH modes
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#save-configuration-from-enable-mode" class="md-nav__link">
-    Save Configuration (from enable mode)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#show-the-running-config-from-enable-mode" class="md-nav__link">
-    Show the Running Config (from enable mode)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#shortcuts" class="md-nav__link">
-    Shortcuts
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1764,44 +1668,21 @@
                 
 
 
-<h1 id="getting-started-with-free-range-routing-frr-on-raspbian">Getting Started with Free Range Routing (FRR) on Raspbian<a class="headerlink" href="#getting-started-with-free-range-routing-frr-on-raspbian" title="Permanent link">&para;</a></h1>
-<h2 id="initial-setup">Initial Setup<a class="headerlink" href="#initial-setup" title="Permanent link">&para;</a></h2>
+<h1 id="getting-started-with-ssh">Getting Started with SSH<a class="headerlink" href="#getting-started-with-ssh" title="Permanent link">&para;</a></h1>
+<p>SSH stands for 'Secure Shell'. A 'shell' is a command line interface, such as the one's you've seen in Terminal, PowerShell, or Git Bash. Throughout this course, you'll be using the shell, remotely, to configure Linux. </p>
+<h2 id="create-ssh-client-keys">Create SSH client keys<a class="headerlink" href="#create-ssh-client-keys" title="Permanent link">&para;</a></h2>
+<p>When you are connecting to a remote server, you'll need a way to authenticate yourself and login to your server. While you can use a standard password, it is not a smart security practice. Rather, it's important to learn to generate and use a public keypair for SSH.</p>
+<p>A keypair is composed of a <strong>private</strong> key and a <strong>public</strong> key. Your <strong>public</strong> key can be given out, to say, GitHub or DigitalOcean, while your <strong>private</strong> key should never leave your device. </p>
+<p>OpenSSH is shipped with a utility called <code>ssh-keygen</code> that will generate a keypair for you.</p>
+<p><strong>To create your SSH keypair, use <code>ssh-keygen</code> as follows:</strong></p>
 <ol>
-<li>Review the project homepage at <a href="https://frrouting.org">https://frrouting.org</a></li>
-<li>Configure the FRR Debain Repository<ul>
-<li>a. Download the public key used to verify application packages: <code>curl -s https://deb.frrouting.org/frr/keys.asc | sudo apt-key add -</code></li>
-<li>b. Add the repository into the list of available resources for apt: <code>echo deb https://deb.frrouting.org/frr $(lsb_release -s -c) frr-stable | sudo tee -a /etc/apt/sources.list.d/frr.list</code></li>
-</ul>
-</li>
-<li>Use <code>apt</code> to install FRR: <code>sudo apt update &amp;&amp; sudo apt install frr</code></li>
-<li>Give the Pi user permission to run the FRR managment client<ul>
-<li>a. Run <code>sudo usermod -aG frrvty pi</code> to add the <code>pi</code> user to the <code>frrvty</code> management group</li>
-<li>b. Logout (exit SSH) and return in order for Linux to recognize your new privileges</li>
-</ul>
-</li>
-<li>Enable the BGP routing daemon<ul>
-<li>a. Edit <code>/etc/frr/daemons</code> and set <code>bgpd=yes</code>. </li>
-<li>b. Repeat this process for other routing daemons (if applicable).</li>
-</ul>
-</li>
-<li>Restart FRRouting: <code>sudo systemctl restart frr</code></li>
+<li>With either Terminal (for Mac) or PowerShell/Git Bash (for Windows) run the following command with your own email address:<br />
+<code>ssh-keygen -t ed25519 -C &lt;DESCRIPTION&gt;</code></li>
+<li>When prompted for a file name for the private SSH key. Accept the default by pressing the Enter key.</li>
+<li>You will be prompted for a passphrase. This is important as it is used to protect your private SSH key. Make it something strong, like you would a password, and commit it to memory or write it down somewhere.</li>
+<li>If you are prompted to overwrite an existing key, you can cancel the process by typing <code>n</code> and pressing <span class="keys"><kbd class="key-enter">Enter</kbd></span> or <span class="keys"><kbd class="key-enter">Enter</kbd></span>.</li>
 </ol>
-<h2 id="learn-the-basics-of-navigating-vty-shell-basics">Learn the basics of navigating VTY Shell Basics<a class="headerlink" href="#learn-the-basics-of-navigating-vty-shell-basics" title="Permanent link">&para;</a></h2>
-<h3 id="launch-vty-shell">Launch VTY shell<a class="headerlink" href="#launch-vty-shell" title="Permanent link">&para;</a></h3>
-<p>To manage FRR, we will use a dedicated UI called the VTY shell. Launch the shell with the <code>vtysh</code> command.</p>
-<h3 id="vtysh-modes">VTYSH modes<a class="headerlink" href="#vtysh-modes" title="Permanent link">&para;</a></h3>
-<p>While using the VTY shell, you'll need to switch between <em>modes</em>. While most of our work will be conducted in <em>Configuration Mode</em>, the shell will launch initially in <em>Enable mode</em>. To enter Configuration Mode, type <code>configure terminal</code> at the VTY shell prompt. To exit Configuration Mode and return to Enable Mode, type <code>exit</code>.</p>
-<h3 id="save-configuration-from-enable-mode">Save Configuration (from enable mode)<a class="headerlink" href="#save-configuration-from-enable-mode" title="Permanent link">&para;</a></h3>
-<p>Configuration changes you make from VTY shell will take effect right away, but they do not persist between reboots due to a distinction FRR makes between the <em>Running Config</em> and the <em>Startup Config</em>. To save your changes to disk, return to Enable Mode and type <code>write memory</code> or <code>copy running-config startup-config</code>.</p>
-<h3 id="show-the-running-config-from-enable-mode">Show the Running Config (from enable mode)<a class="headerlink" href="#show-the-running-config-from-enable-mode" title="Permanent link">&para;</a></h3>
-<p>To view the active Running Config, return to Enable Mode and enter <code>show running-config</code> or <code>write terminal</code> at the prompt.</p>
-<h3 id="shortcuts">Shortcuts<a class="headerlink" href="#shortcuts" title="Permanent link">&para;</a></h3>
-<p>Command abbreviations are accepted in VTY shell as long as the abbreviation is unambiguous. The shell will do its best to determine your intent and complete the command.</p>
-<ul>
-<li><code>configure terminal</code> can be abbreviated <code>conf t</code></li>
-<li><code>quit</code> can be abbreviated <code>q</code></li>
-<li><code>write memory</code> can be abbreviated <code>w m</code> </li>
-</ul>
+<p><strong><em>(OPTIONAL STEP)</em></strong> To avoid having to enter the passphrase every time you use your private key, continue to set up the <em>ssh-agent</em> as described <a href="/resources/ssh-agent.md">in this tutorial</a>.</p>
 
               
             </article>
@@ -1820,7 +1701,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../address-planning/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Basic IP Address Planning" rel="prev">
+        <a href="../../notes/ethernet-switches/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Ethernet Switches" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -1829,20 +1710,20 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              Basic IP Address Planning
+              Ethernet Switches
             </div>
           </div>
         </a>
       
       
         
-        <a href="../setup-wireguard/" class="md-footer__link md-footer__link--next" aria-label="Next: Install and Configure WireGuard" rel="next">
+        <a href="../ssh-agent/" class="md-footer__link md-footer__link--next" aria-label="Next: Using ssh-agent" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Install and Configure WireGuard
+              Using ssh-agent
             </div>
           </div>
           <div class="md-footer__button md-icon">

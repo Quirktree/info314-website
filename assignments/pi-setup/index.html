@@ -1356,6 +1356,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../../resources/ssh-primer/" class="md-nav__link">
+        Getting Started with SSH
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../resources/ssh-agent/" class="md-nav__link">
         Using ssh-agent
       </a>
@@ -1461,14 +1475,14 @@
       
       
         <label class="md-nav__link" for="__nav_4_3_3">
-          General Network Configuration
+          Wireless
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="General Network Configuration" data-md-level="3">
+      <nav class="md-nav" aria-label="Wireless" data-md-level="3">
         <label class="md-nav__title" for="__nav_4_3_3">
           <span class="md-nav__icon md-icon"></span>
-          General Network Configuration
+          Wireless
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -1480,6 +1494,20 @@
     <li class="md-nav__item">
       <a href="../../resources/wifi-reference/" class="md-nav__link">
         Linux Wireless Configuration
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resources/uw-wireless/" class="md-nav__link">
+        UW Wireless Network Reference
       </a>
     </li>
   
@@ -1775,14 +1803,14 @@
       
       
         <label class="md-nav__link" for="__nav_4_4">
-          Troubleshooting
+          General
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Troubleshooting" data-md-level="2">
+      <nav class="md-nav" aria-label="General" data-md-level="2">
         <label class="md-nav__title" for="__nav_4_4">
           <span class="md-nav__icon md-icon"></span>
-          Troubleshooting
+          General
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -2450,27 +2478,22 @@ update_config=1
 <summary>Example of a successful connection</summary>
 <div class="highlight"><pre><span></span><code>wpa_cli -i wlan0 status
 
-bssid=ac:a3:1e:eb:53:c1
-freq=2462
-ssid=eduroam
-id=0
-mode=station
-pairwise_cipher=CCMP
-group_cipher=CCMP
-key_mgmt=WPA2/IEEE 802.1X/EAP
-wpa_state=COMPLETED
-ip_address=10.18.185.176
-p2p_device_address=fa:f8:ee:8c:fe:62
-address=b8:27:eb:db:fe:93
-Supplicant PAE state=AUTHENTICATED
-suppPortStatus=Authorized
-EAP state=SUCCESS
-selectedMethod=25 (EAP-PEAP)
-EAP TLS cipher=ECDHE-RSA-AES256-GCM-SHA384
-tls_session_reused=0
-EAP-PEAPv0 Phase2 method=MSCHAPV2
-eap_session_id=19865aef996591ffbd01643fbcf1b5111ef04dd3ed4f3387752c8cc0cf3b8c88b95c40bfc4915b284b3b91f60f5cb71074baaf1360d39f7a91530143dcb3c8e4ce
-uuid=c4adf7c1-f863-5192-8179-f5d1d2e27fd7
+&lt;3&gt;Trying to associate with SSID &#39;eduroam&#39;
+&lt;3&gt;Associated with 1c:28:af:07:55:31
+&lt;3&gt;CTRL-EVENT-EAP-STARTED EAP authentication started
+&lt;3&gt;CTRL-EVENT-EAP-STATUS status=&#39;started&#39; parameter=&#39;&#39;
+&lt;3&gt;CTRL-EVENT-SUBNET-STATUS-UPDATE status=0
+&lt;3&gt;CTRL-EVENT-EAP-PROPOSED-METHOD vendor=0 method=13
+&lt;3&gt;CTRL-EVENT-EAP-STATUS status=&#39;accept proposed method&#39; parameter=&#39;TLS&#39;
+&lt;3&gt;CTRL-EVENT-EAP-METHOD EAP vendor 0 method 13 (TLS) selected
+&lt;3&gt;CTRL-EVENT-EAP-PEER-CERT depth=2 subject=&#39;/C=US/ST=New Jersey/L=Jersey City/O=The USERTRUST Network/CN=USERTrust RSA Certification Authority&#39; hash=e793c9b02fd8aa13e21c31228accb08119643b749c898964b1746d46c3d4cbd2
+&lt;3&gt;CTRL-EVENT-EAP-PEER-CERT depth=2 subject=&#39;/C=US/ST=New Jersey/L=Jersey City/O=The USERTRUST Network/CN=USERTrust RSA Certification Authority&#39; cert=308205de308203c6a003020102021001fd6d30fca3ca51a81bbc640e35032d300d06092a864886f70d01010c0500308188310b3009060355040613025553311330110603550408130a4e6577204a6572736579311430120603550407130b4a65727365792043697479311e301c060355040a131554686520555345525452555354204e6574776f726b312e302c06035504031325555345525472757374205253412043657274696669636174696f6e20417574686f72697479301e170d3130303230313030303030305a170d3338303131383233353935395a308188310b3009060355040613025553311330110603550408130a4e6577204a657273657931...
+&lt;3&gt;CTRL-EVENT-EAP-PEER-ALT depth=0 DNS:radius.uw.edu
+&lt;3&gt;CTRL-EVENT-EAP-PEER-ALT depth=0 DNS:radius.washington.edu
+&lt;3&gt;CTRL-EVENT-EAP-STATUS status=&#39;remote certificate verification&#39; parameter=&#39;success&#39;
+&lt;3&gt;CTRL-EVENT-EAP-STATUS status=&#39;completion&#39; parameter=&#39;success&#39;
+&lt;3&gt;CTRL-EVENT-EAP-SUCCESS EAP authentication completed successfully
+&lt;3&gt;CTRL-EVENT-CONNECTED - Connection to 1c:28:af:07:55:31 completed [id=0 id_str=]
 </code></pre></div>
 </details>
 <h3 id="testing-and-troubleshooting">Testing and Troubleshooting<a class="headerlink" href="#testing-and-troubleshooting" title="Permanent link">&para;</a></h3>
