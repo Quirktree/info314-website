@@ -629,8 +629,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#testing-and-troubleshooting" class="md-nav__link">
-    Testing and Troubleshooting
+  <a href="#verify-connection" class="md-nav__link">
+    Verify Connection
   </a>
   
 </li>
@@ -671,22 +671,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#check-network-adapters" class="md-nav__link">
-    Check Network Adapters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mdns" class="md-nav__link">
-    mDNS
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#missing-network-drivers" class="md-nav__link">
     Missing Network Drivers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#link-local-addresses" class="md-nav__link">
+    Link Local Addresses
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multicast-dns" class="md-nav__link">
+    Multicast DNS
   </a>
   
 </li>
@@ -699,6 +699,13 @@
           <li class="md-nav__item">
   <a href="#ssh-connection-warning" class="md-nav__link">
     SSH Connection Warning
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wireless-network-is-disabled" class="md-nav__link">
+    Wireless Network is Disabled
   </a>
   
 </li>
@@ -2096,8 +2103,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#testing-and-troubleshooting" class="md-nav__link">
-    Testing and Troubleshooting
+  <a href="#verify-connection" class="md-nav__link">
+    Verify Connection
   </a>
   
 </li>
@@ -2138,22 +2145,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#check-network-adapters" class="md-nav__link">
-    Check Network Adapters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#mdns" class="md-nav__link">
-    mDNS
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#missing-network-drivers" class="md-nav__link">
     Missing Network Drivers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#link-local-addresses" class="md-nav__link">
+    Link Local Addresses
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multicast-dns" class="md-nav__link">
+    Multicast DNS
   </a>
   
 </li>
@@ -2166,6 +2173,13 @@
           <li class="md-nav__item">
   <a href="#ssh-connection-warning" class="md-nav__link">
     SSH Connection Warning
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wireless-network-is-disabled" class="md-nav__link">
+    Wireless Network is Disabled
   </a>
   
 </li>
@@ -2496,7 +2510,7 @@ update_config=1
 &lt;3&gt;CTRL-EVENT-CONNECTED - Connection to 1c:28:af:07:55:31 completed [id=0 id_str=]
 </code></pre></div>
 </details>
-<h3 id="testing-and-troubleshooting">Testing and Troubleshooting<a class="headerlink" href="#testing-and-troubleshooting" title="Permanent link">&para;</a></h3>
+<h3 id="verify-connection">Verify Connection<a class="headerlink" href="#verify-connection" title="Permanent link">&para;</a></h3>
 <p>In addition to <code>wpa_cli</code>, there are several tools that can be used to check the current state of your wireless interface and determine whether it has received a valid configuration from DHCP.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Show the current state of the wlan0 interface</span>
 ip link show wlan0
@@ -2514,8 +2528,6 @@ ip addr show wlan0
     inet6 fe80::ce14:df50:b3f0:9c2a/64 scope link
        valid_lft forever preferred_lft forever
 </code></pre></div>
-<p><br>
-<br></p>
 <h2 id="update-software-packages">Update Software Packages<a class="headerlink" href="#update-software-packages" title="Permanent link">&para;</a></h2>
 <hr />
 <p>Let's finalize the initial setup by checking for updates to Raspberry Pi OS and its default packages (this can take a few minutes on slow networks).</p>
@@ -2540,17 +2552,37 @@ sudo apt install dnsutils
 <h2 id="tips-and-troubleshooting">Tips and Troubleshooting<a class="headerlink" href="#tips-and-troubleshooting" title="Permanent link">&para;</a></h2>
 <hr />
 <h3 id="cant-find-raspberrypilocal">Can't find raspberrypi.local<a class="headerlink" href="#cant-find-raspberrypilocal" title="Permanent link">&para;</a></h3>
-<p>To make an initial connection with the Raspberry Pi, you need </p>
-<h4 id="check-network-adapters">Check Network Adapters<a class="headerlink" href="#check-network-adapters" title="Permanent link">&para;</a></h4>
-<p>If you are confident that you will need to check the configuration of the Ethernet port or USB device on your local computer. </p>
-<p>Run <code>ipconfig</code> on Windows or <code>ifconfig</code> on other devices to confirm that the interface registers a network connection. The local IPv4 address for this interface should begin with <code>169.254.x.x</code> (link-local address range). If you do not see a valid connection, you may need to review the next section on missing drivers.</p>
-<p><strong>Linux</strong> Most devices will assign a Link-Local address by default when DHCP cannot be found, but some versions of Linux, e.g., Ubuntu require you to choose between link-local addressing and DHCP. If you are on Ubuntu, explore your advanced adapter settings for Ethernet to configure your adapter settings.</p>
-<h4 id="mdns">mDNS<a class="headerlink" href="#mdns" title="Permanent link">&para;</a></h4>
-<p><strong>Windows</strong> Make sure that you are on a current version of Windows 10. Though mDNS is now a draft standard, Microsoft did not include a full client until late 2018. Support for mDNS on earlier versions of Windows relied on the Bonjour Print Services software that was once distributed by Apple in conjunction with iTunes and various other applications. </p>
-<p><strong>Linux</strong> Desktop Linux distributions often support mDNS resolution using the  daemon. Review the requirements at the <a href="#verify-support-for-mdns">beginning of this guide</a>.</p>
+<p>If you can't make an initial connection to the Raspberry Pi, verify the following requirements were satisfied:</p>
+<ul>
+<li>Raspberry Pi OS has been successfully written to microSD card<ul>
+<li>Test again with a known good SD card</li>
+</ul>
+</li>
+<li><a href="#enable-ssh">OpenSSH daemon was enabled</a> before booting the Pi[^ssh_gone]</li>
+<li>Physical connection is healthy<ul>
+<li>Make sure that both ends of the cable are completely inserted</li>
+<li>Try an alternate cable, or test the cable with another device</li>
+</ul>
+</li>
+<li>Network interface is functional<ul>
+<li>Check for link lights on both network interfaces</li>
+<li>Verify that your network adapter is visible to the OS</li>
+<li>Determine whether your network adapter requires <a href="#missing-network-drivers">drivers</a></li>
+</ul>
+</li>
+<li>Network interface is assigned a <a href="#link-local-addresses">link local address</a></li>
+<li>Current system configuration supports <a href="#multicast-dns">multicast DNS (mDNS)</a></li>
+</ul>
+<p>[^ssh_gone] Raspberry Pi OS will remove the /boot/ssh file after enabling the service. You do not need to restore the file if you find that it has disappeared.</p>
 <h4 id="missing-network-drivers">Missing Network Drivers<a class="headerlink" href="#missing-network-drivers" title="Permanent link">&para;</a></h4>
-<p>If you are using a USB Ethernet port for the first time on your computer, it's possible that your first attempt to connect will be unsuccessful. </p>
-<p>Many of these issues are resolved by disconnecting the USB briefly and trying after you have plugged everything back in. If issues persist, search online to determine whether your computer is missing a driver needed for the specific model of Ethernet adapter.</p>
+<p>If you are using a USB Ethernet port for the first time on your computer, it's possible that your first attempt to connect will be unsuccessful. Some issues are resolved simply by disconnecting the USB briefly and trying to connect again after you have plugged everything back in. </p>
+<p>If your issues persist, check the manufacturer's support page or search to determine whether your computer needs additional drivers for the specific model of Ethernet adapter. If drivers are necessary, they will usually be available from the manufacturer's website.</p>
+<h4 id="link-local-addresses">Link Local Addresses<a class="headerlink" href="#link-local-addresses" title="Permanent link">&para;</a></h4>
+<p>Run <code>ipconfig</code> on Windows or <code>ifconfig</code> on other devices to confirm that the interface registers a network connection. The local IPv4 address for this interface should begin with <code>169.254.x.x</code> (link-local address range). Most devices will assign this type of address automatically if a DHCP cannot be found.</p>
+<p><strong>Linux</strong> Some versions of Linux, e.g., Ubuntu, require you to choose between link-local addressing and DHCP. Explore your advanced adapter settings for Ethernet to change the adapter settings.</p>
+<h4 id="multicast-dns">Multicast DNS<a class="headerlink" href="#multicast-dns" title="Permanent link">&para;</a></h4>
+<p><strong>Windows</strong> Make sure that you are on a recent build of Windows 10 or Windows 11. Though mDNS is now a draft standard, Microsoft did not include a full client until late 2018. Support for mDNS on earlier versions of Windows relied on the Bonjour Print Services software that was once distributed by Apple in conjunction with iTunes and various other applications. </p>
+<p><strong>Linux</strong> Desktop Linux distributions often support mDNS resolution using the Avahi daemon. Review the requirements at the <a href="#verify-support-for-mdns">beginning of this guide</a>.</p>
 <h3 id="ssh-connection-warning">SSH Connection Warning<a class="headerlink" href="#ssh-connection-warning" title="Permanent link">&para;</a></h3>
 <p>At some point, you are likely to receive the following warning when trying to launch <code>ssh</code>. In most cases, what you are seeing is expected behavior. </p>
 <div class="highlight"><pre><span></span><code>@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -2565,6 +2597,8 @@ IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
 <p class="admonition-title">Missing features in Windows SSH</p>
 <p>The <code>ssh-keygen -R</code> feature isn't present before Windows 10 1809. If you are still running an older version of Windows, you will have to locate <code>known_hosts</code> within the <code>.ssh</code> configuration directory and remove the line indicated by the warning message.</p>
 </div>
+<h3 id="wireless-network-is-disabled">Wireless Network is Disabled<a class="headerlink" href="#wireless-network-is-disabled" title="Permanent link">&para;</a></h3>
+<p>Check the state of your wireless network interface using the <code>rfkill list</code>. If a soft-block is listed for <code>wlan0</code>, it's likely that you skipped one or more previous steps. Double-check your <a href="#set-the-wireless-network-locale">wireless locale</a> and use rfkill to <a href="#enable-the-wireless-interface">enable your interface</a>. </p>
 <h3 id="permission-denied-errors">Permission Denied Errors<a class="headerlink" href="#permission-denied-errors" title="Permanent link">&para;</a></h3>
 <p>When we're performing system and network administration, we are often in need of <strong>root</strong> privileges. Running an administrative command without the appropriate privileges will result in a permissions-related error.</p>
 <p>By default, the <strong>pi</strong> user is restricted in which parts of the system it can read and modify (Linux is heavily user-based in it's permissions model); however, the user is permitted to elevate itself to the admin level with <code>sudo</code> when it is necessary to perform privileged commands.</p>
