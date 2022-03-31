@@ -1702,11 +1702,14 @@
 <p>The basic syntax for ssh is:   </p>
 <p><code>ssh &lt;USERNAME&gt;@&lt;HOST&gt;</code>   </p>
 <p>For example, in order to connect to a new install of Raspberry Pi OS, enter <code>ssh pi@raspberrypi.local</code>. If successful, you should receive a message and prompt that you must respond to in order to continue:</p>
+<div class="admonition example">
+<p class="admonition-title">Unknown Host Prompt</p>
 <div class="highlight"><pre><span></span><code>The authenticity of host &#39;raspberrypi.local (fe80::0f0e:0d0c:0b0a:0908%en9)&#39; can&#39;t be established.
 ED25519 key fingerprint is SHA256:gy7+oAsjNc5gvP7aaR9k9Wl/oMdCLjAy2MJL8ZaQ9N0.
 This key is not known by any other names
 Are you sure you want to continue connecting (yes/no/[fingerprint])?
 </code></pre></div>
+</div>
 <p>This message indicates that your local SSH client is attempting to authenticate the remote server. While SSH clients have the option to authenticate with a password, SSH servers are only able to authenticate themselves using keys. </p>
 <p>Since we've never connected to this server, the client is asking whether to trust the public key information that has been presented. If you accept, SSH will store a fingerprint locally and pull it up whenever you reach out to the same hostname or IP address. This mechanism is known as <em>Trust on First Use (TOFU)</em>.</p>
 <p>Type <code>yes</code> and press <span class="keys"><kbd class="key-enter">Enter</kbd></span> to continue. </p>
