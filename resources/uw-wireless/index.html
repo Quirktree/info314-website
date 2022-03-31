@@ -1782,21 +1782,21 @@
 <p>On the following screen, click on the link labeled P12 to download a file containing your certificate and private key. Take note of the P12 filename before proceeding.</p>
 <p>On the final screen, record a copy of the settings displayed in the section that says <em>Please use the following settings to configure your device</em>. You will need these values to complete the wpa_supplicant network configuration.</p>
 <p><img alt="Eduroam Settings" src="/img/eduroam-settings.jpg" style="width:35%" />.</p>
-<p>Before you leave this page, click on the link for the <em>CA Certificate</em> in order to download a copy of to your computer. Take note of this filename as well.</p>
+<p>Before you leave this page, click on the link for the <em>CA Certificate</em> in order to download a copy of to your computer.<sup id="fnref:ca_cert"><a class="footnote-ref" href="#fn:ca_cert">2</a></sup> Take note of this filename as well.</p>
 <h3 id="install-certificates-to-your-device">Install certificates to your device<a class="headerlink" href="#install-certificates-to-your-device" title="Permanent link">&para;</a></h3>
 <p>Before configuring wpa_supplicant, we will need to convert the files downloaded during onboarding into a format supported by the software, and install them into an appropriate location. The client certificate and private key (credentials that are used to identify you to the network) are stored in a <strong>passphrase encrypted PKCS#12</strong> file. This is the first file that you downloaded from the P12 link. </p>
-<p>Copy the files you downloaded in the previous step into the home directory of your Pi. Extract the client certificate and the private key into separate PEM files using the <strong>openssl</strong> command-line utility.<sup id="fnref:placeholder"><a class="footnote-ref" href="#fn:placeholder">2</a></sup> <sup id="fnref:passphrase"><a class="footnote-ref" href="#fn:passphrase">3</a></sup></p>
+<p>Copy the files you downloaded in the previous step into the home directory of your Pi. Extract the client certificate and the private key into separate PEM files using the <strong>openssl</strong> command-line utility.<sup id="fnref:placeholder"><a class="footnote-ref" href="#fn:placeholder">3</a></sup> <sup id="fnref:passphrase"><a class="footnote-ref" href="#fn:passphrase">4</a></sup> </p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Extract the client certificate and convert to PEM</span>
 openssl pkcs12 -in <span class="s2">&quot;&lt;P12 FILENAME&gt;&quot;</span> -out &lt;NETID&gt;_cert.pem -clcerts -nokeys
 
 <span class="c1"># Extract the private key and convert to PEM</span>
 openssl pkcs12 -in <span class="s2">&quot;&lt;P12 FILENAME&gt;&quot;</span> -out &lt;NETID&gt;_key.pem -nodes
 </code></pre></div>
-<p>The certificate authority’s certificate (public credential that is used to verify that you are speaking to a legitimate server) will also need to be converted to the PEM format. </p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Convert the CA certificate to PEM</span>
-openssl pkcs12 -in <span class="s2">&quot;&lt;CA FILENAME&gt;&quot;</span> -out eduroam_ca.pem -cacerts
-</code></pre></div>
-<p>You should now have three new pem files in your home directory. Move these files into <code>/etc/wpa_supplicant/</code> and make a note of their names. </p>
+<p>You should now have two new pem files in your home directory. Move these files along with certificate authority into <code>/etc/wpa_supplicant/</code> and make a note of their names. </p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>No conversion is necessary for the certificate authority. The file that you downloaded is already in the PEM format. </p>
+</div>
 <p>Before you wrap up, update the ownership and permissions of the certificate files to further protect them. This is particularly important for <code>&lt;NETID&gt;_key.pem</code>, which now contains an unencrypted copy of your certificate's private key.</p>
 <div class="highlight"><pre><span></span><code>sudo chown root:root /etc/wpa_supplicant/*.pem
 sudo chmod <span class="m">600</span> /etc/wpa_supplicant/*.pem
@@ -1810,11 +1810,14 @@ sudo chmod <span class="m">600</span> /etc/wpa_supplicant/*.pem
 <li id="fn:mac_address">
 <p>You can look up MAC addresses on your pi using the <code>ip link</code> command. Your device will display a different MAC address (labeled <strong><code>link/ether</code></strong>) for each network interface. Register the address associated with the wireless interface -- <strong><code>wlan0</code></strong> by default.&#160;<a class="footnote-backref" href="#fnref:mac_address" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:mac_address" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
+<li id="fn:ca_cert">
+<p>The Certificate Authority (CA) certificate is a public credential that your device uses to verify that you are speaking to a legitimate server.&#160;<a class="footnote-backref" href="#fnref:ca_cert" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
 <li id="fn:placeholder">
-<p>All caps text enclosed in angle brackets are placeholders. Fill in these values before running the code.&#160;<a class="footnote-backref" href="#fnref:placeholder" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<p>All caps text enclosed in angle brackets are placeholders. Fill in these values before running the code.&#160;<a class="footnote-backref" href="#fnref:placeholder" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 <li id="fn:passphrase">
-<p>You will be prompted for your passphrase in order to convert the file.&#160;<a class="footnote-backref" href="#fnref:passphrase" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+<p>You will be prompted for your passphrase in order to convert the file.&#160;<a class="footnote-backref" href="#fnref:passphrase" title="Jump back to footnote 4 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
