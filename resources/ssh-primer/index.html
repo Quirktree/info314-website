@@ -1745,8 +1745,8 @@ pi@raspberrypi:~ $
 <h2 id="register-client-keys-with-a-server">Register Client Keys with a Server<a class="headerlink" href="#register-client-keys-with-a-server" title="Permanent link">&para;</a></h2>
 <p>In order to connect to a server using an SSH keypair, the server will need a copy of the public key to associate with a user account on the system. By default, each user will have a <code>.ssh</code> folder in their home directory. When a user attempts to log in via an SSH connection, the server will look for a file named <code>~/.ssh/authorized_keys</code> containing a list of public keys. The client proceeds to authenticate itself by proving to the server that it is in possession of a matching private key.</p>
 <p>To use this feature on a Linux server, create the <code>.ssh</code> directory in your home directory (on the server). If you're already logged in, you can create the directory using <code>mkdir -p ~/.ssh</code>. After that is done, type <code>exit</code> to terminate the connection and return to your local command prompt.  </p>
-<details class="faq">
-<summary>FAQ: Why aren't <code>ssh</code> and <code>scp</code> working</summary>
+<details class="warning">
+<summary><code>ssh</code> and <code>scp</code> not working?</summary>
 <p>Please review the previous set of instructions closely. The commands below are run from your <strong>local</strong> shell. Running them inside of an existing SSH session will not have the effect you are looking for.</p>
 </details>
 <p>With the directory in place, copy your public key (most likely <code>~/.ssh/id_ed25519.pub</code>) to the server using the <code>scp</code> command<sup id="fnref:scp_syntax"><a class="footnote-ref" href="#fn:scp_syntax">2</a></sup></p>
