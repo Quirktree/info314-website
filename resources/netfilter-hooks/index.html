@@ -71,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#understanding-netfilteriptables-hooks" class="md-skip">
+        <a href="#understanding-netfilter-hooks-2022-04-02" class="md-skip">
           Skip to content
         </a>
       
@@ -806,6 +806,20 @@
     <li class="md-nav__item">
       <a href="../../assignments/wireshark01/" class="md-nav__link">
         Lab 1 - Analyzing DHCP and ARP with Wireshark
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assignments/wireshark02/" class="md-nav__link">
+        Lab 2 - Analyze DNS & HTTP in Wireshark
       </a>
     </li>
   
@@ -1776,37 +1790,37 @@
                 
 
 
-<h1 id="understanding-netfilteriptables-hooks">Understanding Netfilter/Iptables Hooks<a class="headerlink" href="#understanding-netfilteriptables-hooks" title="Permanent link">&para;</a></h1>
-<p>The <em>netfilter</em> component of Linux defines a set of <em>hooks</em> within the TCP/IP stack that are used to run code based on different packet events at different moments in the packet lifecycle. Utilities like iptables (and more recently nftables) provide a frontend and language for managing rules and actions that we want to perform based on the characteristics of network traffic. These tools are commonly used to implement services like NAT or to provide host or network-based packet filtering firewalls.</p>
+<h1 id="understanding-netfilter-hooks-2022-04-02">Understanding Netfilter Hooks (2022-04-02)<a class="headerlink" href="#understanding-netfilter-hooks-2022-04-02" title="Permanent link">&para;</a></h1>
+<p>The <em>netfilter</em> component of Linux defines a set of <em>hooks</em> within the TCP/IP stack that are used to run code based on different packet events at different moments in the packet lifecycle. Utilities like iptables and nftables provide a frontend and language for managing rules and actions that we want to perform based on the characteristics of network traffic. These tools are commonly used to implement services like NAT or to provide host or network-based packet filtering firewalls.</p>
 <h2 id="working-with-local-traffic">Working with Local Traffic<a class="headerlink" href="#working-with-local-traffic" title="Permanent link">&para;</a></h2>
 <p>To better understand how all of this works, let’s start with a simplified example on a standard Linux host. For now, ignore the possibility of routing and focus on the host’s ability to send or receive packets. In this scenario, we can use netfilter for tasks like dropping unwanted traffic or rewriting addresses and layer-3 ports on the fly.</p>
-<p>Since this is a simplified scenario, we can limit our examination to two hooks, INPUT and OUTPUT, that are triggered for packets flowing to and from the local device in a non-routing scenario. By non-routing, we mean that the INPUT hook is only invoked when the host is the intended recipient of the message based on the packet’s destination IP address. Likewise, the OUTPUT hook won’t fire unless the message originated from the local host. Given the INPUT/OUTPUT hooks, we can use a frontend like iptables to register specific rules and actions that are evaluated for each packet passing through the network stack.</p>
+<p>Since this is a simplified scenario, we can limit our examination to two hooks, <em>input</em> and <em>output</em>, that are triggered for packets flowing to and from the local device in a non-routing scenario. By non-routing, we mean that the <em>input</em> hook is only invoked when the host is the intended recipient of the message based on the packet’s destination IP address. Likewise, the <em>output</em> hook won’t fire unless the message originated from the local host. Given the <em>input</em>/<em>output</em> hooks, we can use a frontend like iptables to register specific rules and actions that are evaluated for each packet passing through the network stack.</p>
 <h3 id="host-based-packet-filters">Host-based Packet Filters<a class="headerlink" href="#host-based-packet-filters" title="Permanent link">&para;</a></h3>
-<p>One of the most common applications of the INPUT/OUTPUT hooks is to perform packet filtering in order to provide a host-based firewall for the Linux device. For example, from a security perspective, we typically want to limit how much of an “attack surface” we expose over the network. We can leverage the INPUT hook to drop packets that aren’t part of a TCP connection that we had previously initiated. In other words, we allow client-based software to open outbound connections but we block any attempts to connect to us as a server. If we need more flexibility, we can create rules to allow connections in to specific services, such as an HTTP or SSH daemon. </p>
+<p>One of the most common applications of the <em>input</em>/<em>output</em> hooks is to perform packet filtering in order to provide a host-based firewall for the Linux device. For example, from a security perspective, we typically want to limit how much of an “attack surface” we expose over the network. We can leverage the <em>input</em> hook to drop packets that aren’t part of a TCP connection that we had previously initiated. In other words, we allow client-based software to open outbound connections but we block any attempts to connect to us as a server. If we need more flexibility, we can create rules to allow connections in to specific services, such as an HTTP or SSH daemon. </p>
 <h2 id="working-with-routed-traffic">Working with Routed Traffic<a class="headerlink" href="#working-with-routed-traffic" title="Permanent link">&para;</a></h2>
-<p>Netfilter operations become slightly more complex when routing is introduced. Like an ordinary host, routers still process packets coming to/from the local device, but they also need to forward packets received on one network interface through other interfaces. In fact, this latter operation is their main responsibility. In order to support these communication paths, netfilter defines three additional hooks: FORWARD, PREROUTING, and POSTROUTING that we can use to perform network-based packet filtering, network address translation (NAT), and other packet-level operations.</p>
+<p>Netfilter operations become slightly more complex when routing is introduced. Like an ordinary host, routers still process packets coming to/from the local device, but they also need to forward packets received on one network interface through other interfaces. In fact, this latter operation is their main responsibility. In order to support these communication paths, netfilter defines three additional hooks: <em>forward</em>, <em>prerouting</em>, and <em>postrouting</em> that we can use to perform network-based packet filtering, network address translation (NAT), and other packet-level operations.</p>
 <h3 id="network-based-packet-filters">Network-based Packet Filters<a class="headerlink" href="#network-based-packet-filters" title="Permanent link">&para;</a></h3>
-<p>For packet-filtering purposes, the FORWARD hook is a direct analogue for the INPUT/OUTPUT hooks. As we’ve mentioned, INPUT/OUTPUT are not applied to routed packets. Instead, code registered on the FORWARD hook will be evaluated after the initial routing decision is made. The FORWARD hook provides the basis for network-based firewall functionality. Network-based firewalls enable us to drop or reject unwanted traffic before it has the opportunity to reach our hosts (or even enter into the network). Likewise, we can also leverage packet filtering to prevent certain types of local traffic from inadvertently leaking outside our own network perimeters.</p>
+<p>For network-based filtering, the <em>forward</em> hook is a direct analogue to the <em>input</em>/<em>output</em> hooks. As we’ve mentioned, <em>input</em>/<em>output</em> are not applied to routed packets. Instead, code registered on the <em>forward</em> hook will be evaluated after the initial routing decision is made. The <em>forward</em> hook provides the basis for network-based firewall functionality. Network-based firewalls enable us to drop or reject unwanted traffic before it has the opportunity to reach our hosts (or even enter into the network). Likewise, we can also leverage packet filtering to prevent certain types of local traffic from inadvertently leaking outside our own network perimeters.</p>
 <h3 id="network-address-translation">Network Address Translation<a class="headerlink" href="#network-address-translation" title="Permanent link">&para;</a></h3>
-<p>Sometimes it makes more sense to perform an action for an incoming packet before any routing decision has been made or just before actually sending an outgoing packet. This is the case for port and network address translation and is facilitated by attaching rules to the PREROUTING and POSTROUTING hooks. Specifically, we set up rules on the PREROUTING hook when we want to modify incoming packets based on their destination IP address. This configuration is called destination NAT (DNAT) and is useful for delivering traffic to a server on a private subnet. Likewise, we use the POSTROUTING hook when our goal is to change outgoing packets based on the original source address. This configuration is called source NAT (SNAT) and is useful when we need map a public IP on to packets coming from private addresses. </p>
+<p>Sometimes it makes more sense to perform an action for an incoming packet before any routing decision has been made or just before actually sending an outgoing packet. This is the case for port and network address translation and is facilitated by attaching rules to the <em>prerouting</em> and <em>postrouting</em> hooks. Specifically, we set up rules on the <em>prerouting</em> hook when we want to modify incoming packets based on their destination IP address. This configuration is called destination NAT (DNAT) and is useful for delivering traffic to a server on a private subnet. Likewise, we use the <em>postrouting</em> hook when our goal is to change outgoing packets based on the original source address. This configuration is called source NAT (SNAT) and is useful when we need map a public IP on to packets coming from private addresses. </p>
 <h3 id="additional-caveats-for-local-traffic">Additional Caveats for Local Traffic<a class="headerlink" href="#additional-caveats-for-local-traffic" title="Permanent link">&para;</a></h3>
-<p>Unlike the FORWARD hook, PREROUTING and POSTROUTING may be used for local traffic as well as routed traffic. In particular, an incoming packet will be processed by the PREROUTING hook before the network stack makes a routing decision and reaches the INPUT hook. For outgoing packets, the OUTPUT hook is invoked prior to the outbound routing/forwarding decision or the POSTROUTING hook. For local traffic, we often have a choice about which hook provides the best entry point for our rules. </p>
+<p>Unlike the <em>forward</em> hook, <em>prerouting</em> and <em>postrouting</em> may be used for local traffic as well as routed traffic. In particular, an incoming packet will be processed by the <em>prerouting</em> hook before the network stack makes a routing decision and reaches the <em>input</em> hook. For outgoing packets, the <em>output</em> hook is invoked prior to the outbound routing/forwarding decision or the <em>postrouting</em> hook. For local traffic, we often have a choice about which hook provides the best entry point for our rules. </p>
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
 <p>When you're first learning about Linux networking internals, it can be difficult to remember the relationship between netfilter hooks and related events in the packet lifecycle. The following list summarizes what we've learned so far in terms of specific traffic flows. </p>
 <ul>
-<li>Incoming local traffic: (receive packet via network interface) -&gt; PREROUTING -&gt; (local routing decision) -&gt; INPUT -&gt; (continue processing packet and deliver via sockets)</li>
-<li>Outgoing local traffic: (receive packet via sockets) -&gt; OUTPUT -&gt; (outbound routing) -&gt; POSTROUTING -&gt; (continue processing and send via network interface)</li>
-<li>Routed traffic: (receive packet via network interface) -&gt; PREROUTING -&gt; (inbound routing) -&gt; FORWARD -&gt; (outbound routing) -&gt; POSTROUTING -&gt; (continue processing and send via network interface)</li>
+<li>Incoming local traffic: (receive packet via network interface) -&gt; <em>prerouting</em> -&gt; (local routing decision) -&gt; <em>input</em> -&gt; (continue processing packet and deliver via sockets)</li>
+<li>Outgoing local traffic: (receive packet via sockets) -&gt; <em>output</em> -&gt; (outbound routing) -&gt; <em>postrouting</em> -&gt; (continue processing and send via network interface)</li>
+<li>Routed traffic: (receive packet via network interface) -&gt; <em>prerouting</em> -&gt; (inbound routing) -&gt; <em>forward</em> -&gt; (outbound routing) -&gt; <em>postrouting</em> -&gt; (continue processing and send via network interface)</li>
 </ul>
 <p>As you work to digest each of these traffic flows, you can refer to the following list for a reminder of which operations can be performed by using a particular hook. Once again, we are distinguishing routed traffic from incoming and outgoing routed traffic.</p>
 <ul>
-<li>Filtering incoming traffic to local: INPUT</li>
-<li>Filtering outgoing traffic from local: OUTPUT</li>
-<li>Filtering routed traffic (in any direction): FORWARD</li>
-<li>SNAT for routed traffic: POSTROUTING</li>
-<li>SNAT for outgoing local traffic: POSTROUTING or OUTPUT</li>
-<li>DNAT for routed traffic: PREROUTING</li>
-<li>DNAT for incoming local traffic: PREROUTING or INPUT</li>
+<li>Filtering incoming traffic to local: <em>input</em></li>
+<li>Filtering outgoing traffic from local: <em>output</em></li>
+<li>Filtering routed traffic (in any direction): <em>forward</em></li>
+<li>SNAT for routed traffic: <em>postrouting</em></li>
+<li>SNAT for outgoing local traffic: <em>postrouting</em> or <em>output</em></li>
+<li>DNAT for routed traffic: <em>prerouting</em></li>
+<li>DNAT for incoming local traffic: <em>prerouting</em> or <em>input</em></li>
 </ul>
 
               

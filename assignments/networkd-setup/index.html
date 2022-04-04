@@ -71,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#networkd-setup-for-raspbian-2020-01-22" class="md-skip">
+        <a href="#networkd-setup-for-raspberry-pi-os-2020-01-22" class="md-skip">
           Skip to content
         </a>
       
@@ -520,13 +520,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#modify-wireless-startup" class="md-nav__link">
-    Modify Wireless Startup
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -562,8 +555,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#rebuilding-raspbian" class="md-nav__link">
-    Rebuilding Raspbian
+  <a href="#rebuilding-raspberry-pi-os" class="md-nav__link">
+    Rebuilding Raspberry Pi OS
   </a>
   
 </li>
@@ -960,6 +953,20 @@
     <li class="md-nav__item">
       <a href="../wireshark01/" class="md-nav__link">
         Lab 1 - Analyzing DHCP and ARP with Wireshark
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../wireshark02/" class="md-nav__link">
+        Lab 2 - Analyze DNS & HTTP in Wireshark
       </a>
     </li>
   
@@ -1817,13 +1824,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#modify-wireless-startup" class="md-nav__link">
-    Modify Wireless Startup
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -1859,8 +1859,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#rebuilding-raspbian" class="md-nav__link">
-    Rebuilding Raspbian
+  <a href="#rebuilding-raspberry-pi-os" class="md-nav__link">
+    Rebuilding Raspberry Pi OS
   </a>
   
 </li>
@@ -1884,10 +1884,10 @@
                 
 
 
-<h1 id="networkd-setup-for-raspbian-2020-01-22">Networkd Setup for Raspbian (2020-01-22)<a class="headerlink" href="#networkd-setup-for-raspbian-2020-01-22" title="Permanent link">&para;</a></h1>
+<h1 id="networkd-setup-for-raspberry-pi-os-2020-01-22">Networkd Setup for Raspberry Pi OS (2020-01-22)<a class="headerlink" href="#networkd-setup-for-raspberry-pi-os-2020-01-22" title="Permanent link">&para;</a></h1>
 <h2 id="intro-to-systemd">Intro to Systemd<a class="headerlink" href="#intro-to-systemd" title="Permanent link">&para;</a></h2>
 <p>An <strong>init provider</strong> is the first process that is launched on a Linux system. It is responsible for loading other essential services, and it ultimately becomes the parent of every other process on the system. Among the differences between different Linux distributions is the choice of init system.</p>
-<p><strong>systemd</strong> is the initialization (init) provider most often deployed on recent Linux distributions. On Raspbian and other recent Debian-based distros  <strong>systemd</strong> replaces the aging <strong>sysvinit</strong>. We will interact directly with <strong>systemd</strong> in this tutorial by issuing <strong><code>systemctl</code></strong> commands to start, stop, enable and disable various system-level services.</p>
+<p><strong>systemd</strong> is the initialization (init) provider most often deployed on recent Linux distributions. On Raspberry Pi OS and other recent Debian-based distros  <strong>systemd</strong> replaces the aging <strong>sysvinit</strong>. We will interact directly with <strong>systemd</strong> in this tutorial by issuing <strong><code>systemctl</code></strong> commands to start, stop, enable and disable various system-level services.</p>
 <p>Beyond its job of launching essential services, <strong>systemd</strong> provides a modular interface to control many parts of the system. We've already interacted with a few of these components when we used <strong><code>localectl</code></strong>, <strong><code>timedatectl</code></strong>, and <strong><code>hostnamectl</code></strong> during the initial setup of the RaspberryPi.</p>
 <p>In this tutorial we will leverage three more <strong>systemd</strong> subsystems:</p>
 <ul>
@@ -1898,11 +1898,11 @@
 <div class="admonition danger">
 <p class="admonition-title">Danger: Risk of <em>bricking</em> your Pi</p>
 <p>A typo or other mistake within the core network configuration can result in total loss of network connectivity. If this happens, you will not be able to manage your Pi over SSH. Your only option will be to configure the Pi again from scratch or to troubleshoot using an external HDMI monitor and USB keyboard.</p>
-<p><em>We will not grant extensions for this type of incident.</em> Before you begin to follow these instructions, make an external copy of critical configs such as <strong>wpa_supplicant</strong> using <strong><code>scp</code></strong>. We provide <a href="#rebuilding-raspbian">additional tips</a> for rebuilding at the end of this guide.</p>
+<p><em>We will not grant extensions for this type of incident.</em> Before you begin to follow these instructions, make an external copy of critical configs such as <strong>wpa_supplicant</strong> using <strong><code>scp</code></strong>. We provide <a href="#rebuilding-raspberry-pi-os">additional tips</a> for rebuilding at the end of this guide.</p>
 </div>
 <h2 id="systemd-vs-default-networking">Systemd vs Default Networking<a class="headerlink" href="#systemd-vs-default-networking" title="Permanent link">&para;</a></h2>
-<p>By default, Raspbian networking relies on a component called dhcpcd to manage interface settings, addresses, etc. While this component works well for general purpose computing, but it is not a match for every scenario.</p>
-<p>The current version of Debian (the base OS for Raspbian) supports <strong>systemd</strong> based network management via the <strong>systemd-networkd</strong> service. Unlike <strong>dhcpcd</strong>, <strong>networkd</strong> is well-suited to managing the base configuration for our router.</p>
+<p>By default, Raspberry Pi OS networking relies on a component called dhcpcd to manage interface settings, addresses, etc. While this component works well for general purpose computing, but it is not a match for every scenario.</p>
+<p>The current version of Debian (the base OS for Raspberry Pi OS) supports <strong>systemd</strong> based network management via the <strong>systemd-networkd</strong> service. Unlike <strong>dhcpcd</strong>, <strong>networkd</strong> is well-suited to managing the base configuration for our router.</p>
 <h2 id="enabling-networkd">Enabling Networkd<a class="headerlink" href="#enabling-networkd" title="Permanent link">&para;</a></h2>
 <p>We will enable <strong>networkd</strong> in several steps. Try to complete this process in one sitting to avoid "bricking" your Pi (at least making it inaccessible over the network).</p>
 <h3 id="configure-network-interfaces">Configure network interfaces<a class="headerlink" href="#configure-network-interfaces" title="Permanent link">&para;</a></h3>
@@ -1947,7 +1947,7 @@ DHCP=ipv4
 <p>Make an offline backup <strong>before</strong> you proceed by copying files to your local system with <strong><code>scp</code></strong>.</p>
 </p>
 </div>
-<div class="highlight"><pre><span></span><code># Disable default Raspbian networking
+<div class="highlight"><pre><span></span><code># Disable default Raspberry Pi OS networking
 sudo systemctl mask dhcpcd.service
 
 # Disable legacy Debian networking
@@ -1958,7 +1958,7 @@ sudo nano /etc/resolvconf.conf
 # Add the line resolvconf=NO to the beginning of the file
 </code></pre></div>
 <h3 id="enable-systemd-network-services">Enable systemd network services<a class="headerlink" href="#enable-systemd-network-services" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code># Enable systemd-networkd to replace Raspbian and Debian networking
+<div class="highlight"><pre><span></span><code># Enable systemd-networkd to replace Raspberry Pi OS and Debian networking
 sudo systemctl enable systemd-networkd
 
 # Enable systemd-resolved to replace the resolvconf service
@@ -1967,17 +1967,6 @@ sudo systemctl enable systemd-resolved
 <p>DNS resolvers for Linux are loaded from the <strong><code>/etc/resolv.conf</code></strong>. Rather than manage this directly or through <strong>resolvconf</strong>, we want to load resolvers dynamically from <strong>systemd-resolved</strong>. This is as simple as creating a link </p>
 <div class="highlight"><pre><span></span><code># Set up a symbolic link from systemd-resolved resolv.conf to the system resolv.conf
 sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
-</code></pre></div>
-<h3 id="modify-wireless-startup">Modify Wireless Startup<a class="headerlink" href="#modify-wireless-startup" title="Permanent link">&para;</a></h3>
-<p>Our original setup was driven by assumptions about <strong>dhcpcd</strong>. Before we reboot, we'll make a few brief changes to manage <strong>wpa_supplicant</strong> on an interface-by-interface basis. </p>
-<div class="highlight"><pre><span></span><code># Rename configuration as a per-interface file
-sudo mv /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant-wlan0.conf
-
-# Enable the wpa_supplicant service specifically for wlan0
-sudo systemctl enable wpa_supplicant@wlan0
-
-# Disable the non-interface specific service
-sudo systemctl disable wpa_supplicant
 </code></pre></div>
 <h2 id="test-your-configuration">Test Your Configuration<a class="headerlink" href="#test-your-configuration" title="Permanent link">&para;</a></h2>
 <p>Call <strong><code>sudo reboot now</code></strong> to reboot the Pi. Log back in and verify that your Pi is fully operational:</p>
@@ -2004,21 +1993,18 @@ journalctl -u systemd-networkd
 # Show resolved messages
 journalctl -u systemd-resolved
 
-# Show wpa_supplicant messages for wlan0
-journalctl -u wpa_supplicant@wlan0
-
-# Load journal from a file path
-journalctl -D /PATH/TO/JOURNAL_FILE
+# Show wpa_supplicant messages
+journalctl -u wpa_supplicant
 
 # Learn more about journald
 man journalctl
 </code></pre></div>
 <h3 id="accessing-a-bricked-pi">Accessing a Bricked Pi<a class="headerlink" href="#accessing-a-bricked-pi" title="Permanent link">&para;</a></h3>
-<p>If you made a mistake at the wrong point in the previous process, you may not even be able to connect anymore from the network. The only way to debug at this point will be to attach a keyboard/monitor to the Pi or to mount the memory card from another Linux machine or VM.</p>
-<h3 id="rebuilding-raspbian">Rebuilding Raspbian<a class="headerlink" href="#rebuilding-raspbian" title="Permanent link">&para;</a></h3>
+<p>If you made a mistake at the wrong point in the previous process, you may not even be able to connect anymore from the network. The only way to debug at this point will be to attach a keyboard/monitor to the Pi or to mount the memory card from another Linux device or Virtual Machine.</p>
+<h3 id="rebuilding-raspberry-pi-os">Rebuilding Raspberry Pi OS<a class="headerlink" href="#rebuilding-raspberry-pi-os" title="Permanent link">&para;</a></h3>
 <p>Alternatively, you may opt to reflash your memory card and repeat initial setup. If you find yourself in this position, the following recommendations will simplify the process:</p>
 <ol>
-<li>Copy a fully configured <strong><code>wpa_supplicant.conf</code></strong> to the <strong><code>boot</code></strong> volume of the memory card before the first boot. Raspbian will move the file to the proper location in <strong><code>/etc/wpa_supplicant</code></strong> and set its permissions on the first boot.</li>
+<li>Copy a fully configured <strong><code>wpa_supplicant.conf</code></strong> to the <strong><code>boot</code></strong> volume of the memory card before the first boot. The boot process will move the file to the proper location in <strong><code>/etc/wpa_supplicant</code></strong> and set its permissions on the first boot.</li>
 <li>Remove the previous server key hash from <strong><code>.ssh/known_hosts</code></strong> to prevent <strong><code>ssh</code></strong> from complaining about the Pi's new key.<ul>
 <li><strong>macOS/Linux</strong> - Run <strong><code>ssh-keygen -R raspberrypi.local</code></strong></li>
 <li><strong>Windows</strong> - Edit <strong><code>$HOME\.ssh\known_hosts</code></strong> and remove the lines that reference <strong><code>raspberrypi.local</code></strong> before you attempt to connect.</li>
