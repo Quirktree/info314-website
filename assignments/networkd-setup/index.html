@@ -520,6 +520,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#update-wireless-service" class="md-nav__link">
+    Update Wireless Service
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1824,6 +1831,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#update-wireless-service" class="md-nav__link">
+    Update Wireless Service
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1967,6 +1981,17 @@ sudo systemctl enable systemd-resolved
 <p>DNS resolvers for Linux are loaded from the <strong><code>/etc/resolv.conf</code></strong>. Rather than manage this directly or through <strong>resolvconf</strong>, we want to load resolvers dynamically from <strong>systemd-resolved</strong>. This is as simple as creating a link </p>
 <div class="highlight"><pre><span></span><code># Set up a symbolic link from systemd-resolved resolv.conf to the system resolv.conf
 sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+</code></pre></div>
+<h3 id="update-wireless-service">Update Wireless Service<a class="headerlink" href="#update-wireless-service" title="Permanent link">&para;</a></h3>
+<p>In order for <strong>wpa_supplicant</strong> to work correctly with <strong>networkd</strong>, one further change is needed. In our original configuration, we created a system-wide configuration file for wireless. This setup works just fine with the default networking setup, especially since the Pi is only equipped with one wireless interface by default. For <strong>networkd</strong> to work properly with <strong>wpa_supplicant</strong>, we need to attach our configuration directly to the <strong>wlan0</strong> interface as shown below.</p>
+<div class="highlight"><pre><span></span><code># Rename configuration as a per-interface file
+sudo mv /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant-wlan0.conf
+
+# Enable the wpa_supplicant service specifically for wlan0
+sudo systemctl enable wpa_supplicant@wlan0
+
+# Disable the system-wide service
+sudo systemctl disable wpa_supplicant
 </code></pre></div>
 <h2 id="test-your-configuration">Test Your Configuration<a class="headerlink" href="#test-your-configuration" title="Permanent link">&para;</a></h2>
 <p>Call <strong><code>sudo reboot now</code></strong> to reboot the Pi. Log back in and verify that your Pi is fully operational:</p>
