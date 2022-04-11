@@ -1582,20 +1582,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#general-troubleshoot" class="md-nav__link">
-    General Troubleshoot
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting-isc-dhcp-server" class="md-nav__link">
-    Troubleshooting ISC DHCP Server
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -1680,20 +1666,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#general-troubleshoot" class="md-nav__link">
-    General Troubleshoot
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting-isc-dhcp-server" class="md-nav__link">
-    Troubleshooting ISC DHCP Server
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -1710,8 +1682,7 @@
 
 <h1 id="dhcp">DHCP<a class="headerlink" href="#dhcp" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p>DHCP advice will be updated and rolled out to this page.
-Reminder that the service <strong><code>dhcpd</code></strong> will handle dhcp for us.</p>
+<p>DHCP advice will be updated and rolled out to this page.</p>
 </blockquote>
 <h3 id="renew-dhcp-lease">Renew dhcp lease<a class="headerlink" href="#renew-dhcp-lease" title="Permanent link">&para;</a></h3>
 <hr />
@@ -1739,32 +1710,6 @@ Reminder that the service <strong><code>dhcpd</code></strong> will handle dhcp f
 <ul>
 <li><code>sudo dhclient -r eth0</code></li>
 <li><code>sudo dhclient eth0</code></li>
-</ul>
-<h3 id="general-troubleshoot">General Troubleshoot<a class="headerlink" href="#general-troubleshoot" title="Permanent link">&para;</a></h3>
-<hr />
-<blockquote>
-<p>Follow the checklist below if you had dhcp previously working and it recently failed.</p>
-</blockquote>
-<ul>
-<li>Check DHCP errors <code>journalctl -u isc-dhcp-server</code></li>
-<li>check subnet range in <code>dhcpd.conf</code> </li>
-<li>Check what wifi your pi is using the appropriate wifi</li>
-<li><code>wpa_cli -i wlan0 status</code> </li>
-<li>Make sure both <code>dhcpd</code> and <code>systemd</code> are declaring the same statis IP for the Pi.</li>
-<li>Check your leases in <code>at /var/lib/dhcp/dhcpd.leases</code></li>
-</ul>
-<h3 id="troubleshooting-isc-dhcp-server">Troubleshooting ISC DHCP Server<a class="headerlink" href="#troubleshooting-isc-dhcp-server" title="Permanent link">&para;</a></h3>
-<hr />
-<blockquote>
-<p>Follow steps below if you are having trouble getting your ISC DHCP server setup for the first time.</p>
-</blockquote>
-<p>Raspbian provides us with several commands to troubleshoot and find errors related to services. Check status and recent log output using <code>systemctl status isc-dhcp-server.service</code> or <code>journalctl -xe</code>  .</p>
-<p>Search the system logs for relevant errors <code>journalctl -u isc-dhcp-server</code></p>
-<p>As you debug, keep the following points in mind:</p>
-<ul>
-<li>A misplaced space or bracket may cause DHCP to fail, so pay close attention to syntax.</li>
-<li>Your Pi will keep it's static address, so be sure that you excluded the address from the DHCP pool.</li>
-<li>Double check that you’ve configured the server defaults with the correct interface names and commented out IPv6 related settings.</li>
 </ul>
 
               

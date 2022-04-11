@@ -71,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#set-up-a-dhcp-server-for-your-lan-2020-01-22" class="md-skip">
+        <a href="#set-up-a-dhcp-server-for-your-lan-2022-04-11" class="md-skip">
           Skip to content
         </a>
       
@@ -1750,7 +1750,7 @@
                 
 
 
-<h1 id="set-up-a-dhcp-server-for-your-lan-2020-01-22">Set up a DHCP Server for your LAN (2020-01-22)<a class="headerlink" href="#set-up-a-dhcp-server-for-your-lan-2020-01-22" title="Permanent link">&para;</a></h1>
+<h1 id="set-up-a-dhcp-server-for-your-lan-2022-04-11">Set up a DHCP Server for your LAN (2022-04-11)<a class="headerlink" href="#set-up-a-dhcp-server-for-your-lan-2022-04-11" title="Permanent link">&para;</a></h1>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>In this assignment, we'll be standing up a DHCP service on the Raspberry Pi. As we've discussed in class, DHCP is a function that is sometimes performed by routers and is a necessary service whenever we are creating a new network (of almost any type). </p>
 <h2 id="before-you-start">Before you Start<a class="headerlink" href="#before-you-start" title="Permanent link">&para;</a></h2>
@@ -1835,7 +1835,16 @@ See &quot;systemctl status isc-dhcp-server.service&quot; and &quot;journalctl -x
 ```</p>
 </div>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<p>Troubleshooting for the ISC DHCP Server can be found under <a href="/resources/manage-dhcp/">troubleshooting dhcp</a>.</p>
+<p>Raspberry Pi OS provides us with several commands to troubleshoot and find errors related to services. Check status and recent log output using <code>systemctl status isc-dhcp-server.service</code> or <code>journalctl -xe</code>  .</p>
+<p>Search the system logs for relevant errors <code>journalctl -u isc-dhcp-server</code></p>
+<p>Here are some additional considerations:</p>
+<ul>
+<li>A misplaced space or bracket may cause DHCP to fail, so pay close attention to syntax.</li>
+<li>Your Pi will keep it's static address, so be sure that you excluded the address from the lease range in <code>dhcpd.conf</code>.</li>
+<li>Double check that you’ve configured the server defaults with the correct interface names and commented out IPv6 related settings.</li>
+<li>Make sure both <code>dhcpd</code> and <code>systemd</code> are declaring the same static IP for the Pi.</li>
+<li>Inspect DHCP leases for clues. They can be found at <code>/var/lib/dhcp/dhcpd.leases</code>.</li>
+</ul>
 
               
             </article>

@@ -12,7 +12,7 @@
         <meta name="author" content="Clinton Campbell">
       
       
-        <link rel="canonical" href="https://info314.tcpip.dev/labs/lab3/">
+        <link rel="canonical" href="https://info314.tcpip.dev/assignments/wireshark03/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.7">
@@ -217,7 +217,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../assignments/pi-setup/" class="md-tabs__link">
+      <a href="../pi-setup/" class="md-tabs__link">
         Projects
       </a>
     </li>
@@ -235,7 +235,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../assignments/wireshark01/" class="md-tabs__link">
+      <a href="../wireshark01/" class="md-tabs__link">
         Labs
       </a>
     </li>
@@ -404,7 +404,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../assignments/pi-setup/" class="md-nav__link">
+      <a href="../pi-setup/" class="md-nav__link">
         Raspberry Pi Setup
       </a>
     </li>
@@ -418,7 +418,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../assignments/networkd-setup/" class="md-nav__link">
+      <a href="../networkd-setup/" class="md-nav__link">
         networkd Setup
       </a>
     </li>
@@ -509,7 +509,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../assignments/dhcp-setup/" class="md-nav__link">
+      <a href="../dhcp-setup/" class="md-nav__link">
         Installing and Configuring the ISC DHCP Server
       </a>
     </li>
@@ -558,7 +558,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../assignments/router-setup/" class="md-nav__link">
+      <a href="../router-setup/" class="md-nav__link">
         Router Setup
       </a>
     </li>
@@ -621,7 +621,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../assignments/resolver-setup/" class="md-nav__link">
+      <a href="../resolver-setup/" class="md-nav__link">
         DNS Resolver Setup
       </a>
     </li>
@@ -670,7 +670,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../assignments/analysis-report/" class="md-nav__link">
+      <a href="../analysis-report/" class="md-nav__link">
         Instructions
       </a>
     </li>
@@ -733,7 +733,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../assignments/dns-zone-setup/" class="md-nav__link">
+      <a href="../dns-zone-setup/" class="md-nav__link">
         Authoritative Zone Setup
       </a>
     </li>
@@ -802,7 +802,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../assignments/wireshark01/" class="md-nav__link">
+      <a href="../wireshark01/" class="md-nav__link">
         Lab 1 - Analyzing DHCP and ARP with Wireshark
       </a>
     </li>
@@ -816,7 +816,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../assignments/wireshark02/" class="md-nav__link">
+      <a href="../wireshark02/" class="md-nav__link">
         Lab 2 - Analyze DNS & HTTP in Wireshark
       </a>
     </li>
@@ -1661,13 +1661,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#extra-credit-optional" class="md-nav__link">
-    Extra Credit (Optional)
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -1683,7 +1676,7 @@
 
 
 <h1 id="lab-3-analyze-zeroconf-in-wireshark">Lab 3 - Analyze Zeroconf in Wireshark<a class="headerlink" href="#lab-3-analyze-zeroconf-in-wireshark" title="Permanent link">&para;</a></h1>
-<p><a href="https://canvas.uw.edu/courses/1373089/assignments/5369619">Lab 3 Assignment page on Canvas</a></p>
+<p><a href="">Lab 3 Assignment page on Canvas</a></p>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>Most of the time, our discussion about IP addresses are focused on globally routable addresses or on RFC1918 private addresses. In this lab, we are going to explore another type of address that can be used without any explicit configuration (either by a user or network administrator). We’re also going to look at how these addresses fit in to a group of protocols called the zero-configuration networking (zeroconf) protocols and explore how zeroconf appears in this class and in our daily use of network technology.</p>
 <p>This lab will require a combination of Wireshark analysis and Internet research. We’ve provided links to several references as a starting point, but you are free to look up other resources as needed. </p>
@@ -1742,28 +1735,29 @@
 <p>Lastly, let’s look at some tools that will allow us to manually query mDNS devices on our network. Unlike DNS, we should see that individual devices answer their own queries. Windows users can use the powershell command <code>Resolve-DNSName</code> while macOS and Linux users should be able to use <code>dns-sd</code>.</p>
 <p><strong>Report:</strong></p>
 <ol start="10">
-<li>Use <code>man</code> to look up more information about the relevant command and to determine the correct syntax for making an mDNS request to your Pi. Provide a screenshot of your mDNS request and the output received.</li>
+<li>Search online or use <code>man</code> to look up syntax for the relevant command on your system, and make an mDNS request to your Pi. Provide a screenshot of your mDNS request and the output received.</li>
 </ol>
 <h2 id="part-v-protocol-research">Part V - Protocol Research<a class="headerlink" href="#part-v-protocol-research" title="Permanent link">&para;</a></h2>
 <p>Perform your own research into these protocols and answer the following questions. We recommend starting with the resources listed at the end of this guide.</p>
 <ol start="11">
 <li>
+<p>In your own words, define the term multicast and describe how it differs from broadcast and unicast communication.</p>
+</li>
+<li>
 <p>Describe the major difference between how link local addresses are assigned and used in IPv4 versus in IPv6.</p>
 </li>
 <li>
-<p>In your own words, summarize how RFC 3927 says we can determine whether hosts are located on the same network link.</p>
+<p>In your own words, summarize what RFC 3927 says about determining whether two hosts are on the same link.</p>
 </li>
 <li>
 <p>Based on what you’ve learned, describe how we are able to connect with a Pi based on a pre-defined hostname without the need for any infrastructure like a DHCP or DNS server.</p>
 </li>
-<li>
-<p>Based on what you’ve learned about link-local addresses, describe how you might use Wireshark in conjunction with other network utilities to troubleshoot the connection to a headless device (i.e., a device like the Pi that you can only access over the network).</p>
-</li>
 </ol>
-<h2 id="extra-credit-optional">Extra Credit (Optional)<a class="headerlink" href="#extra-credit-optional" title="Permanent link">&para;</a></h2>
-<ol start="15">
-<li>Perform an mDNS scavenger hunt with Wireshark on a couple of different networks. Provide a short (about ½ page) analysis of your search along with capture samples. What types of devices were you able to discover? How does mDNS make your life more convenient?</li>
-</ol>
+<!-- 14. Based on what you’ve learned about link-local addresses, describe how you might use Wireshark in conjunction with other network utilities to troubleshoot the connection to a headless device (i.e., a device like the Pi that you can only access over the network). -->
+
+<!-- ## Extra Credit (Optional)
+
+15. Perform an mDNS scavenger hunt with Wireshark on a couple of different networks. Provide a short (about ½ page) analysis of your search along with capture samples. What types of devices were you able to discover? How does mDNS make your life more convenient? -->
 
               
             </article>
