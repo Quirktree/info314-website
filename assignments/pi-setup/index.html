@@ -2406,7 +2406,7 @@ sudo timedatectl set-timezone America/Los_Angeles
 sudo nano /etc/locale.gen # Find and uncomment the en_US.UTF-8 locale 
 
 # Re-generate locale information after updating the locale.gen file
-sudo locale-gen
+sudo locale-gen 
 
 # Apply new settings
 sudo localectl set-locale &quot;LANG=en_US.UTF-8&quot;
@@ -2488,6 +2488,8 @@ get country
 
 save_config
 <span class="c1"># Returns OK</span>
+
+quit
 </code></pre></div>
 <h3 id="enable-the-wireless-interface">Enable the Wireless Interface<a class="headerlink" href="#enable-the-wireless-interface" title="Permanent link">&para;</a></h3>
 <p>Recent versions of the operating system use a system feature named <strong><a href="https://01.org/linuxgraphics/gfx-docs/drm/driver-api/rfkill.html#rfkill-rf-kill-switch-support">rfkill</a></strong> to disable the WiFi radio by default. Before you can connect to any networks, you'll need to remove this block.</p>
