@@ -1897,27 +1897,25 @@
 <p>The hosts in our network use RFC-1918 addresses, which are restricted to private networks and cannot be used as a source or destination for addresses on packets being sent over the Internet. We'll address this problem with network address translation (NAT), which will allow your Pi to communicate on the Internet by masquerading with the public address assigned to the WAN port of the router.</p>
 <p>This setup is a special case of source NAT (SNAT) in that many private IP addresses will be mapped to one public address on the external interface. To accommodate, the Pi will need to monitor the state of each connection and other network traffic so that it can route to the correct host on the internal network when incoming traffic is received. </p>
 <h2 id="configuring-nat">Configuring NAT<a class="headerlink" href="#configuring-nat" title="Permanent link">&para;</a></h2>
-<p>NAT functionality is supported natively in Linux through the <strong>netfilter firewall</strong>. We'll use a common Linux tool known as <strong>iptables</strong> to manage this mechanism. Iptables defines rules in a hierarchical structure that are used to filter and manipulate packets. </p>
+<p>NAT functionality is supported natively in Linux through the <strong><em>netfilter firewall</em></strong>. We'll use a common Linux tool known as <strong><em>nftables</em></strong> to manage this mechanism. <em>nftables</em> defines rules in a hierarchical structure that are used to filter and manipulate packets. </p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>Throughout the instructions, we'll refer to the wired interface as <strong>&lt;LAN&gt;</strong> (because it serves our local network) and the wireless interface as the <strong>&lt;WAN&gt;</strong> (because it connects us to the Internet). Your configuration files will reflect the Raspbian-assigned interface names, such as: eth0 and wlan0.</p>
+<p>Throughout the instructions, we'll refer to the wired interface as <strong>&lt;LAN&gt;</strong> (because it serves our local network) and the wireless interface as the <strong>&lt;WAN&gt;</strong> (because it connects us to the Internet). Your configuration files will reflect the OS-assigned interface names, such as: <em>eth0</em> and <em>wlan0</em>.</p>
 </div>
-<p>We have prepared an <a href="/resources/iptables">iptables tutorial</a> that focuses specifically on the features that are required to implement NAT. Read this tutorial first, and then use it as a reference to fill in the missing values in the starter template (which is included at the ended of the tutorial).</p>
-<div class="admonition attention">
-<p class="admonition-title">Copy/Paste Warning</p>
-<p>This template has missing values that you must define before trying to load on your Pi.</p>
-</div>
+<p>We have prepared an <a href="/resources/nftables">nftables tutorial</a> that focuses specifically on the features that are required to implement NAT. Read this tutorial carefully before you attempt to configure <em>nftables</em> on your Pi.</p>
 <h3 id="rule-specification">Rule Specification<a class="headerlink" href="#rule-specification" title="Permanent link">&para;</a></h3>
-<p>The included template provides most of what is needed to establish a basic NAT configuration. Save a copy of this template in the home directory of your pi and fill in the missing values so that the final ruleset complies with the listed requirements:</p>
+<p>The previous guide contains a template and partial ruleset enable to help you enable NAT and define appropriate rules for traffic forwarded between networks. Save a copy of this template in the home directory of your pi and fill in the missing values so that it complies with the following requirements:</p>
 <ul>
-<li>Append a new rule to the <code>POSTROUTING</code> chain that masquerades outbound packets on the WAN interface.</li>
-<li>Set the default policy for the <code>FORWARD</code> chain of the filter table to drop all packets.</li>
-<li>Create a rule to forward all outbound packets.</li>
-<li>Create a rule to forward inbound packets if they are related to previous packets or already established connections.</li>
+<li>Create a <strong>filter</strong> table with a chain named <strong>forward</strong> that is attached to the <strong>filter</strong>/<strong>forward</strong> <em>hook</em>.</li>
+<li>Use a default policy to drop packets on the <strong>forward</strong> chain unless they're explicitly allowed by another rule.</li>
+<li>Add a rule to allow all <em>outbound</em> packets on the <strong>forward</strong> chain.</li>
+<li>Add a rule to allow <em>inbound</em> packets on the <strong>forward</strong> chain if they are related to previous packets or established connections.</li>
+<li>Create a <strong>nat</strong> table with a chain named <strong>postrouting</strong> that is attached to the <strong>nat</strong>/<strong>postrouting</strong> <em>hook</em>.</li>
+<li>Add a rule to masquerade the addresses for outbound packets on the <strong>&lt;WAN&gt;</strong> interface.</li>
 </ul>
 <p>While best practice would have us further configure the firewalls for the internal and external interfaces on the Raspberry Pi, we will save this step for a future assignment.</p>
 <h3 id="testing-and-applying-rules">Testing and Applying Rules<a class="headerlink" href="#testing-and-applying-rules" title="Permanent link">&para;</a></h3>
-<p>After you finish filling out the missing values in the reference template according to the above specifications, you should follow the instructions in the <a href="/resources/iptables/#loading-rules-from-the-file-system-with-iptables-persistent">provided tutorial</a> to set up your rules to be loaded persistently.</p>
+<p>After you finish filling out the missing values in the reference template according to the above specifications, you should follow the instructions in the <a href="/resources/nftables/#editing-nftable-rules-safely">provided tutorial</a> to set up your rules to be loaded persistently.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>You will not be able to completely test your rules until you complete the upcoming steps. What you should ensure at this point is that the rules are applied and that you are not locked out of the Pi.</p>

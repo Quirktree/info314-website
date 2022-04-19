@@ -19,7 +19,7 @@
     
     
       
-        <title>Introduction to nftables (2022-04-02) - INFO 314 Course Resources</title>
+        <title>Introduction to netfilter and nftables (2022-04-02) - INFO 314 Course Resources</title>
       
     
     
@@ -71,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#introduction-to-nftables-2022-04-02" class="md-skip">
+        <a href="#introduction-to-netfilter-and-nftables-2022-04-02" class="md-skip">
           Skip to content
         </a>
       
@@ -106,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Introduction to nftables (2022-04-02)
+              Introduction to netfilter and nftables (2022-04-02)
             
           </span>
         </div>
@@ -1627,6 +1627,20 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#what-is-nftables" class="md-nav__link">
+    What is nftables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nftables-configuration" class="md-nav__link">
+    nftables Configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#tables-chains-and-rule-syntax" class="md-nav__link">
     Tables, Chains, and Rule Syntax
   </a>
@@ -1755,12 +1769,19 @@
                 
 
 
-<h1 id="introduction-to-nftables-2022-04-02">Introduction to nftables (2022-04-02)<a class="headerlink" href="#introduction-to-nftables-2022-04-02" title="Permanent link">&para;</a></h1>
-<p>This guide introduces nftables by building a basic ruleset that routes packets between an internal and external network while also applying NAT to private, internal addresses. You should read the entire guide carefully before attempting to install the template or any of the other tools referenced here.</p>
-<p>netfilter-based packet filtering framework</p>
-<p>netfilter provides hooks, connection tracking, user-space queueing, and a logging subsystem</p>
-<p>the masquerade keyword replaces a packet's source address with the address of the output interface </p>
-<p>??? info Default contents of /etc/nftables.conf
+<h1 id="introduction-to-netfilter-and-nftables-2022-04-02">Introduction to netfilter and nftables (2022-04-02)<a class="headerlink" href="#introduction-to-netfilter-and-nftables-2022-04-02" title="Permanent link">&para;</a></h1>
+<p>This guide introduces nftables by building a basic ruleset that allows us to safely forward packets between internal and external networks while also masquerading traffic with the IP address of the external network interface. <em>Read the entire guide carefully before attempting to install the template or any of the other tools referenced here</em>.</p>
+<h2 id="what-is-nftables">What is nftables<a class="headerlink" href="#what-is-nftables" title="Permanent link">&para;</a></h2>
+<p><em>nftables</em> is the default tool used to manage netfilter's <em>packet filter rules</em> in Raspberry Pi OS. Though <em>nftables</em> was originally released in 2014, it did not make its way into Raspberry Pi OS until the Bullseye release in November 2021. <em>nftables</em> is the successor to <em>iptables</em>, which has been in use within the Linux community for more than 20 years.</p>
+<p><em>nftables</em> is a packet filtering framework that has been adopted across a variety of modern Linux implementations. Packet filtering is a powerful technique that enables administrators to analyze and control the flow of inbound and outbound network traffic from any Linux-based endpoint or intermediate network node. This level of control is essential for host- and network-based firewalls, network address translation (NAT), and other applications.</p>
+<p>Packet filters define rules to match traffic based primarily on Layer 2 - 4 properties, including the inbound or outbound interface, type and length of messages, addresses, ports, and connection state. Each filter also describes actions taken when a match is found. Matches may be logged, delivered, or dropped. Administrators may also use packet filters to apply NAT, make decisions about Quality of Service, or to reroute packets mid-flight.</p>
+<p><em>nftables</em> builds on <em>netfilter</em>, an open-source project providing hooks, connection tracking, and other capabilities within the Linux network stack. These components enable dynamic filters, like <em>nftables</em> rules, to be applied to every packet traversing the network stack. They are the secret sauce to many of the applications described above. </p>
+<h2 id="nftables-configuration">nftables Configuration<a class="headerlink" href="#nftables-configuration" title="Permanent link">&para;</a></h2>
+<p>By default, Raspberry Pi OS will load <em>nftables</em> rules from the configuration stored at <em>/etc/nftables.conf</em>. The <em>nft</em> utility allows administrators to create, read, update, and delete elements of the ruleset dynamically at runtime. To view the current ruleset at any time, call <code>nft list ruleset</code>.<sup id="fnref:sudo"><a class="footnote-ref" href="#fn:sudo">1</a></sup> <sup id="fnref:syntax"><a class="footnote-ref" href="#fn:syntax">2</a></sup> </p>
+<p>Though <em>nftables</em> provides several options for rule editing, you may encounter negative consequences if you add rules or modify the default configuration haphazardly. Every thing you need to test and verify a simple ruleset is presented in a <a href="#editing-nftable-rules-safely">later section</a>.</p>
+<h2 id="tables-chains-and-rule-syntax">Tables, Chains, and Rule Syntax<a class="headerlink" href="#tables-chains-and-rule-syntax" title="Permanent link">&para;</a></h2>
+<p>The basic 
+!!! info Initial contents of /etc/nftables.conf for Raspberry Pi OS.
     <div class="highlight"><pre><span></span><code>#!/usr/sbin/nft -f
 
 flush ruleset
@@ -1777,8 +1798,6 @@ table inet filter {
     }
 }
 </code></pre></div></p>
-<h2 id="tables-chains-and-rule-syntax">Tables, Chains, and Rule Syntax<a class="headerlink" href="#tables-chains-and-rule-syntax" title="Permanent link">&para;</a></h2>
-<p><em>nftables</em> is the default tool used to manage netfilter's <em>packet filter rules</em> in Raspberry Pi OS. Though <em>nftables</em> was originally released in 2014, it did not make its way into Raspberry Pi OS until the Bullseye release in November 2021. <em>nftables</em> is the successor to <em>iptables</em>, which has been in use within the Linux community for more than 20 years.</p>
 <h3 id="tables">Tables<a class="headerlink" href="#tables" title="Permanent link">&para;</a></h3>
 <p><em>nftables</em> uses a basic structure called a table to organize rules. Each table is associated with a single address family and will sets of rules that are applied to packets of that family. </p>
 <p>To create rules for layer-3 packets, we will consider the following three address families:</p>
@@ -1787,12 +1806,12 @@ table inet filter {
 <li><code>ip6</code>: for IPv6 rules</li>
 <li><code>inet</code>: for rules that apply to both IPv4 and IPv6 packets</li>
 </ul>
-<p>While <em>iptables</em> included a default set of tables for common packet filter functionality, <em>nftables</em> administrators are left to define their own tables. For this exercise, we'll create an IPv4 <code>nat</code> table to implement <em>address translation</em> between private and public addresses and an IPv4/IPv6 <code>filter</code> table to protect the Pi and the rest of our LAN from malicious traffic.<sup id="fnref:table_names"><a class="footnote-ref" href="#fn:table_names">1</a></sup></p>
+<p>While <em>iptables</em> included a default set of tables for common packet filter functionality, <em>nftables</em> administrators are left to define their own tables. For this exercise, we'll create an IPv4 <code>nat</code> table to implement <em>address translation</em> between private and public addresses and an IPv4/IPv6 <code>filter</code> table to protect the Pi and the rest of our LAN from malicious traffic.<sup id="fnref:table_names"><a class="footnote-ref" href="#fn:table_names">3</a></sup></p>
 <h3 id="chains">Chains<a class="headerlink" href="#chains" title="Permanent link">&para;</a></h3>
 <p>Within each table, rules are assigned to a structure called a chain. A chain is an ordered list of rules describing the packets to match and the action to take when a match is found. When a chain is processed, the rules in it are tested in order from the beginning until a match is found. If <em>nftables</em> finds a match while evaluating a rule, the remaining rules in that chain are skipped. </p>
 <h4 id="base-chains">Base Chains<a class="headerlink" href="#base-chains" title="Permanent link">&para;</a></h4>
-<p>Chains are not evaluated arbitrarily in <em>nftables</em>. We can process a chain for a packet by associating it with a <a href="(/resources/netfilter-hooks)"><em>netfilter hook</em></a>. A chain that is associated with a hook is called a <em>base chain</em>.</p>
-<p>Within the <code>filter</code> table, we are going to work with three base chains named <code>input</code>, <code>output</code>, and <code>forward</code>. These chains will be associated with <em>filter</em> hooks of the same names,<sup id="fnref:chain_names"><a class="footnote-ref" href="#fn:chain_names">2</a></sup>, and they are processed when packets are being received by Pi (<code>input</code>), when packets are being sent out by software on the Pi (<code>output</code>), or when packets are being routed by the Pi from one network to another (<code>FORWARD</code>). </p>
+<p>Chains are not evaluated arbitrarily in <em>nftables</em>. We can process a chain for a packet by associating it with a <a href="/resources/netfilter-hooks"><em>netfilter hook</em></a>.<sup id="fnref:hooks-reference"><a class="footnote-ref" href="#fn:hooks-reference">4</a></sup> A chain that is associated with a hook is called a <em>base chain</em>.</p>
+<p>Within the <code>filter</code> table, we are going to work with three base chains named <code>input</code>, <code>output</code>, and <code>forward</code>. These chains will be associated with <em>filter</em> hooks of the same names,<sup id="fnref:chain_names"><a class="footnote-ref" href="#fn:chain_names">5</a></sup>, and they are processed when packets are being received by Pi (<code>input</code>), when packets are being sent out by software on the Pi (<code>output</code>), or when packets are being routed by the Pi from one network to another (<code>FORWARD</code>). </p>
 <div class="admonition filter table and empty base chains">
 <p class="admonition-title">Filter</p>
 <div class="annotate highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">table inet filter {</span><span class="w"></span>
@@ -1824,6 +1843,7 @@ drop (terminal)
 <p>counter (non-terminal)
 <a href="https://wiki.nftables.org/wiki-nftables/index.php/Counters">https://wiki.nftables.org/wiki-nftables/index.php/Counters</a></p>
 <p>masquerade (terminal)</p>
+<p>the masquerade keyword replaces a packet's source address with the address of the output interface </p>
 <p>In a simple configuration, this option provides the action to be carried out against the packet after the match. While we will encounter the <code>MASQUERADE</code> option in our NAT rules, we will more frequently with basic <code>ACCEPT</code> and <code>DROP</code> rules within the filter context. </p>
 <p>In more complex configurations, <code>-j</code> can point to user-defined chains containing additional rules that relate to the pattern you just matched. As you gain experience, you'll see that this provides a greater degree of organization and control flow. </p>
 <p>Bringing this option together with the earlier examples, we can express complete rules using the following syntax:</p>
@@ -1933,7 +1953,7 @@ COMMIT
 <p class="admonition-title">Here be Dragons</p>
 <p>Do not write rules directly to <code>/etc/nftables.conf</code>. If you do this, you risk creating a rule that locks you out of your device from the network. Without an external monitor and keyboard, you will not be able to bypass these changes since they are loaded at boot. </p>
 </div>
-<p>Create a working copy of <code>/etc/nftables.conf</code> into your <em>home directory</em> <em>(it is okay to rename the file)</em>. Open the new copy and ensure that <code>flush ruleset</code> near the top (before your table definitions).<sup id="fnref:flush"><a class="footnote-ref" href="#fn:flush">3</a></sup> Proceed with any modifications to the working copy.</p>
+<p>Create a working copy of <code>/etc/nftables.conf</code> into your <em>home directory</em> <em>(it is okay to rename the file)</em>. Open the new copy and ensure that <code>flush ruleset</code> near the top (before your table definitions).<sup id="fnref:flush"><a class="footnote-ref" href="#fn:flush">6</a></sup> Proceed with any modifications to the working copy.</p>
 <p>To test your ruleset, we recommend a scripted approach that can automatically revert a change that locks you out of the Pi. INFO314 students can find a copy of <code>nftables-apply.sh</code> in the project repository or create the script from the following listing.</p>
 <details class="info">
 <summary>nftables-apply.sh</summary>
@@ -2028,14 +2048,23 @@ return</p>
 <div class="footnote">
 <hr />
 <ol>
+<li id="fn:sudo">
+<p>Root privileges are required to view or edit the nftables ruleset. Don't forget to <em>sudo</em> as required.&#160;<a class="footnote-backref" href="#fnref:sudo" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:syntax">
+<p>For simplicity, this guide will focus on the table-based format seen when using the <em>nft list</em> command.&#160;<a class="footnote-backref" href="#fnref:syntax" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
 <li id="fn:table_names">
-<p>These names are chosen to mirror the built-in tables of <em>iptables</em>.&#160;<a class="footnote-backref" href="#fnref:table_names" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>These names are chosen to mirror the built-in tables of <em>iptables</em>.&#160;<a class="footnote-backref" href="#fnref:table_names" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:hooks-reference">
+<p>Further information about hooks is provided in the default&#160;<a class="footnote-backref" href="#fnref:hooks-reference" title="Jump back to footnote 4 in the text">&#8617;</a></p>
 </li>
 <li id="fn:chain_names">
-<p>Once again, this naming convention is influenced by <em>iptables</em> and its built-in chains.&#160;<a class="footnote-backref" href="#fnref:chain_names" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<p>Once again, this naming convention is influenced by <em>iptables</em> and its built-in chains.&#160;<a class="footnote-backref" href="#fnref:chain_names" title="Jump back to footnote 5 in the text">&#8617;</a></p>
 </li>
 <li id="fn:flush">
-<p><code>nft -f &lt;FILENAME&gt;</code> is additive by default. Including <code>flush ruleset</code> before your table/chain definitions ensures that the new ruleset is properly loaded.&#160;<a class="footnote-backref" href="#fnref:flush" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+<p><code>nft -f &lt;FILENAME&gt;</code> is additive by default. Including <code>flush ruleset</code> before your table/chain definitions ensures that the new ruleset is properly loaded.&#160;<a class="footnote-backref" href="#fnref:flush" title="Jump back to footnote 6 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
