@@ -632,8 +632,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-is-nat" class="md-nav__link">
-    What is NAT
+  <a href="#overview-of-nat" class="md-nav__link">
+    Overview of NAT
   </a>
   
 </li>
@@ -1797,8 +1797,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-is-nat" class="md-nav__link">
-    What is NAT
+  <a href="#overview-of-nat" class="md-nav__link">
+    Overview of NAT
   </a>
   
 </li>
@@ -1879,11 +1879,13 @@
 <p class="admonition-title">Note</p>
 <p>With each checkpoint, we expect you to do more of the work on your own. While the initial Pi setup gave clear instructions, we are slowly moving toward giving you specifications and additional context that you need in order to determine the right steps to accomplish the task.</p>
 </div>
+<hr />
 <h2 id="before-you-start">Before you Start<a class="headerlink" href="#before-you-start" title="Permanent link">&para;</a></h2>
 <p>Before you begin, make sure that you have completed all steps from Checkpoints #1 and #2 successfully. By now, your pi should be able to connect to the Internet via wireless, and it should provide DHCP services via a pre-defined address range on the ethernet-based LAN.</p>
 <p>At times in this project, you will need to refer back to the configuration you defined in the previous <strong>LAN Planning Exercise</strong>. </p>
+<hr />
 <h2 id="objectives">Objectives<a class="headerlink" href="#objectives" title="Permanent link">&para;</a></h2>
-<p>In this assignment, you will be configuring the Pi as a simple <strong>Internet gateway</strong> that routes traffic between an isolated, wired LAN and an Internet-connected wireless network. Practically speaking, you'll be tethering your computer to the Pi and using it to access the rest of the Internet.</p>
+<p>In this assignment, you will be configuring the Pi as a simple <em>Internet gateway</em> that routes traffic between an isolated, wired LAN and an Internet-connected wireless network. Practically speaking, you'll be tethering your computer to the Pi and using it to access the rest of the Internet.</p>
 <p>Whether it is immediately obvious or not, this architecture has practical applications. It is not always a good idea to connect your computer directly to an untrusted network. With a few more components, the Pi provides a simple firewall that can protect against many types of threats. Further, the Pi can be used to tunnel your traffic through a personal VPN, ensuring that that it cannot be intercepted or tampered with on a public network or local ISP.  </p>
 <h3 id="project-outline">Project outline<a class="headerlink" href="#project-outline" title="Permanent link">&para;</a></h3>
 <p>The main steps of this project are listed below:</p>
@@ -1893,54 +1895,53 @@
 <li>Update DHCP to provide gateway and DNS settings</li>
 <li>Test and troubleshoot your configuration</li>
 </ol>
-<h2 id="what-is-nat">What is NAT<a class="headerlink" href="#what-is-nat" title="Permanent link">&para;</a></h2>
-<p>The hosts in our network use RFC-1918 addresses, which are restricted to private networks and cannot be used as a source or destination for addresses on packets being sent over the Internet. We'll address this problem with network address translation (NAT), which will allow your Pi to communicate on the Internet by masquerading with the public address assigned to the WAN port of the router.</p>
-<p>This setup is a special case of source NAT (SNAT) in that many private IP addresses will be mapped to one public address on the external interface. To accommodate, the Pi will need to monitor the state of each connection and other network traffic so that it can route to the correct host on the internal network when incoming traffic is received. </p>
+<hr />
+<h2 id="overview-of-nat">Overview of NAT<a class="headerlink" href="#overview-of-nat" title="Permanent link">&para;</a></h2>
+<p>The hosts in our network use <em>RFC-1918</em> addresses, which are restricted to private networks and cannot be used as a source or destination for addresses on packets being sent over the Internet. We'll address this problem with <em>network address translation (NAT)</em>, which will allow your Pi to communicate on the Internet by masquerading with the public address assigned to the WAN port of the router.</p>
+<p>This setup is a special case of <em>source NAT</em> in that many private IP addresses will be mapped to one public address on the external interface. To accommodate, the Pi will need to monitor the state of each connection and other network traffic so that it can route to the correct host on the internal network when incoming traffic is received. </p>
 <h2 id="configuring-nat">Configuring NAT<a class="headerlink" href="#configuring-nat" title="Permanent link">&para;</a></h2>
-<p>NAT functionality is supported natively in Linux through the <strong><em>netfilter firewall</em></strong>. We'll use a common Linux tool known as <strong><em>nftables</em></strong> to manage this mechanism. <em>nftables</em> defines rules in a hierarchical structure that are used to filter and manipulate packets. </p>
+<p><em>NAT</em> functionality is supported natively in Linux through the <em>netfilter firewall</em> and can be managed through a framework known as <em>nftables</em> by defining rules that filter and manipulate packets. </p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>Throughout the instructions, we'll refer to the wired interface as <strong>&lt;LAN&gt;</strong> (because it serves our local network) and the wireless interface as the <strong>&lt;WAN&gt;</strong> (because it connects us to the Internet). Your configuration files will reflect the OS-assigned interface names, such as: <em>eth0</em> and <em>wlan0</em>.</p>
 </div>
-<p>We have prepared an <a href="/resources/nftables">nftables tutorial</a> that focuses specifically on the features that are required to implement NAT. Read this tutorial carefully before you attempt to configure <em>nftables</em> on your Pi.</p>
+<p>We have prepared an <a href="/resources/nftables">nftables tutorial</a> that focuses specifically on the features that are required to implement <em>NAT</em>. Read this tutorial carefully before you attempt to configure <em>nftables</em> on your Pi.</p>
 <h3 id="rule-specification">Rule Specification<a class="headerlink" href="#rule-specification" title="Permanent link">&para;</a></h3>
-<p>The previous guide contains a template and partial ruleset enable to help you enable NAT and define appropriate rules for traffic forwarded between networks. Save a copy of this template in the home directory of your pi and fill in the missing values so that it complies with the following requirements:</p>
+<p>The previous guide contains a template and partial ruleset to help you enable <em>NAT</em> and restrict traffic forwarded between networks. Save a copy of this template in the home directory of your Pi and fill in the missing values so that it complies with the following requirements:</p>
 <ul>
-<li>Create a <strong>filter</strong> table with a chain named <strong>forward</strong> that is attached to the <strong>filter</strong>/<strong>forward</strong> <em>hook</em>.</li>
-<li>Use a default policy to drop packets on the <strong>forward</strong> chain unless they're explicitly allowed by another rule.</li>
-<li>Add a rule to allow all <em>outbound</em> packets on the <strong>forward</strong> chain.</li>
-<li>Add a rule to allow <em>inbound</em> packets on the <strong>forward</strong> chain if they are related to previous packets or established connections.</li>
-<li>Create a <strong>nat</strong> table with a chain named <strong>postrouting</strong> that is attached to the <strong>nat</strong>/<strong>postrouting</strong> <em>hook</em>.</li>
-<li>Add a rule to masquerade the addresses for outbound packets on the <strong>&lt;WAN&gt;</strong> interface.</li>
+<li>Create a <code>filter</code> table with a base chain named <code>forward</code> that is attached to the <code>filter</code>/<code>forward</code> hook.</li>
+<li>Use a default policy to drop packets on the <code>forward</code> chain unless they're explicitly allowed by another rule.</li>
+<li>Include a rule to allow all <em>outbound</em> packets on the <code>forward</code> chain.</li>
+<li>Include a rule to allow <em>inbound</em> packets on the <code>forward</code> chain if they are related to previous packets or established connections.</li>
+<li>Create a table named <code>nat</code> with a base chain named <code>postrouting</code> that is attached to the <code>nat</code>/<code>postrouting</code> hook.</li>
+<li>Include a rule to masquerade the addresses for <em>outbound</em> packets on the <strong>&lt;WAN&gt;</strong> interface.</li>
 </ul>
-<p>While best practice would have us further configure the firewalls for the internal and external interfaces on the Raspberry Pi, we will save this step for a future assignment.</p>
 <h3 id="testing-and-applying-rules">Testing and Applying Rules<a class="headerlink" href="#testing-and-applying-rules" title="Permanent link">&para;</a></h3>
-<p>After you finish filling out the missing values in the reference template according to the above specifications, you should follow the instructions in the <a href="/resources/nftables/#editing-nftable-rules-safely">provided tutorial</a> to set up your rules to be loaded persistently.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>You will not be able to completely test your rules until you complete the upcoming steps. What you should ensure at this point is that the rules are applied and that you are not locked out of the Pi.</p>
-</div>
+<p>After you finish filling in the missing values in the reference template according to the above specifications, follow the instructions in the <a href="/resources/nftables/#editing-nftable-rules-safely">provided tutorial</a> to test your rules and load them at boot.</p>
+<p>You will not be able to completely test your rules until you complete upcoming steps. What you should ensure at this point is that the rules are applied and that you are not locked out of the Pi.</p>
+<hr />
 <h2 id="enable-packet-forwarding">Enable Packet Forwarding<a class="headerlink" href="#enable-packet-forwarding" title="Permanent link">&para;</a></h2>
-<p>Once you are confident that you have set up NAT and filtering properly within iptables, you need to instruct the Linux kernel to begin forwarding packets. </p>
-<p>You can enable the setting temporarily from the command line by calling <code>sudo sysctl -w net.ipv4.ip_forward=1</code>, but it will not persist across reboots. </p>
-<p>Make this change persistent inside <code>/etc/sysctl.d/99-sysctl.conf</code> by setting <code>net.ipv4.ip_forward=1</code> (the rule is already included in the file but commented out).</p>
+<p>With your <em>nftables</em> configuration in place, you are ready to enable <em>forwarding</em> within the OS. By default, the Linux networking stack accepts packets with its own IP addresses and discards everything else. This behavior can be changed through the <em>sysctl</em> service, enabling the network stack to <em>forward</em> packets that are destined for nodes on another network. </p>
+<p>To turn on IPv4 forwarding when the system boots, add a new file named <code>/etc/sysctl.d/10-forward_ip4.conf</code> containing <code>net.ipv4.ip_forward=1</code>. After saving this file, call <code>sudo sysctl -p --system</code>.</p>
 <hr />
 <h2 id="update-dhcp-configuration">Update DHCP Configuration<a class="headerlink" href="#update-dhcp-configuration" title="Permanent link">&para;</a></h2>
-<p>Update the DHCP configuration written in the previous assignment to provide clients with settings for a <strong>default router</strong> and a public DNS resolver (called <strong>domain name servers</strong> in <strong>isc-dhcp-server</strong>). </p>
+<p>Update the DHCP configuration written in the previous assignment to provide clients with settings for a <em>default router</em> and a public DNS <em>resolver</em> (called <em>domain name servers</em> in <strong>isc-dhcp-server</strong>). </p>
 <ul>
 <li>Use the examples provided in the default <code>dhcpd.conf</code> as the basis for your changes.</li>
-<li>You will need to restart <strong>isc-dhcp-server</strong> in order to load the new configuration.</li>
+<li>Restart <strong>isc-dhcp-server</strong> in order to load the new configuration.</li>
 <li>Renew your DHCP lease by temporarily disconnecting Ethernet or following <a href="/resources/manage-dhcp/">instructions</a> provided in the resources section of this site.</li>
 </ul>
+<hr />
 <h2 id="test-your-configuration">Test your Configuration<a class="headerlink" href="#test-your-configuration" title="Permanent link">&para;</a></h2>
 <p>Once you have completed these changes, you should be able to access external networks by way of the Raspberry Pi.</p>
 <ol>
-<li>Disable other network interfaces so that the Pi is your only route to the Internet. </li>
+<li>Disable wireless networking and other network interfaces on your laptop so that the Pi is your only route to the Internet. </li>
 <li>Try connecting to a well-known website from your browser. </li>
-<li>From the command line (your laptop), run a <code>traceroute</code> (<code>tracert</code> on Windows) to confirm that your Pi is the first hop of this route.</li>
+<li>From your laptop's command line, use the <code>traceroute</code> command (<code>tracert</code> on Windows) to confirm that your Pi is the first hop of this route.</li>
 </ol>
+<hr />
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<p>If you run into problems here, there are a few points to check. First, try to ping a known address such as 1.1.1.1 from your computer. This will tell you whether or not you have connectivity outside your network. If you're at UW, try pinging 128.95.112.1, to determine whether you can access hosts on campus. You may also try pinging a known domain name like amazon.com (and washington.edu if you're on campus).</p>
+<p>If you run into problems here, there are a few points to check. First, try to <code>ping</code> a known address such as 1.1.1.1 from your computer. This will tell you whether or not you have connectivity outside your network. If you're at UW, try pinging 128.95.112.1, to determine whether you can access hosts on campus. You may also try pinging a known domain name like amazon.com (and washington.edu if you're on campus).</p>
 <ul>
 <li>If you can't ping anything, you may have an issue with the network configuration on your computer. Try pinging the static address you created for the Pi. If this fails with no route to host, go back and make sure you set up the Pi and your computer correctly.</li>
 <li>If you can ping by IP address, but not name, you have an issue with DNS. Verify that DHCP is providing a valid name server address. </li>
