@@ -1909,7 +1909,7 @@
 <h3 id="rule-specification">Rule Specification<a class="headerlink" href="#rule-specification" title="Permanent link">&para;</a></h3>
 <p>The previous guide contains a template and partial ruleset to help you enable <em>NAT</em> and restrict traffic forwarded between networks. Save a copy of this template in the home directory of your Pi and fill in the missing values so that it complies with the following requirements:</p>
 <ul>
-<li>Create a <code>filter</code> table with a base chain named <code>forward</code> that is attached to the <code>filter</code>/<code>forward</code> hook.</li>
+<li>Create a table named <code>filter</code> with a base chain named <code>forward</code> that is attached to the <code>filter</code>/<code>forward</code> hook.</li>
 <li>Use a default policy to drop packets on the <code>forward</code> chain unless they're explicitly allowed by another rule.</li>
 <li>Include a rule to allow all <em>outbound</em> packets on the <code>forward</code> chain.</li>
 <li>Include a rule to allow <em>inbound</em> packets on the <code>forward</code> chain if they are related to previous packets or established connections.</li>

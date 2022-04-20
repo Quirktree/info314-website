@@ -1981,10 +1981,10 @@
 </code></pre></div>
 </div>
 <h3 id="chains">Chains<a class="headerlink" href="#chains" title="Permanent link">&para;</a></h3>
-<p>Within each table, rules are assigned to structures called <em>chains</em>. A <em>chain</em> is an ordered list of rules describing the packets to match and the action to take when a match is found. When a chain is processed, the rules in it are tested in order from the beginning until a match is found. If <em>nftables</em> finds a match while evaluating a rule, the remaining rules in that chain may be skipped depending on what action is taken.</p>
+<p>Within each table, rules are grouped in <em>chains</em>. A <em>chain</em> is an ordered list of rules describing the packets to match and the action to take when a match is found. When a chain is processed, the rules in it are tested in order from the beginning until a match is found. If <em>nftables</em> finds a match while evaluating a rule, the remaining rules in that chain may be skipped depending on what action is taken.</p>
 <h4 id="base-chains">Base Chains<a class="headerlink" href="#base-chains" title="Permanent link">&para;</a></h4>
-<p><em>nftables</em> won't evaluate the rules in a chain automatically. Rather, a chain will only be processed if it is explicitly called from a rule in another chain or if the chain hass been associated with a <a href="/resources/netfilter-hooks"><em>netfilter hook</em></a>.<sup id="fnref:hooks-reference"><a class="footnote-ref" href="#fn:hooks-reference">2</a></sup> A chain that is associated with a hook is called a <em>base chain</em>.</p>
-<p>Within the <code>filter</code> table, we are going to work with three base chains named <code>input</code>, <code>output</code>, and <code>forward</code>. These chains will be associated with <em>filter</em> hooks of the same names,<sup id="fnref:chain_names"><a class="footnote-ref" href="#fn:chain_names">3</a></sup>, causing them to be processed when packets are being sent to software running on the Pi (<code>input</code> hook), when packets are being sent out by software on the Pi (<code>output</code>) hook, or when packets are being routed by the Pi from one network to another (<code>forward</code> hook). </p>
+<p><em>nftables</em> won't evaluate the rules in a chain automatically. Rather, a chain will only be processed if it is explicitly called from a rule in another chain or if the chain has been associated with a <a href="/resources/netfilter-hooks"><em>netfilter hook</em></a>.A chain that is associated with a hook is called a <em>base chain</em>.</p>
+<p>Within the <code>filter</code> table, we are going to work with three base chains named <code>input</code>, <code>output</code>, and <code>forward</code>. These chains will be associated with <em>filter</em> hooks of the same names<sup id="fnref:chain_names"><a class="footnote-ref" href="#fn:chain_names">2</a></sup>, causing them to be processed when packets are being sent to software running on the Pi (<code>input</code> hook), when packets are being sent out by software on the Pi (<code>output</code>) hook, or when packets are being routed by the Pi from one network to another (<code>forward</code> hook). </p>
 <div class="admonition example">
 <p class="admonition-title">Example: Filter table and empty base chains</p>
 <div class="annotate highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">table inet filter {</span><span class="w"></span>
@@ -2003,7 +2003,7 @@
 <span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
 </code></pre></div>
 </div>
-<p>The <code>nat</code> table will have one base chain that is named for its respective <em>hook</em>, i.e., <code>postrouting</code>. Within netfilter, the postrouting hooks are the last ones to be processed when sending or forwarding a packet. As such, rules processed here can perform masquerading on the source IP addresses.<sup id="fnref:prerouting"><a class="footnote-ref" href="#fn:prerouting">4</a></sup></p>
+<p>The <code>nat</code> table will have one base chain that is named for its respective <em>hook</em>, i.e., <code>postrouting</code>. Within netfilter, the postrouting hooks are the last ones to be processed when sending or forwarding a packet. As such, rules processed here can perform masquerading on the source IP addresses.<sup id="fnref:prerouting"><a class="footnote-ref" href="#fn:prerouting">3</a></sup></p>
 <div class="admonition example">
 <p class="admonition-title">Example: NAT with postrouting base chain</p>
 <div class="highlight"><pre><span></span><code>table ip nat {
@@ -2017,7 +2017,7 @@
 <h3 id="rules-syntax">Rules Syntax<a class="headerlink" href="#rules-syntax" title="Permanent link">&para;</a></h3>
 <p>The basic <em>nftables</em> rule syntax includes an expression and a statement. Expressions define conditions that need to be satisfied before an action is applied to a packet. Statements define the actions that will be taken. Since actions are the simpler component of a rule, we'll begin our exploration there. </p>
 <h4 id="statements-actions">Statements (actions)<a class="headerlink" href="#statements-actions" title="Permanent link">&para;</a></h4>
-<p><em>nftables</em> statements are used to control packet flow, apply <em>NAT</em> transformations, compute metrics, record logs, and modify the order of rule evaluation. While the list below is not exhaustive, it is sufficient for this guide and the beginning firewall implementer.</p>
+<p><em>nftables</em> statements are used to control packet flow, apply <em>NAT</em> transformations, compute metrics, record logs, and modify the order of rule evaluation. While the list below is not exhaustive, it is sufficient for this guide and the beginning firewall developer.</p>
 <ul>
 <li><a href="https://wiki.nftables.org/wiki-nftables/index.php/Accepting_and_dropping_packets"><code>accept</code></a>: Stop processing chain and deliver packet</li>
 <li><a href="https://wiki.nftables.org/wiki-nftables/index.php/Accepting_and_dropping_packets"><code>drop</code></a>: Stop processing chain and drop packet</li>
@@ -2060,16 +2060,16 @@
 <p>Netfilter is a <em>stateful</em> filtering framework, meaning that it is even possible to specify nftables rules based on the state of a network connection for a given packet. This feature shapes our rules in two ways. </p>
 <p>First, you'll notice that we only had to specify the masquerade rule in the egress direction. The same rule also handles the de-masquerading process for ingress packets. </p>
 <p>Second, you'll see that we can base filtering decisions on connection state itself. While it's appropriate for NAT routers to allow outgoing traffic, we typically want to place restrict incoming traffic. When configuring a gateway connection for a home or office, we often block incoming traffic unless it relates to existing connections from the LAN. Unsolicited traffic does not make sense in this context and poses a security risk.</p>
-<p>To accomplish this feat, we will make use of netfilter's connection tracking extensions and restrict incoming traffic to packets that are part of an established connection or related to a recent egress packet. The connection tracking portion of this expression is <code>ct state established, related</code>. </p>
+<p>To accomplish this feat, we will make use of netfilter's connection tracking extensions and restrict incoming traffic to packets that are part of an established connection or related to a recent egress packet. The connection tracking portion of this expression is <code>ct state established,related</code>. </p>
 <div class="admonition example">
 <p class="admonition-title">Example: Using the connection tracking extension</p>
-<p><code>{ .yaml .annotate } hl_lines 4 
-table inet filter {
-    chain forward {
-        type filter hook forward priority 0;
-        iifname &lt;WAN&gt; ct state established,related accept
-    }
-}</code></p>
+<div class="annotate highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">table inet filter {</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">chain forward {</span><span class="w"></span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">type filter hook forward priority 0;</span><span class="w"></span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">iifname &lt;WAN&gt; ct state established,related accept</span><span class="w"></span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
+<span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
+</code></pre></div>
 </div>
 <h4 id="default-policy-for-base-chains">Default Policy (for Base Chains)<a class="headerlink" href="#default-policy-for-base-chains" title="Permanent link">&para;</a></h4>
 <p>We are missing one piece to complete our configuration. By default, <em>nftables</em> accepts a packet unless a match occurs on a terminal rule. Base chains can override this behavior by defining a default policy. We'll use this feature to create a firewall that fail securely, i.e., blocking traffic that we don't explicitly allow.</p>
@@ -2089,7 +2089,7 @@ table inet filter {
 </div>
 <p>The <em>default deny</em> posture is a best practice for your networks and devices, but it's important to approach the strategy with care. Without additional rules, attaching <code>policy drop</code> to the <code>input</code> and <code>output</code> chains will block inbound and outbound SSH and other protocols that might be needed for remote management. We will come back to this in a later guide, but we recommend for now that you leave the default accept policy on these chains.</p>
 <h3 id="final-nat-template">Final NAT Template<a class="headerlink" href="#final-nat-template" title="Permanent link">&para;</a></h3>
-<p>The following template draws together all of the components we have discussed so far to define a basic NAT configuration for a Linux router, leaving placeholder<sup id="fnref:placeholder"><a class="footnote-ref" href="#fn:placeholder">5</a></sup> elements for the reader to complete. Please review the previous examples and specifications that have been given in order to create a valid configuration. The following section will help you test and install your new ruleset.</p>
+<p>The following template draws together all of the components we have discussed so far to define a basic NAT configuration for a Linux router, leaving placeholder<sup id="fnref:placeholder"><a class="footnote-ref" href="#fn:placeholder">4</a></sup> elements for the reader to complete. Please review the previous examples and specifications that have been given in order to create a valid configuration. The following section will help you test and install your new ruleset.</p>
 <p>!!! info Routing / NAT template
     <div class="annotate highlight"><pre><span></span><code><span class="c1"># Always flush the active ruleset before defining your new rules</span><span class="w"></span>
 <span class="l l-Scalar l-Scalar-Plain">flush ruleset</span><span class="w"></span>
@@ -2133,7 +2133,7 @@ table inet filter {
 <p class="admonition-title">Here be Dragons</p>
 <p>Do not write rules directly to <code>/etc/nftables.conf</code>. Without proper testing, you risk creating a rule that locks you out of your device from the network.  </p>
 </div>
-<p>Create a working copy of <code>/etc/nftables.conf</code> into your <em>home directory</em> <em>(it is okay to rename the file)</em>. Open the new copy and ensure that <code>flush ruleset</code> near the top (before your table definitions).<sup id="fnref:flush"><a class="footnote-ref" href="#fn:flush">6</a></sup> Proceed with any modifications to the working copy.</p>
+<p>Create a working copy of <code>/etc/nftables.conf</code> into your <em>home directory</em> <em>(it is okay to rename the file)</em>. Open the new copy and ensure that <code>flush ruleset</code> near the top (before your table definitions).<sup id="fnref:flush"><a class="footnote-ref" href="#fn:flush">5</a></sup> Proceed with any modifications to the working copy.</p>
 <p>To test your ruleset, we recommend a scripted approach that can automatically revert a change that locks you out of the Pi. INFO314 students can find a copy of <code>nftables-apply.sh</code> in the project repository or create the script from the following listing.</p>
 <details class="info">
 <summary>nftables-apply.sh</summary>
@@ -2220,20 +2220,17 @@ fi
 <li id="fn:table_names">
 <p>These names were chosen to mirror the built-in tables of <em>iptables</em>.&#160;<a class="footnote-backref" href="#fnref:table_names" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
-<li id="fn:hooks-reference">
-<p>Further information about hooks is provided in the default&#160;<a class="footnote-backref" href="#fnref:hooks-reference" title="Jump back to footnote 2 in the text">&#8617;</a></p>
-</li>
 <li id="fn:chain_names">
-<p>This naming convention is influenced by <em>iptables</em> and its built-in chains.&#160;<a class="footnote-backref" href="#fnref:chain_names" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+<p>This naming convention is influenced by <em>iptables</em> and its built-in chains.&#160;<a class="footnote-backref" href="#fnref:chain_names" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 <li id="fn:prerouting">
-<p><em>netfilter</em> also defines a <code>prerouting</code> nat hook that executes before routing decisions and can be used to implement port-forwarding and other destination NAT configurations.&#160;<a class="footnote-backref" href="#fnref:prerouting" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+<p><em>netfilter</em> also defines a <code>prerouting</code> nat hook that executes before routing decisions and can be used to implement port-forwarding and other destination NAT configurations.&#160;<a class="footnote-backref" href="#fnref:prerouting" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 <li id="fn:placeholder">
-<p>Text surrounded by &lt;&gt; symbols is indicative of a placeholder that should be filled in before loading the ruleset.&#160;<a class="footnote-backref" href="#fnref:placeholder" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+<p>Text surrounded by &lt;&gt; symbols is indicative of a placeholder that should be filled in before loading the ruleset.&#160;<a class="footnote-backref" href="#fnref:placeholder" title="Jump back to footnote 4 in the text">&#8617;</a></p>
 </li>
 <li id="fn:flush">
-<p><code>nft -f &lt;FILENAME&gt;</code> is additive by default. Including <code>flush ruleset</code> before your table/chain definitions ensures that the new ruleset is properly loaded.&#160;<a class="footnote-backref" href="#fnref:flush" title="Jump back to footnote 6 in the text">&#8617;</a></p>
+<p><code>nft -f &lt;FILENAME&gt;</code> is additive by default. Including <code>flush ruleset</code> before your table/chain definitions ensures that the new ruleset is properly loaded.&#160;<a class="footnote-backref" href="#fnref:flush" title="Jump back to footnote 5 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
