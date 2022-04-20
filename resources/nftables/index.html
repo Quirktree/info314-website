@@ -19,7 +19,7 @@
     
     
       
-        <title>Introduction to netfilter and nftables (2022-04-02) - INFO 314 Course Resources</title>
+        <title>Introduction to nftables - INFO 314 Course Resources</title>
       
     
     
@@ -106,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Introduction to netfilter and nftables (2022-04-02)
+              Introduction to nftables
             
           </span>
         </div>
@@ -206,6 +206,8 @@
         
   
   
+    
+  
 
 
   
@@ -217,7 +219,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../assignments/pi-setup/" class="md-tabs__link">
+      <a href="../../assignments/pi-setup/" class="md-tabs__link md-tabs__link--active">
         Projects
       </a>
     </li>
@@ -348,12 +350,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
       
       
       
@@ -528,14 +532,16 @@
               
   
   
+    
+  
   
     
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" checked>
       
       
       
@@ -570,11 +576,180 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../iptables/" class="md-nav__link">
-        Introduction to iptables
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Introduction to nftables
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Introduction to nftables
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-nftables" class="md-nav__link">
+    What is nftables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tables-chains-and-rule-syntax" class="md-nav__link">
+    Tables, Chains, and Rule Syntax
+  </a>
+  
+    <nav class="md-nav" aria-label="Tables, Chains, and Rule Syntax">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tables" class="md-nav__link">
+    Tables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chains" class="md-nav__link">
+    Chains
+  </a>
+  
+    <nav class="md-nav" aria-label="Chains">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#base-chains" class="md-nav__link">
+    Base Chains
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rules-syntax" class="md-nav__link">
+    Rules Syntax
+  </a>
+  
+    <nav class="md-nav" aria-label="Rules Syntax">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#statements-actions" class="md-nav__link">
+    Statements (actions)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#expressions-conditions" class="md-nav__link">
+    Expressions (conditions)
+  </a>
+  
+    <nav class="md-nav" aria-label="Expressions (conditions)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-connection-state-in-rules" class="md-nav__link">
+    Using Connection State in Rules
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#default-policy-for-base-chains" class="md-nav__link">
+    Default Policy (for Base Chains)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#final-nat-template" class="md-nav__link">
+    Final NAT Template
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-nftables" class="md-nav__link">
+    Configuring nftables
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuring nftables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enable-the-nftables-service" class="md-nav__link">
+    Enable the nftables Service
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#editing-nftable-rules-safely" class="md-nav__link">
+    Editing nftable Rules Safely
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" class="md-nav__link">
+    Resources
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2076,6 +2251,41 @@ fi
       </main>
       
         <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../../assignments/router-setup/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Router Setup" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Router Setup
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../assignments/resolver-setup/" class="md-footer__link md-footer__link--next" aria-label="Next: DNS Resolver Setup" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              DNS Resolver Setup
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
