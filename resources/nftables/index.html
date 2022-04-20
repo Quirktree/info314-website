@@ -2063,12 +2063,12 @@
 <p>To accomplish this feat, we will make use of netfilter's connection tracking extensions and restrict incoming traffic to packets that are part of an established connection or related to a recent egress packet. The connection tracking portion of this expression is <code>ct state established,related</code>. </p>
 <div class="admonition example">
 <p class="admonition-title">Example: Using the connection tracking extension</p>
-<div class="annotate highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">table inet filter {</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">chain forward {</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">type filter hook forward priority 0;</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">iifname &lt;WAN&gt; ct state established,related accept</span><span class="w"></span>
+<div class="annotate highlight"><pre><span></span><code><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">table inet filter {</span><span class="w"></span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">chain forward {</span><span class="w"></span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">type filter hook forward priority 0;</span><span class="w"></span>
+<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">iifname &lt;WAN&gt; ct state established,related accept</span><span class="w"></span>
+<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
 <span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
-<span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 <h4 id="default-policy-for-base-chains">Default Policy (for Base Chains)<a class="headerlink" href="#default-policy-for-base-chains" title="Permanent link">&para;</a></h4>
