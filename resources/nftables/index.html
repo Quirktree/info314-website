@@ -2089,7 +2089,7 @@
 </div>
 <p>The <em>default deny</em> posture is a best practice for your networks and devices, but it's important to approach the strategy with care. Without additional rules, attaching <code>policy drop</code> to the <code>input</code> and <code>output</code> chains will block inbound and outbound SSH and other protocols that might be needed for remote management. We will come back to this in a later guide, but we recommend for now that you leave the default accept policy on these chains.</p>
 <h3 id="final-nat-template">Final NAT Template<a class="headerlink" href="#final-nat-template" title="Permanent link">&para;</a></h3>
-<p>The following template draws together all of the components we have discussed so far to define a basic NAT configuration for a Linux router, leaving placeholder<sup id="fnref:placeholder"><a class="footnote-ref" href="#fn:placeholder">4</a></sup> elements for the reader to complete. Please review the previous examples and specifications that have been given in order to create a valid configuration. The following section will help you test and install your new ruleset.</p>
+<p>The following template draws together all of the components we have discussed so far to define a basic NAT configuration for a Linux router, leaving placeholder<sup id="fnref:placeholder"><a class="footnote-ref" href="#fn:placeholder">4</a></sup> elements for the reader to complete. Please review the previous examples and specifications that have been given in order to create a valid configuration. The following section will help you test and install your new ruleset.<sup id="fnref:quoting"><a class="footnote-ref" href="#fn:quoting">5</a></sup></p>
 <p>!!! info Routing / NAT template
     <div class="annotate highlight"><pre><span></span><code><span class="c1"># Always flush the active ruleset before defining your new rules</span><span class="w"></span>
 <span class="l l-Scalar l-Scalar-Plain">flush ruleset</span><span class="w"></span>
@@ -2133,7 +2133,7 @@
 <p class="admonition-title">Here be Dragons</p>
 <p>Do not write rules directly to <code>/etc/nftables.conf</code>. Without proper testing, you risk creating a rule that locks you out of your device from the network.  </p>
 </div>
-<p>Create a working copy of <code>/etc/nftables.conf</code> into your <em>home directory</em> <em>(it is okay to rename the file)</em>. Open the new copy and ensure that <code>flush ruleset</code> near the top (before your table definitions).<sup id="fnref:flush"><a class="footnote-ref" href="#fn:flush">5</a></sup> Proceed with any modifications to the working copy.</p>
+<p>Create a working copy of <code>/etc/nftables.conf</code> into your <em>home directory</em> <em>(it is okay to rename the file)</em>. Open the new copy and ensure that <code>flush ruleset</code> near the top (before your table definitions).<sup id="fnref:flush"><a class="footnote-ref" href="#fn:flush">6</a></sup> Proceed with any modifications to the working copy.</p>
 <p>To test your ruleset, we recommend a scripted approach that can automatically revert a change that locks you out of the Pi. INFO314 students can find a copy of <code>nftables-apply.sh</code> in the project repository or create the script from the following listing.</p>
 <details class="info">
 <summary>nftables-apply.sh</summary>
@@ -2229,8 +2229,11 @@ fi
 <li id="fn:placeholder">
 <p>Text surrounded by &lt;&gt; symbols is indicative of a placeholder that should be filled in before loading the ruleset.&#160;<a class="footnote-backref" href="#fnref:placeholder" title="Jump back to footnote 4 in the text">&#8617;</a></p>
 </li>
+<li id="fn:quoting">
+<p>Do not quote text substituted for placeholders unless quotes are shown in the template.&#160;<a class="footnote-backref" href="#fnref:quoting" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
 <li id="fn:flush">
-<p><code>nft -f &lt;FILENAME&gt;</code> is additive by default. Including <code>flush ruleset</code> before your table/chain definitions ensures that the new ruleset is properly loaded.&#160;<a class="footnote-backref" href="#fnref:flush" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+<p><code>nft -f &lt;FILENAME&gt;</code> is additive by default. Including <code>flush ruleset</code> before your table/chain definitions ensures that the new ruleset is properly loaded.&#160;<a class="footnote-backref" href="#fnref:flush" title="Jump back to footnote 6 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
