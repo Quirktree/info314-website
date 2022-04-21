@@ -1815,10 +1815,10 @@
 <p>Before configuring wpa_supplicant, we will need to convert the files downloaded during onboarding into a format supported by the software, and install them into an appropriate location. The client certificate and private key (credentials that are used to identify you to the network) are stored in a <strong>passphrase encrypted PKCS#12</strong> file. This is the first file that you downloaded from the P12 link. </p>
 <p>Copy the files you downloaded in the previous step into the home directory of your Pi. Extract the client certificate and the private key into separate PEM files using the <strong>openssl</strong> command-line utility.<sup id="fnref:placeholder"><a class="footnote-ref" href="#fn:placeholder">3</a></sup> <sup id="fnref:passphrase"><a class="footnote-ref" href="#fn:passphrase">4</a></sup> </p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Extract the client certificate and convert to PEM</span>
-openssl pkcs12 -in <span class="s2">&quot;&lt;P12 FILENAME&gt;&quot;</span> -out &lt;NETID&gt;_cert.pem -clcerts -nokeys
+openssl pkcs12 -in <span class="s2">&quot;&lt;P12_FILENAME&gt;&quot;</span> -out &lt;NETID&gt;_cert.pem -clcerts -nokeys
 
 <span class="c1"># Extract the private key and convert to PEM</span>
-openssl pkcs12 -in <span class="s2">&quot;&lt;P12 FILENAME&gt;&quot;</span> -out &lt;NETID&gt;_key.pem -nodes
+openssl pkcs12 -in <span class="s2">&quot;&lt;P12_FILENAME&gt;&quot;</span> -out &lt;NETID&gt;_key.pem -nodes
 </code></pre></div>
 <p>You should now have two new pem files in your home directory. Move these files along with certificate authority into <code>/etc/wpa_supplicant/</code> and make a note of their names. </p>
 <div class="admonition info">

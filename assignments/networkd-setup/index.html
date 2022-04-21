@@ -1924,9 +1924,10 @@
 <li><strong><code>resolved</code></strong> - Provides network name resolution and maintains a list of DNS servers (network-based resolvers) to contact based on settings provided by DHCP or <strong><code>networkd</code></strong> configuration files.</li>
 </ul>
 <div class="admonition danger">
-<p class="admonition-title">Danger: Risk of <em>bricking</em> your Pi</p>
-<p>A typo or other mistake within the core network configuration can result in total loss of network connectivity. If this happens, you will not be able to manage your Pi over SSH. Your only option will be to configure the Pi again from scratch or to troubleshoot using an external HDMI monitor and USB keyboard.</p>
-<p><em>We will not grant extensions for this type of incident.</em> Before you begin to follow these instructions, make an external copy of critical configs such as <strong>wpa_supplicant</strong> using <strong><code>scp</code></strong>. We provide <a href="#rebuilding-raspberry-pi-os">additional tips</a> for rebuilding at the end of this guide.</p>
+<p class="admonition-title">Attention: Risk of <em>bricking</em> your Pi</p>
+<p>A typo or other mistake within the core network configuration can result in total loss of network connectivity, which is required to manage the Pi over ssh.</p>
+<p>Before you begin to follow these instructions, make an external copy of critical configs such as <strong>wpa_supplicant</strong> using <strong><code>scp</code></strong> in case it becomes necessary to rebuild. </p>
+<p>If you get locked out during this process, please contact the instructor to determine whether it's possible to reconnect without re-imaging the Pi.</p>
 </div>
 <h2 id="systemd-vs-default-networking">Systemd vs Default Networking<a class="headerlink" href="#systemd-vs-default-networking" title="Permanent link">&para;</a></h2>
 <p>By default, Raspberry Pi OS networking relies on a component called dhcpcd to manage interface settings, addresses, etc. While this component works well for general purpose computing, but it is not a match for every scenario.</p>
@@ -1971,7 +1972,7 @@ DHCP=ipv4
 </code></pre></div></p>
 <h3 id="disable-default-networking">Disable default networking<a class="headerlink" href="#disable-default-networking" title="Permanent link">&para;</a></h3>
 <div class="admonition tip">
-<p class="admonition-title">Tip: Backup new configuration before proceeding<p>If you've made any mistakes, you may lose access to your Pi after performing the following steps. </p>
+<p class="admonition-title">Tip: Backup configuration before proceeding<p>If you've made any mistakes, you may lose access to your Pi after performing the following steps. </p>
 <p>Make an offline backup <strong>before</strong> you proceed by copying files to your local system with <strong><code>scp</code></strong>.</p>
 </p>
 </div>
@@ -2039,9 +2040,15 @@ journalctl -u wpa_supplicant
 man journalctl
 </code></pre></div>
 <h3 id="accessing-a-bricked-pi">Accessing a Bricked Pi<a class="headerlink" href="#accessing-a-bricked-pi" title="Permanent link">&para;</a></h3>
-<p>If you made a mistake at the wrong point in the previous process, you may not even be able to connect anymore from the network. The only way to debug at this point will be to attach a keyboard/monitor to the Pi or to mount the memory card from another Linux device or Virtual Machine.</p>
+<p>If you made a mistake at the wrong point in the previous process, you may not even be able to connect anymore from the network. </p>
+<p>If this happens, there are several ways to restore access:
+- Contact instructor for a repair script. Raspberry Pi OS provides a mechanism to run a script during the boot process. You will need access to a microSD reader/writer in order to add the script into the boot folder.
+- Connect a USB keyboard and HDMI monitor to the Pi in order to debug directly. You will need a micro-HDMI adapter. Most flat-screen TV's can be used as a monitor for this purpose.
+- Use a serial console cable to access the Pi command line directly. Come to office hours or contact instructor for this option.
+- Mount the SD card using a Linux virtual machine and repair the broken config files directly.</p>
 <h3 id="rebuilding-raspberry-pi-os">Rebuilding Raspberry Pi OS<a class="headerlink" href="#rebuilding-raspberry-pi-os" title="Permanent link">&para;</a></h3>
-<p>Alternatively, you may opt to reflash your memory card and repeat initial setup. If you find yourself in this position, the following recommendations will simplify the process:</p>
+<p>Alternatively, you may opt to reflash your memory card and repeat initial setup. Contact the instructor before proceeding. </p>
+<p>If you find yourself in this position, the following recommendations will simplify the process:</p>
 <ol>
 <li>Copy a fully configured <strong><code>wpa_supplicant.conf</code></strong> to the <strong><code>boot</code></strong> volume of the memory card before the first boot. The boot process will move the file to the proper location in <strong><code>/etc/wpa_supplicant</code></strong> and set its permissions on the first boot.</li>
 <li>Remove the previous server key hash from <strong><code>.ssh/known_hosts</code></strong> to prevent <strong><code>ssh</code></strong> from complaining about the Pi's new key.<ul>
