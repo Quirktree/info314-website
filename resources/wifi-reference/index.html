@@ -1815,19 +1815,19 @@
 <p>The general structure of the configuration file is show below. The file begins with a standard set of parameters specifying the <strong>country</strong> (needed to initialize appropriate radio settings), a <strong>control interface</strong> used by network management tools, and a boolean that instructs <strong>wpa_supplicant</strong> to accept configuration updates from other network management tools. We won't delve any deeper into the meaning of these initial parameters for now. Rather, our concern will be how to configure Linux to join nearby wireless networks.</p>
 <div class="admonition example">
 <p class="admonition-title">Example <code>wpa_supplicant.conf</code></p>
-<div class="highlight"><pre><span></span><code>country=US
-ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-update_config=1
-
-network={
-    ssid=&quot;Some public network&quot;
-    key_mgmt=NONE
-}
-
-network={
-    ssid=&quot;My home network&quot;
-    psk=&quot;Don&#39;t tell anyone the password&quot;
-}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>country=US
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>update_config=1
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>network={
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    ssid=&quot;Some public network&quot;
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    key_mgmt=NONE
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>}
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>network={
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    ssid=&quot;My home network&quot;
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    psk=&quot;Don&#39;t tell anyone the password&quot;
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>}
 </code></pre></div>
 </div>
 <p>Each network is represented by a configuration block that surrounded by <code>network={...}</code>. The contents of the network block will depend largely on the security settings of the network, e.g., whether or not the network is encrypted with a passphrase. This document provides instructions for configuring three common types of networks: </p>
@@ -1843,10 +1843,10 @@ network={
 <p>Instead, for unencrypted networks, we explicitly disable encryption with <strong><code>key_mgmt=NONE</code></strong>.</p>
 <div class="admonition example">
 <p class="admonition-title">Configuration for an unencrypted network</p>
-<div class="highlight"><pre><span></span><code>network={
-    ssid=&quot;Coffee Shop&quot;
-    key_mgmt=NONE
-}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>network={
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    ssid=&quot;Coffee Shop&quot;
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    key_mgmt=NONE
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>}
 </code></pre></div>
 </div>
 <h2 id="wpa2-personal-networks">WPA2 Personal Networks<a class="headerlink" href="#wpa2-personal-networks" title="Permanent link">&para;</a></h2>
@@ -1854,24 +1854,24 @@ network={
 <p>There are two ways to accomplish this task. First, we can assign the passphrase directly to the parameter in plaintext as shown here:</p>
 <div class="admonition danger">
 <p class="admonition-title">Danger: Don't do this!!!</p>
-<div class="highlight"><pre><span></span><code>network={
-    ssid=&quot;Home Wifi&quot;
-    psk=&quot;super secret squirrels&quot;
-}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>network={
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    ssid=&quot;Home Wifi&quot;
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    psk=&quot;super secret squirrels&quot;
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>}
 </code></pre></div>
 </div>
 <p>Security professionals generally frown on plaintext passwords and passphrases being written to configuration files or code. As such, we prefer to write the configuration based on the raw network key (computed using a function called <em>PBKDF</em> in conjunction with <em>SHA1</em>).</p>
 <div class="admonition faq">
 <p class="admonition-title">Using <code>wpa_passphrase</code> to generate a raw PSK</p>
 <p>You can generate the raw psk directly on your Pi by running the <code>wpa_passphrase</code> utility. This utility takes your SSID as an argument and then prompts you to enter your passphrase. </p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Pass your SSID as the first argument</span>
-wpa_passphrase <span class="s2">&quot;Home Wifi&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Pass your SSID as the first argument</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>wpa_passphrase <span class="s2">&quot;Home Wifi&quot;</span>
 </code></pre></div>
 <p>You will not see any characters or placeholders echoed as you type the passphrase, but <strong><code>wpa_passphrase</code></strong> will continue to accept input until you hit <em>Enter/Return</em>. The output will be a valid <strong>wpa_supplicant</strong> configuration that you can paste into your configuration.</p>
-<div class="highlight"><pre><span></span><code>network={
-    ssid=&quot;Home Wifi&quot;
-    psk=2508539ff867a3578f6ba7d9ee1d4a62aea82c25d30ffb1eb3a05cd08a373c02
-}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>network={
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    ssid=&quot;Home Wifi&quot;
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    psk=2508539ff867a3578f6ba7d9ee1d4a62aea82c25d30ffb1eb3a05cd08a373c02
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>}
 </code></pre></div>
 </div>
 <h2 id="wpa2-enterprise-networks">WPA2 Enterprise Networks<a class="headerlink" href="#wpa2-enterprise-networks" title="Permanent link">&para;</a></h2>
@@ -1884,23 +1884,23 @@ wpa_passphrase <span class="s2">&quot;Home Wifi&quot;</span>
 <p>The majority of the values needed for this template will be provided by your organization during onboarding.</p>
 <p>For <strong><ENCRYPTION_MODES></strong>, your organization most likely supports <strong>CCMP</strong>, which is a mode of <strong>AES</strong> encryption. If you're unsure, enter <strong>CCMP TKIP</strong> to allow for legacy encryption support (not recommended).</p>
 <p>All path names will be dependent on the installation location for your certificates.</p>
-<div class="highlight"><pre><span></span><code>network={
-    priority=10
-    ssid=&quot;eduroam&quot;
-    scan_ssid=1
-    key_mgmt=WPA-EAP
-    proto=RSN
-    pairwise=&lt;ENCRYPTION_MODES&gt;
-    group=&lt;ENCRYPTION_MODES&gt;
-    eap=TLS
-    identity=&quot;&lt;IDENTITY&gt;&quot;
-    anonymous_identity=&quot;&lt;ANONYMOUS_IDENTITY&gt;&quot;
-    ca_cert=&quot;&lt;/PATH/TO/CA_CERT.PEM&gt;&quot;
-    client_cert=&quot;&lt;/PATH/TO/CLIENT_CERT.PEM&gt;&quot;
-    private_key=&quot;&lt;/PATH/TO/PRIVATE_KEY.PEM&gt;&quot;
-    domain_match=&quot;&lt;DOMAIN&gt;&quot;
-    phase2=&quot;auth=&lt;INNER_EAP_TYPE&gt;&quot;
-}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>network={
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    priority=10
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    ssid=&quot;eduroam&quot;
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    scan_ssid=1
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    key_mgmt=WPA-EAP
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    proto=RSN
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    pairwise=&lt;ENCRYPTION_MODES&gt;
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>    group=&lt;ENCRYPTION_MODES&gt;
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>    eap=TLS
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>    identity=&quot;&lt;IDENTITY&gt;&quot;
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>    anonymous_identity=&quot;&lt;ANONYMOUS_IDENTITY&gt;&quot;
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>    ca_cert=&quot;&lt;/PATH/TO/CA_CERT.PEM&gt;&quot;
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>    client_cert=&quot;&lt;/PATH/TO/CLIENT_CERT.PEM&gt;&quot;
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>    private_key=&quot;&lt;/PATH/TO/PRIVATE_KEY.PEM&gt;&quot;
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>    domain_match=&quot;&lt;DOMAIN&gt;&quot;
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>    phase2=&quot;auth=&lt;INNER_EAP_TYPE&gt;&quot;
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>}
 </code></pre></div>
 </div>
 <h3 id="password-based-authentication">Password-based Authentication<a class="headerlink" href="#password-based-authentication" title="Permanent link">&para;</a></h3>
@@ -1911,29 +1911,29 @@ wpa_passphrase <span class="s2">&quot;Home Wifi&quot;</span>
 <p>If implemented poorly, PEAP can expose your password to a malicious network operator. To prevent attacks, include the Certificate Authority (CA) certificate<sup id="fnref:cacert"><a class="footnote-ref" href="#fn:cacert">1</a></sup> in your wpa_supplicant configuration. Without this information, the wireless client may send password information to an evil twin (malicious network posing as one you trust). </p>
 <p>Likewise, we advise against hard-coding your plaintext school or work password into the wireless configuration file. Instead, compute an MD4 hash from your password and substitute it for the password. MD4 is a weak hash and fairly vulnerable to password cracking, but combined with a strong password, it does provide a layer of protection if your device is lost or stolen. </p>
 <p>Follow these commands in order to compute the MD4 hash in Linux. The <em>history</em> commands are not needed to compute a hash but are added for security. Without them, your password will be stored in the Bash history file and easily readable to anyone with access to your memory card.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">set</span> +o <span class="nb">history</span>
-
-<span class="nb">echo</span> -n <span class="s1">&#39;This is your password&#39;</span> <span class="p">|</span> iconv -t utf16le <span class="p">|</span> openssl md4
-<span class="c1"># You should see output like 6f9bad2c90b80bd549e595fc91e27806</span>
-
-<span class="nb">set</span> -o <span class="nb">history</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">set</span> +o <span class="nb">history</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nb">echo</span> -n <span class="s1">&#39;This is your password&#39;</span> <span class="p">|</span> iconv -t utf16le <span class="p">|</span> openssl md4
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># You should see output like 6f9bad2c90b80bd549e595fc91e27806</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="nb">set</span> -o <span class="nb">history</span>
 </code></pre></div>
 </details>
 <details class="info">
 <summary>Eduroam configuration template (EAP-PEAP)</summary>
 <p><strong>This configuration is no longer supported on University of Washington's eduroam network (effective Feb 1, 2022).</strong></p>
-<div class="highlight"><pre><span></span><code>network={
-        ssid=&quot;eduroam&quot;
-        scan_ssid=1
-        key_mgmt=WPA-EAP
-        proto=RSN
-        eap=PEAP
-        identity=&quot;&lt;USERNAME&gt;@&lt;ORGANIZATION_DOMAIN&gt;&quot;
-        password=hash:6f9bad2c90b80bd549e595fc91e27806
-        ca_cert=&quot;&lt;/PATH/TO/CA_CERT.PEM&gt;&quot;
-        phase1=&quot;peaplabel=0&quot;
-        phase2=&quot;auth=MSCHAPV2&quot;
-}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>network={
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>        ssid=&quot;eduroam&quot;
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>        scan_ssid=1
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>        key_mgmt=WPA-EAP
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>        proto=RSN
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>        eap=PEAP
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>        identity=&quot;&lt;USERNAME&gt;@&lt;ORGANIZATION_DOMAIN&gt;&quot;
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>        password=hash:6f9bad2c90b80bd549e595fc91e27806
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>        ca_cert=&quot;&lt;/PATH/TO/CA_CERT.PEM&gt;&quot;
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>        phase1=&quot;peaplabel=0&quot;
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>        phase2=&quot;auth=MSCHAPV2&quot;
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>}
 </code></pre></div>
 </details>
 <h2 id="applying-configuration-changes">Applying Configuration Changes<a class="headerlink" href="#applying-configuration-changes" title="Permanent link">&para;</a></h2>
@@ -1941,11 +1941,11 @@ wpa_passphrase <span class="s2">&quot;Home Wifi&quot;</span>
 <p>When running <strong><code>wpa_cli</code></strong> we need to specify the interface we are configuring and a command to send to the <strong>wpa_supplicant</strong> service.</p>
 <div class="admonition instructions">
 <p class="admonition-title">Load configuration from <code>wpa_supplicant.conf</code></p>
-<div class="highlight"><pre><span></span><code># Update configuration from disk
-wpa_cli -i wlan0 reconfigure
-
-# Check the status of current connection
-wpa_cli -i wlan0 status
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a># Update configuration from disk
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>wpa_cli -i wlan0 reconfigure
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a># Check the status of current connection
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>wpa_cli -i wlan0 status
 </code></pre></div>
 </div>
 <p>See <strong><code>man wpa_cli</code></strong> for further instructions and examples.</p>

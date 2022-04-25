@@ -1636,71 +1636,71 @@
 <p>Linux does not define a canonical approach to network configuration. Traditionally each distribution has made its own choices with which adminstrators will become familiar. In recent years, a number of distributions have standardized systemd-networkd based network configuration. The systemd movement has been a topic of hot debate, though for new students of Linux, it offers the advantage of predictability.</p>
 <div class="admonition example">
 <p class="admonition-title">Manually configure wireguard with iproute2</p>
-<div class="highlight"><pre><span></span><code>ip link add dev wg0 type wireguard
-ip addr add dev wg0 10.99.0.4 peer 10.99.0.5
-wg set wg0 listen-port 51820 private-key /etc/wireguard/private-key \
-    peer AglT3WUjY0j9Ic/SvfGGmGQ1r39MoQqlXDq9+hjOKhU= allowed-ips 0.0.0.0/0 \
-    endpoint 1.2.3.4:51821
-ip link set up dev wg0
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ip link add dev wg0 type wireguard
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>ip addr add dev wg0 10.99.0.4 peer 10.99.0.5
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>wg set wg0 listen-port 51820 private-key /etc/wireguard/private-key \
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    peer AglT3WUjY0j9Ic/SvfGGmGQ1r39MoQqlXDq9+hjOKhU= allowed-ips 0.0.0.0/0 \
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    endpoint 1.2.3.4:51821
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>ip link set up dev wg0
 </code></pre></div>
 <p><strong>/etc/wireguard/privatekey</strong>
-<div class="highlight"><pre><span></span><code>X/n17o9G+4o84NT4l53uV3Jf13WKiA9EVs9l3onsEno=
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>X/n17o9G+4o84NT4l53uV3Jf13WKiA9EVs9l3onsEno=
 </code></pre></div></p>
 </div>
 <div class="admonition example">
 <p class="admonition-title">Configuring wireguard persistently with systemd-networkd</p>
 <p>After creating the files below, make sure that ownership and permissions are set to protect private keys.
-<div class="highlight"><pre><span></span><code>sudo chown root:systemd-network /etc/systemd/network/99-wg0.netdev
-sudo chmod 640 /etc/systemd/network/99-wg0.netdev
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sudo chown root:systemd-network /etc/systemd/network/99-wg0.netdev
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>sudo chmod 640 /etc/systemd/network/99-wg0.netdev
 </code></pre></div></p>
 <p><strong>/etc/systemd/network/99-wg0.netdev</strong>
-<div class="highlight"><pre><span></span><code>[NetDev]
-Name=wg0
-Kind=wireguard
-Description=WireGuard Tunnel Endpoint
-
-[WireGuard]
-ListenPort=51820
-PrivateKey=X/n17o9G+4o84NT4l53uV3Jf13WKiA9EVs9l3onsEno=
-
-[WireGuardPeer]
-PublicKey=AglT3WUjY0j9Ic/SvfGGmGQ1r39MoQqlXDq9+hjOKhU=
-AllowedIPs=0.0.0.0/0
-Endpoint=1.2.3.4:51821
-
-# Recommended only on routers that do not provide their own listener
-PersistentKeepalive=25
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>[NetDev]
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Name=wg0
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>Kind=wireguard
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>Description=WireGuard Tunnel Endpoint
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>[WireGuard]
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>ListenPort=51820
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>PrivateKey=X/n17o9G+4o84NT4l53uV3Jf13WKiA9EVs9l3onsEno=
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>[WireGuardPeer]
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>PublicKey=AglT3WUjY0j9Ic/SvfGGmGQ1r39MoQqlXDq9+hjOKhU=
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>AllowedIPs=0.0.0.0/0
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>Endpoint=1.2.3.4:51821
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a># Recommended only on routers that do not provide their own listener
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>PersistentKeepalive=25
 </code></pre></div></p>
 <p><strong>/etc/systemd/network/99-wg0.network</strong>
-<div class="highlight"><pre><span></span><code>[Match]
-Name=wg0
-
-[Address]
-Address=10.99.0.4/32
-Peer=10.99.0.5/32
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>[Match]
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>Name=wg0
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>[Address]
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>Address=10.99.0.4/32
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>Peer=10.99.0.5/32
 </code></pre></div></p>
 </div>
 <div class="admonition example">
 <p class="admonition-title">Configuring wireguard persistently with legacy Debian networking (ifupdown)</p>
 <p><strong>/etc/network/interfaces</strong>
-<div class="highlight"><pre><span></span><code>auto wg0
-iface wg0 inet static
-    address 10.99.0.4
-    pointopoint 10.99.0.5
-    pre-up ip link add dev wg0 type wireguard
-    pre-up wg setconf wg0 /etc/wireguard/wg0.conf
-    post-down ip link delete dev wg0
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>auto wg0
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>iface wg0 inet static
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    address 10.99.0.4
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    pointopoint 10.99.0.5
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    pre-up ip link add dev wg0 type wireguard
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>    pre-up wg setconf wg0 /etc/wireguard/wg0.conf
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    post-down ip link delete dev wg0
 </code></pre></div></p>
 <p><strong>/etc/wireguard/wg0.conf</strong>
-<div class="highlight"><pre><span></span><code>[Interface]
-ListenPort = 51820
-PrivateKey = X/n17o9G+4o84NT4l53uV3Jf13WKiA9EVs9l3onsEno=
-
-
-[Peer]
-PublicKey = AglT3WUjY0j9Ic/SvfGGmGQ1r39MoQqlXDq9+hjOKhU=
-AllowedIPs = 0.0.0.0/0
-Endpoint = 1.2.3.4:51821
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>[Interface]
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>ListenPort = 51820
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>PrivateKey = X/n17o9G+4o84NT4l53uV3Jf13WKiA9EVs9l3onsEno=
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>[Peer]
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>PublicKey = AglT3WUjY0j9Ic/SvfGGmGQ1r39MoQqlXDq9+hjOKhU=
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>AllowedIPs = 0.0.0.0/0
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>Endpoint = 1.2.3.4:51821
 </code></pre></div></p>
 </div>
 

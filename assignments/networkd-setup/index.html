@@ -1952,23 +1952,23 @@
 </div>
 <h4 id="default-ethernet-configuration"><strong>Default ethernet configuration</strong><a class="headerlink" href="#default-ethernet-configuration" title="Permanent link">&para;</a></h4>
 <p><strong><code>/etc/systemd/network/99-eth.network</code></strong>
-<div class="highlight"><pre><span></span><code>[Match]
-# Applies to eth0, eth1, ...
-Name=eth*
-
-[Network]
-# Configure IPv4 using DHCP
-DHCP=ipv4
-
-# Enable link local addresses for IPv4 (169.254.x.y) and IPv6 (FE80::)
-LinkLocalAddressing=yes
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>[Match]
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a># Applies to eth0, eth1, ...
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Name=eth*
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>[Network]
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a># Configure IPv4 using DHCP
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>DHCP=ipv4
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a># Enable link local addresses for IPv4 (169.254.x.y) and IPv6 (FE80::)
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>LinkLocalAddressing=yes
 </code></pre></div></p>
 <h4 id="default-wireless-configuration"><strong>Default wireless configuration</strong><a class="headerlink" href="#default-wireless-configuration" title="Permanent link">&para;</a></h4>
 <p><strong><code>/etc/systemd/network/99-wlan.network</code></strong>
-<div class="highlight"><pre><span></span><code>[Match]
-Name=wlan*
-[Network]
-DHCP=ipv4
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[Match]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Name=wlan*
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>[Network]
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>DHCP=ipv4
 </code></pre></div></p>
 <h3 id="disable-default-networking">Disable default networking<a class="headerlink" href="#disable-default-networking" title="Permanent link">&para;</a></h3>
 <div class="admonition tip">
@@ -1976,37 +1976,37 @@ DHCP=ipv4
 <p>Make an offline backup <strong>before</strong> you proceed by copying files to your local system with <strong><code>scp</code></strong>.</p>
 </p>
 </div>
-<div class="highlight"><pre><span></span><code># Disable default Raspberry Pi OS networking
-sudo systemctl mask dhcpcd.service
-
-# Disable legacy Debian networking
-sudo systemctl mask networking.service
-
-# Disable resolvconf service, which manages DNS servers for the OS
-sudo nano /etc/resolvconf.conf
-# Add the line resolvconf=NO to the beginning of the file
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a># Disable default Raspberry Pi OS networking
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>sudo systemctl mask dhcpcd.service
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a># Disable legacy Debian networking
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>sudo systemctl mask networking.service
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a># Disable resolvconf service, which manages DNS servers for the OS
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>sudo nano /etc/resolvconf.conf
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a># Add the line resolvconf=NO to the beginning of the file
 </code></pre></div>
 <h3 id="enable-systemd-network-services">Enable systemd network services<a class="headerlink" href="#enable-systemd-network-services" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code># Enable systemd-networkd to replace Raspberry Pi OS and Debian networking
-sudo systemctl enable systemd-networkd
-
-# Enable systemd-resolved to replace the resolvconf service
-sudo systemctl enable systemd-resolved
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a># Enable systemd-networkd to replace Raspberry Pi OS and Debian networking
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>sudo systemctl enable systemd-networkd
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a># Enable systemd-resolved to replace the resolvconf service
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>sudo systemctl enable systemd-resolved
 </code></pre></div>
 <p>DNS resolvers for Linux are loaded from the <strong><code>/etc/resolv.conf</code></strong>. Rather than manage this directly or through <strong>resolvconf</strong>, we want to load resolvers dynamically from <strong>systemd-resolved</strong>. This is as simple as creating a link </p>
-<div class="highlight"><pre><span></span><code># Set up a symbolic link from systemd-resolved resolv.conf to the system resolv.conf
-sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a># Set up a symbolic link from systemd-resolved resolv.conf to the system resolv.conf
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
 </code></pre></div>
 <h3 id="update-wireless-service">Update Wireless Service<a class="headerlink" href="#update-wireless-service" title="Permanent link">&para;</a></h3>
 <p>In order for <strong>wpa_supplicant</strong> to work correctly with <strong>networkd</strong>, one further change is needed. In our original configuration, we created a system-wide configuration file for wireless. This setup works just fine with the default networking setup, especially since the Pi is only equipped with one wireless interface by default. For <strong>networkd</strong> to work properly with <strong>wpa_supplicant</strong>, we need to attach our configuration directly to the <strong>wlan0</strong> interface as shown below.</p>
-<div class="highlight"><pre><span></span><code># Rename configuration as a per-interface file
-sudo mv /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant-wlan0.conf
-
-# Enable the wpa_supplicant service specifically for wlan0
-sudo systemctl enable wpa_supplicant@wlan0
-
-# Disable the system-wide service
-sudo systemctl disable wpa_supplicant
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a># Rename configuration as a per-interface file
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>sudo mv /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplicant-wlan0.conf
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a># Enable the wpa_supplicant service specifically for wlan0
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>sudo systemctl enable wpa_supplicant@wlan0
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a># Disable the system-wide service
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>sudo systemctl disable wpa_supplicant
 </code></pre></div>
 <h2 id="test-your-configuration">Test Your Configuration<a class="headerlink" href="#test-your-configuration" title="Permanent link">&para;</a></h2>
 <p>Call <strong><code>sudo reboot now</code></strong> to reboot the Pi. Log back in and verify that your Pi is fully operational:</p>
@@ -2018,26 +2018,26 @@ sudo systemctl disable wpa_supplicant
 <h3 id="general-guidance">General Guidance<a class="headerlink" href="#general-guidance" title="Permanent link">&para;</a></h3>
 <p>When logging back into your Pi, you may find that some of the functionality is failing. In addition to validating log files and checking that you completed all instructions, log files can provide valuable information for detecting where an error is occurring.</p>
 <p>We have already mentioned <strong>journald</strong> earlier in this guide. In order to evaluate logs that are created by <strong>journald</strong>, we make use of the <strong><code>journalctl</code></strong> command. <a href="https://www.lifewire.com/what-to-know-less-command-4051972">Read up</a> on the <strong><code>less</code></strong> utility to learn how to efficiently navigate <strong><code>journalctl</code></strong> output.</p>
-<div class="highlight"><pre><span></span><code># Show log messages
-journalctl
-
-# Include messages marked secure
-sudo journalctl
-
-# Show messages from last boot
-journalctl -k -b -1
-
-# Show networkd messages
-journalctl -u systemd-networkd
-
-# Show resolved messages
-journalctl -u systemd-resolved
-
-# Show wpa_supplicant messages
-journalctl -u wpa_supplicant
-
-# Learn more about journald
-man journalctl
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a># Show log messages
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>journalctl
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a># Include messages marked secure
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>sudo journalctl
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a># Show messages from last boot
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>journalctl -k -b -1
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a># Show networkd messages
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>journalctl -u systemd-networkd
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a># Show resolved messages
+<a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>journalctl -u systemd-resolved
+<a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>
+<a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a># Show wpa_supplicant messages
+<a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>journalctl -u wpa_supplicant
+<a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>
+<a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a># Learn more about journald
+<a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>man journalctl
 </code></pre></div>
 <h3 id="accessing-a-bricked-pi">Accessing a Bricked Pi<a class="headerlink" href="#accessing-a-bricked-pi" title="Permanent link">&para;</a></h3>
 <p>If you made a mistake at the wrong point in the previous process, you may not even be able to connect anymore from the network. </p>

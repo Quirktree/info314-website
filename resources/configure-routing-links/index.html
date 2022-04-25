@@ -1921,25 +1921,25 @@
 <p>Our main task is to enable auto-configuration for IPv6 and to disable auto-configuration privacy extensions so that our MAC address will be encoded into the <em>link-local</em> IPv6 address for the interface. We also need to ensure that the routing interface will listen for and accept <em>ICMPv6 router advertisements</em> from its peer.</p>
 <h3 id="configure-interface">Configure interface<a class="headerlink" href="#configure-interface" title="Permanent link">&para;</a></h3>
 <p>Create or edit a networkd <code>.network</code> configuration for the routing link, e.g., <code>/etc/systemd/network/24-vlan10.network</code> and ensure that the following IPv6 settings are in place. No IPv4 configuration will be performed on this link.</p>
-<div class="highlight"><pre><span></span><code>[Match]
-Name=vlan10
-
-[Network]
-# Enable link local addressing for IPv6 only
-LinkLocalAddressing=ipv6
-# Watch for router advertisements so that we can learn about neighboring routers
-IPv6AcceptRA=yes
-# Required due to a bug in FRR (https://github.com/FRRouting/frr/issues/2205)
-IPv6PrivacyExtensions=no
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>[Match]
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Name=vlan10
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>[Network]
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a># Enable link local addressing for IPv6 only
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>LinkLocalAddressing=ipv6
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a># Watch for router advertisements so that we can learn about neighboring routers
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>IPv6AcceptRA=yes
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a># Required due to a bug in FRR (https://github.com/FRRouting/frr/issues/2205)
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>IPv6PrivacyExtensions=no
 </code></pre></div>
 <h2 id="configure-frrouting">Configure FRRouting<a class="headerlink" href="#configure-frrouting" title="Permanent link">&para;</a></h2>
 <h3 id="set-up-address-for-bgp-router-id">Set up address for BGP router ID<a class="headerlink" href="#set-up-address-for-bgp-router-id" title="Permanent link">&para;</a></h3>
 <p>The router can use any locally defined address as a router ID attached to BGP advertisements. Though we could use any one of our directly attached addresses, it is common to configure an ID on the loopback interface of the network device to ensure that it is available regardless of link status -- static addresses attached to physical interfaces are offline when the link is down.</p>
 <p>We'll perform this configuration within the FRR VTY shell (<em>launch using <code>vtysh</code></em>):</p>
-<div class="highlight"><pre><span></span><code>configure terminal
-interface lo
-ip address 172.27.2.128/32
-quit    
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>configure terminal
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>interface lo
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>ip address 172.27.2.128/32
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>quit    
 </code></pre></div>
 <h3 id="additional-unnumbered-routing-configuration">Additional "unnumbered" routing configuration<a class="headerlink" href="#additional-unnumbered-routing-configuration" title="Permanent link">&para;</a></h3>
 <p>!!! "attention" Ethernet Only
@@ -1947,11 +1947,11 @@ quit
 <p>Routers in an unnumbered peering relationship rely on ICMPv6 router advertisements to discover peers on a routing link. We previously configured our interface to accept these messages, but we still need to set up the routing daemon to generate the messages on the specified interface. </p>
 <p>The following commands will turn on ICMPv6 router advertisements and set an interval of one advertisement every 5 seconds (as recommended by FRR documentation).</p>
 <p>Enter the following commands in the VTY shell:</p>
-<div class="highlight"><pre><span></span><code>configure terminal
-interface vlan10
-ipv6 nd ra-interval 5
-no ipv6 nd suppress-ra
-quit
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>configure terminal
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>interface vlan10
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>ipv6 nd ra-interval 5
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>no ipv6 nd suppress-ra
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>quit
 </code></pre></div>
 <h3 id="configure-bgp-routing">Configure BGP Routing<a class="headerlink" href="#configure-bgp-routing" title="Permanent link">&para;</a></h3>
 <p>Once the preliminary configuration is complete, we can setup the BGP daemon to peer on the specified interface. The following examples provide the VTYSH commands needed to enable a new router in ASN 65009 to peer with a neighboring autonomous system and advertises routes for 172.27.2.0/24. Each example follows a common pattern:</p>
@@ -1966,20 +1966,20 @@ quit
 <li>Issue one or more <code>network</code> statements, enabling FRR to advertise routes associated with the given prefix.</li>
 </ol>
 <h4 id="configuring-an-unnumbered-routing-peer-over-ethernet">Configuring an "unnumbered" routing peer over Ethernet<a class="headerlink" href="#configuring-an-unnumbered-routing-peer-over-ethernet" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>configure terminal
-router bgp 65009
-bgp router-id 172.27.2.128
-neighbor vlan10 interface remote-as external
-network 172.27.2.0/24
-quit
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>configure terminal
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>router bgp 65009
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>bgp router-id 172.27.2.128
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>neighbor vlan10 interface remote-as external
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>network 172.27.2.0/24
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>quit
 </code></pre></div>
 <h4 id="configuring-a-routing-peer-based-on-layer-3-adddresses-works-for-wireguard">Configuring a routing peer based on layer-3 adddresses (works for WireGuard)<a class="headerlink" href="#configuring-a-routing-peer-based-on-layer-3-adddresses-works-for-wireguard" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>configure terminal
-router bgp 65009
-bgp router-id 172.27.2.128
-neighbor 10.99.0.2 remote-as 65000
-network 172.27.2.0/24
-quit
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>configure terminal
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>router bgp 65009
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>bgp router-id 172.27.2.128
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>neighbor 10.99.0.2 remote-as 65000
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>network 172.27.2.0/24
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>quit
 </code></pre></div>
 <h2 id="finalizing-your-configuration">Finalizing your Configuration<a class="headerlink" href="#finalizing-your-configuration" title="Permanent link">&para;</a></h2>
 <h3 id="save-your-changes">Save Your Changes<a class="headerlink" href="#save-your-changes" title="Permanent link">&para;</a></h3>
@@ -1987,8 +1987,8 @@ quit
 <p>To save your changes, you need to be in <em>enable</em> mode. Exit out of <em>configure</em> mode, if necessary, and call <code>copy running-config startup-config</code> or <code>write memory</code>.</p>
 <h3 id="making-further-updates">Making Further Updates<a class="headerlink" href="#making-further-updates" title="Permanent link">&para;</a></h3>
 <p>Supporting multiple routing links on a single router requires a simple modification to this script to add additional <code>neighbor</code> statements. If you've already configured other details, you don't need to repeat them to add an aditional neighbor. Enter the following commands to resume editing your existing router:</p>
-<div class="highlight"><pre><span></span><code>configure terminal
-router bgp 65009
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>configure terminal
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>router bgp 65009
 </code></pre></div>
 <p>From the Linux commandline, you can view the current <em>startup configuration</em> within <code>/etc/frr/frr.conf</code>. Be careful making edits directly to this configuration. VTYSH is preferred since it will prevent you from creating an invalid setting that breaks the service. If you do make a direct edit, you will need to restart the <code>frr</code> service manually using <code>systemctl</code>.</p>
 

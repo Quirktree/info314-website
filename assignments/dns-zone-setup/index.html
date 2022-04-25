@@ -1863,24 +1863,24 @@
 <p>To get started defining your own zone, create a new sub-directory called <code>zones</code> in <code>/etc/bind</code> as shown below and copy the existing <code>db.local</code> into it as a starting point for creating your zone. Our advice is to follow the convention of naming your zone file after your selected domain, e.g., gradebook.pi is defined in <code>/etc/bind/zones/db.gradebook.pi.</code></p>
 <div class="admonition instructions">
 <p class="admonition-title">Creating your starter zone file</p>
-<div class="highlight"><pre><span></span><code>sudo mkdir -p /etc/bind/zones
-sudo cp /etc/bind/db.local /etc/bind/zones/db.gradebook.pi
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sudo mkdir -p /etc/bind/zones
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>sudo cp /etc/bind/db.local /etc/bind/zones/db.gradebook.pi
 </code></pre></div>
 <p>The initial contents of your zone file will look similar to this:</p>
-<div class="highlight"><pre><span></span><code>;
-; BIND data file for local loopback interface
-;
-$TTL    604800
-@   IN  SOA localhost. root.localhost. (
-                2       ; Serial
-            604800      ; Refresh
-            86400       ; Retry
-            2419200     ; Expire
-            604800 )    ; Negative Cache TTL
-;
-@   IN  NS  localhost.
-@   IN  A   127.0.0.1
-@   IN  AAAA    ::1
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>;
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>; BIND data file for local loopback interface
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>;
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>$TTL    604800
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>@   IN  SOA localhost. root.localhost. (
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>                2       ; Serial
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>            604800      ; Refresh
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>            86400       ; Retry
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>            2419200     ; Expire
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>            604800 )    ; Negative Cache TTL
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>;
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>@   IN  NS  localhost.
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>@   IN  A   127.0.0.1
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>@   IN  AAAA    ::1
 </code></pre></div>
 <p>As is stated in the comment at the start of the file, this file is defining a special purpose zone for the localhost domain to ensure proper handling when the name is passed to BIND.</p>
 </div>
@@ -1912,14 +1912,14 @@ $TTL    604800
 <div class="admonition instructions">
 <p class="admonition-title">Instructions</p>
 <p>Open <code>/etc/bind/named.conf.local</code> and add a new zone reference:</p>
-<div class="highlight"><pre><span></span><code>// Replace references to corp.gradebook.pi with your own domain name.
-zone &quot;gradebook.pi&quot; IN {
-    //  We&#39;re setting up the master server for the zone. In DNS, masters contain
-    //  the zone file for a domain while slaves read the zone contents from a 
-    //  master server.
-    type master;
-    file &quot;/etc/bind/zones/db.gradebook.pi&quot;;
-};
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>// Replace references to corp.gradebook.pi with your own domain name.
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>zone &quot;gradebook.pi&quot; IN {
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    //  We&#39;re setting up the master server for the zone. In DNS, masters contain
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    //  the zone file for a domain while slaves read the zone contents from a 
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    //  master server.
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    type master;
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    file &quot;/etc/bind/zones/db.gradebook.pi&quot;;
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>};
 </code></pre></div>
 </div>
 <h2 id="validate-and-test-your-configuration">Validate and test your configuration<a class="headerlink" href="#validate-and-test-your-configuration" title="Permanent link">&para;</a></h2>

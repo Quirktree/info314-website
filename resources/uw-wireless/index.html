@@ -1814,11 +1814,11 @@
 <h3 id="install-certificates-to-your-device">Install certificates to your device<a class="headerlink" href="#install-certificates-to-your-device" title="Permanent link">&para;</a></h3>
 <p>Before configuring wpa_supplicant, we will need to convert the files downloaded during onboarding into a format supported by the software, and install them into an appropriate location. The client certificate and private key (credentials that are used to identify you to the network) are stored in a <strong>passphrase encrypted PKCS#12</strong> file. This is the first file that you downloaded from the P12 link. </p>
 <p>Copy the files you downloaded in the previous step into the home directory of your Pi. Extract the client certificate and the private key into separate PEM files using the <strong>openssl</strong> command-line utility.<sup id="fnref:placeholder"><a class="footnote-ref" href="#fn:placeholder">3</a></sup> <sup id="fnref:passphrase"><a class="footnote-ref" href="#fn:passphrase">4</a></sup> </p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Extract the client certificate and convert to PEM</span>
-openssl pkcs12 -in <span class="s2">&quot;&lt;P12_FILENAME&gt;&quot;</span> -out &lt;NETID&gt;_cert.pem -clcerts -nokeys
-
-<span class="c1"># Extract the private key and convert to PEM</span>
-openssl pkcs12 -in <span class="s2">&quot;&lt;P12_FILENAME&gt;&quot;</span> -out &lt;NETID&gt;_key.pem -nodes
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Extract the client certificate and convert to PEM</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>openssl pkcs12 -in <span class="s2">&quot;&lt;P12_FILENAME&gt;&quot;</span> -out &lt;NETID&gt;_cert.pem -clcerts -nokeys
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Extract the private key and convert to PEM</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>openssl pkcs12 -in <span class="s2">&quot;&lt;P12_FILENAME&gt;&quot;</span> -out &lt;NETID&gt;_key.pem -nodes
 </code></pre></div>
 <p>You should now have two new pem files in your home directory. Move these files along with certificate authority into <code>/etc/wpa_supplicant/</code> and make a note of their names. </p>
 <div class="admonition info">
@@ -1826,8 +1826,8 @@ openssl pkcs12 -in <span class="s2">&quot;&lt;P12_FILENAME&gt;&quot;</span> -out
 <p>No conversion is necessary for the certificate authority. The file that you downloaded is already in the PEM format. </p>
 </div>
 <p>Before you wrap up, update the ownership and permissions of the certificate files to further protect them. This is particularly important for <code>&lt;NETID&gt;_key.pem</code>, which now contains an unencrypted copy of your certificate's private key.</p>
-<div class="highlight"><pre><span></span><code>sudo chown root:root /etc/wpa_supplicant/*.pem
-sudo chmod <span class="m">600</span> /etc/wpa_supplicant/*.pem
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo chown root:root /etc/wpa_supplicant/*.pem
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>sudo chmod <span class="m">600</span> /etc/wpa_supplicant/*.pem
 </code></pre></div>
 <h3 id="cleanup">Cleanup<a class="headerlink" href="#cleanup" title="Permanent link">&para;</a></h3>
 <p>Retain a copy of the certificates and configuration information in case you need to repeat this process later. You will also need the passphrase in order to decrypt the p12 file. Store this value in a safe place.</p>

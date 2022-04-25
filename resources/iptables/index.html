@@ -1870,13 +1870,13 @@
 <div class="admonition example">
 <p class="admonition-title">Example: Appending Rules</p>
 <p>Append a rule to the end of the POSTROUTING chain of the nat table ...</p>
-<div class="highlight"><pre><span></span><code>iptables -t nat -A POSTROUTING &lt;conditions&gt; &lt;actions&gt;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>iptables -t nat -A POSTROUTING &lt;conditions&gt; &lt;actions&gt;
 </code></pre></div>
 </div>
 <div class="admonition example">
 <p class="admonition-title">Example: Deleting Rules</p>
 <p>Delete the first rule from the FORWARD chain of filter</p>
-<div class="highlight"><pre><span></span><code>iptables -D FORWARD 1           
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>iptables -D FORWARD 1           
 </code></pre></div>
 </div>
 <h3 id="customize-rules-with-filter-conditions">Customize Rules with Filter Conditions<a class="headerlink" href="#customize-rules-with-filter-conditions" title="Permanent link">&para;</a></h3>
@@ -1894,13 +1894,13 @@
 <div class="admonition example">
 <p class="admonition-title">Example: Adding filter conditions to rules</p>
 <p>This NAT rule will be applied on outbound traffic that's being routed to the WAN network.</p>
-<div class="highlight"><pre><span></span><code>iptables -t NAT -A POSTROUTING -o &lt;WAN&gt; &lt;actions&gt;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>iptables -t NAT -A POSTROUTING -o &lt;WAN&gt; &lt;actions&gt;
 </code></pre></div>
 </div>
 <div class="admonition example">
 <p class="admonition-title">Example: Combining multiple filters</p>
 <p>The following filter rule will be applied to outbound traffic that's being forwarded from the LAN to the WAN.</p>
-<div class="highlight"><pre><span></span><code>iptables -A FORWARD -i &lt;LAN&gt; -o &lt;WAN&gt; &lt;actions&gt;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>iptables -A FORWARD -i &lt;LAN&gt; -o &lt;WAN&gt; &lt;actions&gt;
 </code></pre></div>
 </div>
 <h3 id="using-connection-state-in-rules">Using Connection State in Rules<a class="headerlink" href="#using-connection-state-in-rules" title="Permanent link">&para;</a></h3>
@@ -1915,52 +1915,52 @@
 <div class="admonition example">
 <p class="admonition-title">Example: Using the connection tracking extension</p>
 <p>Check the connection state of ingress traffic.</p>
-<div class="highlight"><pre><span></span><code>iptables -A FORWARD -i &lt;WAN&gt; -m conntrack --ctstate RELATED,ESTABLISHED &lt;action&gt;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>iptables -A FORWARD -i &lt;WAN&gt; -m conntrack --ctstate RELATED,ESTABLISHED &lt;action&gt;
 </code></pre></div>
 </div>
 <h3 id="specify-an-action">Specify an Action<a class="headerlink" href="#specify-an-action" title="Permanent link">&para;</a></h3>
 <p>The last component of an iptables rule is specified using the <code>-j</code> option. In a simple configuration, this option provides the action to be carried out against the packet after the match. While we will encounter the <code>MASQUERADE</code> option in our NAT rules, we will more frequently with basic <code>ACCEPT</code> and <code>DROP</code> rules within the filter context. </p>
 <p>In more complex configurations, <code>-j</code> can point to user-defined chains containing additional rules that relate to the pattern you just matched. As you gain experience, you'll see that this provides a greater degree of organization and control flow. </p>
 <p>Bringing this option together with the earlier examples, we can express complete rules using the following syntax:</p>
-<div class="highlight"><pre><span></span><code>iptables -t nat -A POSTROUTING -o &lt;WAN&gt; -j MASQUERADE
-iptables -A FORWARD -i &lt;WAN&gt; -o &lt;LAN&gt; -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>iptables -t nat -A POSTROUTING -o &lt;WAN&gt; -j MASQUERADE
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>iptables -A FORWARD -i &lt;WAN&gt; -o &lt;LAN&gt; -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
 </code></pre></div>
 <h3 id="default-actions">Default Actions<a class="headerlink" href="#default-actions" title="Permanent link">&para;</a></h3>
 <p>We haven't yet said what will happen if your iptables chains complete without any matching rules. Each iptables chain defines a policy that specifies the default actions that will be taken if no other rule matches in a chain.</p>
 <p>Default policies are commonly used with the filter chains to implement a posture of failing securely, blocking traffic that wasn't explicitly allowed.</p>
-<div class="highlight"><pre><span></span><code># Don&#39;t forward packets unless there was an explicit rule match
-iptables -P FORWARD DROP  
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a># Don&#39;t forward packets unless there was an explicit rule match
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>iptables -P FORWARD DROP  
 </code></pre></div>
 <p>Be careful, however, that you don't lock yourself out by a bad combination of rules and policies. For example, setting <code>-P INPUT DROP</code> and <code>-P OUTPUT DROP</code> will block all inbound and outbound traffic to your Pi unless you previously added rules to explicitly allow SSH or other tools that are needed for management purposes. Even when you correctly add these rules, it's relatively easy to lock yourself out of a device by flushing your current ruleset --  deleting the rules from all chains while leaving your policies intact.</p>
 <h3 id="final-nat-template">Final NAT Template<a class="headerlink" href="#final-nat-template" title="Permanent link">&para;</a></h3>
 <p>The following template draws together all of the components we have discussed so far to define a basic NAT configuration for a Linux router. The syntax for this template differs somewhat from the commands we explored above. Rather than invoking each rule or policy in this file through the <code>iptables</code> command, this template would be applied via <code>iptables-restore</code> or <code>iptables-apply</code>. </p>
 <p>To prepare to use this template, save a copy of this template to the home directory (file name does not matter) of your Linux router. Pay close attention to the comments within the file, since they explain some of the differences in syntax.</p>
-<div class="highlight"><pre><span></span><code># Fill in the parameters in &lt;&gt; in order to complete the ruleset
-
-# Rules are given on a table-by-table basis, beginning with the *&lt;table&gt; and
-# ending with COMMIT.
-
-# Rules are appended to a chain using the -A &lt;chain&gt; syntax. Parameters vary
-# somewhat by chain and type of effect desired.
-
-# The -j switch instructs the rules engine to jump to another chain or perform
-# the action on the matched packet. The engine will not evaluate any more rules
-# in the given chain.
-
-# The default policy for a chain is given by the lines beginning with
-# :&lt;chain&gt;. The [0:0] resets the packet/byte counters that tell us how many
-# times the default policy has been applied. Note that default policy is
-# evaluated after all rules, so it only applies if there were not any matches.
-
-*nat
--A POSTROUTING -o &lt;interface&gt; -j MASQUERADE
-COMMIT
-
-*filter
-:FORWARD &lt;action&gt; [0:0]
--A FORWARD -i &lt;interface&gt; -o &lt;interface&gt; -j ACCEPT
--A FORWARD -i &lt;interface&gt; -o &lt;interface&gt; -m conntrack --ctstate RELATED,ESTABLISHED -j &lt;action&gt;
-COMMIT
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a># Fill in the parameters in &lt;&gt; in order to complete the ruleset
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a># Rules are given on a table-by-table basis, beginning with the *&lt;table&gt; and
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a># ending with COMMIT.
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a># Rules are appended to a chain using the -A &lt;chain&gt; syntax. Parameters vary
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a># somewhat by chain and type of effect desired.
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a># The -j switch instructs the rules engine to jump to another chain or perform
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a># the action on the matched packet. The engine will not evaluate any more rules
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a># in the given chain.
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a># The default policy for a chain is given by the lines beginning with
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a># :&lt;chain&gt;. The [0:0] resets the packet/byte counters that tell us how many
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a># times the default policy has been applied. Note that default policy is
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a># evaluated after all rules, so it only applies if there were not any matches.
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>*nat
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>-A POSTROUTING -o &lt;interface&gt; -j MASQUERADE
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>COMMIT
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>*filter
+<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>:FORWARD &lt;action&gt; [0:0]
+<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>-A FORWARD -i &lt;interface&gt; -o &lt;interface&gt; -j ACCEPT
+<a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a>-A FORWARD -i &lt;interface&gt; -o &lt;interface&gt; -m conntrack --ctstate RELATED,ESTABLISHED -j &lt;action&gt;
+<a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a>COMMIT
 </code></pre></div>
 <h2 id="loading-rules-from-the-file-system-with-iptables-persistent">Loading rules from the file system with <code>iptables-persistent</code><a class="headerlink" href="#loading-rules-from-the-file-system-with-iptables-persistent" title="Permanent link">&para;</a></h2>
 <p>For simplicity, we’ll rely on on a collection of tools called <code>iptables-persistent</code> to test our rules and then load them automatically at boot. </p>
@@ -1972,7 +1972,7 @@ COMMIT
 <p>Like many other tools, <code>iptables-persistent</code> is available as a package in Debian's package repository. This package contains tools to help you test new rules and install them into the <code>/etc/iptables/rules.v4</code> path so that they can be loaded automatically in the future. Use <code>apt</code> to install the <code>iptables-persistent</code> package before attempting the instructions below.</p>
 <p>Make a copy of your rules within your <em>home directory</em> (file name does not matter) and use the <code>iptables-apply</code> command as shown below to test that they work before writing them to <code>/etc/iptables/rules.v4</code>. While it is possible to edit <code>/etc/iptables/rules.v4</code> directly, we recomend against it. </p>
 <p>The following command will flush iptables and load the rules given in <code>~/untested_rules</code>. After loading the rules, <code>iptables-apply</code> waits for <strong>60 seconds</strong> while you confirm that you can still SSH into the device from a second terminal tab or window. If your rules work as intended, you need respond affirmatively at this final prompt within the time limit so that iptables-apply can write them to a permanent location. If you skip this step, iptables-apply will assume that your test failed and restore the old version of the rules.</p>
-<div class="highlight"><pre><span></span><code>sudo iptables-apply -t 60 -w /etc/iptables/rules.v4 ~/untested_rules
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>sudo iptables-apply -t 60 -w /etc/iptables/rules.v4 ~/untested_rules
 </code></pre></div>
 <p>After running the  command, you’ll have one minute to check that everything is working and confirm that you’re ready to apply the rules. If everything checks out, the rules will be written to <code>/etc/iptables/rules.v4</code> (where <code>iptables-persistent</code> can load them at boot). If your connection is interrupted or you decide not to keep the rules, the rules will be reset when the timer expires so that you con continue to access your Pi.</p>
 <p>As a final test that your rules are loaded, reboot the Pi, connect with SSH, and list the rules with <code>sudo iptables-save</code>. If you don’t see your rules, something went wrong.</p>

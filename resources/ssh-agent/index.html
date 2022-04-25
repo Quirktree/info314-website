@@ -1844,22 +1844,22 @@ by key-based SSH authentication with OpenSSH on your macOS or Windows 10 device.
 </ol>
 <h3 id="step-1">Step 1<a class="headerlink" href="#step-1" title="Permanent link">&para;</a></h3>
 <p>Edit or create <code>~/.ssh/config</code> so that <code>ssh-agent</code> and macOS KeyChain are used automatically to manage private keys and passphrases. This configuration is required by the version of <code>ssh</code> distributed by Apple since macOS Sierra 10.12.2. </p>
-<div class="highlight"><pre><span></span><code>Host *
-    AddKeysToAgent yes
-    UseKeyChain yes
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Host *
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    AddKeysToAgent yes
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    UseKeyChain yes
 </code></pre></div>
 <h3 id="step-2">Step 2<a class="headerlink" href="#step-2" title="Permanent link">&para;</a></h3>
 <p>Launch the <code>ssh-agent</code> as a background service.
-<div class="highlight"><pre><span></span><code><span class="c1"># The eval $() syntax is used to update the current environment based on the output of the ssh-agent command</span>
-$ <span class="nb">eval</span> <span class="s2">&quot;</span><span class="k">$(</span>ssh-agent -s<span class="k">)</span><span class="s2">&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># The eval $() syntax is used to update the current environment based on the output of the ssh-agent command</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>$ <span class="nb">eval</span> <span class="s2">&quot;</span><span class="k">$(</span>ssh-agent -s<span class="k">)</span><span class="s2">&quot;</span>
 </code></pre></div></p>
 <p>Add your key to the <code>ssh-agent</code> using the <code>ssh-add</code> utility. </p>
 <h3 id="step-3">Step 3<a class="headerlink" href="#step-3" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># The -K option is required for some versions of macOS. Omit if it returns an error.</span>
-ssh-add -K ~/.ssh/id_ed25519
-
-<span class="c1"># Check that your key is loaded by listing current keys in the agent</span>
-ssh-add -l
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># The -K option is required for some versions of macOS. Omit if it returns an error.</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>ssh-add -K ~/.ssh/id_ed25519
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Check that your key is loaded by listing current keys in the agent</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>ssh-add -l
 </code></pre></div>
 <h2 id="configuring-ssh-agent-for-windows-10">Configuring <code>ssh-agent</code> for Windows 10<a class="headerlink" href="#configuring-ssh-agent-for-windows-10" title="Permanent link">&para;</a></h2>
 <ol>
@@ -1869,37 +1869,37 @@ ssh-add -l
 </ol>
 <h3 id="step-1_1">Step 1<a class="headerlink" href="#step-1_1" title="Permanent link">&para;</a></h3>
 <p>Launch Powershell with administrator privileges and set the startup mode for the <code>ssh-agent</code> service to <code>Manual</code> since it is configured by default as <code>Disabled</code>.</p>
-<div class="highlight"><pre><span></span><code><span class="nb">Set-Service</span> <span class="n">-Name</span> <span class="n">ssh-agent</span> <span class="n">-StartupType</span> <span class="n">Manual</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">Set-Service</span> <span class="n">-Name</span> <span class="n">ssh-agent</span> <span class="n">-StartupType</span> <span class="n">Manual</span>
 </code></pre></div>
 <h3 id="step-2_1">Step 2<a class="headerlink" href="#step-2_1" title="Permanent link">&para;</a></h3>
 <p>Open a normal (non-administrator) Powershell console and edit/create a profile script to automatically launch the <code>ssh-agent</code> service. </p>
 <p>In order to do this, we need to enable the ability to run basic scripts on the system and then find the location of the script (automatically assigned by Windows to the <code>$PROFILE</code> variable).</p>
-<div class="highlight"><pre><span></span><code><span class="c"># Modify Powershell policy to allow basic powershell scripts to run</span>
-<span class="nb">Set-ExecutionPolicy</span> <span class="n">-ExecutionPolicy</span> <span class="n">RemoteSigned</span> <span class="n">-Scope</span> <span class="n">CurrentUser</span>
-
-<span class="c"># Test whether the profile script exists</span>
-<span class="nb">Test-Path</span> <span class="nv">$PROFILE</span>
-
-<span class="c"># If the previous command returns False, create the file</span>
-<span class="nb">New-Item</span> <span class="n">-path</span> <span class="nv">$PROFILE</span> <span class="n">-type</span> <span class="n">file</span> <span class="n">-force</span>
-
-<span class="c"># Launch Notepad.exe to create a script</span>
-<span class="n">notepad</span><span class="p">.</span><span class="n">exe</span> <span class="nv">$PROFILE</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c"># Modify Powershell policy to allow basic powershell scripts to run</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">Set-ExecutionPolicy</span> <span class="n">-ExecutionPolicy</span> <span class="n">RemoteSigned</span> <span class="n">-Scope</span> <span class="n">CurrentUser</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c"># Test whether the profile script exists</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nb">Test-Path</span> <span class="nv">$PROFILE</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="c"># If the previous command returns False, create the file</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="nb">New-Item</span> <span class="n">-path</span> <span class="nv">$PROFILE</span> <span class="n">-type</span> <span class="n">file</span> <span class="n">-force</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="c"># Launch Notepad.exe to create a script</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="n">notepad</span><span class="p">.</span><span class="n">exe</span> <span class="nv">$PROFILE</span>
 </code></pre></div>
 <p>Use Notepad to add the following code to your profile script. This will be run each time you launch a new console.
-<div class="highlight"><pre><span></span><code><span class="c"># Launch the service if it&#39;s not already running</span>
-<span class="nv">$agentService</span> <span class="p">=</span> <span class="nb">Get-Service</span> <span class="n">-Name</span> <span class="n">ssh-agent</span>
-<span class="k">if</span> <span class="p">(</span><span class="nv">$agentService</span><span class="p">.</span><span class="n">Status</span> <span class="o">-ne</span> <span class="s2">&quot;Running&quot;</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nb">Start-Service</span> <span class="n">-Name</span> <span class="n">ssh-agent</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c"># Launch the service if it&#39;s not already running</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nv">$agentService</span> <span class="p">=</span> <span class="nb">Get-Service</span> <span class="n">-Name</span> <span class="n">ssh-agent</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="k">if</span> <span class="p">(</span><span class="nv">$agentService</span><span class="p">.</span><span class="n">Status</span> <span class="o">-ne</span> <span class="s2">&quot;Running&quot;</span><span class="p">)</span> <span class="p">{</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>  <span class="nb">Start-Service</span> <span class="n">-Name</span> <span class="n">ssh-agent</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="p">}</span>
 </code></pre></div></p>
 <h3 id="step-3_1">Step 3<a class="headerlink" href="#step-3_1" title="Permanent link">&para;</a></h3>
 <p>Open a fresh Powershell console and add your keys to the agent.
-<div class="highlight"><pre><span></span><code><span class="c"># Add the private key to the ssh-agent</span>
-<span class="n">ssh-add</span> <span class="nv">$HOME</span><span class="p">\.</span><span class="n">ssh</span><span class="p">\</span><span class="n">id_ed25519</span>
-
-<span class="c"># Check that your key is loaded by listing current keys in the agent</span>
-<span class="n">ssh-add</span> <span class="n">-l</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c"># Add the private key to the ssh-agent</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">ssh-add</span> <span class="nv">$HOME</span><span class="p">\.</span><span class="n">ssh</span><span class="p">\</span><span class="n">id_ed25519</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c"># Check that your key is loaded by listing current keys in the agent</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">ssh-add</span> <span class="n">-l</span>
 </code></pre></div></p>
 
               

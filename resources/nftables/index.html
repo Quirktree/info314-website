@@ -1971,13 +1971,13 @@
 <p>While its predecessor, <em>iptables</em>, included a default set of tables for common packet filter functionality, <em>nftables</em> administrators are left to define their own tables. For this exercise, we'll create an IPv4 <code>nat</code> table to implement <em>address translation</em> between private and public addresses and an IPv4/IPv6 <code>filter</code> table to protect the Pi and the rest of our LAN from malicious traffic.<sup id="fnref:table_names"><a class="footnote-ref" href="#fn:table_names">1</a></sup></p>
 <div class="admonition example">
 <p class="admonition-title">Example: Empty <em>filter</em> and <em>nat</em> tables</p>
-<div class="annotate highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">table inet filter {</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain"># Define chains (and rules) for IPv4 or IPv6 packets</span><span class="w"></span>
-<span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
-
-<span class="l l-Scalar l-Scalar-Plain">table ip nat {</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain"># Define chains (and rules) for IPv4 packets</span><span class="w"></span>
-<span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
+<div class="annotate highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="l l-Scalar l-Scalar-Plain">table inet filter {</span><span class="w"></span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain"># Define chains (and rules) for IPv4 or IPv6 packets</span><span class="w"></span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="l l-Scalar l-Scalar-Plain">table ip nat {</span><span class="w"></span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain"># Define chains (and rules) for IPv4 packets</span><span class="w"></span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 <h3 id="chains">Chains<a class="headerlink" href="#chains" title="Permanent link">&para;</a></h3>
@@ -1987,31 +1987,31 @@
 <p>Within the <code>filter</code> table, we are going to work with three base chains named <code>input</code>, <code>output</code>, and <code>forward</code>. These chains will be associated with <em>filter</em> hooks of the same names<sup id="fnref:chain_names"><a class="footnote-ref" href="#fn:chain_names">2</a></sup>, causing them to be processed when packets are being sent to software running on the Pi (<code>input</code> hook), when packets are being sent out by software on the Pi (<code>output</code>) hook, or when packets are being routed by the Pi from one network to another (<code>forward</code> hook). </p>
 <div class="admonition example">
 <p class="admonition-title">Example: Filter table and empty base chains</p>
-<div class="annotate highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">table inet filter {</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">chain input {</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">type filter hook input priority 0;</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain"># Rules are evaluated when a packet is intended for this host</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">chain forward {</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">type filter hook forward priority 0;</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain"># Rules are evaluated when an incoming packet will be forwarded by this host</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">chain output {</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">type filter hook output priority 0;</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain"># Rules are evaluated when a packet is being sent from this host</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
-<span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
+<div class="annotate highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="l l-Scalar l-Scalar-Plain">table inet filter {</span><span class="w"></span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">chain input {</span><span class="w"></span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">type filter hook input priority 0;</span><span class="w"></span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain"># Rules are evaluated when a packet is intended for this host</span><span class="w"></span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">chain forward {</span><span class="w"></span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">type filter hook forward priority 0;</span><span class="w"></span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain"># Rules are evaluated when an incoming packet will be forwarded by this host</span><span class="w"></span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">chain output {</span><span class="w"></span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">type filter hook output priority 0;</span><span class="w"></span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain"># Rules are evaluated when a packet is being sent from this host</span><span class="w"></span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 <p>The <code>nat</code> table will have one base chain that is named for its respective <em>hook</em>, i.e., <code>postrouting</code>. Within netfilter, the postrouting hooks are the last ones to be processed when sending or forwarding a packet. As such, rules processed here can perform masquerading on the source IP addresses.<sup id="fnref:prerouting"><a class="footnote-ref" href="#fn:prerouting">3</a></sup></p>
 <div class="admonition example">
 <p class="admonition-title">Example: NAT with postrouting base chain</p>
-<div class="highlight"><pre><span></span><code>table ip nat {
-    chain postrouting {
-        type nat hook postrouting priority 100;
-        # Rules are evaluated after forwarding decisions in order to support source NAT or masquerading
-    }
-}
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>table ip nat {
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    chain postrouting {
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>        type nat hook postrouting priority 100;
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        # Rules are evaluated after forwarding decisions in order to support source NAT or masquerading
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    }
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>}
 </code></pre></div>
 </div>
 <h3 id="rules-syntax">Rules Syntax<a class="headerlink" href="#rules-syntax" title="Permanent link">&para;</a></h3>
@@ -2037,23 +2037,23 @@
 <p>Let's look at a rule that we can use to apply address translation to outbound packets. Since outbound packets will leave on the WAN, we can specify this restriction using the <em>outbound interface name (oifname)</em> condition, i.e., <code>oifname &lt;WAN&gt;</code>. The following example masquerades outbound traffic on the <strong>&lt;WAN&gt;</strong> interface.</p>
 <div class="admonition example">
 <p class="admonition-title">Example: Applying NAT transformation to outbound traffic</p>
-<div class="annotate highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">table ip nat {</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">chain postrouting {</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">type nat hook postrouting priority srcnat;</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">oifname &lt;WAN&gt; masquerade</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
-<span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
+<div class="annotate highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="l l-Scalar l-Scalar-Plain">table ip nat {</span><span class="w"></span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">chain postrouting {</span><span class="w"></span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">type nat hook postrouting priority srcnat;</span><span class="w"></span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">oifname &lt;WAN&gt; masquerade</span><span class="w"></span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 <p>We can be even more specific with our rules by writing an expression with multiple conditionals. To identify outbound traffic forwarded from the LAN to the WAN, we can check both the inbound and outbound interface names by writing <code>iifname &lt;LAN&gt; oifname &lt;WAN&gt;</code>. The following example demonstrates a rule that explicitly accepts traffic flowing from <strong>&lt;LAN&gt;</strong> to <strong>&lt;WAN&gt;</strong>.</p>
 <div class="admonition example">
 <p class="admonition-title">Example: Combining multiple expressions</p>
-<div class="annotate highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">table inet filter {</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">chain forward {</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">type filter hook forward priority 0;</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">iifname &lt;LAN&gt; oifname &lt;WAN&gt; accept</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
-<span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
+<div class="annotate highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="l l-Scalar l-Scalar-Plain">table inet filter {</span><span class="w"></span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">chain forward {</span><span class="w"></span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">type filter hook forward priority 0;</span><span class="w"></span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">iifname &lt;LAN&gt; oifname &lt;WAN&gt; accept</span><span class="w"></span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 <h5 id="using-connection-state-in-rules">Using Connection State in Rules<a class="headerlink" href="#using-connection-state-in-rules" title="Permanent link">&para;</a></h5>
@@ -2063,12 +2063,12 @@
 <p>To accomplish this feat, we will make use of netfilter's connection tracking extensions and restrict incoming traffic to packets that are part of an established connection or related to a recent egress packet. The connection tracking portion of this expression is <code>ct state established,related</code>. </p>
 <div class="admonition example">
 <p class="admonition-title">Example: Using the connection tracking extension</p>
-<div class="annotate highlight"><pre><span></span><code><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">table inet filter {</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">chain forward {</span><span class="w"></span>
-<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">type filter hook forward priority 0;</span><span class="w"></span>
-<span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">iifname &lt;WAN&gt; ct state established,related accept</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
+<div class="annotate highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">table inet filter {</span><span class="w"></span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">chain forward {</span><span class="w"></span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">type filter hook forward priority 0;</span><span class="w"></span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">iifname &lt;WAN&gt; ct state established,related accept</span><span class="w"></span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 <h4 id="default-policy-for-base-chains">Default Policy (for Base Chains)<a class="headerlink" href="#default-policy-for-base-chains" title="Permanent link">&para;</a></h4>
@@ -2076,51 +2076,51 @@
 <p>The following example adds a base chain policy in order to drop forwarded packets that we didn't allow from another rule.</p>
 <div class="admonition example">
 <p class="admonition-title">Example: Default drop policy</p>
-<div class="annotate highlight"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">table inet filter {</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">chain forward {</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">type filter hook forward priority 0; policy drop;</span><span class="w"></span>
-
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain"># Explicitly allow &quot;safe&quot; connections</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">iifname &lt;LAN&gt; oifname &lt;WAN&gt; accept</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">iifname &lt;WAN&gt; ct state established,related accept</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
-<span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
+<div class="annotate highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="l l-Scalar l-Scalar-Plain">table inet filter {</span><span class="w"></span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">chain forward {</span><span class="w"></span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">type filter hook forward priority 0; policy drop;</span><span class="w"></span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain"># Explicitly allow &quot;safe&quot; connections</span><span class="w"></span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">iifname &lt;LAN&gt; oifname &lt;WAN&gt; accept</span><span class="w"></span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">iifname &lt;WAN&gt; ct state established,related accept</span><span class="w"></span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
 </code></pre></div>
 </div>
 <p>The <em>default deny</em> posture is a best practice for your networks and devices, but it's important to approach the strategy with care. Without additional rules, attaching <code>policy drop</code> to the <code>input</code> and <code>output</code> chains will block inbound and outbound SSH and other protocols that might be needed for remote management. We will come back to this in a later guide, but we recommend for now that you leave the default accept policy on these chains.</p>
 <h3 id="final-nat-template">Final NAT Template<a class="headerlink" href="#final-nat-template" title="Permanent link">&para;</a></h3>
 <p>The following template draws together all of the components we have discussed so far to define a basic NAT configuration for a Linux router, leaving placeholder<sup id="fnref:placeholder"><a class="footnote-ref" href="#fn:placeholder">4</a></sup>,<sup id="fnref:quoting"><a class="footnote-ref" href="#fn:quoting">5</a></sup> elements for the reader to complete. Please review the previous examples and specifications that have been given in order to create a valid configuration. The following section will help you test and install your new ruleset.</p>
 <p>!!! info Routing / NAT template
-    <div class="annotate highlight"><pre><span></span><code><span class="c1"># Always flush the active ruleset before defining your new rules</span><span class="w"></span>
-<span class="l l-Scalar l-Scalar-Plain">flush ruleset</span><span class="w"></span>
-
-<span class="l l-Scalar l-Scalar-Plain">table inet filter {</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">chain forward {</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">type filter hook &lt;HOOK&gt; priority 0; policy &lt;ACTION&gt;;</span><span class="w"></span>
-
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain"># Explicitly allow &quot;safe&quot; connections</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">iifname &lt;LAN&gt; oifname &lt;WAN&gt; &lt;ACTION&gt;</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">iifname &lt;WAN&gt; ct state established,related &lt;ACTION&gt;</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
-
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">chain input {</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">type filter hook input priority 0;</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain"># You may leave this chain empty for now</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
-
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">chain output {</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">type filter hook output priority 0;</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain"># You may leave this chain empty for now</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
-<span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
-
-
-<span class="l l-Scalar l-Scalar-Plain">table ip nat {</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">chain postrouting {</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">type nat hook postrouting priority srcnat;</span><span class="w"></span>
-<span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">oifname &lt;WAN&gt; masquerade</span><span class="w"></span>
-<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
-<span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
+    <div class="annotate highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Always flush the active ruleset before defining your new rules</span><span class="w"></span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="l l-Scalar l-Scalar-Plain">flush ruleset</span><span class="w"></span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="l l-Scalar l-Scalar-Plain">table inet filter {</span><span class="w"></span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">chain forward {</span><span class="w"></span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">type filter hook &lt;HOOK&gt; priority 0; policy &lt;ACTION&gt;;</span><span class="w"></span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain"># Explicitly allow &quot;safe&quot; connections</span><span class="w"></span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">iifname &lt;LAN&gt; oifname &lt;WAN&gt; &lt;ACTION&gt;</span><span class="w"></span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">iifname &lt;WAN&gt; ct state established,related &lt;ACTION&gt;</span><span class="w"></span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">chain input {</span><span class="w"></span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">type filter hook input priority 0;</span><span class="w"></span>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain"># You may leave this chain empty for now</span><span class="w"></span>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">chain output {</span><span class="w"></span>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">type filter hook output priority 0;</span><span class="w"></span>
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain"># You may leave this chain empty for now</span><span class="w"></span>
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
+<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>
+<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>
+<a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a><span class="l l-Scalar l-Scalar-Plain">table ip nat {</span><span class="w"></span>
+<a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">chain postrouting {</span><span class="w"></span>
+<a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">type nat hook postrouting priority srcnat;</span><span class="w"></span>
+<a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">oifname &lt;WAN&gt; masquerade</span><span class="w"></span>
+<a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
+<a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a><span class="l l-Scalar l-Scalar-Plain">}</span><span class="w"></span>
 </code></pre></div></p>
 <h2 id="configuring-nftables">Configuring nftables<a class="headerlink" href="#configuring-nftables" title="Permanent link">&para;</a></h2>
 <p>Throughout this guide, <em>nftables</em> configuration has been presented in a declarative, table-based format that closely reflects the table/chain/rule hierarchy. <em>nftables</em> also supports a command-based syntax that is passed to the <em>nft</em> utility on the command line or from within scripts in order to create, read, update, and delete individual elements of a ruleset dynamically. </p>
@@ -2137,68 +2137,68 @@
 <p>To test your ruleset, we recommend a scripted approach that can automatically revert a change that locks you out of the Pi. INFO314 students can find a copy of <code>nftables-apply.sh</code> in the project repository or create the script from the following listing.</p>
 <details class="info">
 <summary>nftables-apply.sh</summary>
-<div class="highlight"><pre><span></span><code>#!/bin/bash
-
-# Adapted from https://sanjuroe.dev/nft-safe-reload (retrieved on 2022-04-03)
-# Modified to avoid editing system rules in-place
-
-SYSTEM_RULES=&quot;/etc/nftables.conf&quot;
-TIMEOUT=45
-
-saved_rules=$(mktemp)
-cleanup() {
-    rm -f &quot;$saved_rules&quot;
-}
-
-trap &quot;cleanup&quot; EXIT;
-
-# Waits $TIMEOUT seconds for a yes/no response
-read_approval() {
-        read -t $TIMEOUT response 2&gt; /dev/null
-
-        case &quot;$response&quot; in
-                y|Y)
-                        return 0
-                        ;;
-                *)
-                        return 1
-                        ;;
-        esac
-}
-
-# Make a copy of the active ruleset
-backup() {
-        printf &quot;flush ruleset\n&quot; &gt; $saved_rules
-        nft list ruleset &gt;&gt; $saved_rules
-}
-
-# Apply a named ruleset
-apply() {
-        nft -f &quot;$1&quot;
-}
-
-# Update system ruleset
-save() {
-    local source_rules=&quot;$1&quot;
-    cp --no-preserve=mode,ownership &quot;$source_rules&quot; &quot;$SYSTEM_RULES&quot;
-}
-
-# Make a backup of the active ruleset in case of rollback
-backup
-new_rules=&quot;$1&quot;
-
-if apply &quot;$new_rules&quot;; then
-    printf &quot;Are you still able to connect to your device (auto-rollback in $TIMEOUT seconds)? [y/n] &quot;
-        if read_approval; then
-        save &quot;$new_rules&quot;
-                printf &quot;\nUpdated system ruleset at ${SYSTEM_RULES}\n&quot;
-        exit 0
-        else
-                apply &quot;$saved_rules&quot;
-        printf &quot;\nRolling back to original configuration\n&quot;
-                exit 2
-        fi
-fi
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>#!/bin/bash
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a># Adapted from https://sanjuroe.dev/nft-safe-reload (retrieved on 2022-04-03)
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a># Modified to avoid editing system rules in-place
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>SYSTEM_RULES=&quot;/etc/nftables.conf&quot;
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>TIMEOUT=45
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>saved_rules=$(mktemp)
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>cleanup() {
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>    rm -f &quot;$saved_rules&quot;
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>}
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>trap &quot;cleanup&quot; EXIT;
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a># Waits $TIMEOUT seconds for a yes/no response
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>read_approval() {
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>        read -t $TIMEOUT response 2&gt; /dev/null
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>        case &quot;$response&quot; in
+<a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>                y|Y)
+<a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a>                        return 0
+<a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a>                        ;;
+<a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a>                *)
+<a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a>                        return 1
+<a id="__codelineno-8-26" name="__codelineno-8-26" href="#__codelineno-8-26"></a>                        ;;
+<a id="__codelineno-8-27" name="__codelineno-8-27" href="#__codelineno-8-27"></a>        esac
+<a id="__codelineno-8-28" name="__codelineno-8-28" href="#__codelineno-8-28"></a>}
+<a id="__codelineno-8-29" name="__codelineno-8-29" href="#__codelineno-8-29"></a>
+<a id="__codelineno-8-30" name="__codelineno-8-30" href="#__codelineno-8-30"></a># Make a copy of the active ruleset
+<a id="__codelineno-8-31" name="__codelineno-8-31" href="#__codelineno-8-31"></a>backup() {
+<a id="__codelineno-8-32" name="__codelineno-8-32" href="#__codelineno-8-32"></a>        printf &quot;flush ruleset\n&quot; &gt; $saved_rules
+<a id="__codelineno-8-33" name="__codelineno-8-33" href="#__codelineno-8-33"></a>        nft list ruleset &gt;&gt; $saved_rules
+<a id="__codelineno-8-34" name="__codelineno-8-34" href="#__codelineno-8-34"></a>}
+<a id="__codelineno-8-35" name="__codelineno-8-35" href="#__codelineno-8-35"></a>
+<a id="__codelineno-8-36" name="__codelineno-8-36" href="#__codelineno-8-36"></a># Apply a named ruleset
+<a id="__codelineno-8-37" name="__codelineno-8-37" href="#__codelineno-8-37"></a>apply() {
+<a id="__codelineno-8-38" name="__codelineno-8-38" href="#__codelineno-8-38"></a>        nft -f &quot;$1&quot;
+<a id="__codelineno-8-39" name="__codelineno-8-39" href="#__codelineno-8-39"></a>}
+<a id="__codelineno-8-40" name="__codelineno-8-40" href="#__codelineno-8-40"></a>
+<a id="__codelineno-8-41" name="__codelineno-8-41" href="#__codelineno-8-41"></a># Update system ruleset
+<a id="__codelineno-8-42" name="__codelineno-8-42" href="#__codelineno-8-42"></a>save() {
+<a id="__codelineno-8-43" name="__codelineno-8-43" href="#__codelineno-8-43"></a>    local source_rules=&quot;$1&quot;
+<a id="__codelineno-8-44" name="__codelineno-8-44" href="#__codelineno-8-44"></a>    cp --no-preserve=mode,ownership &quot;$source_rules&quot; &quot;$SYSTEM_RULES&quot;
+<a id="__codelineno-8-45" name="__codelineno-8-45" href="#__codelineno-8-45"></a>}
+<a id="__codelineno-8-46" name="__codelineno-8-46" href="#__codelineno-8-46"></a>
+<a id="__codelineno-8-47" name="__codelineno-8-47" href="#__codelineno-8-47"></a># Make a backup of the active ruleset in case of rollback
+<a id="__codelineno-8-48" name="__codelineno-8-48" href="#__codelineno-8-48"></a>backup
+<a id="__codelineno-8-49" name="__codelineno-8-49" href="#__codelineno-8-49"></a>new_rules=&quot;$1&quot;
+<a id="__codelineno-8-50" name="__codelineno-8-50" href="#__codelineno-8-50"></a>
+<a id="__codelineno-8-51" name="__codelineno-8-51" href="#__codelineno-8-51"></a>if apply &quot;$new_rules&quot;; then
+<a id="__codelineno-8-52" name="__codelineno-8-52" href="#__codelineno-8-52"></a>    printf &quot;Are you still able to connect to your device (auto-rollback in $TIMEOUT seconds)? [y/n] &quot;
+<a id="__codelineno-8-53" name="__codelineno-8-53" href="#__codelineno-8-53"></a>        if read_approval; then
+<a id="__codelineno-8-54" name="__codelineno-8-54" href="#__codelineno-8-54"></a>        save &quot;$new_rules&quot;
+<a id="__codelineno-8-55" name="__codelineno-8-55" href="#__codelineno-8-55"></a>                printf &quot;\nUpdated system ruleset at ${SYSTEM_RULES}\n&quot;
+<a id="__codelineno-8-56" name="__codelineno-8-56" href="#__codelineno-8-56"></a>        exit 0
+<a id="__codelineno-8-57" name="__codelineno-8-57" href="#__codelineno-8-57"></a>        else
+<a id="__codelineno-8-58" name="__codelineno-8-58" href="#__codelineno-8-58"></a>                apply &quot;$saved_rules&quot;
+<a id="__codelineno-8-59" name="__codelineno-8-59" href="#__codelineno-8-59"></a>        printf &quot;\nRolling back to original configuration\n&quot;
+<a id="__codelineno-8-60" name="__codelineno-8-60" href="#__codelineno-8-60"></a>                exit 2
+<a id="__codelineno-8-61" name="__codelineno-8-61" href="#__codelineno-8-61"></a>        fi
+<a id="__codelineno-8-62" name="__codelineno-8-62" href="#__codelineno-8-62"></a>fi
 </code></pre></div>
 </details>
 <p>To test your rules, pass the name of your new rules file to the <em>nftables-apply.sh</em> script, e.g., <code>./nftables-apply.sh nftables-test.conf</code>. If your rules load without any errors, you will be prompted to answer whether you can still connect. </p>

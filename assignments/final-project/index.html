@@ -1919,10 +1919,10 @@
 <p>We've intentionally set up all of our domains within the non-existent .pi top-level domain and are limiting the resolution of these domains to our class network. By default, our resolvers won't be able to perform queries against other .pi domains since the recursive process depends on relationship between the ICANN root and the top-level domain registries. </p>
 <p>Our TLD is not present in those data stores, so we need to offer it a little help to resolve .pi domains. The work-around we're employing is to have each of your resolvers maintain a copy of the .pi zone so that it can directly discover the authoritative name servers of your peers' domains.</p>
 <p>The primary name server for .pi is running at the 10.10.10.10 address. By adding the following section to your /etc/bind/named.conf.local, your pi will perform a <em>zone transfer</em> with 10.10.10.10 and then periodically refresh based on the settings specified in the SOA for the TLD.</p>
-<div class="highlight"><pre><span></span><code>zone &quot;pi&quot; IN {
-  type slave;
-  masters { 10.10.10.10; };
-};
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>zone &quot;pi&quot; IN {
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  type slave;
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  masters { 10.10.10.10; };
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>};
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -1931,12 +1931,12 @@
 <h4 id="override-dns-resolution-on-the-pi">Override DNS resolution on the Pi<a class="headerlink" href="#override-dns-resolution-on-the-pi" title="Permanent link">&para;</a></h4>
 <p>You have likely noticed that when you run a <code>dig</code> query from your Pi, the query will not be sent to the resolver running on your Pi. Instead, by default, these queries are sent to the addresses provided to you by DHCP on your wireless network. This leads to a case where the hosts on your network can resolve .pi domains while the Pi itself cannot.</p>
 <p>We can easily override this behavior by modifying <code>/etc/systemd/network/99-wlan.network</code> to add a the localhost address as a static DNS location. While your Pi will still receive additional addresses from DHCP, your Pi will only use these as a fallback. The updated configuration is shown below. </p>
-<div class="highlight"><pre><span></span><code>[Match]
-Name=wlan*
-
-[Network]
-DHCP=yes
-DNS=127.0.0.1
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[Match]
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Name=wlan*
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>[Network]
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>DHCP=yes
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>DNS=127.0.0.1
 </code></pre></div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -1950,21 +1950,21 @@ DNS=127.0.0.1
 <h4 id="allow-external-dns-queries"><strong>Allow External DNS Queries</strong><a class="headerlink" href="#allow-external-dns-queries" title="Permanent link">&para;</a></h4>
 <p>At this point, we are expecting the Bind9 daemon to perform two different roles, acting as a recursive resolver and as an authoritative name server. While Bind9 is more than capable of performing both tasks, this can be a risky configuration. In particular, our authoritative server has to be open to everyone, but an unrestricted resolver is like a welcome mat for attackers who may attempt cache poisoning attacks and botnets that will use it to amplify DDoS attacks.</p>
 <p>In Checkpoint #4, we took steps to prevent these types of attacks by declaring an access control list (ACL) and using it to restrict which IP addresses are allowed to make recursive queries. The configuration appears in <code>named.conf.options</code> as follows:</p>
-<div class="highlight"><pre><span></span><code>acl goodclients {
-    localhost;
-    172.27.2.0/26;
-};
-
-options {
-    directory &quot;/var/cache/bind&quot;;
-
-    recursion yes;
-    allow-query { goodclients; };
-...
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>acl goodclients {
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    localhost;
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    172.27.2.0/26;
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>};
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>options {
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    directory &quot;/var/cache/bind&quot;;
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    recursion yes;
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    allow-query { goodclients; };
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>...
 </code></pre></div>
 <p>In this configuration, your name server won't be able to receive a query outside of your own LAN. With a simple change to the last two lines, we can open up our name server to the outside world while still providing some basic security against misuse.</p>
-<div class="highlight"><pre><span></span><code>    allow-recursion { trusted; };   // change from `recursion yes;`
-    allow-query { any; };           // change from `{ goodclients; };`
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>    allow-recursion { trusted; };   // change from `recursion yes;`
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    allow-query { any; };           // change from `{ goodclients; };`
 </code></pre></div>
 <p>Please be aware that we would look for stronger separation between these roles in a real-world scenario. At the very least, we might employ a feature of Bind9 called <em>views</em>. Or we could run multiple instances of Bind9 on separate IP addresses (or entirely separate servers).</p>
 <h3 id="making-improvements-and-extra-credit"><strong>Making Improvements and Extra Credit</strong><a class="headerlink" href="#making-improvements-and-extra-credit" title="Permanent link">&para;</a></h3>

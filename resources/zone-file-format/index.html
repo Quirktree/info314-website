@@ -1898,20 +1898,20 @@
 <li>Additional <strong>Resource Records</strong> used to identify service-specific resources such as name servers and email servers or to map hostnames to network addresses.</li>
 </ul>
 <p>The following simple zone file distributed with BIND9 defines a zone description for the reserved <code>localhost</code> namespace:</p>
-<div class="highlight"><pre><span></span><code>;
-; BIND data file for local loopback interface
-;
-$TTL    604800
-@   IN  SOA localhost. root.localhost. (
-                  2     ; Serial
-             604800     ; Refresh
-              86400     ; Retry
-            2419200     ; Expire
-             604800 )   ; Negative Cache TTL
-;
-@   IN  NS  localhost.
-@   IN  A   127.0.0.1
-@   IN  AAAA    ::1
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>;
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>; BIND data file for local loopback interface
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>;
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>$TTL    604800
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>@   IN  SOA localhost. root.localhost. (
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>                  2     ; Serial
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>             604800     ; Refresh
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>              86400     ; Retry
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>            2419200     ; Expire
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>             604800 )   ; Negative Cache TTL
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>;
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>@   IN  NS  localhost.
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>@   IN  A   127.0.0.1
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>@   IN  AAAA    ::1
 </code></pre></div>
 <h2 id="record-format">Record Format<a class="headerlink" href="#record-format" title="Permanent link">&para;</a></h2>
 <h3 id="standard-fields">Standard Fields<a class="headerlink" href="#standard-fields" title="Permanent link">&para;</a></h3>
@@ -1949,22 +1949,22 @@ $TTL    604800
 <blockquote>
 <p>When formatting an email address for the RNAME field, You must escape any period in the username portion of the address with a <code>\</code> and replace the <code>@</code> symbol with an unescaped period. Do not escape periods in the domain portion of the address. An example can be seen in the following SOA record.</p>
 </blockquote>
-<div class="highlight"><pre><span></span><code>;
-; Example SOA record for washington.edu
-; Primary NS - hanna.cac.washington.edu
-; Administrative Email - domainmaster@cac.washington.edu
-;
-washington.edu.     462 IN  SOA hanna.cac.washington.edu. domainmaster.cac.washington.edu. 2019021600 3600 1800 3600000 600
-;
-; Use parenthesis to split the record across lines for readability
-;
-washington.edu. 462 IN SOA hanna.cac.washington.edu. domainmaster.cac.washington.edu (
-    2019021600          ; SERIAL
-    3600                ; REFRESH (1 hour)
-    1800                ; RETRY (30 minutes)
-    3600000             ; EXPIRE (1000 hours)
-    600                 ; TTL (10 minutes)
-)
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>;
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>; Example SOA record for washington.edu
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>; Primary NS - hanna.cac.washington.edu
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>; Administrative Email - domainmaster@cac.washington.edu
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>;
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>washington.edu.     462 IN  SOA hanna.cac.washington.edu. domainmaster.cac.washington.edu. 2019021600 3600 1800 3600000 600
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>;
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>; Use parenthesis to split the record across lines for readability
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>;
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>washington.edu. 462 IN SOA hanna.cac.washington.edu. domainmaster.cac.washington.edu (
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    2019021600          ; SERIAL
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    3600                ; REFRESH (1 hour)
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    1800                ; RETRY (30 minutes)
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    3600000             ; EXPIRE (1000 hours)
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    600                 ; TTL (10 minutes)
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>)
 </code></pre></div>
 <h3 id="ns-record-data">NS Record Data<a class="headerlink" href="#ns-record-data" title="Permanent link">&para;</a></h3>
 <p><strong>Name Server</strong> records are used to indicate the servers that host the zone file for a domain. A zone file will normally include its own name servers and the name servers of any subdomains. </p>
@@ -1972,30 +1972,30 @@ washington.edu. 462 IN SOA hanna.cac.washington.edu. domainmaster.cac.washington
 <p>In a real world scenario, your domains should be hosted by at least two name servers.</p>
 </blockquote>
 <p>NS records refer to the hostname of a server. Assigning an IP address to a NS record is a misconfiguration. Rather a zone file can define glue records, A and AAAA address records that tie the name servers' hostnames to IP addresses. Glue records are required when a zone hosts its own authoritative name servers.</p>
-<div class="highlight"><pre><span></span><code>; Name Server
-washington.edu.     86400   IN  NS  hanna.cac.washington.edu.
-
-; Glue Records
-hanna.cac.washington.edu. 86400 IN  A   140.142.5.5
-hanna.cac.washington.edu. 86400 IN  AAAA    2607:4000:200:42::5
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>; Name Server
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>washington.edu.     86400   IN  NS  hanna.cac.washington.edu.
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>; Glue Records
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>hanna.cac.washington.edu. 86400 IN  A   140.142.5.5
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>hanna.cac.washington.edu. 86400 IN  AAAA    2607:4000:200:42::5
 </code></pre></div>
 <h3 id="a-and-aaaa-record-data">A and AAAA Record Data<a class="headerlink" href="#a-and-aaaa-record-data" title="Permanent link">&para;</a></h3>
 <p><strong>Address</strong> records map hostnames to IP addresses. The value of an A record in a BIND zone file is simply the IPv4 address in dotted decimal notation. For AAAA records, BIND supports the standard shorthand rules for IPv6.</p>
 <p>It is legal (and common) for multiple address records to be provided for a given hostname. This feature allows us to support <em>dual stack</em> hosts that can be reached using either IPv4 or IPv6 addresses, but it also enables us to distribute traffic between multiple servers for redundancy and load balancing. </p>
 <p>This configuration is referred to as <em>round-robin DNS</em> and can be seen in the following example:</p>
-<div class="highlight"><pre><span></span><code>;
-; Subsequent DNS responses will list records in a random order
-;
-www.washington.edu. IN  A   128.95.155.134
-www.washington.edu. IN  A   128.95.155.197
-www.washington.edu.     IN  A   128.95.155.198
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>;
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>; Subsequent DNS responses will list records in a random order
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>;
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>www.washington.edu. IN  A   128.95.155.134
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>www.washington.edu. IN  A   128.95.155.197
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>www.washington.edu.     IN  A   128.95.155.198
 </code></pre></div>
 <h3 id="cname-record-data">CNAME Record Data<a class="headerlink" href="#cname-record-data" title="Permanent link">&para;</a></h3>
 <p><strong>Canonical Name</strong> records define aliases for hostnames. CNAME records have many uses, including mapping alternate domain registrations to a primary domain (as seen below) or to improve the stability of DNS records when we do not have direct control over the underlying infrastructure.</p>
-<div class="highlight"><pre><span></span><code>;
-; www.uw.edu can be used as an alias for www.washington.edu
-;
-www.uw.edu. IN  CNAME   www.washington.edu.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>;
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>; www.uw.edu can be used as an alias for www.washington.edu
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>;
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>www.uw.edu. IN  CNAME   www.washington.edu.
 </code></pre></div>
 <p>While CNAME records can be quite useful, there are several important restrictions to keep in mind:</p>
 <ul>
@@ -2006,31 +2006,31 @@ www.uw.edu. IN  CNAME   www.washington.edu.
 <h3 id="mx-record-data">MX Record Data<a class="headerlink" href="#mx-record-data" title="Permanent link">&para;</a></h3>
 <p><strong>Mail Exchanger</strong> records are used to specify the servers that will receive mail for a given domain.</p>
 <p>An individual MX record include an integer priority and a hostname. It is common and recommended to define multiple MX records for a domain. The priority field is used by mail agents to determine the preferred mail server (lower values are given higher priority).</p>
-<div class="highlight"><pre><span></span><code>;
-; Since the three servers listed here have equal priority, a mail
-; agent will choose one at random.
-;
-washington.edu.     10800   IN  MX  100 mxe30.s.uw.edu.
-washington.edu.     10800   IN  MX  100 mxe31.s.uw.edu.
-washington.edu.     10800   IN  MX  100 mxe32.s.uw.edu.
-
-;
-; The hostnames referred to by MX records must resolve to address 
-; records are hosted in the zone for uw.edu, e.g.,
-; 
-mxe30.s.uw.edu.     86400   IN  A   173.250.227.19
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>;
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>; Since the three servers listed here have equal priority, a mail
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>; agent will choose one at random.
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>;
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>washington.edu.     10800   IN  MX  100 mxe30.s.uw.edu.
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>washington.edu.     10800   IN  MX  100 mxe31.s.uw.edu.
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>washington.edu.     10800   IN  MX  100 mxe32.s.uw.edu.
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>;
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>; The hostnames referred to by MX records must resolve to address 
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>; records are hosted in the zone for uw.edu, e.g.,
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>; 
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>mxe30.s.uw.edu.     86400   IN  A   173.250.227.19
 </code></pre></div>
 <h3 id="txt-record-data">TXT Record Data<a class="headerlink" href="#txt-record-data" title="Permanent link">&para;</a></h3>
 <p><strong>Text</strong> records hold freeform text that is generally intended for use by external services. </p>
 <p>TXT records are frequently used to:
 * Verify ownership of a domain, e.g., required to set up 3<sup>rd</sup> party email hosting or obtain a certificate for TLS.
 * Support SPAM reduction technologies such as the Sender Policy Framework (SPF) and DomainKeys Identfied Mail (DKIM).</p>
-<div class="highlight"><pre><span></span><code>;
-; SPF uses TXT to indicate which networks or hosts may be used to send
-; email on behalf of a domain. Recipients may flag or drop email that
-; originated from an alternate server.
-; 
-uw.edu.         3600    IN  TXT &quot;v=spf1 ip4:128.95.242.222/32 ip4:128.208.0.5/32 ip4:128.208.181.0/26 ip4:140.142.32.0/24 ip4:140.142.234.128/25 ip4:173.250.227.0/24 ?all&quot;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>;
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>; SPF uses TXT to indicate which networks or hosts may be used to send
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>; email on behalf of a domain. Recipients may flag or drop email that
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>; originated from an alternate server.
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>; 
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>uw.edu.         3600    IN  TXT &quot;v=spf1 ip4:128.95.242.222/32 ip4:128.208.0.5/32 ip4:128.208.181.0/26 ip4:140.142.32.0/24 ip4:140.142.234.128/25 ip4:173.250.227.0/24 ?all&quot;
 </code></pre></div>
 <h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
 <ul>

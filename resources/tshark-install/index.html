@@ -1759,8 +1759,8 @@
 <h3 id="capturing-to-a-file">Capturing to a file<a class="headerlink" href="#capturing-to-a-file" title="Permanent link">&para;</a></h3>
 <p>The first approach we present is the easiest, but requires some manual effort to complete the capture and copy back to your computer with ssh/scp. Once the file is saved to your computer, you can open it in Wireshark and perform analysis just as you would with a native Wireshark capture.</p>
 <p><code>tshark</code> allows you to specify the interface on which to capture using the <code>-i</code> argument as well as a filename to record the capture using <code>-w</code>. You may also pass a capture filter as the final argument of the  command.</p>
-<div class="highlight"><pre><span></span><code># Capture DNS traffic from wlan0 and write the output into a file named cap.pcapng
-tshark -i wlan0 -w cap.pcapng &#39;port 53&#39;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a># Capture DNS traffic from wlan0 and write the output into a file named cap.pcapng
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>tshark -i wlan0 -w cap.pcapng &#39;port 53&#39;
 </code></pre></div>
 <h3 id="live-capture-to-wireshark">Live Capture to Wireshark<a class="headerlink" href="#live-capture-to-wireshark" title="Permanent link">&para;</a></h3>
 <p>With a little more effort, Wireshark can leverage tshark for a remote capture. In this case, we are launching a capture with tshark and piping the results back through the SSH session into Wireshark (instead of saving to a file on the Pi). There is an ulterior motive for sharing this method. For some students, the live capture does provide a more natural workflow. However, this is a good opportunity to give you a small taste of what SSH can accomplish<sup id="fnref:beast-mode"><a class="footnote-ref" href="#fn:beast-mode">1</a></sup>.</p>
@@ -1769,7 +1769,7 @@ tshark -i wlan0 -w cap.pcapng &#39;port 53&#39;
 <p>Add the wireshark program directory (<code>c:\program files\wireshark\</code>) to the system path and then use the standard command prompt rather than Powershell to launch the remote capture. </p>
 </div>
 <p>The following command will launch a remote capture on your Pi (see additional notes for Windows below): </p>
-<div class="highlight"><pre><span></span><code>ssh pi@titan.local tshark -s0 -F libpcap -i wlan0 -w - &#39;port 53&#39; | wireshark -k -i -
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>ssh pi@titan.local tshark -s0 -F libpcap -i wlan0 -w - &#39;port 53&#39; | wireshark -k -i -
 </code></pre></div>
 <div class="footnote">
 <hr />

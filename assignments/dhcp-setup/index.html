@@ -1778,18 +1778,18 @@
 </details>
 <p>Create a file named <code>20-eth0.network</code> in  <code>/etc/systemd/network/</code> (you'll need to use <code>sudo</code>) and define a static configuration that includes your chosen IP address and CIDR range. This path should already contain a default configuration for ethernet interfaces, e.g., <code>99-eth.network</code>. We are overriding this configuration for <code>eth0</code> by naming the file in such a way that <strong>networkd</strong> will load it first and by ensuring that the configuration will match <code>eth0</code> exactly.</p>
 <p>Your file should look something like:</p>
-<div class="highlight"><pre><span></span><code>[Match]
-# We only want to match the eth0 interface
-Name=eth0
-
-# Provide full address config in abbreviated notation
-[Network]
-# Default Gateway / DHCP Server
-Address=192.168.0.1/24
-
-
-# Enable link local addresses for IPv6 (FE80::)
-LinkLocalAddressing=ipv6
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>[Match]
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a># We only want to match the eth0 interface
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Name=eth0
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a># Provide full address config in abbreviated notation
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>[Network]
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a># Default Gateway / DHCP Server
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>Address=192.168.0.1/24
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a># Enable link local addresses for IPv6 (FE80::)
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>LinkLocalAddressing=ipv6
 </code></pre></div>
 <div class="admonition warning important">
 <p class="admonition-title">Warning</p>
@@ -1808,8 +1808,8 @@ LinkLocalAddressing=ipv6
 </div>
 <h2 id="install-and-configure-dhcp">Install and Configure DHCP<a class="headerlink" href="#install-and-configure-dhcp" title="Permanent link">&para;</a></h2>
 <p>For this part of the exercise, we'll use the ISC DHCP Server. The ISC server is available in <code>apt</code> repositories, so it can be installed using:</p>
-<div class="highlight"><pre><span></span><code>sudo apt update
-sudo apt install isc-dhcp-server
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo apt update
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>sudo apt install isc-dhcp-server
 </code></pre></div>
 <div class="admonition warning important">
 <p class="admonition-title">Warning</p>
@@ -1834,16 +1834,16 @@ sudo apt install isc-dhcp-server
 <p>Use <code>systemctl</code> to restart the DHCP service as shown here:</p>
 <p><code>sudo systemctl restart isc-dhcp-server.service</code></p>
 <p>If you see errors such as the one shown here, you’ll need to continue troubleshooting the DHCP server (see next section).</p>
-<div class="highlight"><pre><span></span><code>pi@titan:~ $ sudo systemctl restart isc-dhcp-server.service
-Job for isc-dhcp-server.service failed because the control process exited with error code.
-See &quot;systemctl status isc-dhcp-server.service&quot; and &quot;journalctl -xe&quot; for details.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>pi@titan:~ $ sudo systemctl restart isc-dhcp-server.service
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>Job for isc-dhcp-server.service failed because the control process exited with error code.
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>See &quot;systemctl status isc-dhcp-server.service&quot; and &quot;journalctl -xe&quot; for details.
 </code></pre></div>
 <p>Check your local machine to confirm that an IP address in the specified network range was provided.</p>
 <p>Try running <code>ping</code> from both directions (laptop -&gt; pi and pi -&gt; laptop) to confirm that the IP address and related settings are configured correctly.</p>
 <div class="admonition warning important">
 <p class="admonition-title">Warning</p>
 <p>If you are on Windows, incoming <code>ping</code> requests (those from pi -&gt; laptop) will not get any response. This is because by default Windows Firewall blocks these requests from being answered. To disable this, run a PowerShell prompt as Administrator and enter these commands:
-<div class="highlight"><pre><span></span><code>New-NetFirewallRule -DisplayName &quot;Allow inbound ICMPv4&quot; -Direction Inbound -Protocol ICMPv4 -IcmpType 8 -Action Allow
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>New-NetFirewallRule -DisplayName &quot;Allow inbound ICMPv4&quot; -Direction Inbound -Protocol ICMPv4 -IcmpType 8 -Action Allow
 </code></pre></div></p>
 <p>New-NetFirewallRule -DisplayName "Allow inbound ICMPv6" -Direction Inbound -Protocol ICMPv6 -IcmpType 8 -Action Allow
 ```</p>

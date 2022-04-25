@@ -1768,39 +1768,39 @@
 </div>
 <h4 id="store-incomplete-messages-in-a-buffer">Store Incomplete Messages in a Buffer<a class="headerlink" href="#store-incomplete-messages-in-a-buffer" title="Permanent link">&para;</a></h4>
 <p>Since it is up to you to identify and reconstruct messages out of the stream, you should create a buffer that will hold your data while you work to identify complete HTTP messages. A buffer in this case is nothing more than a python bytes object that you append to each time a <code>recv()</code> returns successfully, for example:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Declare an empty buffer</span>
-<span class="n">buffer</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span>
-
-<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-    <span class="n">data</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
-
-    <span class="c1"># break if the connection was closed</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
-        <span class="k">break</span>
-
-    <span class="c1"># add new data to the buffer.</span>
-    <span class="n">buffer</span> <span class="o">=</span> <span class="n">buffer</span> <span class="o">+</span> <span class="n">data</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Declare an empty buffer</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">buffer</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">1024</span><span class="p">)</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    <span class="c1"># break if the connection was closed</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        <span class="k">break</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    <span class="c1"># add new data to the buffer.</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    <span class="n">buffer</span> <span class="o">=</span> <span class="n">buffer</span> <span class="o">+</span> <span class="n">data</span>
 </code></pre></div>
 <h3 id="working-http-messages">Working HTTP Messages<a class="headerlink" href="#working-http-messages" title="Permanent link">&para;</a></h3>
 <p>In order to recognize HTTP messages, we will attempt to <em>parse</em> our buffer each time we add new data in order to test whether we can read the message through to its proper end. When this operation succeeds, we will be able to move forward into the client portion of the proxy that we'll explore in upcoming labs. While this operation fails, we will continue to receive new data and add it to our buffer as discussed in the previous section.</p>
 <p>Your main task for this lab is to build a simple HTTP parser that accepts a byte buffer and attempts to parse the most basic type of HTTP message, i.e., an HTTP/1.0 GET request (ignore other types of requests for now). In order to parse a GET request, you will read through the message a line at a time until you receive back-to-back CRLF (HTTP end-of-line) sequences indicating that you've reached the end of the HTTP headers. This task may require a small amount of research into <a href="https://tools.ietf.org/html/rfc1945">RFC-1945</a> to review the HTTP/1.0 specification, but it builds directly off of the string and byte manipulation operations you practiced in the previous lab.</p>
 <p>From a code standpoint, please encapsulate your parsing logic in a function called <code>parse_message</code>. This message should accept a buffer of bytes as input and return two values, i.e., a parsed message stored in a python dictionary and a byte buffer containing data that was left after parsing the message (which could be part of another request). If you are not able to parse the message completely, you can indicate this by returning <code>None</code> and the original byte buffer.</p>
 <p>Based on this description, your parsing function should resemble:</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">parse_message</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-    <span class="c1"># initialize an empty dictionary</span>
-    <span class="n">message</span> <span class="o">=</span> <span class="p">{}</span>
-
-    <span class="c1"># parse bytes and assign key / value pairs such as ...</span>
-    <span class="n">message</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="c1"># HTTP method name such as GET</span>
-    <span class="n">message</span><span class="p">[</span><span class="s1">&#39;uri&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="c1"># address or resource name from the request, such as www.uw.edu</span>
-    <span class="n">message</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="c1"># HTTP version such as HTTP/1.0</span>
-    <span class="n">message</span><span class="p">[</span><span class="s1">&#39;headers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># List of headers</span>
-
-    <span class="c1"># If parsing is successful, return a completed message (if applicable) and unused bytes</span>
-    <span class="k">return</span> <span class="n">message</span><span class="p">,</span> <span class="n">unparsed_data</span>
-
-    <span class="c1"># If parsing fails, return the entire buffer and an indicator that parsing was incomplete</span>
-    <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">data</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span> <span class="nf">parse_message</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="c1"># initialize an empty dictionary</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">message</span> <span class="o">=</span> <span class="p">{}</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="c1"># parse bytes and assign key / value pairs such as ...</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">message</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="c1"># HTTP method name such as GET</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">message</span><span class="p">[</span><span class="s1">&#39;uri&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="c1"># address or resource name from the request, such as www.uw.edu</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">message</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="c1"># HTTP version such as HTTP/1.0</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="n">message</span><span class="p">[</span><span class="s1">&#39;headers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># List of headers</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="c1"># If parsing is successful, return a completed message (if applicable) and unused bytes</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="k">return</span> <span class="n">message</span><span class="p">,</span> <span class="n">unparsed_data</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    <span class="c1"># If parsing fails, return the entire buffer and an indicator that parsing was incomplete</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>    <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="n">data</span>
 </code></pre></div>
 <h4 id="parsing">Parsing<a class="headerlink" href="#parsing" title="Permanent link">&para;</a></h4>
 <p>HTTP messages follow a relatively simple syntax that can be used to make decisions about how to break the message into smaller parts (using tools like Python <em>slicing</em> and the functions <code>find()</code>, <code>strip()</code>, and <code>split()</code>).  Assume that all messages are conformant with HTTP/1.0 and encoded as ISO-8859-1.</p>
@@ -1824,19 +1824,19 @@
 <div class="admonition info">
 <p class="admonition-title">Producing a comma-delimited list of header names</p>
 <p>If you're unfamiliar with python, you might find it challenging to produce the final part of this summary. The following method assumes you've stored your headers in a list, and that each header is parsed into a dictionary with a <code>name</code> and <code>value</code> as presented in the previous lab, i.e., <code>[{'name': 'Host', 'value': 'www.google.com'}, ...]</code></p>
-<div class="highlight"><pre><span></span><code>    <span class="n">header_names</span> <span class="o">=</span> <span class="p">[</span> <span class="n">h</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">headers</span> <span class="p">]</span> <span class="c1"># loop over all headers and save the name field in a list</span>
-    <span class="n">out</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">header_names</span><span class="p">)</span> <span class="c1"># join a list of strings with a comma</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>    <span class="n">header_names</span> <span class="o">=</span> <span class="p">[</span> <span class="n">h</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">headers</span> <span class="p">]</span> <span class="c1"># loop over all headers and save the name field in a list</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">out</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">header_names</span><span class="p">)</span> <span class="c1"># join a list of strings with a comma</span>
 </code></pre></div>
 </div>
 <h3 id="testing-your-code-with-testpy">Testing your code with <code>test.py</code><a class="headerlink" href="#testing-your-code-with-testpy" title="Permanent link">&para;</a></h3>
 <p>The resources directory of the project repository contains a simple python script called test.py that you can use to send HTTP requests from a file into your proxy code.</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Send the request from sample-request.txt </span>
-<span class="c1"># one line at a time with a short delay between</span>
-python3 test.py <span class="m">9999</span> sample-request.txt
-
-<span class="c1"># Send the request from sample-request.txt 250 bytes at a time </span>
-<span class="c1"># with a short delay between</span>
-python3 test.py <span class="m">9999</span> sample-request.txt <span class="m">250</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Send the request from sample-request.txt </span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="c1"># one line at a time with a short delay between</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>python3 test.py <span class="m">9999</span> sample-request.txt
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="c1"># Send the request from sample-request.txt 250 bytes at a time </span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="c1"># with a short delay between</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>python3 test.py <span class="m">9999</span> sample-request.txt <span class="m">250</span>
 </code></pre></div>
 <h3 id="capturing-proxied-requests-for-testing">Capturing proxied requests for testing<a class="headerlink" href="#capturing-proxied-requests-for-testing" title="Permanent link">&para;</a></h3>
 <p>A couple of sample requests are included in the directory, but the following method may be helpful if you would like to capture valid requests that you can use for testing:</p>

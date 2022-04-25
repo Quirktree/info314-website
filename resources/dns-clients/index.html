@@ -1880,27 +1880,27 @@
 <p><code>dig @&lt;name server IP&gt; &lt;domain name&gt;</code>: Override the system's name server (often helpful to determine if other resolvers are returning different records).</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
-<div class="highlight"><pre><span></span><code>pi@titan.local:~ $ dig @1.1.1.1 cname uw.edu
-
-; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; @1.1.1.1 cname uw.edu
-; (1 server found)
-;; global options: +cmd
-;; Got answer:
-;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 50713
-;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
-
-;; OPT PSEUDOSECTION:
-; EDNS: version: 0, flags:; udp: 1452
-;; QUESTION SECTION:
-;uw.edu.                IN  CNAME
-
-;; AUTHORITY SECTION:
-uw.edu.         600 IN  SOA hanna.cac.washington.edu. domainmaster.cac.washington.edu. 2020012403 10800 1800 3600000 600
-
-;; Query time: 40 msec
-;; SERVER: 1.1.1.1#53(1.1.1.1)
-;; WHEN: Sun Jan 26 23:32:59 PST 2020
-;; MSG SIZE  rcvd: 105    
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pi@titan.local:~ $ dig @1.1.1.1 cname uw.edu
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; @1.1.1.1 cname uw.edu
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>; (1 server found)
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>;; global options: +cmd
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>;; Got answer:
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 50713
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>;; OPT PSEUDOSECTION:
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>; EDNS: version: 0, flags:; udp: 1452
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>;; QUESTION SECTION:
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>;uw.edu.                IN  CNAME
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>;; AUTHORITY SECTION:
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>uw.edu.         600 IN  SOA hanna.cac.washington.edu. domainmaster.cac.washington.edu. 2020012403 10800 1800 3600000 600
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>;; Query time: 40 msec
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>;; SERVER: 1.1.1.1#53(1.1.1.1)
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>;; WHEN: Sun Jan 26 23:32:59 PST 2020
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>;; MSG SIZE  rcvd: 105    
 </code></pre></div>
 </div>
 <h3 id="resolving-dns-with-powershell">Resolving DNS with PowerShell<a class="headerlink" href="#resolving-dns-with-powershell" title="Permanent link">&para;</a></h3>
