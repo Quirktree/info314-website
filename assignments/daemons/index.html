@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Clinton Campbell">
+        <link rel="canonical" href="https://info314.tcpip.dev/assignments/daemons/">
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Controlling and Monitoring Daemons in systemd Linux - INFO 314 Course Resources</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/color-brewer.min.css">
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">INFO 314 Course Resources</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../.." class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">1 - Pi Setup</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../pi-setup/" class="dropdown-item">Raspberry Pi Setup</a>
+</li>
+            
+<li>
+    <a href="../networkd-setup/" class="dropdown-item">networkd Setup</a>
+</li>
+            
+<li>
+    <a href="../../resources/wifi-reference/" class="dropdown-item">Wireless Configuration Reference</a>
+</li>
+            
+<li>
+    <a href="../../resources/uw-wireless/" class="dropdown-item">UW Wireless Reference</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">2 - Set up a DHCP Server</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../resources/address-planning/" class="dropdown-item">IP Address Planning Reference</a>
+</li>
+            
+<li>
+    <a href="../dhcp-setup/" class="dropdown-item">Installing and Configuring the ISC DHCP Server</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">3 - Configure Routing and NAT</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../router-setup/" class="dropdown-item">Router Setup</a>
+</li>
+            
+<li>
+    <a href="../../resources/nftables/" class="dropdown-item">Introduction to nftables</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">4 - Configure a DNS Resolver</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../resolver-setup/" class="dropdown-item">DNS Resolver Setup</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Report - NAT and DNS Analysis</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../analysis-report/" class="dropdown-item">Instructions</a>
+</li>
+            
+<li>
+    <a href="../../resources/tshark-install/" class="dropdown-item">Installing TShark</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">5 - Configure an Authoritative Name Server</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../dns-zone-setup/" class="dropdown-item">Authoritative Zone Setup</a>
+</li>
+            
+<li>
+    <a href="../../resources/zone-file-format/" class="dropdown-item">DNS Zone Reference</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../wireshark01/" class="dropdown-item">Lab 1 - Analyzing DHCP and ARP with Wireshark</a>
+</li>
+                                    
+<li>
+    <a href="../wireshark02/" class="dropdown-item">Lab 2 - Analyze DNS & HTTP in Wireshark</a>
+</li>
+                                    
+<li>
+    <a href="../wireshark03/" class="dropdown-item">Lab 3 - Analyze Zeroconf in Wireshark</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Resources <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Getting Started</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../resources/markdown/" class="dropdown-item">Intro to Markdown</a>
+</li>
+            
+<li>
+    <a href="../../resources/bash/" class="dropdown-item">Intro to Bash</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Concepts and Theory</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../notes/dns-overview/" class="dropdown-item">Domain Name System (DNS)</a>
+</li>
+            
+<li>
+    <a href="../../notes/router-overview/" class="dropdown-item">Routers</a>
+</li>
+            
+<li>
+    <a href="../../notes/ethernet-switches/" class="dropdown-item">Ethernet Switches</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Guides</a>
+    <ul class="dropdown-menu">
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Common Tools</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../resources/ssh-primer/" class="dropdown-item">Getting Started with SSH</a>
+</li>
+            
+<li>
+    <a href="../../resources/ssh-agent/" class="dropdown-item">Using ssh-agent</a>
+</li>
+            
+<li>
+    <a href="../../resources/wireshark-install/" class="dropdown-item">Install Wireshark</a>
+</li>
+            
+<li>
+    <a href="../../resources/tshark-install/" class="dropdown-item">Install TShark</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">DNS</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../resources/zone-file-format/" class="dropdown-item">Zone File Reference</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Wireless</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../resources/wifi-reference/" class="dropdown-item">Linux Wireless Configuration</a>
+</li>
+            
+<li>
+    <a href="../../resources/uw-wireless/" class="dropdown-item">UW Wireless Network Reference</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Iptables</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../resources/iptables/" class="dropdown-item">Introduction to Iptables</a>
+</li>
+            
+<li>
+    <a href="../../resources/netfilter-hooks/" class="dropdown-item">Understanding Netfilter/Iptables Hooks</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Planning</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../resources/address-planning/" class="dropdown-item">Basic IP Address Planning</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Routing and VPNs</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../resources/setup-frr/" class="dropdown-item">Install Free Range Routing (FRR)</a>
+</li>
+            
+<li>
+    <a href="../../resources/setup-wireguard/" class="dropdown-item">Install and Configure WireGuard</a>
+</li>
+            
+<li>
+    <a href="../../resources/configure-routing-links/" class="dropdown-item">Configuring Routing Links</a>
+</li>
+    </ul>
+  </li>
+            
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Special Network Interfaces</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../resources/loopback-interfaces/" class="dropdown-item">Loopback Interfaces</a>
+</li>
+            
+<li>
+    <a href="../../resources/dummy-interfaces/" class="dropdown-item">Dummy Interfaces</a>
+</li>
+            
+<li>
+    <a href="../../resources/vlan-interfaces/" class="dropdown-item">VLAN Interfaces</a>
+</li>
+    </ul>
+  </li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">General</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../resources/host-config/" class="dropdown-item">Mac/Win/Linux Networking</a>
+</li>
+            
+<li>
+    <a href="../../resources/manage-dhcp/" class="dropdown-item">Troubleshooting DHCP</a>
+</li>
+            
+<li>
+    <a href="../../resources/dns-clients/" class="dropdown-item">Managing DNS Clients</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="navitem">
+                                <a href="../../contact/" class="nav-link">Contact Us</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/quirktree/info314-website" class="nav-link">quirktree/info314-website</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#controlling-and-monitoring-daemons-in-systemd-linux" class="nav-link">Controlling and Monitoring Daemons in systemd Linux</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#a-word-about-daemons" class="nav-link">A Word About Daemons</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#the-role-of-systemd" class="nav-link">The role of systemd</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#systemctl-is-the-answer" class="nav-link">systemctl is the Answer</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="controlling-and-monitoring-daemons-in-systemd-linux">Controlling and Monitoring Daemons in systemd Linux<a class="headerlink" href="#controlling-and-monitoring-daemons-in-systemd-linux" title="Permanent link">&para;</a></h1>
+<h2 id="a-word-about-daemons">A Word About Daemons<a class="headerlink" href="#a-word-about-daemons" title="Permanent link">&para;</a></h2>
+<p>The word daemon refers to a type of software run in the background on Linux and other Unix systems. Unlike other applications that computing users interact with throughout the day, daemons are characterized by their user independence. Ordinary users may be aware of the services that daemons frequently provide, but they're not involved in the daily management of these programs. It's perfectly normal for a daemon to start up with the computer and keep running until shutdown (whether or not a user logs in or interacts with the computer).</p>
+<p>As background processes, daemons provide many valuable services -- everything from managing a system's clock to slinging packets through the TCP/IP stack. In fact, the term service is closely related, if not synonomous with daemon (at least in some contexts). In the Windows OS, for example, <a href="https://en.wikipedia.org/wiki/Windows_service"><em>services</em></a> are employed to fill the same role.</p>
+<h2 id="the-role-of-systemd">The role of systemd<a class="headerlink" href="#the-role-of-systemd" title="Permanent link">&para;</a></h2>
+<p>In recent years, the major Linux distributions retooled core system and service management responsibilities around the <em>systemd</em> ecosystem. As such, we rely heavily on the ecosystem and its toolset for most aspects of daemon management. </p>
+<h3 id="service-units">Service Units<a class="headerlink" href="#service-units" title="Permanent link">&para;</a></h3>
+<p>Resources that can be managed by <em>systemd</em> are known as <em>units</em>. In particular, software that will be run in the background on systemd Linux is encapsulated as a <em>service unit</em>. </p>
+<h2 id="systemctl-is-the-answer"><code>systemctl</code> is the Answer<a class="headerlink" href="#systemctl-is-the-answer" title="Permanent link">&para;</a></h2></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>Copyright &copy; 2020 Clinton Campbell</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
