@@ -355,7 +355,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#working-with-dummy-interfaces-in-networkd" class="nav-link">Working with Dummy Interfaces in Networkd</a>
+            <li class="nav-item" data-level="1"><a href="#working-with-dummy-interfaces-in-networkd" class="nav-link">Working with Dummy Interfaces in networkd</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-level="2"><a href="#creating-the-interface" class="nav-link">Creating the Interface</a>
               <ul class="nav flex-column">
@@ -368,7 +368,7 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="working-with-dummy-interfaces-in-networkd">Working with Dummy Interfaces in Networkd<a class="headerlink" href="#working-with-dummy-interfaces-in-networkd" title="Permanent link">&para;</a></h1>
+<h1 id="working-with-dummy-interfaces-in-networkd">Working with Dummy Interfaces in networkd<a class="headerlink" href="#working-with-dummy-interfaces-in-networkd" title="Permanent link">&para;</a></h1>
 <p>Dummys are functionally identical to loopbacks <a href="/resources/loopback-interfaces">(read more)</a>, though we're allowed to create more than one. Like a loopback, a dummy interface does not require a physical connection, and the addresses associated with the interface won't go up and down based on link status. A dummy interface can also be configured with one or more IP addresses and other layer-3 settings -- just like a physical interface. Likewise, we can bind daemons and sockets to our loopback/dummy addresses and respond to network requests received at these addresses. </p>
 <p>We will use dummy interfaces to extend our network virtually for the purpose of labs and to provide logical separation between multiple services hosted on a single physical node.</p>
 <h2 id="creating-the-interface">Creating the Interface<a class="headerlink" href="#creating-the-interface" title="Permanent link">&para;</a></h2>
