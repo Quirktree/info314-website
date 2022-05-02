@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="Clinton Campbell">
-        <link rel="canonical" href="https://info314.tcpip.dev/assignments/daemons/">
+        <link rel="canonical" href="https://info314.tcpip.dev/assignments/dns-planning/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Controlling and Monitoring Daemons in systemd Linux - INFO 314 Course Resources</title>
+        <title>Dns planning - INFO 314 Course Resources</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -353,37 +353,40 @@
     
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
-            
-            <li class="nav-item" data-level="1"><a href="#controlling-and-monitoring-daemons-in-systemd-linux" class="nav-link">Controlling and Monitoring Daemons in systemd Linux</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#a-word-about-daemons" class="nav-link">A Word About Daemons</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#the-role-of-systemd" class="nav-link">The role of systemd</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#systemctl-is-the-answer" class="nav-link">systemctl is the Answer</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
         </ul>
     </div>
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="controlling-and-monitoring-daemons-in-systemd-linux">Controlling and Monitoring Daemons in systemd Linux<a class="headerlink" href="#controlling-and-monitoring-daemons-in-systemd-linux" title="Permanent link">&para;</a></h1>
-<h2 id="a-word-about-daemons">A Word About Daemons<a class="headerlink" href="#a-word-about-daemons" title="Permanent link">&para;</a></h2>
-<p>The word daemon refers to a type of software run in the background on Linux and other Unix systems. Unlike other applications that computing users interact with throughout the day, daemons are characterized by their user independence. Ordinary users may be aware of the services that daemons frequently provide, but they're not involved in the daily management of these programs. It's perfectly normal for a daemon to start up with the computer and keep running until shutdown (whether or not a user logs in or interacts with the computer).</p>
-<p>As background processes, daemons provide many valuable services -- everything from managing a system's clock to slinging packets through the TCP/IP stack. In fact, the term service is closely related, if not synonomous with daemon (at least in some contexts). In the Windows OS, for example, <a href="https://en.wikipedia.org/wiki/Windows_service"><em>services</em></a> are employed to fill the same role.</p>
-<h2 id="the-role-of-systemd">The role of systemd<a class="headerlink" href="#the-role-of-systemd" title="Permanent link">&para;</a></h2>
-<p>In recent years, the major Linux distributions retooled core system and service management responsibilities around the <em>systemd</em> ecosystem. As such, we rely heavily on the ecosystem and its toolset for most aspects of daemon management. </p>
-<h3 id="service-units">Service Units<a class="headerlink" href="#service-units" title="Permanent link">&para;</a></h3>
-<p>Resources that can be managed by <em>systemd</em> are known as <em>units</em>. In particular, software that will be run in the background on systemd Linux is encapsulated as a <em>service unit</em>. </p>
-<h2 id="systemctl-is-the-answer"><code>systemctl</code> is the Answer<a class="headerlink" href="#systemctl-is-the-answer" title="Permanent link">&para;</a></h2></div>
+<p>Overview
+The objective of this exercise is to use basic knowledge of the Domain Name System (DNS) to define public and private domains for use in upcoming exercises. Follow the attached instructions to determine the organization of your domains according to the given specifications.</p>
+<p>Before you start, review this week's readings and DNS-related resources to understand the structure and constraints of legal domain names as well as the distinction between a hostname, a sub-domain, and a domain. Give consideration as well to DNS resource naming schemes.</p>
+<p>Objective
+For this exercise, you'll select two DNS domains and provide names for resources that would be associated with these domains. </p>
+<p>The first domain that you define will be a public-facing domain. Your public domain is the domain that customers (or in this case, classmates) would use to connect to resources you put on the Internet. </p>
+<p>The second domain we’ll define is for private use only. Our private domain name will be a sub-domain of our public DNS with the restriction that it will only be available on the LAN.
+Private domains are incredibly valuable in business networks, where they are  servers, printers, and other resources without having to keep track of IP addresses or to rely on less secure mechanisms like MDNS.</p>
+<p>Specifications
+All domains created for this assignment must use the .pi TLD, e.g., domain.pi.
+Choose a unique name for your public-facing domain name, making sure to satisfy the appropriate constraints for naming a domain.</p>
+<p>Choose a private-facing sub-domain within your public-facing domain to use for private DNS (DNS within your own intranet). The name of your subdomain does not have to be unique, since it’ll be under the hierarchy of your unique public-facing domain, e.g., corp.domain.pi or lan.domain.pi.
+Define hostnames for important resources within your public and private-facing DNS.
+Each of your two domains will have its own name server. 
+Internally (private-facing), you may refer to your name server with the same hostname that you’ve already assigned your Pi, e.g., titan.corp.domain.pi.
+Externally (public-facing), we typically follow some sort of standardized naming convention for important server roles like our name server, e.g., ns.domain.pi or dns01.domain.pi.
+On your public-facing domain, define additional hostnames for the following resources:
+An SMTP server (mail server) that will receive mail from other domains. Mail servers also tend to follow a standard naming convention, e.g., mail01.domain.pi.
+A webmail server that your users can use to access their inboxes. Pick a user-friendly name that will be easy for users to remember.
+A hostname (web server) that customers would use to find your website. Pick a user-friendly name that will be easy for users to remember.
+Deliverables
+Fill in this provided template  Download this provided templateas guided above. Then with your Linux Networking  GitHub repository you created in the Checkpoints:</p>
+<p>Create a new branch for this assignment using 'git checkout -b dns-planning'
+Add your DNS Planning Excercise Report.md' to your repository folder. Keep it in Markdown (.md) format, don't export it to PDF.
+After adding the files to your repository folder, use 'git add .' to add the files to your commit you will submit
+Commit your added files using 'git commit -m <commit message>'
+Push your new commit using 'git push origin dns-planning'
+Create a new Pull Request for this branch by going to your GitHub repository webpage, selecting the "Pull Requests", selecting "New Pull Request", and selecting your new commit. DO NOT MERGE THE COMMIT INTO MASTER IF ASKED. The pull requests are for us to check over your work before merging it into master.
+Submit the link for the Pull Request via Canvas</p></div>
             </div>
         </div>
 
