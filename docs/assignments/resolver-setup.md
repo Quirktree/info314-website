@@ -48,7 +48,7 @@ You will need to make several adjustments to the configuration you created based
 1. Restrict the `acl` to include `localhost` and your own subnet range (CIDR format)
     * If you added `localnets` while following the tutorial, remove it now. This setting would allow the resolver to be accessed on the external (wireless network) as well as your LAN.
     * If you're curious to learn more about this security precaution, read up on **Cache Poisoning Attacks** or hit us up in office hours.
-1. Disable DNSSEC functionality by replacing the configuration line that reads `dnssec-validation auto;` with `dnssec-enable no;`.
+1. Disable DNSSEC functionality by replacing the configuration line that reads `dnssec-validation` from `auto` to `no`.
     * Disabling DNSSEC is necessary due to the limitations of using a Pi versus an always on network server.
     * Specifically, the inability of the Pi to maintain accurate time when it is powered off interferes with the verification process for DNSSEC cryptographic signatures
 

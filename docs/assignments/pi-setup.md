@@ -1,27 +1,36 @@
-# Raspberry Pi Setup Guide (2020-01-14)
+# Raspberry Pi Setup Guide (2022-03-29)
 ## Overview 
 
-This guide will walk you through the steps necessary to install Raspbian on your Pi and connect it to Wifi. While we encourage you to search online and use other resources when you encounter questions, it's important that you follow our instructions closely. Though there are many different guides that can help you accomplish the same objectives, this guide has been built based on the needs and requirements of our projects and introduces you to tools you will need throughout the quarter.
+This guide will walk you through the steps necessary to install Raspberry Pi OS on your Pi and connect it to Wifi. While we encourage you to search online and use other resources when you encounter questions, it's important that you follow our instructions closely. Though there are many different guides that can help you accomplish the same objectives, this guide has been built based on the needs and requirements of our projects and introduces you to tools you will need throughout the quarter.
 
 The core sections of this guide will walk you through the following steps:
 
-1. Installing Raspbian on a MicroSD and enabling SSH
-2. Updating defaults and other preliminary setup steps
-3. Configuring a wifi connection
-4. Updating Raspbian and installing additional packages with `apt`
+1. Install the Raspberry Pi OS on a microSD
+1. Enable SSH for _headless_ management
+1. Set locale and other base configuration
+1. Configure wifi connections
+1. Update Raspberry Pi OS and installing additional packages with `apt`
+
+To complete these steps, you will need all of the following items:
+
+1. Computer running a recent desktop OS, such as: macOS 11+, Windows 10+, or a desktop Linux distribution
+1. Ethernet network interface (built-in or USB adapter)
+1. Media card reader supporting microSD (built-in or USB adapter)
+1. Unused 8GB+ microSD card (you may repurpose an existing card, but be aware that all contents will be wiped)
 
 Before you start setting up your Pi, please review the tasks in the following section. These steps are particularly important for students running Windows and Linux.
 
 ## Before you start
-### Everyone
-Download and install **Etcher** from https://etcher.io. Etcher is among the easiest options for writing a Pi OS image to a microSD.
 
 ### Windows Users
-#### Terminal
-Except when otherwise noted, I recommend that Windows users complete all Linux networking exercises within Windows PowerShell rather than Git Bash or the Command Prompt.
 
-!!! info Recommendation
-    For a much improved working experience, you should download the new __Windows Terminal__ application. This app is available in the __Microsoft Store__ or from https://github.com/microsoft/terminal/releases. By default, the terminal will run PowerShell, but it also supports Command Prompt and Windows Subsystem for Linux. 
+#### Enable the built-in OpenSSH Client
+All current versions of Windows 10 and 11 ship with an OpenSSH client, though the feature may be disabled by default. Follow the instructions here to enable this feature.
+
+1. Navigate to _Settings_ -> _Apps_ -> _Optional features_
+1. Click on _Add an optional feature_
+1. Enter _OpenSSH_ and select the _OpenSSH Client_
+1. Click next to install
 
 #### Text Editor
 Among the many subtle differences between Windows and Unix-based machines is a difference in the control characters used to terminate lines in text files. In many cases, this difference will prevent Linux from parsing a file you've written and copied from Windows.
@@ -31,46 +40,37 @@ To avoid this issue, install a code-oriented text editor that can be configured 
 To configure __VS Code__ to use Unix-style line endings:
 
 1. Open Settings
-2. Search for the term “Eol”
-3. Change the default End-of-Line character to _\n_
+1. Search for the term “Eol”
+1. Change the default end of line character to _\n_
 
 To configure __Atom__ to use Unix-style line endings:
 
 1. Open Settings
-2. Navigate to Packages / Line Ending Selector
-3. Change the _Default line ending_ to _LF_
+1. Navigate to Packages / Line Ending Selector
+1. Change the _Default line ending_ to _LF_
 
-#### Verify Support for mDNS
-Please check the full version of Windows that you have installed by running `Get-ComputerInfo -Property Windows*` in a PowerShell console. After a moment, you'll receive a message describing your current Windows installation (as illustrated below). 
+#### Terminal
+Except when otherwise noted, I recommend that Windows users complete all Linux networking exercises within Windows PowerShell rather than Git Bash or the Command Prompt.
 
-```
-WindowsBuildLabEx              : 17763.1.amd64fre.rs5_release.180914-1434
-WindowsCurrentVersion          : 6.3
-WindowsEditionId               : Professional
-WindowsInstallationType        : Client
-WindowsInstallDateFromRegistry : 1/10/2019 8:10:04 AM
-WindowsProductId               : 00330-80000-00000-AA819
-WindowsProductName             : Windows 10 Pro
-WindowsRegisteredOrganization  :
-WindowsRegisteredOwner         : clementine
-WindowsSystemRoot              : C:\WINDOWS
-WindowsVersion                 : 1809
-```
-
-If the system reports that you are on Windows 10 and that the `WindowsVerion` is `1809` or newer, you are ready to proceed with main tutorial. Otherwise, you will need to upgrade Windows to a supported version.
+!!! info Recommendation
+    For a much improved working experience, you should use the new __Windows Terminal__ application. Terminal is available in the __Microsoft Store__ for Windows 10 users and it is shipped pre-installed with Windows 11.
+    
+    By default, the terminal will run PowerShell, but it also supports Command Prompt and Windows Subsystem for Linux. 
 
 ### Linux Users
 Using your default package manager (likely `yum` or `apt`), confirm that __Avahi mDNS__ services are installed (mDNS is typically part of the default distribution).
 
-## Install Raspbian
-The Raspberry Pi is built with Linux distributions in mind. The official distribution, which we'll use in our labs is known as __Raspbian__ and is based on Debian Linux. If you're familiar at all with Ubuntu, you should be mostly at home working in Raspbian. Don't worry if Linux is not your jam. We'll provide plenty of guidance so that you can focus your energy on the network concepts.
+## Install Raspberry Pi OS
+The Raspberry Pi is a single-board computer built with Linux distributions in mind. The official operating system, which we'll use in our labs is known as __Raspberry Pi OS__ and is based on Debian Linux. If you're familiar with Ubuntu or Arch Linux, you should be mostly at home working in Raspberry Pi OS. Don't worry if Linux is not your jam. We'll provide plenty of guidance so that you can focus your energy on network concepts.
 
-### Write Raspbian to MicroSD
-Download a current image of Raspbian from http://www.raspberrypi.org/downloads. 
+### Write Raspberry Pi OS to MicroSD
 
-We will use __Raspbian Buster Lite__ for this course. This version of Raspbian is headless, meaning that it does not include a desktop environment. We’ll leverage SSH to do all of our configuration through the CLI.
+1. Download the Raspberry Pi Imager from https://www.raspberrypi.com/software/ and launch the software
+1. Click the button labeled _CHOOSE OS_
+1. Select __Raspberry Pi OS (other)__ and scroll down to find __Raspberry Pi OS Lite (64-bit)__
+1. Insert a microSD card into your card reader and proceed with the install.
 
-Use __[Etcher](#before-you-start)__ to write the image you've downloaded to a microSD. Be aware that this process will overwrite any data that was already stored on the card. 
+Unlike the full version of the operating system, __Raspberry Pi OS Lite__ is completely text-based and is well-suited for _headless_ operation. There isn't a graphical desktop environment, but you won't need it. All of projects in this course will be completed in a remote command-line interface (CLI).
 
 ### Update Configuration
 Etcher will eject the microSD once the image is completely rewritten. We want to edit some files on the SD, so you will need to briefly remove the card before inserting it again.
@@ -80,60 +80,64 @@ On macOS or Windows, you'll be limited to accessing the boot partition of the ca
 You must complete the following step before the first boot.
 
 #### Enable SSH
-Due to security considerations, the newest versions of Raspian disable SSH by default, but it's easy to turn the feature on so that we can use it for initial setup. 
+Due to security considerations, the newest versions of Raspian disable SSH by default, but it's easy to turn the feature on so that we can connect to the Pi without requiring a monitor and keyboard.
 
-To enable SSH on the first boot, add an empty file named ssh to the boot volume. Instructions will vary slightly between macOS and Windows:
+To enable SSH on the first boot, add an empty file named ssh to the boot volume. There are many ways to create this file. If you want to use the command-line, follow the instructions below (macOS and Windows):
 
-```bash tab="macOS"
-# Unix-based systems mount external storage to a path in the directory tree. For a freshly written Raspbian image, this path will be /Volumes/boot.
 
-touch /Volumes/boot/ssh
-```
+=== "macOS"
+    ``` shell-session
+    # Unix-based systems mount external storage to a path in the directory tree. For a freshly written Raspberry Pi OS image, this path will be /Volumes/boot.
 
-```powershell tab="Windows"
-# Windows mounts external storage to a drive letter. Replace E: with the letter assigned on your system.
+    touch /Volumes/boot/ssh
+    ```
+=== "Windows"
+    ```pwsh-session
+    # Windows mounts external storage to a drive letter. Replace E: with the letter assigned on your system.
 
-New-Item -type File E:\ssh
-```
+    New-Item -type File E:\ssh
+    ```
 
-Raspbian will check for this file during the first startup and proceed to configure the SSH _daemon_ to start automatically. The term daemon, by the way, is the name Unix operating systems use to describe a service that runs in the background (e.g., to respond to network requests). 
+Raspberry Pi OS checks for /boot/ssh during startup. When present, the OS enables the OpenSSH _daemon_ and deletes the file. 
+
+!!! information
+    _Daemon_ is a computing term used to describe software that runs in the background, e.g., to provide a service for network-based clients. The term is most commonly associated with Unix-flavored operating systems.
 
 ## Initial Boot
 It's time to boot the Pi for the first time. Close your editor and any windows that are open to the microSD so that you can eject the card gracefully from your OS. 
 
-- Remove the microSD and insert into the card slot on your Pi.
-- Connect power to the designated micro-USB port.
-- Attach to your computer with an Ethernet cable and get ready to launch an SSH connection.
-- From terminal or PowerShell, connect to the Pi for the first time by running the following command:
+1. Remove the microSD and insert into the card slot on your Pi.
+1. Connect power to the designated micro-USB port.
+1. Attach to your computer with an Ethernet cable and get ready to launch an SSH connection.
+1. From terminal or PowerShell, connect to the Pi for the first time by running the following command:
 
 ```bash
 # The default password for pi is raspberry
 ssh pi@raspberrypi.local
 ```
 
-This command directs your local SSH client to connect to a network host named `raspberrypi.local` with the username `pi`. 
+This command directs your local SSH client to connect to a network host named `raspberrypi.local` with the username `pi`. Since you haven't connected to this device before, SSH should ask you to accept the connection of an unknown device before presenting you with a password prompt. 
 
-Using the mDNS service, your computer will resolve the hostname to an IP address SSH will ask you to accept the connection of an unknown device before presenting you with a password prompt. 
+!!! information
+    Before the SSH client can initiate it's connection to the Pi, it must find the IP address associated with _raspberrypi.local_. This process is called resolution and will be completed using a protocol known as multicast DNS (mDNS). 
 
-```
+``` bash-session
 $ ssh pi@raspberrypi.local
 The authenticity of host 'raspberrypi.local (fe80::1b9c:bcf2:acd6:bbbe%42)' can't be established.
 ECDSA key fingerprint is SHA256:QqhpMybvctuIxV03xcnlANU3cxWM1JhvSYxloSd69Rw.
 Are you sure you want to continue connecting (yes/no)?
 ```
 
-If you've previously connected to a host with the name `raspberrypi.local`, you may also see the warning shown below (please refer to the troubleshooting section to resolve this error):
+If you had previously connected to a different host with the name `raspberrypi.local`, you may also see the warning shown below (please refer to the troubleshooting section to resolve this error):
 
 <div class="local">
-```
+``` text
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
 ```
 </div>
-
-If you are running Windows and receive a message that Windows cannot resolve the name `raspberrypi.local`, please refer to the instructions at the top of this guide.
 
 After confirming the prompt shown above, you will see another short message followed by a password prompt.
 
@@ -145,7 +149,7 @@ pi@raspberrypi.local's password:
 The default password for the `pi` user is `raspberry`. Once login is complete, you should be greeted with a message similar to that shown here.
 
 
-```
+``` bash-session
 Linux raspberrypi 4.14.79-v7+ #1159 SMP Sun Nov 4 17:50:20 GMT 2018 armv7l
 
 The programs included with the Debian GNU/Linux system are free software;
@@ -180,23 +184,23 @@ Before proceeding further with setup, you should change the default password by 
 
 ### Default Configuration
 
-After you complete this step, I also recommend the following changes on every new Linux device:
+Several additional steps are required to prepare your Pi for future projects. While some of these steps may not seem essential, omitting them might pose consequences when trying to troubleshoot problems later in the course. 
 
 Setting the timezone will ensure that log messages are displayed in local time, which is quite helpful for troubleshooting.
 
-``` 
+``` bash-session
 # You can see a list of timezones by running `timedatectl list-timezones`
 sudo timedatectl set-timezone America/Los_Angeles
 ```
 
-Raspbian defaults to a British locale. This can cause issues if we ever need to troubleshoot your device using an external keyboard. Configure the locale and keymap to prevent these issues.
+Raspberry Pi OS defaults to a British locale. This can cause issues if we ever need to troubleshoot your device using an external keyboard. Configure the locale and keymap to prevent these issues.
 
-```
+``` bash-session
 # Update /etc/locale.gen with your preferences
 sudo nano /etc/locale.gen # Find and uncomment the en_US.UTF-8 locale 
 
 # Re-generate locale information after updating the locale.gen file
-sudo locale-gen
+sudo locale-gen 
 
 # Apply new settings
 sudo localectl set-locale "LANG=en_US.UTF-8"
@@ -205,7 +209,7 @@ sudo localectl set-keymap us
 
 Occasionally we'll end up running a program that uses the default editor settings for your profile (or root if we have run the program with _sudo_). It's helpful to have these configured so that you don't end up stuck in _vi_ or _ed_ without any way to exit.
 
-```
+``` bash-session
 # Update default editor selections for the pi user
 select-editor
 
@@ -213,19 +217,30 @@ select-editor
 sudo select-editor
 ```
 
+### Retain Logs Between Boots
+In recent versions of Raspberry Pi OS, system logs are collected by the **journald** service. In the default configuration, logs are not retained between reboots of your Pi.
+
+To ensure that logs are available when you need to debug, you can enable log retention by running the following commands.
+
+``` bash-session
+# Create the location for persistent log messages
+sudo mkdir -p /var/log/journal
+sudo systemd-tmpfiles --create --prefix /var/log/journal
+```
+
 ### Update Hostname
 At first boot, we could locate our Pi on the network based on the default hostname of **raspberrypi.local**. This is fine in an isolated, point-to-point network, but it's a problem when we connect to shared networks. 
 
 Use the `hostnamectl` command to set a _unique_ name for your device.
 
-```bash
+``` bash-session
 # This little pi likes to be called Titan
 sudo hostnamectl set-hostname titan
 ```
 
 The main change that **hostnamectl** makes is visible in `/etc/hostname`. We also need to update references to the hostname in `/etc/hosts`. The **hosts file** is present on most Operating Systems and provides a way of defining hostname/IP address associations without relying on DNS. Linux uses this file to associate your hostname to the loopback IP address.
 
-```bash
+``` bash-session
 # Confirm your hostname is up to date in /etc/hostname
 cat /etc/hostname
 
@@ -239,11 +254,11 @@ sudo nano /etc/hosts
 In order for the _hostname_ changes to take full effect, reboot your pi by calling `sudo reboot now`. After 20 - 30 seconds your pi will be visible with the new name -- you will need to include the `.local` suffix on any command referencing the name.
 
 ??? example
-    ```bash
-    # ping by MDNS hostname
+    ``` bash-session
+    # ping by mDNS hostname
     ping titan.local
 
-    # ssh by MDNS hostname
+    # ssh by mDNS hostname
     ssh pi@titan.local
     ```
 
@@ -257,7 +272,7 @@ To prepare the Raspberry Pi, we need to create a remote directory under the `pi`
 
 With the directory in place, copy your public key (most likely `~/.ssh/id_ed25519.pub`) to the pi using the `scp` command.
 
-```bash
+``` bash-session
 scp $HOME/.ssh/id_ed25519.pub pi@raspberrypi.local:.ssh/authorized_keys
 ```
 
@@ -269,62 +284,90 @@ scp $HOME/.ssh/id_ed25519.pub pi@raspberrypi.local:.ssh/authorized_keys
 
 ## Connect to Wifi
 ---
-To complete this guide, you will need to establish Internet connectivity for your Pi. Since the Pi 3 has integrated wireless capabilities, we can solve the problem by connecting to local wifi. 
+To complete this guide, you will need to establish Internet connectivity for your Pi. Since the Pi 4 has integrated wireless capabilities, we can solve the problem by connecting to local wifi.
+
+### Set the Wireless Network Locale
+Wireless networks operate in radio frequency (RF) ranges that are subject to regulation in the geographic region that the network is operated. Before turning on the wireless features of your Raspberry Pi, set the regulatory domain to the United States.
+
+There are several ways to modify wireless settings on your Pi. For now, we'll use the `wpa_cli` command to interactively modify the settings. 
+
+``` bash-session
+# Launch wpa_cli interactively
+wpa_cli -i wlan0
+
+# Enter the following commands at the wpa_cli prompt
+
+get country 
+# Returns two letter code for current setting regulatory domain
+
+set country US
+# Returns OK
+
+save_config
+# Returns OK
+
+quit
+```
+
+### Enable the Wireless Interface
+Recent versions of the operating system use a system feature named __[rfkill](https://01.org/linuxgraphics/gfx-docs/drm/driver-api/rfkill.html#rfkill-rf-kill-switch-support)__ to disable the WiFi radio by default. Before you can connect to any networks, you'll need to remove this block.
+
+``` bash-session
+sudo rfkill unblock wlan
+```
 
 ### Configure the WPA Supplicant
-Wireless settings for the Pi are controlled by a service called _wpa_supplicant_, which stores network connection settings inside `/etc/wpa_supplicant/wpa_supplicant.conf`. You can edit this directly on the Pi using the nano text editor (or vi for the daring). Alternatively, you can create the file on your local system and copy it into place on the Pi.
+Wireless settings for the Pi are controlled by a service called _wpa_supplicant_, which stores network connection settings inside `/etc/wpa_supplicant/wpa_supplicant.conf`. You already saw an example of modifying these settings through `wpa_cli`. For the following task, I recommend that you edit the file directly in a text editor of your choice.
 
-For this project, you must configure a connection to the Eduroam network. It's also a good idea at this time to configure connections to your home network.
+Before you make any changes, take a look at the default configuration by running `sudo cat /etc/wpa_supplicant/wpa_supplicant.conf` (sudo is required since this file is only readable to root). You should see something like this:
+  
+``` text
+country=US
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+```
 
-!!! warning 
-    **Do not associate your Pi with *University of Washington* unless given direct instructions to do so. Because the network requires a browser-based login, it has been a major source of trouble for former students.**
+If you are editing the file on your own computer, paste these lines at the top of the file and add the rest of your changes below them. You will be adding a network definition for each WLAN that you want to use. Detailed configuration instructions are available in [WPA Supplicant Configuration Reference](/resources/wifi-reference/){target=_blank}.
 
-Begin your `wpa_supplicant.conf` file with the following lines. 
+For this project, use the configuration reference to set up the following networks:
 
-!!! example    
-    ```
-    country=US
-    ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-    update_config=1
+1. [Eduroam (w/ Certificate Based Authentication)](/resources/wifi-reference/#wpa2-enterprise-networks){target=_blank}
+1. [(Optional) UW MPSK Network](/resources/wifi-reference/#wpa2-personal-networks){target=_blank}
+    - [Requires Device Registration](/resources/uw-wireless/#uw-mpsk-network-onboarding){target=_blank}
+1. [(Optional) Home Network](/resources/wifi-reference/#wpa2-personal-networks){target=_blank}
 
-    # INSERT WPA2 ENTERPRISE CONFIG FOR EDUROAM
-    ```
+### Testing Wireless Connections
+When you are finished updating `wpa_supplicant.conf` reconfigure the wireless interface by calling `wpa_cli -i wlan0 reconfigure`. The command should return `OK` after a few seconds. Check that you are attached to the wireless network by calling `wpa_cli -i wlan0 status`.
 
-Afterwards add one or more network blocks (**including a connection to `Eduroam`**). If you are new to this, there are detailed configuration instructions on how to add network blocks are available in [WPA Supplicant Configuration Reference](/resources/wifi-reference/).
+!!! information
+    You previously ran the _wpa_cli_ tool in interactive mode. The instructions above pass individual commands and return you directly to the Linux command prompt. This method is quick and convenient, but if you run into problems, interactive mode will provide the most information for debugging purposes.
 
-When you are finished updating `wpa_supplicant.conf` reconfigure the wireless interface by calling `wpa_cli -i wlan0 reconfigure`. The command should return `OK` after a few seconds. Check that you are attached to the wireless network  by calling `wpa_cli -i wlan0 status`.
-
-??? example "Example of what `wlan0 status` should print"
-    ```
+??? example "Example of a successful connection"
+    ``` text
     wpa_cli -i wlan0 status
 
-    bssid=ac:a3:1e:eb:53:c1
-    freq=2462
-    ssid=eduroam
-    id=0
-    mode=station
-    pairwise_cipher=CCMP
-    group_cipher=CCMP
-    key_mgmt=WPA2/IEEE 802.1X/EAP
-    wpa_state=COMPLETED
-    ip_address=10.18.185.176
-    p2p_device_address=fa:f8:ee:8c:fe:62
-    address=b8:27:eb:db:fe:93
-    Supplicant PAE state=AUTHENTICATED
-    suppPortStatus=Authorized
-    EAP state=SUCCESS
-    selectedMethod=25 (EAP-PEAP)
-    EAP TLS cipher=ECDHE-RSA-AES256-GCM-SHA384
-    tls_session_reused=0
-    EAP-PEAPv0 Phase2 method=MSCHAPV2
-    eap_session_id=19865aef996591ffbd01643fbcf1b5111ef04dd3ed4f3387752c8cc0cf3b8c88b95c40bfc4915b284b3b91f60f5cb71074baaf1360d39f7a91530143dcb3c8e4ce
-    uuid=c4adf7c1-f863-5192-8179-f5d1d2e27fd7
+    <3>Trying to associate with SSID 'eduroam'
+    <3>Associated with 1c:28:af:07:55:31
+    <3>CTRL-EVENT-EAP-STARTED EAP authentication started
+    <3>CTRL-EVENT-EAP-STATUS status='started' parameter=''
+    <3>CTRL-EVENT-SUBNET-STATUS-UPDATE status=0
+    <3>CTRL-EVENT-EAP-PROPOSED-METHOD vendor=0 method=13
+    <3>CTRL-EVENT-EAP-STATUS status='accept proposed method' parameter='TLS'
+    <3>CTRL-EVENT-EAP-METHOD EAP vendor 0 method 13 (TLS) selected
+    <3>CTRL-EVENT-EAP-PEER-CERT depth=2 subject='/C=US/ST=New Jersey/L=Jersey City/O=The USERTRUST Network/CN=USERTrust RSA Certification Authority' hash=e793c9b02fd8aa13e21c31228accb08119643b749c898964b1746d46c3d4cbd2
+    <3>CTRL-EVENT-EAP-PEER-CERT depth=2 subject='/C=US/ST=New Jersey/L=Jersey City/O=The USERTRUST Network/CN=USERTrust RSA Certification Authority' cert=308205de308203c6a003020102021001fd6d30fca3ca51a81bbc640e35032d300d06092a864886f70d01010c0500308188310b3009060355040613025553311330110603550408130a4e6577204a6572736579311430120603550407130b4a65727365792043697479311e301c060355040a131554686520555345525452555354204e6574776f726b312e302c06035504031325555345525472757374205253412043657274696669636174696f6e20417574686f72697479301e170d3130303230313030303030305a170d3338303131383233353935395a308188310b3009060355040613025553311330110603550408130a4e6577204a657273657931...
+    <3>CTRL-EVENT-EAP-PEER-ALT depth=0 DNS:radius.uw.edu
+    <3>CTRL-EVENT-EAP-PEER-ALT depth=0 DNS:radius.washington.edu
+    <3>CTRL-EVENT-EAP-STATUS status='remote certificate verification' parameter='success'
+    <3>CTRL-EVENT-EAP-STATUS status='completion' parameter='success'
+    <3>CTRL-EVENT-EAP-SUCCESS EAP authentication completed successfully
+    <3>CTRL-EVENT-CONNECTED - Connection to 1c:28:af:07:55:31 completed [id=0 id_str=]
     ```
 
-### Testing and Troubleshooting
+### Verify Connection
 In addition to `wpa_cli`, there are several tools that can be used to check the current state of your wireless interface and determine whether it has received a valid configuration from DHCP.
 
-```bash
+``` bash-session
 # Show the current state of the wlan0 interface
 ip link show wlan0
 
@@ -342,18 +385,13 @@ ip addr show wlan0
        valid_lft forever preferred_lft forever
 ```
 
-
-<br>
-<br>
-
-
 ## Update Software Packages
 ---
-Let's finalize the initial setup by checking for updates to Raspbian and its default packages (this can take a few minutes on slow networks).
+Let's finalize the initial setup by checking for updates to Raspberry Pi OS and its default packages (this can take a few minutes on slow networks).
 
-As a Debian based Linux distribution, Raspbian relies on `apt` for package management. The `apt update` command is used to determine whether there are new packages to download.
+As a Debian based Linux distribution, Raspberry Pi OS relies on `apt` for package management. The `apt update` command is used to determine whether there are new packages to download.
 
-```bash
+``` bash-session
 sudo apt update
 sudo apt upgrade
 sudo apt dist-upgrade
@@ -383,34 +421,43 @@ Wait about 15 - 20 seconds to allow the Pi to complete it’s shutdown process b
 ---
 
 ### Can't find raspberrypi.local
+If you can't make an initial connection to the Raspberry Pi, verify the following requirements were satisfied:
 
-To make an initial connection with the Raspberry Pi, you need 
+- Raspberry Pi OS has been successfully written to microSD card
+    - Test again with a known good SD card
+- [OpenSSH daemon was enabled](#enable-ssh) before booting the Pi[^ssh_gone]
+- Physical connection is healthy
+    - Make sure that both ends of the cable are completely inserted
+    - Try an alternate cable, or test the cable with another device
+- Network interface is functional
+    - Check for link lights on both network interfaces
+    - Verify that your network adapter is visible to the OS
+    - Determine whether your network adapter requires [drivers](#missing-network-drivers)
+- Network interface is assigned a [link local address](#link-local-addresses)
+- Current system configuration supports [multicast DNS (mDNS)](#multicast-dns)
 
-#### Check Network Adapters
-If you are confident that you will need to check the configuration of the Ethernet port or USB device on your local computer. 
-
-Run `ipconfig` on Windows or `ifconfig` on other devices to confirm that the interface registers a network connection. The local IPv4 address for this interface should begin with `169.254.x.x` (link-local address range). If you do not see a valid connection, you may need to review the next section on missing drivers.
-
-**Linux** Most devices will assign a Link-Local address by default when DHCP cannot be found, but some versions of Linux, e.g., Ubuntu require you to choose between link-local addressing and DHCP. If you are on Ubuntu, explore your advanced adapter settings for Ethernet to configure your adapter settings.
-
-#### MDNS
-
-**Windows** Make sure that you are on the latest version of Windows 10. Though mDNS is now a draft standard, Microsoft did not include a full client until the most recent versions of Windows 10 (confirmed on 1809). Support for MDNS prior to Windows 10 depends on Bonjour Print Services, an MDNS client distributed by Apple and previously bundled with iTunes and various other applications. 
-
-!!! warning "Bonjour-related Conflicts"
-    While Bonjour was a useful tool on older versions of Windows, we suspect that it causes conflicts on versions 1803+. You can determine whether Bonjour is installed and remove it through Settings or Control Panel. 
-
-**Linux** Linux relies on the Avahi daemon to query/respond to MDNS. Review the requirements at the [beginning of this guide](#verify-support-for-mdns).
+[^ssh_gone] Raspberry Pi OS will remove the /boot/ssh file after enabling the service. You do not need to restore the file if you find that it has disappeared.
 
 #### Missing Network Drivers
-If you are using a USB Ethernet port for the first time on your computer, it's possible that your first attempt to connect will be unsuccessful. 
+If you are using a USB Ethernet port for the first time on your computer, it's possible that your first attempt to connect will be unsuccessful. Some issues are resolved simply by disconnecting the USB briefly and trying to connect again after you have plugged everything back in. 
 
-Many of these issues are resolved by disconnecting the USB briefly and trying after you have plugged everything back in. If issues persist, search online to determine whether your computer is missing a driver needed for the specific model of Ethernet adapter.
+If your issues persist, check the manufacturer's support page or search to determine whether your computer needs additional drivers for the specific model of Ethernet adapter. If drivers are necessary, they will usually be available from the manufacturer's website.
+
+#### Link Local Addresses
+Run `ipconfig` on Windows or `ifconfig` on other devices to confirm that the interface registers a network connection. The local IPv4 address for this interface should begin with `169.254.x.x` (link-local address range). Most devices will assign this type of address automatically if a DHCP cannot be found.
+
+**Linux** Some versions of Linux, e.g., Ubuntu, require you to choose between link-local addressing and DHCP. Explore your advanced adapter settings for Ethernet to change the adapter settings.
+
+#### Multicast DNS
+
+**Windows** Make sure that you are on a recent build of Windows 10 or Windows 11. Though mDNS is now a draft standard, Microsoft did not include a full client until late 2018. Support for mDNS on earlier versions of Windows relied on the Bonjour Print Services software that was once distributed by Apple in conjunction with iTunes and various other applications. 
+
+**Linux** Desktop Linux distributions often support mDNS resolution using the Avahi daemon. Review the requirements at the [beginning of this guide](#verify-support-for-mdns).
 
 ### SSH Connection Warning 
 At some point, you are likely to receive the following warning when trying to launch `ssh`. In most cases, what you are seeing is expected behavior. 
 
-```
+``` text
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -426,7 +473,12 @@ Since this is not an attack scenario, resolve the conflict with `ssh-keygen -R r
 !!! bug "Missing features in Windows SSH"
     The `ssh-keygen -R` feature isn't present before Windows 10 1809. If you are still running an older version of Windows, you will have to locate `known_hosts` within the `.ssh` configuration directory and remove the line indicated by the warning message.
 
+### Wireless Network is Disabled
+
+Check the state of your wireless network interface using the `rfkill list`. If a soft-block is listed for `wlan0`, it's likely that you skipped one or more previous steps. Double-check your [wireless locale](#set-the-wireless-network-locale) and use rfkill to [enable your interface](#enable-the-wireless-interface). 
+
 ### Permission Denied Errors
+
 When we're performing system and network administration, we are often in need of **root** privileges. Running an administrative command without the appropriate privileges will result in a permissions-related error.
 
 By default, the **pi** user is restricted in which parts of the system it can read and modify (Linux is heavily user-based in it's permissions model); however, the user is permitted to elevate itself to the admin level with `sudo` when it is necessary to perform privileged commands.

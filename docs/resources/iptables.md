@@ -1,5 +1,5 @@
-# Introduction to Iptables
-This guide serves the dual purpose of providing an introductino to iptables and using it to build a basic ruleset that routes packets between an internal and external network while also applying NAT to private, internal addresses. You should read the entire guide carefully before attempting to install the template or any of the other tools referenced here.
+# Introduction to Iptables (2022-04-02)
+This guide serves the dual purpose of introducing iptables and using it to build a basic ruleset that routes packets between an internal and external network while also applying NAT to private, internal addresses. You should read the entire guide carefully before attempting to install the template or any of the other tools referenced here.
 
 ## Tables, Chains, and Rule Syntax
 
@@ -46,7 +46,7 @@ When working with rules via the command line, we have to work with rules one at 
 In addition to specifying table and chain, our rules need to describe the criteria associated with packets we want to filter or manipulate. In this exercise, our _primary consideration_ is the _direction of traffic_ for a given packet, which we describe by specifying the ingress and/or egress interface for a given packet. 
 
 !!! attention
-    Throughout the instructions, we'll refer to the internal interface as our **&lt;LAN&gt;** (because it serves our local network) and the external interface as the **&lt;WAN&gt;** (because it connects us to the Internet). Your configuration files will reflect the Raspbian-assigned interface names, such as: **`eth0`** and **`wlan0`**.
+    Throughout the instructions, we'll refer to the internal interface as our **&lt;LAN&gt;** (because it serves our local network) and the external interface as the **&lt;WAN&gt;** (because it connects us to the Internet). Your configuration files will reflect the system assigned interface names, such as: **`eth0`** and **`wlan0`**.
 
     It's up to you to determine, based on your learning so far, which interface corresponds to which placeholder.
 

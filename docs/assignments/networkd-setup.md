@@ -1,8 +1,8 @@
-# Networkd Setup for Raspbian (2020-01-22)
+# Networkd Setup for Raspberry Pi OS (2020-01-22)
 ## Intro to Systemd
 An **init provider** is the first process that is launched on a Linux system. It is responsible for loading other essential services, and it ultimately becomes the parent of every other process on the system. Among the differences between different Linux distributions is the choice of init system.
 
-**systemd** is the initialization (init) provider most often deployed on recent Linux distributions. On Raspbian and other recent Debian-based distros  **systemd** replaces the aging **sysvinit**. We will interact directly with **systemd** in this tutorial by issuing **`systemctl`** commands to start, stop, enable and disable various system-level services.
+**systemd** is the initialization (init) provider most often deployed on recent Linux distributions. On Raspberry Pi OS and other recent Debian-based distros  **systemd** replaces the aging **sysvinit**. We will interact directly with **systemd** in this tutorial by issuing **`systemctl`** commands to start, stop, enable and disable various system-level services.
 
 Beyond its job of launching essential services, **systemd** provides a modular interface to control many parts of the system. We've already interacted with a few of these components when we used **`localectl`**, **`timedatectl`**, and **`hostnamectl`** during the initial setup of the RaspberryPi.
 
@@ -12,27 +12,21 @@ In this tutorial we will leverage three more **systemd** subsystems:
 - __`networkd`__ - Detects and configures network devices and performs various other network management functions.
 - __`resolved`__ - Provides network name resolution and maintains a list of DNS servers (network-based resolvers) to contact based on settings provided by DHCP or **`networkd`** configuration files.
 
-!!! danger "Danger: Risk of _bricking_ your Pi"
-    A typo or other mistake within the core network configuration can result in total loss of network connectivity. If this happens, you will not be able to manage your Pi over SSH. Your only option will be to configure the Pi again from scratch or to troubleshoot using an external HDMI monitor and USB keyboard.
+!!! danger "Attention: Risk of _bricking_ your Pi"
+    A typo or other mistake within the core network configuration can result in total loss of network connectivity, which is required to manage the Pi over ssh.
 
-    _We will not grant extensions for this type of incident._ Before you begin to follow these instructions, make an external copy of critical configs such as **wpa_supplicant** using **`scp`**. We provide [additional tips](#rebuilding-raspbian) for rebuilding at the end of this guide.
+    Before you begin to follow these instructions, make an external copy of critical configs such as **wpa_supplicant** using **`scp`** in case it becomes necessary to rebuild. 
+    
+    If you get locked out during this process, please contact the instructor to determine whether it's possible to reconnect without re-imaging the Pi.
+
 
 ## Systemd vs Default Networking
-By default, Raspbian networking relies on a component called dhcpcd to manage interface settings, addresses, etc. While this component works well for general purpose computing, but it is not a match for every scenario.
+By default, Raspberry Pi OS networking relies on a component called dhcpcd to manage interface settings, addresses, etc. While this component works well for general purpose computing, but it is not a match for every scenario.
 
-The current version of Debian (the base OS for Raspbian) supports **systemd** based network management via the **systemd-networkd** service. Unlike **dhcpcd**, **networkd** is well-suited to managing the base configuration for our router.
+The current version of Debian (the base OS for Raspberry Pi OS) supports **systemd** based network management via the **systemd-networkd** service. Unlike **dhcpcd**, **networkd** is well-suited to managing the base configuration for our router.
 
 ## Enabling Networkd
 We will enable **networkd** in several steps. Try to complete this process in one sitting to avoid "bricking" your Pi (at least making it inaccessible over the network).
-
-### Retain journald logs
-**systemd-networkd** stores its logs in **systemd-journald**. We want **journald** to keep these logs between boots, which we enable by creating the persistent log path.
-
-```bash
-# Create the location for persistent log messages
-sudo mkdir -p /var/log/journal
-sudo systemd-tmpfiles --create --prefix /var/log/journal
-```
 
 ### Configure network interfaces
 To configure the network with **networkd**, we create files in **`/etc/systemd/network/`** that match named network interfaces and define our desired settings settings. Create the following **`.network`** files to handle the default settings for wired and wireless interfaces. Enabling link local addresses is a critical component of these default configurations so that you can still communicate with the Pi when DHCP is not available.
@@ -76,13 +70,13 @@ DHCP=ipv4
 
 ### Disable default networking
 
-!!! tip "Tip: Backup new configuration before proceeding"
+!!! tip "Tip: Backup configuration before proceeding"
         If you've made any mistakes, you may lose access to your Pi after performing the following steps. 
         
         Make an offline backup **before** you proceed by copying files to your local system with **`scp`**.
 
 ```
-# Disable default Raspbian networking
+# Disable default Raspberry Pi OS networking
 sudo systemctl mask dhcpcd.service
 
 # Disable legacy Debian networking
@@ -95,7 +89,7 @@ sudo nano /etc/resolvconf.conf
 
 ### Enable systemd network services
 ```
-# Enable systemd-networkd to replace Raspbian and Debian networking
+# Enable systemd-networkd to replace Raspberry Pi OS and Debian networking
 sudo systemctl enable systemd-networkd
 
 # Enable systemd-resolved to replace the resolvconf service
@@ -109,9 +103,8 @@ DNS resolvers for Linux are loaded from the **`/etc/resolv.conf`**. Rather than 
 sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
 ```
 
-
-### Modify Wireless Startup
-Our original setup was driven by assumptions about **dhcpcd**. Before we reboot, we'll make a few brief changes to manage **wpa_supplicant** on an interface-by-interface basis. 
+### Update Wireless Service
+In order for **wpa_supplicant** to work correctly with **networkd**, one further change is needed. In our original configuration, we created a system-wide configuration file for wireless. This setup works just fine with the default networking setup, especially since the Pi is only equipped with one wireless interface by default. For **networkd** to work properly with **wpa_supplicant**, we need to attach our configuration directly to the **wlan0** interface as shown below.
 
 ```
 # Rename configuration as a per-interface file
@@ -120,7 +113,7 @@ sudo mv /etc/wpa_supplicant/wpa_supplicant.conf /etc/wpa_supplicant/wpa_supplica
 # Enable the wpa_supplicant service specifically for wlan0
 sudo systemctl enable wpa_supplicant@wlan0
 
-# Disable the non-interface specific service
+# Disable the system-wide service
 sudo systemctl disable wpa_supplicant
 ```
 
@@ -152,23 +145,28 @@ journalctl -u systemd-networkd
 # Show resolved messages
 journalctl -u systemd-resolved
 
-# Show wpa_supplicant messages for wlan0
-journalctl -u wpa_supplicant@wlan0
-
-# Load journal from a file path
-journalctl -D /PATH/TO/JOURNAL_FILE
+# Show wpa_supplicant messages
+journalctl -u wpa_supplicant
 
 # Learn more about journald
 man journalctl
 ```
 
 ### Accessing a Bricked Pi
-If you made a mistake at the wrong point in the previous process, you may not even be able to connect anymore from the network. The only way to debug at this point will be to attach a keyboard/monitor to the Pi or to mount the memory card from another Linux machine or VM.
+If you made a mistake at the wrong point in the previous process, you may not even be able to connect anymore from the network. 
 
-### Rebuilding Raspbian
-Alternatively, you may opt to reflash your memory card and repeat initial setup. If you find yourself in this position, the following recommendations will simplify the process:
+If this happens, there are several ways to restore access:
+- Contact instructor for a repair script. Raspberry Pi OS provides a mechanism to run a script during the boot process. You will need access to a microSD reader/writer in order to add the script into the boot folder.
+- Connect a USB keyboard and HDMI monitor to the Pi in order to debug directly. You will need a micro-HDMI adapter. Most flat-screen TV's can be used as a monitor for this purpose.
+- Use a serial console cable to access the Pi command line directly. Come to office hours or contact instructor for this option.
+- Mount the SD card using a Linux virtual machine and repair the broken config files directly.
 
-1. Copy a fully configured **`wpa_supplicant.conf`** to the **`boot`** volume of the memory card before the first boot. Raspbian will move the file to the proper location in **`/etc/wpa_supplicant`** and set its permissions on the first boot.
+### Rebuilding Raspberry Pi OS
+Alternatively, you may opt to reflash your memory card and repeat initial setup. Contact the instructor before proceeding. 
+
+If you find yourself in this position, the following recommendations will simplify the process:
+
+1. Copy a fully configured **`wpa_supplicant.conf`** to the **`boot`** volume of the memory card before the first boot. The boot process will move the file to the proper location in **`/etc/wpa_supplicant`** and set its permissions on the first boot.
 2. Remove the previous server key hash from **`.ssh/known_hosts`** to prevent **`ssh`** from complaining about the Pi's new key.
     - __macOS/Linux__ - Run **`ssh-keygen -R raspberrypi.local`**
     - __Windows__ - Edit **`$HOME\.ssh\known_hosts`** and remove the lines that reference **`raspberrypi.local`** before you attempt to connect.

@@ -1,4 +1,4 @@
-# Set up a DHCP Server for your LAN (2020-01-22)
+# Set up a DHCP Server for your LAN (2022-04-11)
 
 ## Overview
 In this assignment, we'll be standing up a DHCP service on the Raspberry Pi. As we've discussed in class, DHCP is a function that is sometimes performed by routers and is a necessary service whenever we are creating a new network (of almost any type). 
@@ -39,7 +39,6 @@ LinkLocalAddressing=ipv6
 !!! warning Important 
     Some online references will have you add a gateway and DNS settings for your new interface. You don't need to (and definitely shouldn't) add either to this interface. 
     
-
     This interface does not provide a path for Internet traffic, but your Pi will try to use it that way if it believes it can be used for a default route.
     
     Likewise, we don't need to give the Pi DNS settings on Ethernet. The Pi will get it’s DNS from the wireless interface, which received it’s DNS settings from DHCP. 
@@ -112,4 +111,14 @@ Try running `ping` from both directions (laptop -> pi and pi -> laptop) to confi
 
 ## Troubleshooting
 
-Troubleshooting for the ISC DHCP Server can be found under [troubleshooting dhcp](/resources/manage-dhcp/).
+Raspberry Pi OS provides us with several commands to troubleshoot and find errors related to services. Check status and recent log output using `systemctl status isc-dhcp-server.service` or `journalctl -xe`  .
+
+Search the system logs for relevant errors `journalctl -u isc-dhcp-server`
+
+Here are some additional considerations:
+
+* A misplaced space or bracket may cause DHCP to fail, so pay close attention to syntax.
+* Your Pi will keep it's static address, so be sure that you excluded the address from the lease range in `dhcpd.conf`.
+* Double check that you’ve configured the server defaults with the correct interface names and commented out IPv6 related settings.
+* Make sure both `dhcpd` and `systemd` are declaring the same static IP for the Pi.
+* Inspect DHCP leases for clues. They can be found at `/var/lib/dhcp/dhcpd.leases`.

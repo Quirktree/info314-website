@@ -8,7 +8,7 @@ If you notice a problem with the content presented here, please file an issue on
 
 Class documentation and troubleshooting will be slowly added to this course website in order to better support students with their assignments.  
 
-If you are looking for the class schedule, information on what to read for the next class, and information on assignments, their due dates, and their deliverables, please visit the course Canvas page @ [INFO 314 Canvas Homepage](https://canvas.uw.edu/courses/1373089)
+If you are looking for the class schedule, information on what to read for the next class, and information on assignments, their due dates 📆, and their deliverables, please visit the course Canvas page @ [INFO 314 Canvas Homepage](https://canvas.uw.edu/courses/1547989)
 
 
 

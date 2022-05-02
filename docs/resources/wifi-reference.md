@@ -1,17 +1,17 @@
-# WPA Supplicant Configuration Reference (2020-01-18)
+# WPA Supplicant Configuration Reference (2022-03-29)
 
 ## Basic Configuration
 
-Wireless settings for the Pi are controlled by a service called **wpa_supplicant**, which stores information about known wireless networks in a text-based configuration file in **`/etc/wpa_supplicant/`**. By default, in Raspbian, the name of this file is **`wpa_supplicant.conf`**. You may also encounter an interface-specific configuration where the interface name is appended to the file, e.g., **`wpa_supplicant-wlan0.conf`**. In both cases, the file is owned by **root** and requires **root** privileges to read or edit.
+Wireless settings for the Pi are controlled by a service called **wpa_supplicant**, which stores information about known wireless networks in a text-based configuration file in **`/etc/wpa_supplicant/`**. By default, in Raspberry Pi OS, the name of this file is **`wpa_supplicant.conf`**. You may also encounter an interface-specific configuration where the interface name is appended to the file, e.g., **`wpa_supplicant-wlan0.conf`**. In both cases, the file is owned by **root** and requires **root** privileges to read or edit. To learn more about **wpa_supplicant**, run the command ` 
 
 ??? danger "Security Risk"
-    **`wpa_supplicant.conf`** is protected from casual reading due to the fact that it is a sensitive file that will likely contain your home network keys and a hash of your UW NetID password. While hashes typically provide some extra protection of a stored password, MD4 is nearly useless in this regard except with really strong passwords.
+    **`wpa_supplicant.conf`** is protected from casual reading due to the fact that it is a sensitive file that might contain the password to your home network or even the password for your school/work account.
 
     Practice caution with this file:
     
     1. Never share the contents of this file directly online.
     1. Scrub passwords, keys, and hashes before committing a copy into a **repository**.
-    1. Reset your password if you lose your Pi or suspect that you may have disclosed it inadvertently.
+    1. Reset passwords if you lose your Pi or suspect that you may have disclosed it inadvertently.
 
 You can edit **wpa_supplicant** configs directly on the Pi using any terminal-based text editor. Alternatively, you can create the file on your local system and copy it into place on the Pi (as described later in this guide). 
 
@@ -22,7 +22,7 @@ You can edit **wpa_supplicant** configs directly on the Pi using any terminal-ba
     
     For Windows users, a code-oriented editor will also help you avoid issues related to line endings. While most operating systems use a simple _New Line (aka Line Feed)_ control character to signify the end of a line, most Windows tools also include a _Carriage Return_. This alternate line ending causes parsing errors in many Linux tools.
 
-The general structure of the configuration file is show below. The file begins with a standard set of parameters specifying the **country** (needed to initialize appropriate radio settings), a **control interface** used by network management tools, and a boolean that instructs **wpa_supplicant** to accept configuration updates from other network management tools. We won't delve any deeper into the meaning of these initial parameters within this course. Rather, our concern will be how to configure Linux to join nearby wireless networks.
+The general structure of the configuration file is show below. The file begins with a standard set of parameters specifying the **country** (needed to initialize appropriate radio settings), a **control interface** used by network management tools, and a boolean that instructs **wpa_supplicant** to accept configuration updates from other network management tools. We won't delve any deeper into the meaning of these initial parameters for now. Rather, our concern will be how to configure Linux to join nearby wireless networks.
 
 !!! example "Example `wpa_supplicant.conf`"
     ```
@@ -41,7 +41,7 @@ The general structure of the configuration file is show below. The file begins w
     }
     ```
 
-The contents of the network block will depend largely on the security settings of the network, e.g., whether or not the network is encrypted with a passphrase. This document provides instructions for configuring three common types of networks: 
+Each network is represented by a configuration block that surrounded by `network={...}`. The contents of the network block will depend largely on the security settings of the network, e.g., whether or not the network is encrypted with a passphrase. This document provides instructions for configuring three common types of networks: 
 
 1. Unencrypted Networks
 2. WPA2 Personal Networks (simple passphrase)
@@ -98,12 +98,54 @@ Security professionals generally frown on plaintext passwords and passphrases be
     ```
 
 ## WPA2 Enterprise Networks
-Unlike home and coffee shop networks, enterprise networks like _Eduroam_, require a bit more setup since they authenticate individual users to the network as part of the process of establishing an encrypted connection. As such, these networks are substantially more secure than networks that are protected by **WPA2 Personal**. 
 
-_Eduroam_ at UW uses the NetID system to authenticate users and grant secure access to the network. Before you can join the network, you will first need to compute a hash from your NetID password. For security and privacy purposes, you will use this hash as a substitute for your password within the final configuration.
+Unlike home and coffee shop networks, enterprise networks like _[eduroam](https://eduroam.org/)_, require a bit more setup since they authenticate individual users to the network as part of the process of establishing an encrypted connection. As such, these networks can provide substantially more security than networks that are protected by **WPA2 Personal**. They're also much more flexible. For example, once you have properly configured _eduroam_ to connect on your campus, you will also be able to get online at other schools offering _eduroam_ hotspots.
 
-!!! instructions "Computing an MD4 hash in Linux"
-    Follow these commands in order to compute the MD4 hash in Linux.[^shellscript] The _history_ commands are not needed to compute a hash but are added for security. Without them, your password will be stored in the Bash history file and easily readable to anyone with access to your memory card.
+### Certificate-based Authentication
+
+Enterprise networks utilizing certificate-based authentication rely on EAP-TLS mode of operation. Public key authentication has many security benefits over password-based mechanisms, though the process of onboarding new users and devices is more complex. Users on these networks are required to register or enroll in order to obtain a client identity certificate. 
+
+Before you attempt to add an EAP-TLS network to wpa_supplicant, you must complete the onboarding process and install certificates onto your device. For University of Washington students, faculty, and staff, we have documented onboarding and certificate installation in separately _[(click here)](/resources/uw-wireless/#eduroam-onboarding){target=_blank}_.
+
+!!! info "Eduroam configuration template (EAP-TLS)"
+    The majority of the values needed for this template will be provided by your organization during onboarding.
+    
+    For **<ENCRYPTION_MODES>**, your organization most likely supports **CCMP**, which is a mode of **AES** encryption. If you're unsure, enter **CCMP TKIP** to allow for legacy encryption support (not recommended).
+
+    All path names will be dependent on the installation location for your certificates.
+
+    ```
+    network={
+        priority=10
+        ssid="eduroam"
+        scan_ssid=1
+        key_mgmt=WPA-EAP
+        proto=RSN
+        pairwise=<ENCRYPTION_MODES>
+        group=<ENCRYPTION_MODES>
+        eap=TLS
+        identity="<IDENTITY>"
+        anonymous_identity="<ANONYMOUS_IDENTITY>"
+        ca_cert="</PATH/TO/CA_CERT.PEM>"
+        client_cert="</PATH/TO/CLIENT_CERT.PEM>"
+        private_key="</PATH/TO/PRIVATE_KEY.PEM>"
+        domain_match="<DOMAIN>"
+        phase2="auth=<INNER_EAP_TYPE>"
+    }
+    ```
+
+### Password-based Authentication
+
+Password-based authentication can be set up for an enterprise wireless network by leveraging the Protected Extensible Authentication Protocol (PEAP) and the Microsoft Challenge Authentication Protocol version 2 (MSCHAPv2) to authenticate network clients based on a previously registered username and passphrase.
+
+The following template configures wpa_supplicant for PEAP/MSCHAPv2 authentication on an Eduroam network. Add it to your **`wpa_supplicant.conf`**, substituting your own username and password hash for the supplied values.
+
+??? danger "Avoid Credential Exposure"
+    If implemented poorly, PEAP can expose your password to a malicious network operator. To prevent attacks, include the Certificate Authority (CA) certificate[^cacert] in your wpa_supplicant configuration. Without this information, the wireless client may send password information to an evil twin (malicious network posing as one you trust). 
+
+    Likewise, we advise against hard-coding your plaintext school or work password into the wireless configuration file. Instead, compute an MD4 hash from your password and substitute it for the password. MD4 is a weak hash and fairly vulnerable to password cracking, but combined with a strong password, it does provide a layer of protection if your device is lost or stolen. 
+
+    Follow these commands in order to compute the MD4 hash in Linux. The _history_ commands are not needed to compute a hash but are added for security. Without them, your password will be stored in the Bash history file and easily readable to anyone with access to your memory card.
 
     ```bash
     set +o history
@@ -114,66 +156,25 @@ _Eduroam_ at UW uses the NetID system to authenticate users and grant secure acc
     set -o history
     ```
 
-[^shellscript]: The project repository includes a shell script called **calc-md4-hash.sh** that will compute this value for you. It can be run from macOS, Linux, and Git Bash (Windows users). To run the script, navigate to the resources path in your git repository and type `./calc-md4-hash.sh`. You may also copy this file to your Pi and run it there.
+??? info "Eduroam configuration template (EAP-PEAP)"
+    **This configuration is no longer supported on University of Washington's eduroam network (effective Feb 1, 2022).**
 
-The following template supplies all of the parameters needed to attach to Eduroam at UW. Add it to your **`wpa_supplicant.conf`**, substituting your own NetID and password hash for the supplied values.
-
-!!! info "Eduroam configuration template"
     ```
     network={
             ssid="eduroam"
             scan_ssid=1
             key_mgmt=WPA-EAP
+            proto=RSN
             eap=PEAP
-            identity="YOUR_NETID@uw.edu"
+            identity="<USERNAME>@<ORGANIZATION_DOMAIN>"
             password=hash:6f9bad2c90b80bd549e595fc91e27806
+            ca_cert="</PATH/TO/CA_CERT.PEM>"
             phase1="peaplabel=0"
             phase2="auth=MSCHAPV2"
     }
     ```
 
-## Using "University of Washington" instead of "eduroam"
-
-If eduoroam does not work for you, please let us know. **If you are given explicit instructions to connect "University of Washington" WiFi instead, then use these instructions.**
-
-**DO NOT connect to "University of Washington" without explicit permission for us**
-
-**Please setup your Pi for connecting to eduroam, but follow this guide if that does not work.**
-
-
-
-To set "University of Washington" up, do as follows:
-
-
-Find the MAC address of `wlan0` on your pi using the `ip link` command.
-
-**Make sure to select the MAC of `wlan0` and not `eth0`!**
-
-![](../img/uofw1.png)
-
-
-
-Register your `wlan0` MAC address manually for UW WiFi at:
-https://itconnect.uw.edu/connect/uw-networks/campus-wi-fi/manual-wifi-reg/
-
-![](../img/uofw2fixed.png)
-
-![](../img/uofw3.png)
-
-Next, edit `wpa_supplicant.conf` again using:
-`sudo nano /etc/wpa_supplicant/wpa_supplicant.conf`
-or `sudo nano /etc/wpa_supplicant/wpa_supplicant-wlan0.conf`
-depending on where you are in the setup of your Pi.
-
-Add the “University of Washington” network.
-
-Put this definition above `eduroam` in your `wpa_supplicant.conf` file so that it will take priority.
-
-Also, add `disabled=1` on a line in the `eduroam` section.
-
-![](../img/uofw4.png)
-
-
+[^cacert]: Obtain this file from your organization's IT department.
 
 ## Applying Configuration Changes
 
