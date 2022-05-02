@@ -1,4 +1,4 @@
-# Working with Loopbacks in Networkd
+# Working with Loopbacks in networkd
 
 When we have worked with IP addresses, we have mostly though about them as being configured in association with a particular network interface on a device. One challenge with this configuration is that addresses attached to a physical network interface will not be brought up if the link is unavailable. In certain use cases, we will want an address that operates independently of the physical links. A common application of this configuration, for example, is dynamic routing. 
 

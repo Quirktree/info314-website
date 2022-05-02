@@ -15,14 +15,15 @@ nav:
   - Projects:
     - 1 - Pi Setup:
       - Raspberry Pi Setup: assignments/pi-setup.md
+      - Wireless Configuration Reference: resources/wifi-reference.md
+      - UW Wireless Reference: resources/uw-wireless.md
       - networkd Setup: assignments/networkd-setup.md
-      - Wifi Reference: resources/wifi-reference.md
     - 2 - Set up a DHCP Server:
       - IP Address Planning Reference: resources/address-planning.md
       - Installing and Configuring the ISC DHCP Server: assignments/dhcp-setup.md
     - 3 - Configure Routing and NAT:
       - Router Setup: assignments/router-setup.md
-      - Introduction to iptables: resources/iptables.md
+      - Introduction to nftables: resources/nftables.md
     - 4 - Configure a DNS Resolver:
       - DNS Resolver Setup: assignments/resolver-setup.md
     - Report - NAT and DNS Analysis:
@@ -32,66 +33,64 @@ nav:
       - Authoritative Zone Setup: assignments/dns-zone-setup.md
       - DNS Zone Reference: resources/zone-file-format.md
     - Extra Credit:
-      - VLAN Challenge: assignments/vlan-challenge.md
-    - Final WAN Project:
-      - Project Requirements: assignments/final-project.md
-      - Resources:
-        - PiCANN Registry: https://docs.google.com/spreadsheets/d/1A3uCrVmrwoPdA0LvMH6IyRkU1_BLXhbVRjIadtc__E0/edit?usp=sharing
-        - Installing WireGuard: resources/setup-wireguard.md
-        - Installing Free Range Routing: resources/setup-frr.md
-        - WireGuard Configuration: resources/wireguard-configuration.md
-        - Configure Routing Links: resources/configure-routing-links.md
-        - Configure Dummy Interfaces: resources/dummy-interfaces.md
+      - VLAN Challenge: / # assignments/vlan-challenge.md
+    # - Final WAN Project:
+    #   - Project Requirements: / # assignments/final-project.md
+    #   - Resources:
+    #     - PiCANN Registry: / # https://docs.google.com/spreadsheets/d/1A3uCrVmrwoPdA0LvMH6IyRkU1_BLXhbVRjIadtc__E0/edit?usp=sharing
+    #     - Installing WireGuard: / # resources/setup-wireguard.md
+    #     - Installing Free Range Routing: / # resources/setup-frr.md
+    #     - WireGuard Configuration: / # resources/wireguard-configuration.md
+    #     - Configure Routing Links: / # resources/configure-routing-links.md
+    #     - Configure Dummy Interfaces: / # resources/dummy-interfaces.md
   - Labs:
-    - Lab 1 - Core Technical Skills: assignments/lab1.md
-    - Lab 2 - Analyzing DHCP and ARP with Wireshark: assignments/lab2.md
-    - Lab 3 - Analyze Zeroconf in Wireshark: assignments/lab3.md
-    - Lab 4 - Analyze DNS & HTTP in Wireshark: assignments/lab4.md
-    - Lab 5 - Analyze TCP with ncat and Wireshark: assignments/lab5.md
-    - Lab 6 - Python and Socket Basics: assignments/lab6.md
-    - Proxy Labs: 
-      - Proxy Project Overview: assignments/proxy-labs.md
-      - Proxy Part 1 (Lab 7): assignments/lab7.md
-      - Proxy Part 2 (Lab 8): assignments/lab8.md
-      - Proxy Part 3 (Lab 9): assignments/lab9.md
-      - Proxy Part 4 (Lab 10): assignments/lab10.md
+    # - Lab 1 - Core Technical Skills: assignments/lab1.md
+    - Lab 1 - Analyzing DHCP and ARP with Wireshark: assignments/wireshark01.md
+    - Lab 2 - Analyze DNS & HTTP in Wireshark: assignments/wireshark02.md
+    - Lab 3 - Analyze Zeroconf in Wireshark: assignments/wireshark03.md
+    - Lab 4 - Analyze TCP with ncat and Wireshark: assignments/wireshark04.md
+    # - Lab - Python and Socket Basics: / #assignments/lab6.md
+    # - Proxy Project Overview: / #assignments/proxy-labs.md
+    # - Lab - Proxy Part 1:  / #assignments/lab7.md
+    # - Lab - Proxy Part 2: / #assignments/lab8.md
+    # - Lab - Proxy Part 3: / #assignments/lab9.md
+    # - Lab - Proxy Part 4: / #assignments/lab10.md
   - Resources:
     - Getting Started:
-      - Getting Pi Materials: resources/pi-materials.md
-      - Digital Ocean Signup: resources/digital-ocean.md
       - Intro to Markdown: resources/markdown.md
       - Intro to Bash: resources/bash.md
     - Concepts and Theory:
+      - Basic IP Address Planning: resources/address-planning.md
       - Domain Name System (DNS): notes/dns-overview.md
-      - Routers: notes/router-overview.md
+      - DNS Zone Files: resources/zone-file-format.md
       - Ethernet Switches: notes/ethernet-switches.md
-    - Guides:
-      - Common Tools:
-        - Using ssh-agent: resources/ssh-agent.md
-        - Install Wireshark: resources/wireshark-install.md
-        - Install TShark: resources/tshark-install.md
-      - DNS:
-        - Zone File Reference: resources/zone-file-format.md
-      - General Network Configuration:
-        - Linux Wireless Configuration: resources/wifi-reference.md
-      - Iptables:
-        - Introduction to Iptables: resources/iptables.md
-        - Understanding Netfilter/Iptables Hooks: resources/netfilter-hooks.md
-      - Planning:
-        - Basic IP Address Planning: resources/address-planning.md
-      - Routing and VPNs:
-        - Install Free Range Routing (FRR): resources/setup-frr.md
-        - Install and Configure WireGuard: resources/setup-wireguard.md
-        - Configuring Routing Links: resources/configure-routing-links.md
-      - Special Network Interfaces:
-        - Loopback Interfaces : resources/loopback-interfaces.md
-        - Dummy Interfaces : resources/dummy-interfaces.md
-        - VLAN Interfaces : resources/vlan-interfaces.md
-    - Troubleshooting:
+      - Routers: notes/router-overview.md
+    - Core Settings and Tools:
+      - Getting Started with SSH: resources/ssh-primer.md
+      - Using the SSH Agent: resources/ssh-agent.md
+      - Install Wireshark: resources/wireshark-install.md
+      - Install TShark: resources/tshark-install.md
       - Mac/Win/Linux Networking: resources/host-config.md
       - Troubleshooting DHCP: resources/manage-dhcp.md
       - Managing DNS Clients: resources/dns-clients.md
-  - Contact Us: contact.md
+    - General Linux Networking:
+      - Firewalls:
+        - Introduction to nftables: resources/nftables.md
+        - Understanding netfilter Hooks: resources/netfilter-hooks.md
+        - Introduction to iptables: resources/iptables.md
+      - Network Interfaces:
+        - Loopback Interfaces : resources/loopback-interfaces.md
+        - Dummy Interfaces : resources/dummy-interfaces.md
+        - VLAN Interfaces : resources/vlan-interfaces.md
+      - Virtual Private Networking:
+        - Install and Configure WireGuard: resources/setup-wireguard.md
+      - Wireless:
+        - wpa_supplicant Reference: resources/wifi-reference.md
+    - Free Range Routing:
+      - Install Free Range Routing (FRR): resources/setup-frr.md
+      - Configuring Routing Links: resources/configure-routing-links.md
+    - University of Washington Networks:
+      - UW Wireless Network Reference: resources/uw-wireless.md
 
 # Configuration
 theme:
@@ -129,11 +128,10 @@ extra_css:
 # Extensions
 markdown_extensions:
 - admonition
-- codehilite:
-    guess_lang: false
 - attr_list
 - def_list
 - footnotes
+- md_in_html
 - meta
 - sane_lists
 - toc:
@@ -145,13 +143,18 @@ markdown_extensions:
 - pymdownx.critic
 - pymdownx.details
 - pymdownx.emoji:
-    emoji_generator: !!python/name:pymdownx.emoji.to_svg
+    emoji_generator: !!python/name:materialx.emoji.to_svg
+- pymdownx.highlight:
+    anchor_linenums: true
+    use_pygments: true
 - pymdownx.inlinehilite
 - pymdownx.keys
 - pymdownx.magiclink
 - pymdownx.mark
 - pymdownx.smartsymbols
 - pymdownx.superfences
+- pymdownx.tabbed:
+    alternate_style: true 
 - pymdownx.tasklist:
     custom_checkbox: true
 - pymdownx.tilde

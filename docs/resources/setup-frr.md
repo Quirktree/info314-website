@@ -1,4 +1,4 @@
-# Getting Started with Free Range Routing (FRR) on Raspbian
+# Getting Started with Free Range Routing (FRR) on Raspberry Pi OS
 
 ## Initial Setup
 

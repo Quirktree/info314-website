@@ -39,7 +39,7 @@ Instructions are provided below if dig isn't available on your system.
 
 **Linux**
 
-For Debian/Ubuntu based Linux including Arch, Mint, and Raspbian, **dig** is part of the _dnsutils_ package and is installed with `sudo apt install dnsutils`.
+For Debian/Ubuntu based Linux including Arch, Mint, and Raspberry Pi OS, **dig** is part of the _dnsutils_ package and is installed with `sudo apt install dnsutils`.
 
 For Fedora/RedHat based Linux including CentOS, **dig** is part of the _bind-utils_ package and can be installed with `sudo dnf install bind-utils` -- use `sudo yum install bind-utils` if `dnf` is not available.
 

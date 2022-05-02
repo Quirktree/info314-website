@@ -1,4 +1,4 @@
-# Working with Dummy Interfaces in Networkd
+# Working with Dummy Interfaces in networkd
 
 Dummys are functionally identical to loopbacks [(read more)](/resources/loopback-interfaces), though we're allowed to create more than one. Like a loopback, a dummy interface does not require a physical connection, and the addresses associated with the interface won't go up and down based on link status. A dummy interface can also be configured with one or more IP addresses and other layer-3 settings -- just like a physical interface. Likewise, we can bind daemons and sockets to our loopback/dummy addresses and respond to network requests received at these addresses. 
 
