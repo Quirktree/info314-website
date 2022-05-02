@@ -1,0 +1,30 @@
+/* This CSS file over rides the default CSS provided by the MkDocs Material theme. */
+
+
+/* Allow the text in center of page to go wider on larger screens */
+.md-grid {
+    max-width: 1440px;
+}
+
+/* Remove the large amounts of white space in between bullet points. */
+.md-typeset ol li, .md-typeset ul li {
+    margin-bottom: 0em;
+}
+/* Font size for text on middle of page */
+.md-typeset {
+    font-size: .7rem;
+}
+
+/* Font size for navigation bar on the left. */
+.md-nav--primary .md-nav__item, .md-nav--primary .md-nav__title {
+    font-size: .7rem;
+}
+
+/* Font size for Table of Contents bar on the right. */
+.md-nav {
+    font-size: .7rem;
+}
+
+.md-tabs__link {
+    font-size: .7rem;
+}

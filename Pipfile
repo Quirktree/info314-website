@@ -10,6 +10,7 @@ mkdocs = "*"
 pymdown-extensions = "*"
 pygments = "*"
 mkdocs-bootswatch = "*"
+mkdocs-material = "*"
 
 [requires]
 python_version = "3.7"
