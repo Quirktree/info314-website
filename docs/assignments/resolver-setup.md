@@ -18,7 +18,7 @@ Running the DNS resolver privately will require an IP address from your network 
 
 ### Configure the Resolver's IP Address
 
-Before you configure a new service with an address, you need to set up the address at the device level. Add your resolver's address to the static configuration for _eth0_. In a _networkd_ configuration, you can add additional addresses by putting each address (in abbreviated CIDR format) on a separate `Address=` line within the _.network_ file. In order to do this, you may want to review the original setup given in [Checkpoint #2](../dhcp-setup/#configure-static-addresses-for-your-raspberry-pi).
+Before you configure a new service with an address, you need to set up the address at the device level. Add your resolver's address to the static configuration for _eth0_. In a _networkd_ configuration, you can add additional addresses by putting each address (in abbreviated CIDR format) on a separate `Address=` line within your existing _.network_ file. In order to do this, you may want to review the original setup given in [Checkpoint #2](../dhcp-setup/#configure-static-addresses-for-your-raspberry-pi).
 
 ### Install BIND on the router
 
