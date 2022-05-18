@@ -1191,6 +1191,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tls13-encrypt-decrypt.md" class="md-nav__link">
+        Working with Encrypted TLS Records
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -2252,7 +2266,7 @@
 </dl>
 <p>The ServerHello message contents include a set of extensions that must be parsed individually. Every extension begins with its own 4-byte header including a 2-byte type and a 2-byte length field. You may ignore all extensions except for the following.</p>
 <dl>
-<dt>TLS Version Extension (Type 43)</dt>
+<dt>Supported Versions Extension (Type 43)</dt>
 <dd>Indicates that the server agrees to a TLS 1.3 handshake when provided and set to the TLS 1.3 2-byte version (<code>b'\x03\x04'</code>)</dd>
 <dt>Key Share Extension (Type 51)</dt>
 <dd>Provides the server's public key which is needed to complete the key exchange. Verify that a x25519 public key (identified as <code>0x001d</code>) is included and save the value to a variable for later use.</dd>

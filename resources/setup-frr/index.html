@@ -989,6 +989,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../assignments/tls13-encrypt-decrypt.md" class="md-nav__link">
+        Working with Encrypted TLS Records
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -1682,8 +1696,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#initial-setup" class="md-nav__link">
-    Initial Setup
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    Getting Started
   </a>
   
 </li>
@@ -1848,8 +1869,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#initial-setup" class="md-nav__link">
-    Initial Setup
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    Getting Started
   </a>
   
 </li>
@@ -1917,23 +1945,25 @@
 
 
 <h1 id="getting-started-with-free-range-routing-frr-on-raspberry-pi-os">Getting Started with Free Range Routing (FRR) on Raspberry Pi OS<a class="headerlink" href="#getting-started-with-free-range-routing-frr-on-raspberry-pi-os" title="Permanent link">&para;</a></h1>
-<h2 id="initial-setup">Initial Setup<a class="headerlink" href="#initial-setup" title="Permanent link">&para;</a></h2>
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<p>Since we are introducing a new software package, it is a good idea to review the project homepage and learn what resources are provided to you. The FRRouting home page at <a href="https://frrouting.org">https://frrouting.org</a> provides links to official documentation as well as to download the current software release. As we have with other installs, we would like to rely on package-based installation with <code>apt</code>. FRRouting does provide installation packages, but these are not included in the default repositories for Raspberry Pi OS or other Debian-based Linux flavors.</p>
+<p>To resolve this issue, navigate to the Releases section of the home page and follow the link for Debian packages.At this link you should find instructions to add a new package repository and install the FRRouting software on your Pi.</p>
+<h2 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h2>
+<p>The official FRRouting documentation linked from the home page also contains a Basic Setup section. While this document is helpful, it is unfortunately missing some details that would be helpful to new users. You can follow the instructions below to install FRR and connect to its management shell for the first time.</p>
 <ol>
-<li>Review the project homepage at <a href="https://frrouting.org">https://frrouting.org</a></li>
-<li>Configure the FRR Debain Repository<ul>
-<li>a. Download the public key used to verify application packages: <code>curl -s https://deb.frrouting.org/frr/keys.asc | sudo apt-key add -</code></li>
-<li>b. Add the repository into the list of available resources for apt: <code>echo deb https://deb.frrouting.org/frr $(lsb_release -s -c) frr-stable | sudo tee -a /etc/apt/sources.list.d/frr.list</code></li>
-</ul>
-</li>
-<li>Use <code>apt</code> to install FRR: <code>sudo apt update &amp;&amp; sudo apt install frr</code></li>
 <li>Give the Pi user permission to run the FRR managment client<ul>
 <li>a. Run <code>sudo usermod -aG frrvty pi</code> to add the <code>pi</code> user to the <code>frrvty</code> management group</li>
 <li>b. Logout (exit SSH) and return in order for Linux to recognize your new privileges</li>
 </ul>
 </li>
+<li>Fix file system permissions<ul>
+<li>a. Run <code>sudo chmod o+x /etc/frr</code> to enable directory level access needed to read/write configuration files.</li>
+<li>b. Run <code>sudo install -o frr -g frrvty -m 660 /dev/null /etc/frr/vtysh.conf</code> to create an empty configuration file called vtysh.conf with the necessary ownership and permissions. This handy one-liner creates the file and then sets user/group ownership and permissions without needing to make separate calls to <code>chmod</code> and <code>chown</code>.</li>
+</ul>
+</li>
 <li>Enable the BGP routing daemon<ul>
 <li>a. Edit <code>/etc/frr/daemons</code> and set <code>bgpd=yes</code>. </li>
-<li>b. Repeat this process for other routing daemons (if applicable).</li>
+<li>b. If applicable, repeat this process for other routing daemons.</li>
 </ul>
 </li>
 <li>Restart FRRouting: <code>sudo systemctl restart frr</code></li>
@@ -1944,13 +1974,14 @@
 <h3 id="vtysh-modes">VTYSH modes<a class="headerlink" href="#vtysh-modes" title="Permanent link">&para;</a></h3>
 <p>While using the VTY shell, you'll need to switch between <em>modes</em>. While most of our work will be conducted in <em>Configuration Mode</em>, the shell will launch initially in <em>Enable mode</em>. To enter Configuration Mode, type <code>configure terminal</code> at the VTY shell prompt. To exit Configuration Mode and return to Enable Mode, type <code>exit</code>.</p>
 <h3 id="save-configuration-from-enable-mode">Save Configuration (from enable mode)<a class="headerlink" href="#save-configuration-from-enable-mode" title="Permanent link">&para;</a></h3>
-<p>Configuration changes you make from VTY shell will take effect right away, but they do not persist between reboots due to a distinction FRR makes between the <em>Running Config</em> and the <em>Startup Config</em>. To save your changes to disk, return to Enable Mode and type <code>write memory</code> or <code>copy running-config startup-config</code>.</p>
+<p>Configuration changes you make from VTY shell will take effect right away, but they do not persist between reboots due to a distinction FRR makes between the <em>Running Config</em> and the <em>Startup Config</em>. To save your changes to disk(<code>/etc/frr/frr.conf</code>), run <code>write memory</code> or <code>copy running-config startup-config</code> from Enable Mode.</p>
+<p>This command will fail if run from Configuration Mode. Return to Enable Mode and try again if you receive an <em>Unknown command</em> error. </p>
 <h3 id="show-the-running-config-from-enable-mode">Show the Running Config (from enable mode)<a class="headerlink" href="#show-the-running-config-from-enable-mode" title="Permanent link">&para;</a></h3>
 <p>To view the active Running Config, return to Enable Mode and enter <code>show running-config</code> or <code>write terminal</code> at the prompt.</p>
 <h3 id="shortcuts">Shortcuts<a class="headerlink" href="#shortcuts" title="Permanent link">&para;</a></h3>
 <p>Command abbreviations are accepted in VTY shell as long as the abbreviation is unambiguous. The shell will do its best to determine your intent and complete the command.</p>
 <ul>
-<li><code>configure terminal</code> can be abbreviated <code>conf t</code></li>
+<li><code>configure terminal</code> can be abbreviated <code>conf</code></li>
 <li><code>quit</code> can be abbreviated <code>q</code></li>
 <li><code>write memory</code> can be abbreviated <code>w m</code> </li>
 </ul>
