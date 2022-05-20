@@ -71,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#configuring-vlans-in-networkd" class="md-skip">
+        <a href="#configuring-vlans-in-networkd-last-edited-2022-05-20" class="md-skip">
           Skip to content
         </a>
       
@@ -1913,7 +1913,7 @@
                 
 
 
-<h1 id="configuring-vlans-in-networkd">Configuring VLANs in Networkd<a class="headerlink" href="#configuring-vlans-in-networkd" title="Permanent link">&para;</a></h1>
+<h1 id="configuring-vlans-in-networkd-last-edited-2022-05-20">Configuring VLANs in Networkd (last edited 2022-05-20)<a class="headerlink" href="#configuring-vlans-in-networkd-last-edited-2022-05-20" title="Permanent link">&para;</a></h1>
 <p>VLAN functionality in networkd enables Linux hosts to participate in VLANs based on explicit tagging of ethernet frames. VLANs provide a valuable layer of logical configurability on top of physical network infrastructure. VLAN connections are presented in Linux as software-defined network interfaces that can be configured and utilized just like other types of network interfaces.</p>
 <h2 id="creating-vlan-interfaces">Creating VLAN Interfaces<a class="headerlink" href="#creating-vlan-interfaces" title="Permanent link">&para;</a></h2>
 <p>Networkd supports various software-defined interface types that are created based on <code>.netdev</code> files in the networkd configuration directories. A <code>.netdev</code> for a VLAN sets <code>Kind=vlan</code> and defines the numeric ID used to tag VLAN traffic on the wire in order to keep it separate from other traffic. </p>
@@ -1933,7 +1933,7 @@
 <p>In order to send and receive tagged traffic over a network link, we need to associate the newly created VLAN interfaces with the physical LAN interface. In networkd, this can be done by adding one or more VLAN properties to the physical interface's <code>.network</code> configuration. After doing this, tagged frames will be presented to the operating system as originating from the associated VLAN interface. Likewise, traffic that is sent through a VLAN interface will be tagged with the specified ID before being sent on the network.</p>
 <div class="admonition example">
 <p class="admonition-title">Linking a VLAN interface to a physical interface</p>
-<p><strong><code>/etc/systemd/network/20-eth0.network</code></strong>
+<p><strong><code>/etc/systemd/network/20-eth0.network</code></strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[Match]
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Name=eth0
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
@@ -1944,7 +1944,7 @@
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a># Tagged VLANs Referenced by Interface Name
 <a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>VLAN=vlan25
 <a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>VLAN=vlan50
-</code></pre></div></p>
+</code></pre></div>
 </div>
 <h2 id="network-configuration-for-vlan-interfaces">Network Configuration for VLAN Interfaces<a class="headerlink" href="#network-configuration-for-vlan-interfaces" title="Permanent link">&para;</a></h2>
 <p>Attaching the VLANs to a physical interface enables traffic to be sent and received from the virtual interface via tagged frames on the physical link. At the moment, however, our VLAN interfaces do not have any network-level settings attached to them.</p>
@@ -1952,12 +1952,12 @@
 <div class="admonition example">
 <p class="admonition-title">Sample VLAN interface configuration</p>
 <p><strong><code>/etc/systemd/network/25-vlan25.network</code></strong></p>
-<p>``` tab="DHCP"
+<p>``` text tab="DHCP"
 [Match]
 Name=vlan25</p>
 <p>[Network]
 DHCP=ipv4
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>``` tab=&quot;Static IP&quot;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>``` text tab=&quot;Static IP&quot;
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>[Match]
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>Name=vlan25
 <a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
