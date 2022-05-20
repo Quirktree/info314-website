@@ -2129,8 +2129,10 @@
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>quit    
 </code></pre></div>
 <h3 id="additional-unnumbered-routing-configuration">Additional "unnumbered" routing configuration<a class="headerlink" href="#additional-unnumbered-routing-configuration" title="Permanent link">&para;</a></h3>
-<p>!!! "attention" Ethernet Only
-    This section does not apply to routing configuration over WireGuard VPN links</p>
+<div class="admonition attention ethernet only">
+<p class="admonition-title">Attention</p>
+<p>This section does not apply to routing configuration over WireGuard VPN links</p>
+</div>
 <p>Routers in an unnumbered peering relationship rely on ICMPv6 router advertisements to discover peers on a routing link. We previously configured our interface to accept these messages, but we still need to set up the routing daemon to generate the messages on the specified interface. </p>
 <p>The following commands will turn on ICMPv6 router advertisements and set an interval of one advertisement every 5 seconds (as recommended by FRR documentation).</p>
 <p>Enter the following commands in the VTY shell:</p>
