@@ -12,14 +12,14 @@
         <meta name="author" content="Clinton Campbell">
       
       
-        <link rel="canonical" href="https://info314.tcpip.dev/resources/unifi-installation/">
+        <link rel="canonical" href="https://info314.tcpip.dev/assignments/tls13-wireshark-decryption/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.7">
     
     
       
-        <title>Getting Started with the UniFi Network Application - INFO 314 Course Resources</title>
+        <title>Decrypting TLS Traffic in Wireshark - INFO 314 Course Resources</title>
       
     
     
@@ -71,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#installing-the-unifi-network-application" class="md-skip">
+        <a href="#analyzing-encrypted-traffic-with-wirehark" class="md-skip">
           Skip to content
         </a>
       
@@ -106,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Getting Started with the UniFi Network Application
+              Decrypting TLS Traffic in Wireshark
             
           </span>
         </div>
@@ -217,7 +217,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../assignments/pi-setup/" class="md-tabs__link">
+      <a href="../pi-setup/" class="md-tabs__link">
         Projects
       </a>
     </li>
@@ -229,6 +229,8 @@
         
   
   
+    
+  
 
 
   
@@ -240,7 +242,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../assignments/wireshark01/" class="md-tabs__link">
+      <a href="../wireshark01/" class="md-tabs__link md-tabs__link--active">
         Labs
       </a>
     </li>
@@ -252,8 +254,6 @@
         
   
   
-    
-  
 
 
   
@@ -265,7 +265,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../markdown/" class="md-tabs__link md-tabs__link--active">
+      <a href="../../resources/markdown/" class="md-tabs__link">
         Resources
       </a>
     </li>
@@ -401,7 +401,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../assignments/pi-setup/" class="md-nav__link">
+      <a href="../pi-setup/" class="md-nav__link">
         Raspberry Pi Setup
       </a>
     </li>
@@ -415,7 +415,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../wifi-reference/" class="md-nav__link">
+      <a href="../../resources/wifi-reference/" class="md-nav__link">
         Wireless Configuration Reference
       </a>
     </li>
@@ -429,7 +429,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../uw-wireless/" class="md-nav__link">
+      <a href="../../resources/uw-wireless/" class="md-nav__link">
         UW Wireless Reference
       </a>
     </li>
@@ -443,7 +443,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../assignments/networkd-setup/" class="md-nav__link">
+      <a href="../networkd-setup/" class="md-nav__link">
         networkd Setup
       </a>
     </li>
@@ -492,7 +492,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../address-planning/" class="md-nav__link">
+      <a href="../../resources/address-planning/" class="md-nav__link">
         IP Address Planning Reference
       </a>
     </li>
@@ -506,7 +506,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../assignments/dhcp-setup/" class="md-nav__link">
+      <a href="../dhcp-setup/" class="md-nav__link">
         Installing and Configuring the ISC DHCP Server
       </a>
     </li>
@@ -555,7 +555,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../assignments/router-setup/" class="md-nav__link">
+      <a href="../router-setup/" class="md-nav__link">
         Router Setup
       </a>
     </li>
@@ -569,7 +569,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../nftables/" class="md-nav__link">
+      <a href="../../resources/nftables/" class="md-nav__link">
         Introduction to nftables
       </a>
     </li>
@@ -618,7 +618,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../assignments/resolver-setup/" class="md-nav__link">
+      <a href="../resolver-setup/" class="md-nav__link">
         DNS Resolver Setup
       </a>
     </li>
@@ -667,7 +667,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../assignments/analysis-report/" class="md-nav__link">
+      <a href="../analysis-report/" class="md-nav__link">
         Instructions
       </a>
     </li>
@@ -681,7 +681,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tshark-install/" class="md-nav__link">
+      <a href="../../resources/tshark-install/" class="md-nav__link">
         Installing TShark
       </a>
     </li>
@@ -730,7 +730,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../assignments/dns-zone-setup/" class="md-nav__link">
+      <a href="../dns-zone-setup/" class="md-nav__link">
         Authoritative Zone Setup
       </a>
     </li>
@@ -744,7 +744,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../zone-file-format/" class="md-nav__link">
+      <a href="../../resources/zone-file-format/" class="md-nav__link">
         DNS Zone Reference
       </a>
     </li>
@@ -820,12 +820,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
       
       
       
@@ -876,7 +878,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../assignments/wireshark01/" class="md-nav__link">
+      <a href="../wireshark01/" class="md-nav__link">
         Analyze DHCP and ARP with Wireshark
       </a>
     </li>
@@ -890,7 +892,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../assignments/wireshark02/" class="md-nav__link">
+      <a href="../wireshark02/" class="md-nav__link">
         Analyze DNS & HTTP in Wireshark
       </a>
     </li>
@@ -904,7 +906,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../assignments/wireshark03/" class="md-nav__link">
+      <a href="../wireshark03/" class="md-nav__link">
         Analyze Zeroconf in Wireshark
       </a>
     </li>
@@ -918,7 +920,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../assignments/wireshark04/" class="md-nav__link">
+      <a href="../wireshark04/" class="md-nav__link">
         Analyze TCP with ncat and Wireshark
       </a>
     </li>
@@ -937,14 +939,16 @@
               
   
   
+    
+  
   
     
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" checked>
       
       
       
@@ -967,7 +971,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../assignments/tls13/" class="md-nav__link">
+      <a href="../tls13/" class="md-nav__link">
         Getting Started
       </a>
     </li>
@@ -979,12 +983,14 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_2" type="checkbox" id="__nav_3_2_2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_2" type="checkbox" id="__nav_3_2_2" checked>
       
       
       
@@ -1007,7 +1013,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../assignments/tls13-key-generation/" class="md-nav__link">
+      <a href="../tls13-key-generation/" class="md-nav__link">
         Key Generation
       </a>
     </li>
@@ -1021,7 +1027,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../assignments/tls13-encrypt-decrypt/" class="md-nav__link">
+      <a href="../tls13-encrypt-decrypt/" class="md-nav__link">
         Working with Encrypted TLS Records
       </a>
     </li>
@@ -1033,11 +1039,66 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../assignments/tls13-wireshark-decryption/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Decrypting TLS Traffic in Wireshark
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Decrypting TLS Traffic in Wireshark
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#logging-keys-from-tlscontext" class="md-nav__link">
+    Logging Keys from TLSContext
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#wireshark-tls-preferences" class="md-nav__link">
+    Wireshark TLS Preferences
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updated-key-logging-methods" class="md-nav__link">
+    Updated Key Logging Methods
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1056,7 +1117,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../assignments/tls13-complete-handshake/" class="md-nav__link">
+      <a href="../tls13-complete-handshake/" class="md-nav__link">
         Completing the TLS 1.3 Handshake
       </a>
     </li>
@@ -1083,14 +1144,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
       
       
       
@@ -1141,7 +1200,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../markdown/" class="md-nav__link">
+      <a href="../../resources/markdown/" class="md-nav__link">
         Intro to Markdown
       </a>
     </li>
@@ -1155,7 +1214,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../bash/" class="md-nav__link">
+      <a href="../../resources/bash/" class="md-nav__link">
         Intro to Bash
       </a>
     </li>
@@ -1204,7 +1263,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../address-planning/" class="md-nav__link">
+      <a href="../../resources/address-planning/" class="md-nav__link">
         Basic IP Address Planning
       </a>
     </li>
@@ -1232,7 +1291,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../zone-file-format/" class="md-nav__link">
+      <a href="../../resources/zone-file-format/" class="md-nav__link">
         DNS Zone Files
       </a>
     </li>
@@ -1309,7 +1368,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ssh-primer/" class="md-nav__link">
+      <a href="../../resources/ssh-primer/" class="md-nav__link">
         Getting Started with SSH
       </a>
     </li>
@@ -1323,7 +1382,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ssh-agent/" class="md-nav__link">
+      <a href="../../resources/ssh-agent/" class="md-nav__link">
         Using the SSH Agent
       </a>
     </li>
@@ -1337,7 +1396,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../wireshark-install/" class="md-nav__link">
+      <a href="../../resources/wireshark-install/" class="md-nav__link">
         Install Wireshark
       </a>
     </li>
@@ -1351,7 +1410,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../tshark-install/" class="md-nav__link">
+      <a href="../../resources/tshark-install/" class="md-nav__link">
         Install TShark
       </a>
     </li>
@@ -1365,7 +1424,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../host-config/" class="md-nav__link">
+      <a href="../../resources/host-config/" class="md-nav__link">
         Mac/Win/Linux Networking
       </a>
     </li>
@@ -1379,7 +1438,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../manage-dhcp/" class="md-nav__link">
+      <a href="../../resources/manage-dhcp/" class="md-nav__link">
         Troubleshooting DHCP
       </a>
     </li>
@@ -1393,7 +1452,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dns-clients/" class="md-nav__link">
+      <a href="../../resources/dns-clients/" class="md-nav__link">
         Managing DNS Clients
       </a>
     </li>
@@ -1468,7 +1527,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../nftables/" class="md-nav__link">
+      <a href="../../resources/nftables/" class="md-nav__link">
         Introduction to nftables
       </a>
     </li>
@@ -1482,7 +1541,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../netfilter-hooks/" class="md-nav__link">
+      <a href="../../resources/netfilter-hooks/" class="md-nav__link">
         Understanding netfilter Hooks
       </a>
     </li>
@@ -1496,7 +1555,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../iptables/" class="md-nav__link">
+      <a href="../../resources/iptables/" class="md-nav__link">
         Introduction to iptables
       </a>
     </li>
@@ -1543,7 +1602,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../loopback-interfaces/" class="md-nav__link">
+      <a href="../../resources/loopback-interfaces/" class="md-nav__link">
         Loopback Interfaces
       </a>
     </li>
@@ -1557,7 +1616,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../dummy-interfaces/" class="md-nav__link">
+      <a href="../../resources/dummy-interfaces/" class="md-nav__link">
         Dummy Interfaces
       </a>
     </li>
@@ -1571,7 +1630,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../vlan-interfaces/" class="md-nav__link">
+      <a href="../../resources/vlan-interfaces/" class="md-nav__link">
         VLAN Interfaces
       </a>
     </li>
@@ -1618,7 +1677,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setup-wireguard/" class="md-nav__link">
+      <a href="../../resources/setup-wireguard/" class="md-nav__link">
         Install and Configure WireGuard
       </a>
     </li>
@@ -1665,7 +1724,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../wifi-reference/" class="md-nav__link">
+      <a href="../../resources/wifi-reference/" class="md-nav__link">
         wpa_supplicant Reference
       </a>
     </li>
@@ -1691,16 +1750,14 @@
               
   
   
-    
-  
   
     
       
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_5" type="checkbox" id="__nav_4_5" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_5" type="checkbox" id="__nav_4_5" >
       
       
       
@@ -1721,107 +1778,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Getting Started with the UniFi Network Application
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../resources/unifi-installation/" class="md-nav__link">
         Getting Started with the UniFi Network Application
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#download" class="md-nav__link">
-    Download
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#install" class="md-nav__link">
-    Install
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#initial-setup" class="md-nav__link">
-    Initial Setup
-  </a>
-  
-    <nav class="md-nav" aria-label="Initial Setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#install-java-8" class="md-nav__link">
-    Install Java 8
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#create-a-ubiquiti-account" class="md-nav__link">
-    Create a Ubiquiti Account
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#launching-the-application" class="md-nav__link">
-    Launching the Application
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#creating-the-network" class="md-nav__link">
-    Creating the Network
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#uninstalling-the-unifi-network-application" class="md-nav__link">
-    Uninstalling the UniFi Network Application
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1868,7 +1829,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../setup-frr/" class="md-nav__link">
+      <a href="../../resources/setup-frr/" class="md-nav__link">
         Install Free Range Routing (FRR)
       </a>
     </li>
@@ -1882,7 +1843,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../configure-routing-links/" class="md-nav__link">
+      <a href="../../resources/configure-routing-links/" class="md-nav__link">
         Configuring Routing Links
       </a>
     </li>
@@ -1931,7 +1892,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../uw-wireless/" class="md-nav__link">
+      <a href="../../resources/uw-wireless/" class="md-nav__link">
         UW Wireless Network Reference
       </a>
     </li>
@@ -1979,63 +1940,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#download" class="md-nav__link">
-    Download
+  <a href="#logging-keys-from-tlscontext" class="md-nav__link">
+    Logging Keys from TLSContext
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#install" class="md-nav__link">
-    Install
+  <a href="#wireshark-tls-preferences" class="md-nav__link">
+    Wireshark TLS Preferences
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#initial-setup" class="md-nav__link">
-    Initial Setup
-  </a>
-  
-    <nav class="md-nav" aria-label="Initial Setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#install-java-8" class="md-nav__link">
-    Install Java 8
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#create-a-ubiquiti-account" class="md-nav__link">
-    Create a Ubiquiti Account
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#launching-the-application" class="md-nav__link">
-    Launching the Application
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#creating-the-network" class="md-nav__link">
-    Creating the Network
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#uninstalling-the-unifi-network-application" class="md-nav__link">
-    Uninstalling the UniFi Network Application
+  <a href="#updated-key-logging-methods" class="md-nav__link">
+    Updated Key Logging Methods
   </a>
   
 </li>
@@ -2054,40 +1974,46 @@
                 
 
 
-<h1 id="installing-the-unifi-network-application">Installing the UniFi Network Application<a class="headerlink" href="#installing-the-unifi-network-application" title="Permanent link">&para;</a></h1>
-<p>UniFi-branded switches are managed devices from Ubiquiti that can be configured through a web-based management controller. </p>
-<p>Ubiquiti provides instructions to self-host the controller on Windows, macOS, and Linux. The current version of the controller will not run (without a lot of effort) on the 64-bit version of Raspberry Pi OS, so we recommend installing it on your laptop.</p>
-<p>Ubiquiti's <a href="https://help.ui.com/hc/en-us/articles/360012282453-UniFi-Self-host-the-Network-Application">installation instructions</a> are fairly easy to follow, but we recommend that you follow the steps below.</p>
-<h2 id="download">Download<a class="headerlink" href="#download" title="Permanent link">&para;</a></h2>
-<p>Download the current version of UniFi Network application from <a href="https://www.ui.com/download-software/">https://www.ui.com/download-software/</a>. To complete this step, you will need to scroll past the advertisement at the top of the page and click on the Download button for the UniFi Network software. </p>
-<h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
-<p>Locate and launch the installer from your normal Downloads location. If you are on macOS and receive a warning, please read the following tip to proceed.</p>
-<div class="admonition info">
-<p class="admonition-title">macOS Security Warnings</p>
-<p>Recent versions of macOS have implemented software signature checks to help users distinguish potential malware from applications distributed from trusted sources. In order to avoid these warnings, software developers need to pay a fee to enroll in Apple's developer program and obtain code signing keys and certificates. </p>
-<p>Since Ubiquiti isn't signing this application with official signing keys, macOS does produce a stark warning upon launching the installer. </p>
-<p><img alt="unidentified developer warning" src="/img/unidentified-developer.png" /></p>
-<p>Ubiquiti recommends that you change your settings to allow software from unidentified developers, but this isn't a great solution from a security perspective. Instead, you can bypass the warning by locating the installer in Finder and right-clicking to select the <em>Open</em> option.</p>
-<p>More information about software signatures and these warnings is available at <a href="https://support.apple.com/en-us/HT202491">https://support.apple.com/en-us/HT202491</a>.</p>
-</div>
-<p>Proceed through the remaining installation steps with the default settings.</p>
-<h2 id="initial-setup">Initial Setup<a class="headerlink" href="#initial-setup" title="Permanent link">&para;</a></h2>
-<p>Once you've completed the installation, the UniFi application should be visible in the Window's Start Menu or the macOS application folder. If you attempt to launch the application now, it will likely fail with an error. </p>
-<h3 id="install-java-8">Install Java 8<a class="headerlink" href="#install-java-8" title="Permanent link">&para;</a></h3>
-<p>The UniFi Network application requires Java 8 to launch. While Oracle still maintains Java 8, this is an older version and unlikely to be installed on your system. If you saw an error when launching the UniFi application, download the installer from the <a href="https://www.java.com/inc/BrowserRedirect1.jsp?locale=en">Java website</a> and follow the provided instructions to complete this step.</p>
-<h3 id="create-a-ubiquiti-account">Create a Ubiquiti Account<a class="headerlink" href="#create-a-ubiquiti-account" title="Permanent link">&para;</a></h3>
-<p>The UniFi network application is a web-based application that is intended to be accessed through the browser over the network. Even when running the application locally, a login is required. By default, the application integrates with web-based Ubiquiti accounts. Using the advanced set up process, it is possible to avoid this requirement, though we recommend sticking with the default for simplicity.</p>
-<p>Create a Ubiquiti account now at <a href="https://account.ui.com">https://account.ui.com</a> using a valid email address, and follow the instructions to verify the email address you gave and activate your account.</p>
-<h3 id="launching-the-application">Launching the Application<a class="headerlink" href="#launching-the-application" title="Permanent link">&para;</a></h3>
-<p>If you haven't already, launch the UniFi application from the Window's start menu or the macOS Applications folder. The software will launch a small window, that is used to inform you of the web server's current status and provide a local link you can use to launch the management interface in a browser. When the server is ready, you should see a green check mark in the status window.</p>
-<p><img alt="UniFi Application loaded successfully" src="/img/unifi-installation-ready.png" /></p>
-<p>Click on the button labeled <em>Launch a Browser to Manage the Network</em> and switch to the new browser window to proceed with setup.</p>
-<h3 id="creating-the-network">Creating the Network<a class="headerlink" href="#creating-the-network" title="Permanent link">&para;</a></h3>
-<p>You will need to name your network and agree to the UniFi service terms. You can accept the default or enter an alternate name, e.g., info314. Click <em>Next</em> to continue and proceed by logging in with your Ubiquiti web credentials. If you decided to use local credentials instead, click <em>Switch to Advanced Setup</em>. </p>
-<p>You may accept the default settings on Step 3 and click <em>next</em> to continue. If your computer is currently connected to the switch and both devices are able to receive a DHCP address, you'll be given the option to adopt the device in Step 4. You may do this now or just click the Next button and come back to it later.</p>
-<p>Since we won't be managing any UniFi wireless access points with this instance of the controller, click <em>Skip</em> on Step 5 to continue to the final step. Click <em>Finish</em> on step 6 to complete the configuration process.</p>
-<h2 id="uninstalling-the-unifi-network-application">Uninstalling the UniFi Network Application<a class="headerlink" href="#uninstalling-the-unifi-network-application" title="Permanent link">&para;</a></h2>
-<p>After the course, you may wish to remove this software from your computer. To uninstall the Network Application, review the instructions in the following <a href="https://help.ui.com/hc/en-us/articles/360015373734-UniFi-How-to-Uninstall-the-UniFi-Network-Application-">help article</a>. You will likely want to remove Java as well. The official website provides instructions for <a href="https://www.java.com/en/download/help/mac_uninstall_java.html">macOS</a> and <a href="https://www.java.com/en/download/help/uninstall_java.html">Windows</a>.</p>
+<h1 id="analyzing-encrypted-traffic-with-wirehark">Analyzing Encrypted Traffic with Wirehark<a class="headerlink" href="#analyzing-encrypted-traffic-with-wirehark" title="Permanent link">&para;</a></h1>
+<p>To present a detailed, protocol-aware view of network packets, Wireshark uses a library of decoders to parse and interpret the headers and data at each layer of the network protocol stack. With support for thousands of protocols, Wireshark is even able to provide a rich view of application layer messages. </p>
+<p>By default, strong encryption limits Wireshark's feature set. As a passive observer of conversations, Wireshark is not able to obtain or compute encryption keys that are needed to decrypt network traffic that it observes. To work around this limitation, Wireshark can be configured to load the TLS session secrets from a filesystem based log. Wireshark uses these secrets to generate handshake and application traffic keys that allow it to fully decode each step of the TLS handshake and higher-layer application traffic.</p>
+<h2 id="logging-keys-from-tlscontext">Logging Keys from TLSContext<a class="headerlink" href="#logging-keys-from-tlscontext" title="Permanent link">&para;</a></h2>
+<p>The <em>TLSContext</em> class that is defined in the project repository includes a <code>log_keys()</code> method that generates the log entries needed to facilitate this process. This method emits four rows of text representing the client/server handshake secrets and the client/server application secrets. Each of log entry is also associated with the client random value from the current session's <em>Client Hello</em>. This value enables Wireshark to quickly identify a TLS session and select the appropriate secrets from the log file.</p>
+<p>To save these entries into a Wireshark-compatible log file, update your handshake code to append the new secrets to a file. The following example creates or updates a file named <em>info314_tls13_keys</em> in the current user's home directory.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">home_directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;HOME&#39;</span><span class="p">]</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">home_directory</span><span class="si">}</span><span class="s1">/info314_tls13_keys&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    <span class="n">entry</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">log_keys</span><span class="p">()</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span>
+</code></pre></div>
+<ol>
+<li>Call <code>tls.generate_handshake_keys()</code> and <code>tls.generate_application_keys()</code> before <code>log_keys()</code> method. For a more flexible approach, please follow the steps in <a href="#updated-key-logging-methods">Updated Key Logging Methods</a>.</li>
+</ol>
+<h2 id="wireshark-tls-preferences">Wireshark TLS Preferences<a class="headerlink" href="#wireshark-tls-preferences" title="Permanent link">&para;</a></h2>
+<p>To start analyzing encrypted traffic, add the location of the log file to TLS protocol preferences in Wireshark:</p>
+<ol>
+<li>Open Wireshark's preferences pane</li>
+<li>Expand <em>Protocols</em> in the left pane of the preference window and scroll until you find TLS.</li>
+<li>Enter the full path to the log in the (Pre)-Master-Secret log filename.</li>
+<li>(Optional) Select or deselect from the default options to control Wireshark decoding behavior:<ul>
+<li>Reassemble TLS records spanning multiple TCP segments</li>
+<li>Reassemble TLS Application Data spanning multiple TLS records</li>
+<li>Message Authentication Code (MAC), ignore "mac failed" <em>(useful for debugging)</em></li>
+</ul>
+</li>
+</ol>
+<p><img alt="Wireshark TLS Preferences" src="/img/wireshark-tls-preferences.png" /></p>
+<h2 id="updated-key-logging-methods">Updated Key Logging Methods<a class="headerlink" href="#updated-key-logging-methods" title="Permanent link">&para;</a></h2>
+<p>For more flexibility, update helpers.py and add the following snippet immediately before or after the existing <code>log_keys()</code> definition. These methods will emit handshake and application keys in separate steps, which makes it somewhat easier to troubleshoot issues associated with the completion of the handshake.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span> <span class="nf">log_handshake_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="n">out</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;CLIENT_HANDSHAKE_TRAFFIC_SECRET </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">client_random</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">client_handshake_secret</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">out</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;SERVER_HANDSHAKE_TRAFFIC_SECRET </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">client_random</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">server_handshake_secret</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="k">return</span> <span class="n">out</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="k">def</span> <span class="nf">log_application_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>    <span class="n">out</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;CLIENT_TRAFFIC_SECRET_0 </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">client_random</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">client_application_secret</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="n">out</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">&quot;SERVER_TRAFFIC_SECRET_0 </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">client_random</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">server_application_secret</span><span class="o">.</span><span class="n">hex</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="k">return</span> <span class="n">out</span>
+</code></pre></div>
 
               
             </article>
@@ -2106,7 +2032,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../wifi-reference/" class="md-footer__link md-footer__link--prev" aria-label="Previous: wpa_supplicant Reference" rel="prev">
+        <a href="../tls13-encrypt-decrypt/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Working with Encrypted TLS Records" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -2115,20 +2041,20 @@
               <span class="md-footer__direction">
                 Previous
               </span>
-              wpa_supplicant Reference
+              Working with Encrypted TLS Records
             </div>
           </div>
         </a>
       
       
         
-        <a href="../setup-frr/" class="md-footer__link md-footer__link--next" aria-label="Next: Install Free Range Routing (FRR)" rel="next">
+        <a href="../tls13-complete-handshake/" class="md-footer__link md-footer__link--next" aria-label="Next: Completing the TLS 1.3 Handshake" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 Next
               </span>
-              Install Free Range Routing (FRR)
+              Completing the TLS 1.3 Handshake
             </div>
           </div>
           <div class="md-footer__button md-icon">
