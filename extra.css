@@ -1,3 +1,6 @@
+ol ol { list-style-type: lower-alpha; }
+
+
 .tabbed-set {
     display: flex;
     position: relative;

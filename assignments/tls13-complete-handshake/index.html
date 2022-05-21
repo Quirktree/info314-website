@@ -12,14 +12,14 @@
         <meta name="author" content="Clinton Campbell">
       
       
-        <link rel="canonical" href="https://info314.tcpip.dev/assignments/tls13-encrypt-decrypt/">
+        <link rel="canonical" href="https://info314.tcpip.dev/assignments/tls13-complete-handshake/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.7">
     
     
       
-        <title>Working with Encrypted TLS Records - INFO 314 Course Resources</title>
+        <title>Completing the TLS 1.3 Handshake - INFO 314 Course Resources</title>
       
     
     
@@ -71,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#working-with-encrypted-tls-records" class="md-skip">
+        <a href="#completing-the-tls-13-handshake" class="md-skip">
           Skip to content
         </a>
       
@@ -106,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Working with Encrypted TLS Records
+              Completing the TLS 1.3 Handshake
             
           </span>
         </div>
@@ -229,8 +229,6 @@
         
   
   
-    
-  
 
 
   
@@ -242,7 +240,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../wireshark01/" class="md-tabs__link md-tabs__link--active">
+      <a href="../wireshark01/" class="md-tabs__link">
         Labs
       </a>
     </li>
@@ -820,14 +818,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
       
       
       
@@ -939,16 +935,14 @@
               
   
   
-    
-  
   
     
       
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
       
       
       
@@ -997,80 +991,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Working with Encrypted TLS Records
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../tls13-encrypt-decrypt/" class="md-nav__link">
         Working with Encrypted TLS Records
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    Overview
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#aead-ciphers" class="md-nav__link">
-    AEAD Ciphers
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#tlscipher-operations" class="md-nav__link">
-    TLSCipher Operations
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#encrypted-record-structure" class="md-nav__link">
-    Encrypted Record Structure
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#example-encryptdecrypt" class="md-nav__link">
-    Example Encrypt/Decrypt
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1891,36 +1816,28 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    Overview
+  <a href="#additional-handshake-messages" class="md-nav__link">
+    Additional Handshake Messages
   </a>
+  
+    <nav class="md-nav" aria-label="Additional Handshake Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backwards-compatibility" class="md-nav__link">
+    Backwards Compatibility
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#aead-ciphers" class="md-nav__link">
-    AEAD Ciphers
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#tlscipher-operations" class="md-nav__link">
-    TLSCipher Operations
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#encrypted-record-structure" class="md-nav__link">
-    Encrypted Record Structure
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#example-encryptdecrypt" class="md-nav__link">
-    Example Encrypt/Decrypt
+  <a href="#implementation-tasks" class="md-nav__link">
+    Implementation Tasks
   </a>
   
 </li>
@@ -1939,62 +1856,28 @@
                 
 
 
-<h1 id="working-with-encrypted-tls-records">Working with Encrypted TLS Records<a class="headerlink" href="#working-with-encrypted-tls-records" title="Permanent link">&para;</a></h1>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>After generating symmetric keys used to protect later handshake messages or application traffic, you are ready begin using these keys to encrypt outbound traffic or decrypt incoming traffic. The helper classes provided for this project encapsulates this functionality into the TLSCipher class, which you can retrieve by calling <code>get_handshake_cipher()</code> (after receiving the server's hello message) and <code>get_application_cipher()</code> prior to sending the client's finish message.</p>
-<h2 id="aead-ciphers">AEAD Ciphers<a class="headerlink" href="#aead-ciphers" title="Permanent link">&para;</a></h2>
-<p>All TLS 1.3 cipher suites implement a mode of encryption known as Authenticated Encryption with Associated Data (AEAD). While symmetric encryption is used to generate ciphertext that can't be read without a key, the ciphertext (and underlying plaintext) produced by many encryption modes can often be modified without detection. Authenticated encryption modes add an authentication tag to the ciphertext in order to ensure the integrity of the message by detecting changes that occur after the data is encrypted. AEAD takes this integrity mechanism one step further, providing integrity across plaintext data that is associated with an encrypted message. This feature can be used to ensure that metadata outside of the encrypted messages is left intact. </p>
-<p>When TLS encrypts a message, the 5-byte record header is left unencrypted. By using AEAD algorithms, TLS 1.3 defends against changes across the entire TLS record construct while leaving the record header visible to the recipient. Even a change to the unencrypted record header, e.g., changing the TLS record type or version, can be detected by the recipient.</p>
-<h2 id="tlscipher-operations">TLSCipher Operations<a class="headerlink" href="#tlscipher-operations" title="Permanent link">&para;</a></h2>
-<p>The <code>get_handshake_cipher()</code> and <code>get_application_cipher()</code> methods return TLSCipher objects that provide their own <code>encrypt()</code> and <code>decrypt()</code> methods. Since TLSCipher objects implement AEAD ciphers, two inputs are required for each cryptographic operation.</p>
+<h1 id="completing-the-tls-13-handshake">Completing the TLS 1.3 Handshake<a class="headerlink" href="#completing-the-tls-13-handshake" title="Permanent link">&para;</a></h1>
+<p>In the first stage of the TLS 1.3 handshake, the client and server negotiate encryption parameters and exchange asymmetric key material by sending an unecrypted <em>Hello</em> message. After completing this exchange, each participant computes symmetric traffic encryption keys that are used when sending and receiving the remaining messages in the handshake. We'll move forward in this section with the goal of completing the handshake and computing a second set of symmetric traffic encryption keys to protect application layer data. </p>
+<h2 id="additional-handshake-messages">Additional Handshake Messages<a class="headerlink" href="#additional-handshake-messages" title="Permanent link">&para;</a></h2>
+<p>After the server sends its <em>Hello</em> message and computes the handshake traffic encryption keys, it is required to send several additional handshake messages, including the following: <em>Encrypted Extensions</em> (8), <em>Certificate</em> (11), <em>Certificate Verify</em> (15), and <em>Finished</em> (20). Prior to sending the <em>Finished</em> message, a TLS 1.3 server may also send additional handshake messages, such as a <em>Certificate Request</em>. These handshake messages enable the server to send additional options through the TLS extension mechanism, authenticate its identity using a PKI-based certificate mechanism, request authentication of the client, and prove integrity of the handshake and its own traffic key computations. </p>
+<p>After receiving and processing the remaining handshake messages from the server, the TLS client responds to additional requests such as a <em>Certificate Request</em> and updates the handshake message transcript. Next, the client computes a hash-based message authentication code (HMAC) over the message transcript. This value, referred to as the client's <em>Verify Data</em> is encapsulated in the handshake protocol's <em>Finished</em> message and sent to the server. The client's <em>Finished</em> message signals the end of the handshake to the server and enables it to cryptographically verify the integrity of the handshake and confirm that the client holds the correct encryption secrets. </p>
+<h3 id="backwards-compatibility">Backwards Compatibility<a class="headerlink" href="#backwards-compatibility" title="Permanent link">&para;</a></h3>
+<p>Along with its remaining handshake messages, the server might also send a <em>Change Cipher Spec</em>. This message was used in previous TLS versions to signal a cipher configuration change, such as the change from sending records in plaintext to ciphertext, but it is only included in the TLS 1.3 for compatibility with <em>middleboxes</em> such as proxy servers, load balancers, and web application firewalls. </p>
+<h2 id="implementation-tasks">Implementation Tasks<a class="headerlink" href="#implementation-tasks" title="Permanent link">&para;</a></h2>
+<p>Sticking to our goal of writing the least amount of functionality needed to send and receive encrypted application traffic, we can proceed without needing to fully parse the handshake messages mentioned above. However, since these messages are part of the handshake, their plaintext content does need to be included in the handshake transcript so that client can compute the required HMAC and application traffic keys. </p>
+<p>Even in our toy implementation, we are likely to encounter a Change Cipher Spec message. This message is passed in an unencrypted record type that can be identified by the record header's type value (20). Since it is used only for compatibility, the Change Cipher Spec should be skipped without further processing. Further, the message is not part of the handshake protocol, and it is omitted from the handshake transcript.</p>
+<p>The additional funcitionality required to complete this task is summarized here:</p>
 <ol>
-<li>The <em>plaintext</em> (for encrypt) or <em>ciphertext</em> and <em>authentication tag</em> (for decrypt)</li>
-<li><em>Additional data</em> that will be bound to the cipher text through the AEAD integrity mechanism</li>
+<li>Continue processing each TLS record sent by the server until you have seen its <em>Finished</em> message (handshake type 20). <ol>
+<li>You will need to detect <em>Change Cipher Spec</em> messages (record type 20), but you should not do any further processing after removing the messages from the incoming socket buffer.</li>
+<li>Decrypt each <em>Application Data</em> message (record type 23), and determine the underlying message type by examining the 1-byte record footer that was appended to the original message data. </li>
+<li>Add the decrypted message body from each <em>Handshake</em> message (record type 22) to the handshake transcript using the <code>update_transcript()</code> method of <em>TLSContext</em>.</li>
 </ol>
-<p>The TLSCipher <code>encrypt()</code> method returns a new byte object that includes the ciphertext and authentication tag. The length of this object equals the length of the original plaintext plus 16 bytes for the authentication tag.</p>
-<p>The byte object returned by <code>decrypt()</code> includes only the plaintext byte that were originally encrypted without any additional data or authentication tag. The 16-byte authentication tag of the ciphertext is stripped off and validated by the decrypt operation. An exception will be thrown if the authentication tag cannot be verified due to changes in the ciphertext or additional data.</p>
-<h2 id="encrypted-record-structure">Encrypted Record Structure<a class="headerlink" href="#encrypted-record-structure" title="Permanent link">&para;</a></h2>
-<p>You've already worked with unencrypted records used to send client and server hello messages. To complete the handshake and start exchanging application data, you also need to be able to build and parse encrypted records. On the outside, these records look similar to those you've already seen, though they are always assigned record type 23 (the assigned value for application data) to ensure that the connection peer can recognize that the record data will need to be decrypted before further processing. </p>
-<p>The following steps are needed to build a protected record:</p>
-<ol>
-<li>Append the real message type (such as 22 or 23) as a 1-byte trailer at the end of the message body to obtain the plaintext record data</li>
-<li>Compute length of the encrypted record body by adding 16 bytes to the plaintext record length to account for the authentication tag</li>
-<li>Compute the 5 byte record header with type 23 (application data), version b'\x03\03', and the computed ciphertext length</li>
-<li>Using the 5-byte record header as additional authenticated data, encrypt the body of the record</li>
-<li>Concatenate the header and encrypted body</li>
+</li>
+<li>Use the <code>compute_verify_data()</code> of <em>TLSContext</em> to compute the client-generated <em>Verify Data</em> based on the current handshake transcript. This method is called without arguments and returns a Python bytes object.</li>
+<li>Construct a handshake <em>Finished</em> message using the the computed <em>Verify Data</em>, and send it to the server as an encrypted record.</li>
+<li>Finally, use the <code>get_application_cipher()</code> method of <em>TLSContext</em> to generate traffic keys for application data.</li>
 </ol>
-<p>Likewise, the process to decrypt and parse a message looks like so:</p>
-<ol>
-<li>Parse the 5 byte record header to obtain the type, version, and length of the record</li>
-<li>If the record type is 23, you will need to decrypt in order to proceed</li>
-<li>Split the record into its header and the remaining body</li>
-<li>Passing in the 5-byte record header as additional authenticated data, decrypt the body of the record</li>
-<li>Split the plaintext returned from the decryption to obtain the message body and 1-byte record type (the real type this time)</li>
-</ol>
-<h2 id="example-encryptdecrypt">Example Encrypt/Decrypt<a class="headerlink" href="#example-encryptdecrypt" title="Permanent link">&para;</a></h2>
-<p>The following code demonstrates this entire process. </p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">handshake_cipher</span> <span class="o">=</span> <span class="n">get_handshake_cipher</span><span class="p">()</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># Build</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">TAG_LENGTH</span> <span class="o">=</span> <span class="mi">16</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">data</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;insert real data here&#39;</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">plaintext</span> <span class="o">=</span> <span class="n">data</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\16</span><span class="s1">&#39;</span> <span class="c1"># indicates this is actually a handshake message</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">ciphertext_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">plaintext</span><span class="p">)</span> <span class="o">+</span> <span class="n">TAG_LENGTH</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="n">record_header</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x17</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\x03\x03</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">ciphertext_length</span><span class="o">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;big&#39;</span><span class="p">)</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">ciphertext</span> <span class="o">=</span> <span class="n">handshake_cipher</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">plaintext</span><span class="p">,</span> <span class="n">record_header</span><span class="p">)</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="n">record</span> <span class="o">=</span> <span class="n">record_header</span> <span class="o">+</span> <span class="n">ciphertext</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c1"># Parse</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="n">rtype</span><span class="p">,</span> <span class="n">rversion</span><span class="p">,</span> <span class="n">rlength</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">record</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">record</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="s1">&#39;big&#39;</span><span class="p">)</span> 
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="k">if</span> <span class="n">rtype</span> <span class="o">=</span> <span class="mi">23</span><span class="p">:</span> <span class="c1"># must be encrypted</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="n">record_header</span><span class="p">,</span> <span class="n">ciphertext</span> <span class="o">=</span> <span class="n">record</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">],</span> <span class="n">record</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">5</span><span class="o">+</span><span class="n">rlength</span><span class="p">]</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    <span class="n">plaintext</span> <span class="o">=</span> <span class="n">handshake_cipher</span><span class="o">.</span><span class="n">decrypt</span><span class="p">(</span><span class="n">ciphertext</span><span class="p">,</span> <span class="n">record_header</span><span class="p">)</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>    <span class="n">data</span><span class="p">,</span> <span class="n">rtype</span> <span class="o">=</span> <span class="n">plaintext</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">plaintext</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="c1"># rtype is now set to the actual record type taken from the final byte of the decrypted message</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="c1"># data is now set to the actual plaintext message and can be parsed as you&#39;ve done with server hello</span>
-</code></pre></div>
 
               
             </article>
@@ -2009,41 +1892,6 @@
       </main>
       
         <footer class="md-footer">
-  
-    <nav class="md-footer__inner md-grid" aria-label="Footer">
-      
-        
-        <a href="../tls13-key-generation/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Key Generation" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              Key Generation
-            </div>
-          </div>
-        </a>
-      
-      
-        
-        <a href="../../resources/markdown/" class="md-footer__link md-footer__link--next" aria-label="Next: Intro to Markdown" rel="next">
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              Intro to Markdown
-            </div>
-          </div>
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-          </div>
-        </a>
-      
-    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">

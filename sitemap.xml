@@ -66,6 +66,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://info314.tcpip.dev/assignments/tls13-complete-handshake/</loc>
+         <lastmod>2022-05-21</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://info314.tcpip.dev/assignments/tls13-encrypt-decrypt/</loc>
          <lastmod>2022-05-21</lastmod>
          <changefreq>daily</changefreq>

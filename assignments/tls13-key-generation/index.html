@@ -1019,6 +1019,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#server-encryption-parameters" class="md-nav__link">
     Server Encryption Parameters
   </a>
@@ -1033,8 +1040,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#compute-handshake-keys" class="md-nav__link">
-    Compute Handshake Keys
+  <a href="#computing-handshake-keys" class="md-nav__link">
+    Computing Handshake Keys
   </a>
   
 </li>
@@ -1877,6 +1884,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#server-encryption-parameters" class="md-nav__link">
     Server Encryption Parameters
   </a>
@@ -1891,8 +1905,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#compute-handshake-keys" class="md-nav__link">
-    Compute Handshake Keys
+  <a href="#computing-handshake-keys" class="md-nav__link">
+    Computing Handshake Keys
   </a>
   
 </li>
@@ -1912,6 +1926,7 @@
 
 
 <h1 id="generating-tls-13-handshake-keys">Generating TLS 1.3 Handshake Keys<a class="headerlink" href="#generating-tls-13-handshake-keys" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>After processing the server's hello message to determine the its preferred cipher suite and public key, you will have everything needed to compute symmetric encryption keys that are used to protect the rest of the handshake. These calculations are already written for you in the TLSContext class that was introduced in the first part of this assignment; however, you will need to pass the server's contributions into the context in order to complete the process.</p>
 <h2 id="server-encryption-parameters">Server Encryption Parameters<a class="headerlink" href="#server-encryption-parameters" title="Permanent link">&para;</a></h2>
 <p>In the first step of the TLS 1.3 handshake, our client proposed an elliptic curve Diffie-Hellman key exchange using x25519 parameters. In response, the server provided an x25519 public key within a Key Share extension (type 51) attached to the server hello. This value is used by the client to complete the ECDHE key exchange from its side. Pass the the public key extracted from this extension to the <code>set_server_public()</code> method of TLSContext as shown below:</p>
@@ -1936,7 +1951,7 @@
 <ol>
 <li>In this example, <code>client_hello</code> is a bytes object containing a 5-byte record header that needs to be sliced away.</li>
 </ol>
-<h2 id="compute-handshake-keys">Compute Handshake Keys<a class="headerlink" href="#compute-handshake-keys" title="Permanent link">&para;</a></h2>
+<h2 id="computing-handshake-keys">Computing Handshake Keys<a class="headerlink" href="#computing-handshake-keys" title="Permanent link">&para;</a></h2>
 <p>After completing the previous steps, you will be able to compute the keys used by the client and server to send encrypted handshake messages. The code for this computation is already provided within the TLSContext class. The <code>get_handshake_cipher()</code> method returns a new object that you will use in future steps to encrypt and decrypt data. </p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">handshake_cipher</span> <span class="o">=</span> <span class="n">tls</span><span class="o">.</span><span class="n">get_handshake_cipher</span><span class="p">()</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
