@@ -2090,20 +2090,30 @@
 <p>In order to configure your router to peer with other BGP routers, you will need to identify several parameters associated with the routing configuration. These parameters can differ somewhat depending on the type of link you use, i.e., physical or tunnel-based, and other constraints. This guide presents two different scenarios: a) VLANs over a physical Ethernet connection and b) WireGuard to establish a tunnel-link between two routers.</p>
 <p>In all cases, we need an Autonomous System Number (ASN) for each Autonomous System and we need a unique IP address that will identify each router (regardless of which interface is used). This latter parameter is called the router ID.</p>
 <p>For each routing link, we also need to provide a way for the routing peers to deliver packets from host-to-host -- implying the use of IP addresses. Free Range Routing (FRR) supports an "unnumbered" address configuration which saves us the trouble of planning out addresses on the links; however, this configuration depends on link-local IPv6 capabilities that won't work as expected over a WireGuard tunnel. In these cases, BGP can make use of peer-to-peer addresses configured on the WireGuard network interfaces.</p>
-<p>!!! "example" Configuration Parameters for VLAN-based peers over Ethernet
-    - Interface for routing link: <code>vlan10</code>
-    - Autonomous System Number (ASN): <code>65009</code> (local) peering to <code>65000</code> (remote)
-    - Router ID: <code>172.27.2.1</code>
-    - Advertise Network(s): <code>172.27.2.0/24</code></p>
-<p>!!! "example" Configuration Parameters for VPN-based peers
-    - Interface for routing link: <code>vpn0</code>
-    - Tunnel IP's: <code>10.99.0.3</code> (local) to <code>10.99.0.2</code> (remote)
-    - Autonomous System Number (ASN): <code>65009</code> (local) peering to <code>65000</code> (remote)
-    - Router ID: <code>172.27.2.1</code>
-    - Advertise Network(s): <code>172.27.2.0/24</code></p>
+<div class="admonition example">
+<p class="admonition-title">Configuration Parameters for VLAN-based peers over Ethernet</p>
+<ul>
+<li>Interface for routing link: <code>vlan10</code></li>
+<li>Autonomous System Number (ASN): <code>65009</code> (local) peering to <code>65000</code> (remote)</li>
+<li>Router ID: <code>172.27.2.1</code></li>
+<li>Advertise Network(s): <code>172.27.2.0/24</code></li>
+</ul>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Configuration Parameters for VPN-based peers</p>
+<ul>
+<li>Interface for routing link: <code>vpn0</code></li>
+<li>Tunnel IP's: <code>10.99.0.3</code> (local) to <code>10.99.0.2</code> (remote)</li>
+<li>Autonomous System Number (ASN): <code>65009</code> (local) peering to <code>65000</code> (remote)</li>
+<li>Router ID: <code>172.27.2.1</code></li>
+<li>Advertise Network(s): <code>172.27.2.0/24</code></li>
+</ul>
+</div>
 <h2 id="preparing-interfaces-for-the-unnumbered-bgp-configuration">Preparing Interfaces for the "Unnumbered" BGP Configuration<a class="headerlink" href="#preparing-interfaces-for-the-unnumbered-bgp-configuration" title="Permanent link">&para;</a></h2>
-<p>!!! "attention" Ethernet Only
-    This section does not apply to routing configuration over WireGuard VPN links</p>
+<div class="admonition attention ethernet only">
+<p class="admonition-title">Attention</p>
+<p>This section does not apply to routing configuration over WireGuard VPN links</p>
+</div>
 <p>To begin, we need to prepare the interface that we'll be using to peer with neighboring routers. In the past, this would have meant configuring IPv4 addresses for each side of the connection; however, we will be taking advantage of <em>unnumbered BGP</em> to identify and connect to our peers based on auto-configured IPv6 addresses. This simplification is welcome since the addresses we assign on point-to-point routing links generally serve no purpose other than facilitating communication between the adjacent routers.</p>
 <p>Our main task is to enable auto-configuration for IPv6 and to disable auto-configuration privacy extensions so that our MAC address will be encoded into the <em>link-local</em> IPv6 address for the interface. We also need to ensure that the routing interface will listen for and accept <em>ICMPv6 router advertisements</em> from its peer.</p>
 <h3 id="configure-interface">Configure interface<a class="headerlink" href="#configure-interface" title="Permanent link">&para;</a></h3>
