@@ -71,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#working-with-loopbacks-in-networkd" class="md-skip">
+        <a href="#working-with-loopbacks-in-systemd-networkd" class="md-skip">
           Skip to content
         </a>
       
@@ -1839,7 +1839,7 @@
                 
 
 
-<h1 id="working-with-loopbacks-in-networkd">Working with Loopbacks in networkd<a class="headerlink" href="#working-with-loopbacks-in-networkd" title="Permanent link">&para;</a></h1>
+<h1 id="working-with-loopbacks-in-systemd-networkd">Working with Loopbacks in systemd-networkd<a class="headerlink" href="#working-with-loopbacks-in-systemd-networkd" title="Permanent link">&para;</a></h1>
 <p>When we have worked with IP addresses, we have mostly though about them as being configured in association with a particular network interface on a device. One challenge with this configuration is that addresses attached to a physical network interface will not be brought up if the link is unavailable. In certain use cases, we will want an address that operates independently of the physical links. A common application of this configuration, for example, is dynamic routing. </p>
 <p>Two of the mechanisms that Linux provides in service of this goal are loopbacks and dummy interfaces <a href="/resources/dummy-interfaces">(read more)</a>. The focus of this guide is on configuration of the loopback interface.</p>
 <h1 id="configuring-additional-loopback-addresses">Configuring additional loopback addresses<a class="headerlink" href="#configuring-additional-loopback-addresses" title="Permanent link">&para;</a></h1>

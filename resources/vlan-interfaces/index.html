@@ -71,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#configuring-vlans-in-networkd-last-edited-2022-05-20" class="md-skip">
+        <a href="#configuring-vlans-in-systemd-networkd-last-edited-2022-05-20" class="md-skip">
           Skip to content
         </a>
       
@@ -1913,7 +1913,7 @@
                 
 
 
-<h1 id="configuring-vlans-in-networkd-last-edited-2022-05-20">Configuring VLANs in Networkd (last edited 2022-05-20)<a class="headerlink" href="#configuring-vlans-in-networkd-last-edited-2022-05-20" title="Permanent link">&para;</a></h1>
+<h1 id="configuring-vlans-in-systemd-networkd-last-edited-2022-05-20">Configuring VLANs in systemd-networkd (last edited 2022-05-20)<a class="headerlink" href="#configuring-vlans-in-systemd-networkd-last-edited-2022-05-20" title="Permanent link">&para;</a></h1>
 <p>VLAN functionality in networkd enables Linux hosts to participate in VLANs based on explicit tagging of ethernet frames. VLANs provide a valuable layer of logical configurability on top of physical network infrastructure. VLAN connections are presented in Linux as software-defined network interfaces that can be configured and utilized just like other types of network interfaces.</p>
 <h2 id="creating-vlan-interfaces">Creating VLAN Interfaces<a class="headerlink" href="#creating-vlan-interfaces" title="Permanent link">&para;</a></h2>
 <p>Networkd supports various software-defined interface types that are created based on <code>.netdev</code> files in the networkd configuration directories. A <code>.netdev</code> for a VLAN sets <code>Kind=vlan</code> and defines the numeric ID used to tag VLAN traffic on the wire in order to keep it separate from other traffic. </p>

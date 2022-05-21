@@ -1763,6 +1763,19 @@
     Determine Requirements
   </a>
   
+    <nav class="md-nav" aria-label="Determine Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#peering-configuration-for-examples" class="md-nav__link">
+    Peering Configuration for Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1811,26 +1824,6 @@
   <a href="#configure-bgp-routing" class="md-nav__link">
     Configure BGP Routing
   </a>
-  
-    <nav class="md-nav" aria-label="Configure BGP Routing">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#configuring-an-unnumbered-routing-peer-over-ethernet" class="md-nav__link">
-    Configuring an "unnumbered" routing peer over Ethernet
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#configuring-a-routing-peer-based-on-layer-3-adddresses-works-for-wireguard" class="md-nav__link">
-    Configuring a routing peer based on layer-3 adddresses (works for WireGuard)
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -1968,6 +1961,19 @@
     Determine Requirements
   </a>
   
+    <nav class="md-nav" aria-label="Determine Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#peering-configuration-for-examples" class="md-nav__link">
+    Peering Configuration for Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2016,26 +2022,6 @@
   <a href="#configure-bgp-routing" class="md-nav__link">
     Configure BGP Routing
   </a>
-  
-    <nav class="md-nav" aria-label="Configure BGP Routing">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#configuring-an-unnumbered-routing-peer-over-ethernet" class="md-nav__link">
-    Configuring an "unnumbered" routing peer over Ethernet
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#configuring-a-routing-peer-based-on-layer-3-adddresses-works-for-wireguard" class="md-nav__link">
-    Configuring a routing peer based on layer-3 adddresses (works for WireGuard)
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -2090,24 +2076,70 @@
 <p>In order to configure your router to peer with other BGP routers, you will need to identify several parameters associated with the routing configuration. These parameters can differ somewhat depending on the type of link you use, i.e., physical or tunnel-based, and other constraints. This guide presents two different scenarios: a) VLANs over a physical Ethernet connection and b) WireGuard to establish a tunnel-link between two routers.</p>
 <p>In all cases, we need an Autonomous System Number (ASN) for each Autonomous System and we need a unique IP address that will identify each router (regardless of which interface is used). This latter parameter is called the router ID.</p>
 <p>For each routing link, we also need to provide a way for the routing peers to deliver packets from host-to-host -- implying the use of IP addresses. Free Range Routing (FRR) supports an "unnumbered" address configuration which saves us the trouble of planning out addresses on the links; however, this configuration depends on link-local IPv6 capabilities that won't work as expected over a WireGuard tunnel. In these cases, BGP can make use of peer-to-peer addresses configured on the WireGuard network interfaces.</p>
-<div class="admonition example">
-<p class="admonition-title">Configuration Parameters for VLAN-based peers over Ethernet</p>
-<ul>
-<li>Interface for routing link: <code>vlan10</code></li>
-<li>Autonomous System Number (ASN): <code>65009</code> (local) peering to <code>65000</code> (remote)</li>
-<li>Router ID: <code>172.27.2.1</code></li>
-<li>Advertise Network(s): <code>172.27.2.0/24</code></li>
-</ul>
+<h3 id="peering-configuration-for-examples">Peering Configuration for Examples<a class="headerlink" href="#peering-configuration-for-examples" title="Permanent link">&para;</a></h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">VLAN-based peers over Ethernet</label><label for="__tabbed_1_2">VPN-based peers over Wireguard</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Routing interface</td>
+<td>vlan10</td>
+</tr>
+<tr>
+<td>Router ID</td>
+<td>172.27.2.1</td>
+</tr>
+<tr>
+<td>Local/Remote ASN</td>
+<td>65009 / 65000</td>
+</tr>
+<tr>
+<td>Advertised Network(s)</td>
+<td>172.27.2.0/24</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="admonition example">
-<p class="admonition-title">Configuration Parameters for VPN-based peers</p>
-<ul>
-<li>Interface for routing link: <code>vpn0</code></li>
-<li>Tunnel IP's: <code>10.99.0.3</code> (local) to <code>10.99.0.2</code> (remote)</li>
-<li>Autonomous System Number (ASN): <code>65009</code> (local) peering to <code>65000</code> (remote)</li>
-<li>Router ID: <code>172.27.2.1</code></li>
-<li>Advertise Network(s): <code>172.27.2.0/24</code></li>
-</ul>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Routing interface</td>
+<td>vpn0</td>
+</tr>
+<tr>
+<td>Router ID</td>
+<td>172.27.2.1</td>
+</tr>
+<tr>
+<td>Local/Remote Tunnel IP</td>
+<td>10.99.0.3 / 10.99.0.2</td>
+</tr>
+<tr>
+<td>Local/Remote ASN</td>
+<td>65009 / 65000</td>
+</tr>
+<tr>
+<td>Advertised Network(s)</td>
+<td>172.27.2.0/24</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <h2 id="preparing-interfaces-for-the-unnumbered-bgp-configuration">Preparing Interfaces for the "Unnumbered" BGP Configuration<a class="headerlink" href="#preparing-interfaces-for-the-unnumbered-bgp-configuration" title="Permanent link">&para;</a></h2>
 <div class="admonition attention">
@@ -2139,8 +2171,8 @@
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>quit    
 </code></pre></div>
 <h3 id="additional-unnumbered-routing-configuration">Additional "unnumbered" routing configuration<a class="headerlink" href="#additional-unnumbered-routing-configuration" title="Permanent link">&para;</a></h3>
-<div class="admonition attention ethernet only">
-<p class="admonition-title">Attention</p>
+<div class="admonition attention">
+<p class="admonition-title">Ethernet Only</p>
 <p>This section does not apply to routing configuration over WireGuard VPN links</p>
 </div>
 <p>Routers in an unnumbered peering relationship rely on ICMPv6 router advertisements to discover peers on a routing link. We previously configured our interface to accept these messages, but we still need to set up the routing daemon to generate the messages on the specified interface. </p>
@@ -2164,22 +2196,28 @@
 <li>Issue one or more <code>neighbor</code> statements, specifying either the interface (for unnumbered links) or the remote peer's address for other links.</li>
 <li>Issue one or more <code>network</code> statements, enabling FRR to advertise routes associated with the given prefix.</li>
 </ol>
-<h4 id="configuring-an-unnumbered-routing-peer-over-ethernet">Configuring an "unnumbered" routing peer over Ethernet<a class="headerlink" href="#configuring-an-unnumbered-routing-peer-over-ethernet" title="Permanent link">&para;</a></h4>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Standard peer configuration (works w/ Wireguard)</label><label for="__tabbed_2_2">Unnumbered peer configuration (Ethernet-only)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>configure terminal
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>router bgp 65009
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>bgp router-id 172.27.2.128
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>neighbor vlan10 interface remote-as external
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>neighbor 10.99.0.2 remote-as 65000
 <a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>network 172.27.2.0/24
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>quit
 </code></pre></div>
-<h4 id="configuring-a-routing-peer-based-on-layer-3-adddresses-works-for-wireguard">Configuring a routing peer based on layer-3 adddresses (works for WireGuard)<a class="headerlink" href="#configuring-a-routing-peer-based-on-layer-3-adddresses-works-for-wireguard" title="Permanent link">&para;</a></h4>
+</div>
+<div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>configure terminal
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>router bgp 65009
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>bgp router-id 172.27.2.128
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>neighbor 10.99.0.2 remote-as 65000
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>neighbor vlan10 interface remote-as external
 <a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>network 172.27.2.0/24
 <a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>quit
 </code></pre></div>
+</div>
+</div>
+</div>
 <h2 id="finalizing-your-configuration">Finalizing your Configuration<a class="headerlink" href="#finalizing-your-configuration" title="Permanent link">&para;</a></h2>
 <h3 id="save-your-changes">Save Your Changes<a class="headerlink" href="#save-your-changes" title="Permanent link">&para;</a></h3>
 <p>Don't forget that live updates to FRR are not persistent. Rebooting the router or restarting <code>frr</code> will dispose of any settings that are not written to the startup config.</p>
