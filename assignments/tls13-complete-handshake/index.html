@@ -229,6 +229,8 @@
         
   
   
+    
+  
 
 
   
@@ -240,7 +242,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../wireshark01/" class="md-tabs__link">
+      <a href="../wireshark01/" class="md-tabs__link md-tabs__link--active">
         Labs
       </a>
     </li>
@@ -818,12 +820,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
       
       
       
@@ -935,14 +939,16 @@
               
   
   
+    
+  
   
     
       
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" checked>
       
       
       
@@ -978,6 +984,32 @@
   
   
   
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2_2" type="checkbox" id="__nav_3_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_2_2">
+          Cryptographic Concerns
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cryptographic Concerns" data-md-level="3">
+        <label class="md-nav__title" for="__nav_3_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          Cryptographic Concerns
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
     <li class="md-nav__item">
       <a href="../tls13-key-generation/" class="md-nav__link">
         Key Generation
@@ -996,6 +1028,95 @@
       <a href="../tls13-encrypt-decrypt/" class="md-nav__link">
         Working with Encrypted TLS Records
       </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Completing the TLS 1.3 Handshake
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Completing the TLS 1.3 Handshake
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-handshake-messages" class="md-nav__link">
+    Additional Handshake Messages
+  </a>
+  
+    <nav class="md-nav" aria-label="Additional Handshake Messages">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#backwards-compatibility" class="md-nav__link">
+    Backwards Compatibility
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-tasks" class="md-nav__link">
+    Implementation Tasks
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1816,6 +1937,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#additional-handshake-messages" class="md-nav__link">
     Additional Handshake Messages
   </a>
@@ -1857,25 +1985,27 @@
 
 
 <h1 id="completing-the-tls-13-handshake">Completing the TLS 1.3 Handshake<a class="headerlink" href="#completing-the-tls-13-handshake" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>In the first stage of the TLS 1.3 handshake, the client and server negotiate encryption parameters and exchange asymmetric key material by sending an unecrypted <em>Hello</em> message. After completing this exchange, each participant computes symmetric traffic encryption keys that are used when sending and receiving the remaining messages in the handshake. We'll move forward in this section with the goal of completing the handshake and computing a second set of symmetric traffic encryption keys to protect application layer data. </p>
 <h2 id="additional-handshake-messages">Additional Handshake Messages<a class="headerlink" href="#additional-handshake-messages" title="Permanent link">&para;</a></h2>
 <p>After the server sends its <em>Hello</em> message and computes the handshake traffic encryption keys, it is required to send several additional handshake messages, including the following: <em>Encrypted Extensions</em> (8), <em>Certificate</em> (11), <em>Certificate Verify</em> (15), and <em>Finished</em> (20). Prior to sending the <em>Finished</em> message, a TLS 1.3 server may also send additional handshake messages, such as a <em>Certificate Request</em>. These handshake messages enable the server to send additional options through the TLS extension mechanism, authenticate its identity using a PKI-based certificate mechanism, request authentication of the client, and prove integrity of the handshake and its own traffic key computations. </p>
 <p>After receiving and processing the remaining handshake messages from the server, the TLS client responds to additional requests such as a <em>Certificate Request</em> and updates the handshake message transcript. Next, the client computes a hash-based message authentication code (HMAC) over the message transcript. This value, referred to as the client's <em>Verify Data</em> is encapsulated in the handshake protocol's <em>Finished</em> message and sent to the server. The client's <em>Finished</em> message signals the end of the handshake to the server and enables it to cryptographically verify the integrity of the handshake and confirm that the client holds the correct encryption secrets. </p>
 <h3 id="backwards-compatibility">Backwards Compatibility<a class="headerlink" href="#backwards-compatibility" title="Permanent link">&para;</a></h3>
-<p>Along with its remaining handshake messages, the server might also send a <em>Change Cipher Spec</em>. This message was used in previous TLS versions to signal a cipher configuration change, such as the change from sending records in plaintext to ciphertext, but it is only included in the TLS 1.3 for compatibility with <em>middleboxes</em> such as proxy servers, load balancers, and web application firewalls. </p>
+<p>Along with its remaining handshake messages, the server might also send a <em>Change Cipher Spec</em>. This message was used in previous TLS versions to signal a cipher configuration change, such as the transition from sending records in plaintext to sending them in ciphertext. This record type is only included in the TLS 1.3 for compatibility with <em>middleboxes</em> such as proxy servers, load balancers, and web application firewalls. TLS 1.3 clients must be able to receive a <em>Change Cipher Spec</em> message to ensure compatibility, but they must not take any further action after reading and removing it from the underlying data s</p>
 <h2 id="implementation-tasks">Implementation Tasks<a class="headerlink" href="#implementation-tasks" title="Permanent link">&para;</a></h2>
 <p>Sticking to our goal of writing the least amount of functionality needed to send and receive encrypted application traffic, we can proceed without needing to fully parse the handshake messages mentioned above. However, since these messages are part of the handshake, their plaintext content does need to be included in the handshake transcript so that client can compute the required HMAC and application traffic keys. </p>
 <p>Even in our toy implementation, we are likely to encounter a Change Cipher Spec message. This message is passed in an unencrypted record type that can be identified by the record header's type value (20). Since it is used only for compatibility, the Change Cipher Spec should be skipped without further processing. Further, the message is not part of the handshake protocol, and it is omitted from the handshake transcript.</p>
 <p>The additional funcitionality required to complete this task is summarized here:</p>
 <ol>
-<li>Continue processing each TLS record sent by the server until you have seen its <em>Finished</em> message (handshake type 20). <ol>
+<li>Compute handshake traffic encryption keys using the <code>get_handshake_cipher()</code> method of <em>TLSContext</em>. This step is described within <a href="/assignments/tls13-key-generation/">Generating TLS 1.3 Handshake Keys</a>.</li>
+<li>Continue processing each TLS record sent by the server until you have seen its <em>Finished</em> message (handshake type 20). Encrypted records should be handled according to the process described in <a href="/assignments/tls13-encrypt-decrypt/">Working with Encrypted TLS Records</a>.<ol>
 <li>You will need to detect <em>Change Cipher Spec</em> messages (record type 20), but you should not do any further processing after removing the messages from the incoming socket buffer.</li>
 <li>Decrypt each <em>Application Data</em> message (record type 23), and determine the underlying message type by examining the 1-byte record footer that was appended to the original message data. </li>
 <li>Add the decrypted message body from each <em>Handshake</em> message (record type 22) to the handshake transcript using the <code>update_transcript()</code> method of <em>TLSContext</em>.</li>
 </ol>
 </li>
 <li>Use the <code>compute_verify_data()</code> of <em>TLSContext</em> to compute the client-generated <em>Verify Data</em> based on the current handshake transcript. This method is called without arguments and returns a Python bytes object.</li>
-<li>Construct a handshake <em>Finished</em> message using the the computed <em>Verify Data</em>, and send it to the server as an encrypted record.</li>
+<li>Construct a handshake <em>Finished</em> message using the the computed <em>Verify Data</em>, and return it to the server as an encrypted record. </li>
 <li>Finally, use the <code>get_application_cipher()</code> method of <em>TLSContext</em> to generate traffic keys for application data.</li>
 </ol>
 
@@ -1892,6 +2022,41 @@
       </main>
       
         <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../tls13-encrypt-decrypt/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Working with Encrypted TLS Records" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Working with Encrypted TLS Records
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../resources/markdown/" class="md-footer__link md-footer__link--next" aria-label="Next: Intro to Markdown" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Intro to Markdown
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
