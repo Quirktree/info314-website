@@ -2290,7 +2290,7 @@
 <dd>Indicates which key exchange algorithms the client supports. For a minimal implementation, we will support the x25519 key exchange, which is identified by the value <code>0x001D</code>.</dd>
 <dt>Signature Algorithm Extension (Type 13)</dt>
 <dd>Identifies signature algorithms that will be accepted for Certificate and CertificateVerify messages. We won't implement any signature algorithms, but we must provide a valid list. </dd>
-<dt>TLS Version Extension (Type 43)</dt>
+<dt>Supported Versions Extension (Type 43)</dt>
 <dd>Indicates that the client is requesting a TLS 1.3 handshake. Set to the TLS 1.3 version indicator, i.e., <code>b'\x03\x04'</code></dd>
 <dt>Key Share Extension (Type 51)</dt>
 <dd>Provides the client's public key to the server. The TLSContext for your session contains a property named <code>public_key</code> that is set to the byte-level representation of the public key generated for the current session. </dd>
