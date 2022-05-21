@@ -2110,8 +2110,8 @@
 </ul>
 </div>
 <h2 id="preparing-interfaces-for-the-unnumbered-bgp-configuration">Preparing Interfaces for the "Unnumbered" BGP Configuration<a class="headerlink" href="#preparing-interfaces-for-the-unnumbered-bgp-configuration" title="Permanent link">&para;</a></h2>
-<div class="admonition attention ethernet only">
-<p class="admonition-title">Attention</p>
+<div class="admonition attention">
+<p class="admonition-title">Ethernet Only</p>
 <p>This section does not apply to routing configuration over WireGuard VPN links</p>
 </div>
 <p>To begin, we need to prepare the interface that we'll be using to peer with neighboring routers. In the past, this would have meant configuring IPv4 addresses for each side of the connection; however, we will be taking advantage of <em>unnumbered BGP</em> to identify and connect to our peers based on auto-configured IPv6 addresses. This simplification is welcome since the addresses we assign on point-to-point routing links generally serve no purpose other than facilitating communication between the adjacent routers.</p>
