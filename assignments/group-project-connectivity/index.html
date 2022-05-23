@@ -1877,8 +1877,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install-free-range-routing-on-your-pi" class="md-nav__link">
-    Install Free Range Routing on your Pi
+  <a href="#preparation" class="md-nav__link">
+    Preparation
   </a>
   
 </li>
@@ -1891,16 +1891,16 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#firewall-rules-edge-routers" class="md-nav__link">
-    Firewall Rules (Edge Routers)
+  <a href="#firewall-rules-for-edge-routers" class="md-nav__link">
+    Firewall Rules for Edge Routers
   </a>
   
-    <nav class="md-nav" aria-label="Firewall Rules (Edge Routers)">
+    <nav class="md-nav" aria-label="Firewall Rules for Edge Routers">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#firewall-rules-isp-router" class="md-nav__link">
-    Firewall Rules (ISP Router)
+  <a href="#firewall-rules-for-isp-routers" class="md-nav__link">
+    Firewall Rules for ISP routers
   </a>
   
 </li>
@@ -1911,8 +1911,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#configure-pi-dns-resolution" class="md-nav__link">
-    Configure .Pi DNS Resolution
+  <a href="#configure-pi-dns-resolution-all-name-servers" class="md-nav__link">
+    Configure .Pi DNS Resolution (all name servers)
   </a>
   
 </li>
@@ -1932,43 +1932,41 @@
 
 
 <h1 id="configure-bgp-routing-and-pi-dns-resolution">Configure BGP Routing and .Pi DNS Resolution<a class="headerlink" href="#configure-bgp-routing-and-pi-dns-resolution" title="Permanent link">&para;</a></h1>
-<div class="admonition attention">
-<p class="admonition-title">Follow your Planning Documents</p>
-</div>
-<p>The tasks you are completing are not extremely difficult, but there are ample opportunities for confusion. You should review instructions and make sure that your planning documents include all of the IP addresses and other values that you will need. Having this information well organized can be the difference between finishing this task in an hour versus spending several hours debugging.</p>
-<h2 id="install-free-range-routing-on-your-pi">Install Free Range Routing on your Pi<a class="headerlink" href="#install-free-range-routing-on-your-pi" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Follow the steps described in <a href="/resources/setup-frr/">Getting Started with Free Range Routing (FRR) on Raspberry Pi OS</a> to install FRR and perform initial configuration.</li>
-</ol>
-<h2 id="configure-routing-links">Configure Routing Links<a class="headerlink" href="#configure-routing-links" title="Permanent link">&para;</a></h2>
-<p>The next task in store for you is to configure the network interfaces that will be used to establish routing links </p>
-<p>You must coordinate the VLAN ID with the core router and the switch.</p>
-<p>Create a tagged VLAN to connect with the core router. You must coordinate the VLAN ID with the core router and the switch.</p>
-<ol>
-<li>Update all network-based services on your LAN to use the new IP address ranges as determined by your group assignments and your own address planning.</li>
-<li>Create a new VLAN interface</li>
-<li>Enable the FRR BGP daemon and configure your new router based on the provided guides. In order to do this, you will need an ASN and an additional public address to use as a router ID. Make sure that both values are included in your documentation.</li>
-</ol>
-<p>update its BGP router settings to recognize your Pi-based router as a neighbor </p>
+<h2 id="preparation">Preparation<a class="headerlink" href="#preparation" title="Permanent link">&para;</a></h2>
+<p>Review your final network planning documentation and identify the following details:</p>
 <ul>
-<li>Repeat the configuration process on your local router, setting up a peering (neighbor) relationship with the ISP.</li>
-<li>Use the <em>network</em> directive to configure your local BGP to advertise the entire LAN/WAN subnet range that you were assigned by your group.</li>
+<li>The ASN value assigned to your LAN. Each group member should have a unique ASN from the range given in PiCANN</li>
+<li>Routing links and associated VLANs that connect to your Pi:</li>
+<li>Each edge network router will have one routing link to the ISP router</li>
+<li>The ISP router will have on routing link per edge network plus an uplink to the class network</li>
+<li>An address from your public address range that you will use to configure your BGP router's router ID</li>
 </ul>
-<h2 id="firewall-rules-edge-routers">Firewall Rules (Edge Routers)<a class="headerlink" href="#firewall-rules-edge-routers" title="Permanent link">&para;</a></h2>
+<h2 id="configure-routing-links">Configure Routing Links<a class="headerlink" href="#configure-routing-links" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Follow <a href="/resources/setup-frr/">Getting Started with Free Range Routing (FRR) on Raspberry Pi OS</a> to install FRR and perform the initial configuration. </li>
+<li>Using the instructions provided in <a href="/resources/configure-routing-links/">Configure a Routing Link for BGP Peers</a>, perform the following tasks needed to configure BGP:</li>
+<li>Assign the router ID to the loopback interface</li>
+<li>Create and configure VLAN interfaces for "unnumbered" routing links</li>
+<li>Configure a BGP router using your router ID and ASN</li>
+<li>Use the <em>neighbor</em> directive to establish "unnumbered" ethernet peers over each routing link</li>
+<li>Use the <em>network</em> directive to advertise the full LAN/WAN address range you've been assigned.</li>
+<li>Save your configuration.</li>
+</ol>
+<h2 id="firewall-rules-for-edge-routers">Firewall Rules for Edge Routers<a class="headerlink" href="#firewall-rules-for-edge-routers" title="Permanent link">&para;</a></h2>
 <div class="admonition info">
 <p class="admonition-title">Information</p>
 </div>
 <p>Since we are on a lab network, you can simplify troubleshoting by setting the default forwarding policy to <code>accept</code>. Once you are confident that routing works, change the policy back to <code>drop</code> and troubleshoot your rules.</p>
 <p>Ensure that outbound traffic from your internal subnets is permitted.<sup id="fnref:previous-step"><a class="footnote-ref" href="#fn:previous-step">1</a></sup> For simplicity, you may also open up your firewall to traffic arriving from your routing links. </p>
 <p>Since our entire class network is assigned to the 172.30.0.0/16 networks you won't need to make any changes to the current NAT configuration. Likewise, you should continue to use connection state to make sure inbound packets (from wlan0) are dropped when they aren't related to established sessions</p>
-<h3 id="firewall-rules-isp-router">Firewall Rules (ISP Router)<a class="headerlink" href="#firewall-rules-isp-router" title="Permanent link">&para;</a></h3>
+<h3 id="firewall-rules-for-isp-routers">Firewall Rules for ISP routers<a class="headerlink" href="#firewall-rules-for-isp-routers" title="Permanent link">&para;</a></h3>
 <div class="admonition info">
 <p class="admonition-title">Information</p>
 </div>
 <p>Since we are on a lab network, you can simplify troubleshoting by setting the default forwarding policy to <code>accept</code>. Once you are confident that routing works, change the policy back to <code>drop</code> and troubleshoot your rules.</p>
 <p>In addition to local traffic, your router is responsible for transit between your partners' networks and the rest of the class. To ensure that you don't interfere with this operation, add a rule to allow forwarded traffic originating from any of the routing links that you've configured.</p>
 <p>Since our entire class network is assigned to the 172.30.0.0/16 networks you won't need to make any changes to the current NAT configuration. Likewise, you should continue to use connection state to make sure inbound packets (from wlan0) are dropped when they aren't related to established sessions</p>
-<h2 id="configure-pi-dns-resolution">Configure .Pi DNS Resolution<a class="headerlink" href="#configure-pi-dns-resolution" title="Permanent link">&para;</a></h2>
+<h2 id="configure-pi-dns-resolution-all-name-servers">Configure .Pi DNS Resolution (all name servers)<a class="headerlink" href="#configure-pi-dns-resolution-all-name-servers" title="Permanent link">&para;</a></h2>
 <p>We've intentionally set up all of our domains within the non-existent .pi top-level domain and are limiting the resolution of these domains to our class network. By default, our resolvers won't be able to perform queries against other .pi domains since the recursive process depends on relationship between the ICANN root and the top-level domain registries. </p>
 <p>Our TLD is not present in those data stores, so we need to offer it a little help to resolve .pi domains. The work-around we're employing is to have each of your resolvers maintain a copy of the .pi zone so that it can directly discover the authoritative name servers of your peers' domains.</p>
 <p>The primary name server for .pi is running at the 10.10.10.10 address (one member of your group will host a copy). By adding the following section to your /etc/bind/named.conf.local, your pi will perform a <em>zone transfer</em> with 10.10.10.10 and then periodically refresh based on the settings specified in the SOA for the top-level domain.</p>
