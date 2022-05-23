@@ -12,21 +12,21 @@
         <meta name="author" content="Clinton Campbell">
       
       
-        <link rel="canonical" href="https://info314.tcpip.dev/assignments/final-project/">
+        <link rel="canonical" href="https://info314.tcpip.dev/assignments/group-project-connectivity/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.7">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-8.2.15">
     
     
       
-        <title>Final Network Project (last edited 2020-06-09) - INFO 314 Course Resources</title>
+        <title>Configure BGP Routing and .Pi DNS Resolution - INFO 314 Course Resources</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.9d5733d3.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.c382b1dc.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cc9b2e1e.min.css">
         
       
     
@@ -71,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#final-network-project-last-edited-2020-06-09" class="md-skip">
+        <a href="#configure-bgp-routing-and-pi-dns-resolution" class="md-skip">
           Skip to content
         </a>
       
@@ -90,11 +90,11 @@
     <a href="../.." title="INFO 314 Course Resources" class="md-header__button md-logo" aria-label="INFO 314 Course Resources" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
@@ -106,7 +106,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Final Network Project (last edited 2020-06-09)
+              Configure BGP Routing and .Pi DNS Resolution
             
           </span>
         </div>
@@ -120,7 +120,7 @@
           <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
           
             <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
             </label>
           
         
@@ -129,7 +129,7 @@
           <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
           
             <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22z"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
             </label>
           
         
@@ -138,7 +138,7 @@
     
     
       <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
       </label>
       <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
@@ -146,13 +146,13 @@
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
       </label>
       <nav class="md-search__options" aria-label="Search">
         
         <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
       
@@ -302,7 +302,7 @@
     <a href="../.." title="INFO 314 Course Resources" class="md-nav__button md-logo" aria-label="INFO 314 Course Resources" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
 
     </a>
     INFO 314 Course Resources
@@ -1522,14 +1522,14 @@
       
       
         <label class="md-nav__link" for="__nav_4_4_2">
-          Network Interfaces
+          Virtual Networking Devices
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" aria-label="Network Interfaces" data-md-level="3">
+      <nav class="md-nav" aria-label="Virtual Networking Devices" data-md-level="3">
         <label class="md-nav__title" for="__nav_4_4_2">
           <span class="md-nav__icon md-icon"></span>
-          Network Interfaces
+          Virtual Networking Devices
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
           
@@ -1877,38 +1877,30 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    Overview
+  <a href="#install-free-range-routing-on-your-pi" class="md-nav__link">
+    Install Free Range Routing on your Pi
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#before-you-start" class="md-nav__link">
-    Before you start
+  <a href="#configure-routing-links" class="md-nav__link">
+    Configure Routing Links
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#project-details" class="md-nav__link">
-    Project Details
+  <a href="#firewall-rules-edge-routers" class="md-nav__link">
+    Firewall Rules (Edge Routers)
   </a>
   
-    <nav class="md-nav" aria-label="Project Details">
+    <nav class="md-nav" aria-label="Firewall Rules (Edge Routers)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#planning" class="md-nav__link">
-    Planning
-  </a>
-  
-    <nav class="md-nav" aria-label="Planning">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#specifications" class="md-nav__link">
-    Specifications
+  <a href="#firewall-rules-isp-router" class="md-nav__link">
+    Firewall Rules (ISP Router)
   </a>
   
 </li>
@@ -1917,143 +1909,11 @@
     </nav>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#documentation" class="md-nav__link">
-    Documentation
+      
+        <li class="md-nav__item">
+  <a href="#configure-pi-dns-resolution" class="md-nav__link">
+    Configure .Pi DNS Resolution
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#isp-router" class="md-nav__link">
-    ISP Router
-  </a>
-  
-    <nav class="md-nav" aria-label="ISP Router">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#specifications_1" class="md-nav__link">
-    Specifications
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#lanwan-address-planning" class="md-nav__link">
-    LAN/WAN Address Planning
-  </a>
-  
-    <nav class="md-nav" aria-label="LAN/WAN Address Planning">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#specifications_2" class="md-nav__link">
-    Specifications
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#edge-network-setup" class="md-nav__link">
-    Edge Network Setup
-  </a>
-  
-    <nav class="md-nav" aria-label="Edge Network Setup">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#specifications_3" class="md-nav__link">
-    Specifications
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pi-dns-resolution" class="md-nav__link">
-    .Pi DNS Resolution
-  </a>
-  
-    <nav class="md-nav" aria-label=".Pi DNS Resolution">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#override-dns-resolution-on-the-pi" class="md-nav__link">
-    Override DNS resolution on the Pi
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#public-services" class="md-nav__link">
-    Public Services
-  </a>
-  
-    <nav class="md-nav" aria-label="Public Services">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#allow-external-dns-queries" class="md-nav__link">
-    Allow External DNS Queries
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#making-improvements-and-extra-credit" class="md-nav__link">
-    Making Improvements and Extra Credit
-  </a>
-  
-    <nav class="md-nav" aria-label="Making Improvements and Extra Credit">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#firewall-rules" class="md-nav__link">
-    Firewall Rules
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#links-and-resources" class="md-nav__link">
-    Links and Resources
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -2071,290 +1931,60 @@
                 
 
 
-<h1 id="final-network-project-last-edited-2020-06-09">Final Network Project (last edited 2020-06-09)<a class="headerlink" href="#final-network-project-last-edited-2020-06-09" title="Permanent link">&para;</a></h1>
-<h2 id="overview"><strong>Overview</strong><a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<hr />
-<p>Working in your group, design and implement a networked system that mirrors the concept of an Internet Service Provider (ISP) with customer networks. Your primary objective in this exercise is to adapt what you've completed in previous tasks to meet the requirements specified below.</p>
-<p>Although you will be working together as a group on this project, each participant will take the lead on configuring their own network device to integrate into the ISP network.</p>
-<p>Additional configuration guidance will be made available through Slack. We will walk through new tasks together in our remaining lectures/labs.</p>
-<div class="admonition important">
-<p class="admonition-title">Important Instructions</p>
-<p>As soon as possible, please browse to following link and provide the requested information about your group's WireGuard configuration and individual .pi Name Servers:</p>
-<ul>
-<li><a href="https://docs.google.com/spreadsheets/d/1A3uCrVmrwoPdA0LvMH6IyRkU1_BLXhbVRjIadtc__E0/edit?usp=sharing">PICANN Registry</a></li>
-</ul>
-<p>Take time to plan out the network design and IP address usage with your group before you build. This plan is a mandatory deliverable and will be required before implementation assistance is given.</p>
-<p>We recommend that you sketch out an initial diagram of the entire network and create a checklist of major settings for each device.</p>
+<h1 id="configure-bgp-routing-and-pi-dns-resolution">Configure BGP Routing and .Pi DNS Resolution<a class="headerlink" href="#configure-bgp-routing-and-pi-dns-resolution" title="Permanent link">&para;</a></h1>
+<div class="admonition attention">
+<p class="admonition-title">Follow your Planning Documents</p>
 </div>
-<h2 id="before-you-start"><strong>Before you start</strong><a class="headerlink" href="#before-you-start" title="Permanent link">&para;</a></h2>
-<hr />
-<p>Each of your group members need to have completed the individual project checkpoints before proceeding with the configuration necessary for the final network. Each pi should function as a network gateway while also providing DHCP and private DNS services to an Ethernet-based LAN.</p>
-<h2 id="project-details"><strong>Project Details</strong><a class="headerlink" href="#project-details" title="Permanent link">&para;</a></h2>
-<hr />
-<p>The following outline summarizes the steps that are needed to inter-network your individual LANs and join them up to the global, PiCANN internet core. Once you have completed these tasks, you will be able to route traffic across our class network and participate in friendly email exchanges with your classmates on the .pi top level domain!</p>
-<ol>
-<li>With your group, <ins>review</ins> the ASN and address ranges defined at PiCANN and <ins>assign and ASN and distinct subnet</ins> to each group member.</li>
-<li>With your group, <ins>configure</ins> a Debian 10.3 VM at DigitalOcean (or other cloud provider) to act as an <ins>ISP router</ins> for your group using VPN-based routing links.</li>
-<li><ins>Design a new address plan</ins> for your LAN/WAN presence based on the address range assigned in Step 1 and including a <ins>minimum of two subnets</ins>.</li>
-<li>After reviewing your work on previous checkpoints, <ins>"re-number" your LAN segment</ins> using the new LAN subnet, updating the configuration of networkd, DHCP, iptables, and BIND as required for the task.</li>
-<li><ins>Configure a routing link</ins> between your Pi-based router and the cloud-based ISP, setting up both ends of the VPN and the BGP peering relationships.</li>
-<li>Review the documentation you created for your .pi domain in Checkpoint #5 and <ins>update your DNS plan</ins> according to your new address plan.</li>
-<li><ins>Configure additional "DMZ" addresses</ins> on your Pi and <ins>update your DNS zone configuration</ins> to serve the new addresses correctly.</li>
-<li><ins>Install and configure</ins> the Docker-based mail servers based on your own network settings. </li>
-<li>Work with your group to <ins>test and document</ins> your work, ensuring that routing and DNS are working consistently across your shared ISP and individual Edge routers.</li>
-<li>Using your shiny new webmail service, send an email to <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#99;&#108;&#105;&#110;&#116;&#111;&#110;&#64;&#103;&#114;&#97;&#100;&#101;&#98;&#111;&#111;&#107;&#46;&#112;&#105;">&#99;&#108;&#105;&#110;&#116;&#111;&#110;&#64;&#103;&#114;&#97;&#100;&#101;&#98;&#111;&#111;&#107;&#46;&#112;&#105;</a>.</li>
-</ol>
-<h3 id="planning"><strong>Planning</strong><a class="headerlink" href="#planning" title="Permanent link">&para;</a></h3>
-<hr />
-<p>Up until this point, you have each configured your networks with private address ranges of your own choosing. While this is convenient for getting started, it doesn't lend itself well to a class-wide internet where each device must have its own unique addresses. Going forward, we will ask you to re-number your networks to use the assigned address blocks. This will require a small amount of collaboration within your group to assign sub-ranges.</p>
-<h4 id="specifications"><strong>Specifications</strong><a class="headerlink" href="#specifications" title="Permanent link">&para;</a></h4>
-<ol>
-<li>Assign an ASN and a distinct subnet to each member of your team. All ASNs and subnets must fall within the larger range provided for your group.</li>
-<li>Select an additional ASN to use for peering between your ISP router and the PiCANN core. Update the PiCANN peering directory with this information.</li>
-<li>Document your team's address range and individual assignments within a markdown document called final-planning.md. This document should be uploaded to your team's repository as soon as possible for referenced during the remaining parts of the project.</li>
-</ol>
-<h3 id="documentation"><strong>Documentation</strong><a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h3>
-<hr />
-<p>As you work through each part of this project, carefully document the decisions that you make. The process of planning and recording documentation will help you to avoid mistakes and simplify the troubleshooting process. Likewise, you will be asked to provide a comprehensive view of your network design within your GitHub repository. Detailed documentation requirements are provided within the Canvas assignments.</p>
-<h3 id="isp-router"><strong>ISP Router</strong><a class="headerlink" href="#isp-router" title="Permanent link">&para;</a></h3>
-<hr />
-<p>As a group, you will need to set up a new Debian 10.3 droplet at Digital Ocean, install WireGuard and Free Range Routing packages, and configure a WireGuard and BGP to create a routing link with the core network. This link will provide connectivity to the other groups in the class, and the peering relationship you create with the core router will be used to exchange routes between upstream and downstream routers. </p>
-<p>Completion of this task will require collaboration with the Instruction team. Consult the [PiCANN] registry for VPN/BGP parameters that your group will use to peer with the core router. Fill in the missing values with your public key and the ASN that you assigned to the ISP router. Notify the instruction team via Slack so that we can complete the upstream configuration.</p>
-<h4 id="specifications_1"><strong>Specifications</strong><a class="headerlink" href="#specifications_1" title="Permanent link">&para;</a></h4>
-<ol>
-<li>Create a new VM using the $5/mo specs and the SSH key of one of your group members. You may also wish to enable IPv6 (can improve connectivity if any of your team mmembers have IPv6 capable ISPs (such as Comcast).</li>
-<li>Update /root/.ssh/authorized_keys on your VM to include public keys for each of your group members as well as the following key for the instructor: <code>ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBJTZTstXqjM7lEaFj/pnRNEztiZYu4yhKBZDrUCYMi5 clinton@info314</code>.</li>
-<li>Install WireGuard and Free Range Routing (FRR) based on the instructions given in class and the guides posted on this site.</li>
-<li>Create a new private/public key pair and add the public key to PiCANN along with the public IPv4 address of your router.</li>
-<li>Referencing your groups configuration parameters in PiCANN, configure a persistent VPN interface to connect to the core based on the <em>legacy Debian networking</em> approach.</li>
-<li>Configure FRR to enable BGP and establish a peer relationship with the PiCANN core.</li>
-<li>Refer to the documentation from Checkpoint #3 to enable IPv4 forwarding with <em>sysctl</em> and create <em>iptables</em> rules to allow packets to be forwarded from your WireGuard tunnel interface. As with Checkpoint #3, set the default forwarding policy to drop packets.</li>
-<li>Make sure that you have updated the peering worksheet in PiCANN with missing parameters and notify the Instruction team that your peer is ready to connect.</li>
-</ol>
-<h3 id="lanwan-address-planning"><strong>LAN/WAN Address Planning</strong><a class="headerlink" href="#lanwan-address-planning" title="Permanent link">&para;</a></h3>
-<hr />
-<h4 id="specifications_2"><strong>Specifications</strong><a class="headerlink" href="#specifications_2" title="Permanent link">&para;</a></h4>
-<ul>
-<li>Each group member should subnet their PiCANN subnet into 2 - 4 distinct subnets.<ul>
-<li>A minimum of two subnets per LAN are needed to meet the base project requirements.</li>
-<li>If you would like to experiment with more complex configurations later we recommend four subnets.</li>
-</ul>
-</li>
-<li>Use one of your subnets for your internal LAN (providing DHCP and other services to devices accessing through Ethernet). A second subnet should be dedicated to any public-facing services. We'll often associate this subnet with your "DMZ". </li>
-</ul>
-<h3 id="edge-network-setup"><strong>Edge Network Setup</strong><a class="headerlink" href="#edge-network-setup" title="Permanent link">&para;</a></h3>
-<hr />
-<p>After you complete your final planning for your LAN and public address ranges, you should "re-number" your LAN connection to use the new LAN address range. To save yourself significant troubleshooting time, proceed carefully with this task and make sure that you apply updates to networkd, DHCP, iptables, and BIND as required to support the new addresses. It will likely be helpful to review your previous work and the guides for the past Checkpoints (especially 1 - 4). </p>
-<p>The next task in store for you is to establish connectivity and routing to the ISP VM that your group configured earlier. This is a two-part process, as you will need to create a WireGuard interface and configure peering on both routers (Debian VM and Pi). Keep in mind at this point that there are slight differences in the implementation on each end of this connection. The WireGuard configuration on the Debian VM relies on <em>legacy Debian networking</em> configuration while the Pi will be configured with the built-in WireGuard capabilities of <em>systemd-networkd</em>. We have provided reference documentation and video demos for each scenario.</p>
 <p>The tasks you are completing are not extremely difficult, but there are ample opportunities for confusion. You should review instructions and make sure that your planning documents include all of the IP addresses and other values that you will need. Having this information well organized can be the difference between finishing this task in an hour versus spending several hours debugging.</p>
-<h4 id="specifications_3"><strong>Specifications</strong><a class="headerlink" href="#specifications_3" title="Permanent link">&para;</a></h4>
+<h2 id="install-free-range-routing-on-your-pi">Install Free Range Routing on your Pi<a class="headerlink" href="#install-free-range-routing-on-your-pi" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Follow the steps described in <a href="/resources/setup-frr/">Getting Started with Free Range Routing (FRR) on Raspberry Pi OS</a> to install FRR and perform initial configuration.</li>
+</ol>
+<h2 id="configure-routing-links">Configure Routing Links<a class="headerlink" href="#configure-routing-links" title="Permanent link">&para;</a></h2>
+<p>The next task in store for you is to configure the network interfaces that will be used to establish routing links </p>
+<p>You must coordinate the VLAN ID with the core router and the switch.</p>
+<p>Create a tagged VLAN to connect with the core router. You must coordinate the VLAN ID with the core router and the switch.</p>
 <ol>
 <li>Update all network-based services on your LAN to use the new IP address ranges as determined by your group assignments and your own address planning.</li>
-<li>Follow the linked resources to install WireGuard and Free Range Routing (FRR) on your Pi-based router.</li>
-<li>Create a new WireGuard interface and configure it to peer with the Debian-based ISP router shared with your group.<ul>
-<li>Configure both ends of the VPN tunnel with IP addresses selected from your public/DMZ subnet. These addresses should be documented on your report.</li>
-<li>Since your Pi router is most likely located behind a NAT, it will not be possible for the ISP router to open/reopen the WireGuard tunnel for traffic directed to your Pi. Configure a <em>persistent keep-alive</em> of 25 seconds in the WireGuard peer settings on the Pi.</li>
-</ul>
-</li>
-<li>Enable the FRR BGP daemon and configure your new router based on the provided guides. In order to do this, you will need an ASN and an additional public address to use as a router ID. Make sure that both values are included in your documentation.<ul>
-<li>Log into the ISP router and update its BGP router settings to recognize your Pi-based router as a neighbor You will need the tunnel addresses from the previous step and the ASN identifiers assigned by your group to the ISP and your Edge network.</li>
+<li>Create a new VLAN interface</li>
+<li>Enable the FRR BGP daemon and configure your new router based on the provided guides. In order to do this, you will need an ASN and an additional public address to use as a router ID. Make sure that both values are included in your documentation.</li>
+</ol>
+<p>update its BGP router settings to recognize your Pi-based router as a neighbor </p>
+<ul>
 <li>Repeat the configuration process on your local router, setting up a peering (neighbor) relationship with the ISP.</li>
 <li>Use the <em>network</em> directive to configure your local BGP to advertise the entire LAN/WAN subnet range that you were assigned by your group.</li>
 </ul>
-</li>
-<li>Update iptables to enable packet forwarding from your new WireGuard interface.</li>
-</ol>
-<h3 id="pi-dns-resolution"><strong>.Pi DNS Resolution</strong><a class="headerlink" href="#pi-dns-resolution" title="Permanent link">&para;</a></h3>
-<hr />
+<h2 id="firewall-rules-edge-routers">Firewall Rules (Edge Routers)<a class="headerlink" href="#firewall-rules-edge-routers" title="Permanent link">&para;</a></h2>
+<div class="admonition info">
+<p class="admonition-title">Information</p>
+</div>
+<p>Since we are on a lab network, you can simplify troubleshoting by setting the default forwarding policy to <code>accept</code>. Once you are confident that routing works, change the policy back to <code>drop</code> and troubleshoot your rules.</p>
+<p>Ensure that outbound traffic from your internal subnets is permitted.<sup id="fnref:previous-step"><a class="footnote-ref" href="#fn:previous-step">1</a></sup> For simplicity, you may also open up your firewall to traffic arriving from your routing links. </p>
+<p>Since our entire class network is assigned to the 172.30.0.0/16 networks you won't need to make any changes to the current NAT configuration. Likewise, you should continue to use connection state to make sure inbound packets (from wlan0) are dropped when they aren't related to established sessions</p>
+<h3 id="firewall-rules-isp-router">Firewall Rules (ISP Router)<a class="headerlink" href="#firewall-rules-isp-router" title="Permanent link">&para;</a></h3>
+<div class="admonition info">
+<p class="admonition-title">Information</p>
+</div>
+<p>Since we are on a lab network, you can simplify troubleshoting by setting the default forwarding policy to <code>accept</code>. Once you are confident that routing works, change the policy back to <code>drop</code> and troubleshoot your rules.</p>
+<p>In addition to local traffic, your router is responsible for transit between your partners' networks and the rest of the class. To ensure that you don't interfere with this operation, add a rule to allow forwarded traffic originating from any of the routing links that you've configured.</p>
+<p>Since our entire class network is assigned to the 172.30.0.0/16 networks you won't need to make any changes to the current NAT configuration. Likewise, you should continue to use connection state to make sure inbound packets (from wlan0) are dropped when they aren't related to established sessions</p>
+<h2 id="configure-pi-dns-resolution">Configure .Pi DNS Resolution<a class="headerlink" href="#configure-pi-dns-resolution" title="Permanent link">&para;</a></h2>
 <p>We've intentionally set up all of our domains within the non-existent .pi top-level domain and are limiting the resolution of these domains to our class network. By default, our resolvers won't be able to perform queries against other .pi domains since the recursive process depends on relationship between the ICANN root and the top-level domain registries. </p>
 <p>Our TLD is not present in those data stores, so we need to offer it a little help to resolve .pi domains. The work-around we're employing is to have each of your resolvers maintain a copy of the .pi zone so that it can directly discover the authoritative name servers of your peers' domains.</p>
-<p>The primary name server for .pi is running at the 10.10.10.10 address. By adding the following section to your /etc/bind/named.conf.local, your pi will perform a <em>zone transfer</em> with 10.10.10.10 and then periodically refresh based on the settings specified in the SOA for the TLD.</p>
+<p>The primary name server for .pi is running at the 10.10.10.10 address (one member of your group will host a copy). By adding the following section to your /etc/bind/named.conf.local, your pi will perform a <em>zone transfer</em> with 10.10.10.10 and then periodically refresh based on the settings specified in the SOA for the top-level domain.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>zone &quot;pi&quot; IN {
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  type slave;
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  masters { 10.10.10.10; };
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  type secondary;
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  primaries { 10.10.10.10; };
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>};
 </code></pre></div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you've configured separate views for internal and external name resolution, this will be inserted into the internal view.</p>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:previous-step">
+<p>This change is discussed in the LAN portion of the guide.&#160;<a class="footnote-backref" href="#fnref:previous-step" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
 </div>
-<h4 id="override-dns-resolution-on-the-pi">Override DNS resolution on the Pi<a class="headerlink" href="#override-dns-resolution-on-the-pi" title="Permanent link">&para;</a></h4>
-<p>You have likely noticed that when you run a <code>dig</code> query from your Pi, the query will not be sent to the resolver running on your Pi. Instead, by default, these queries are sent to the addresses provided to you by DHCP on your wireless network. This leads to a case where the hosts on your network can resolve .pi domains while the Pi itself cannot.</p>
-<p>We can easily override this behavior by modifying <code>/etc/systemd/network/99-wlan.network</code> to add a the localhost address as a static DNS location. While your Pi will still receive additional addresses from DHCP, your Pi will only use these as a fallback. The updated configuration is shown below. </p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>[Match]
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Name=wlan*
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>[Network]
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>DHCP=yes
-<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>DNS=127.0.0.1
-</code></pre></div>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>You will likely need to reboot your Pi before this new setting is respected.</p>
-</div>
-<h3 id="public-services"><strong>Public Services</strong><a class="headerlink" href="#public-services" title="Permanent link">&para;</a></h3>
-<hr />
-<p>Use systemd-networkd to create and configure a persistent <em>dummy</em> interface on the Pi as described in the attached resources. This interface will represent the "demilitarized-zone" of your network within which you will host your public services. For each service, you will need to set up an IP from your public subnet within the DMZ.</p>
-<p>Follow the instructions provided in the <a href="https://github.com/i314-campbell-sp19/docker-mail">Pi Mail</a> repository to install Docker and configure the SMTP, IMAP, and Rainloop containers to serve email for your domain. Be sure to map each of these servers to a public IP address within your DMZ.</p>
-<p>Set up your Authoritatitive Name Server to listen on a public IP address within your DMZ. Update all records, e.g., MX and webmail, to point to the correct IP addresses based on your final network planning.</p>
-<h4 id="allow-external-dns-queries"><strong>Allow External DNS Queries</strong><a class="headerlink" href="#allow-external-dns-queries" title="Permanent link">&para;</a></h4>
-<p>At this point, we are expecting the Bind9 daemon to perform two different roles, acting as a recursive resolver and as an authoritative name server. While Bind9 is more than capable of performing both tasks, this can be a risky configuration. In particular, our authoritative server has to be open to everyone, but an unrestricted resolver is like a welcome mat for attackers who may attempt cache poisoning attacks and botnets that will use it to amplify DDoS attacks.</p>
-<p>In Checkpoint #4, we took steps to prevent these types of attacks by declaring an access control list (ACL) and using it to restrict which IP addresses are allowed to make recursive queries. The configuration appears in <code>named.conf.options</code> as follows:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>acl goodclients {
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    localhost;
-<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    172.27.2.0/26;
-<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>};
-<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
-<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>options {
-<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    directory &quot;/var/cache/bind&quot;;
-<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
-<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    recursion yes;
-<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    allow-query { goodclients; };
-<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>...
-</code></pre></div>
-<p>In this configuration, your name server won't be able to receive a query outside of your own LAN. With a simple change to the last two lines, we can open up our name server to the outside world while still providing some basic security against misuse.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>    allow-recursion { goodclients; };   // change from `recursion yes;`
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    allow-query { any; };           // change from `{ goodclients; };`
-</code></pre></div>
-<p>Please be aware that we would look for stronger separation between these roles in a real-world scenario. At the very least, we might employ a feature of Bind9 called <em>views</em>. Or we could run multiple instances of Bind9 on separate IP addresses (or entirely separate servers).</p>
-<h3 id="making-improvements-and-extra-credit"><strong>Making Improvements and Extra Credit</strong><a class="headerlink" href="#making-improvements-and-extra-credit" title="Permanent link">&para;</a></h3>
-<hr />
-<ul>
-<li>Add an Anycast route to 10.10.10.10 and host a copy of the .pi top-level-domain</li>
-<li>Configure a private DNS zone, e.g., corp.gradebook.pi, and use BIND views to restrict access to your private zone and the DNS resolver so that it is not available outside of your local LAN.</li>
-<li>Configure policy-based routing to send all of your DNS traffic through the VPN (may be necessary if your ISP is messing with your DNS).</li>
-<li><strong>Carefully</strong> perform hardening of your firewall rules to provide stronger security for your LAN and your router.</li>
-<li>Add a wireless access point to your Edge LANs. The wlan0 port is capable of operating as a software-based access point using the hostapd package in the Debian repositories.</li>
-</ul>
-<h4 id="firewall-rules"><strong>Firewall Rules</strong><a class="headerlink" href="#firewall-rules" title="Permanent link">&para;</a></h4>
-<p><strong>Carefully</strong> perform hardening of your firewall rules to provide stronger security for your LAN and your router.</p>
-<p>Use the forward chain to prevent new connections into your LAN subnet from the routing link. In order for your users to access the rest of the Internet from your, you must still allow related/established connections back into your LAN.</p>
-<p><strong>Carefully</strong> extend your Iptables rules to support a default DROP policy on the INPUT and OUTPUT chains, making sure that you have full utility of all of your private and public services. When experimenting with default policies on the INPUT or OUTPUT chain, you should <em>ALWAYS</em> use the <em>iptables-apply</em> command to test your rules and confirm that you are still able to create new SSH sessions. Make sure that you have written appropriate rules to accept traffic for authorized services, such as DHCP, SSH, and DNS, before changing the policy.</p>
-<h3 id="links-and-resources"><strong>Links and Resources</strong><a class="headerlink" href="#links-and-resources" title="Permanent link">&para;</a></h3>
-<hr />
-<ul>
-<li><a href="https://docs.google.com/spreadsheets/d/1A3uCrVmrwoPdA0LvMH6IyRkU1_BLXhbVRjIadtc__E0/edit?usp=sharing">PICANN Registry</a></li>
-<li><a href="https://github.com/i314-campbell-sp19/docker-mail">Pi Mail</a>: Instructions and docker components needed to configure SMTP, IMAP, and a webmail server on your Pi</li>
-<li><a href="/resources/setup-wireguard">Installing WireGuard</a></li>
-<li><a href="/resources/setup-frr">Installing Free Range Routing (FRR)</a></li>
-<li><a href="/resources/wireguard-configuration">WireGuard Peering</a></li>
-<li><a href="/resources/configure-routing-links">Configure Routing Links</a></li>
-<li><a href="/resources/dummy-interfaces">Configure Dummy Interfaces</a></li>
-</ul>
-<!--
-Each group is required to fulfill the following requirements by building off of previous checkpoints and additional resources.
-
-!!! important "Differences between videos/specifications"
-    As a resource, I have provided videos that walk through various parts of this project. Please note that some of these videos were made in previous quarters. There may be minor differences between current project requirements and what is discussed in the video. It is important that you follow the current written specifications.
-
-
-Perform IP address planning and network renumbering on a group and individual basis based on the address ranges provided by the instructor. 
-
-  - IP address
-      -  assignments can be found in the [PICANN Registry](https://docs.google.com/spreadsheets/d/1Bxp3wKK4W0cgG3RDtyWJg1VPGIyQEE0qn2TV0Y84Gx0/edit?usp=sharing)
-      - Video guide on Authoritative server, external IP, external DNS: [Panapto Recording](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=65c5c73b-5d96-455b-8ee9-aa5e001e40c3)
-      - [Address Planning for Final Project (video)](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=07ea5431-49f2-4022-b209-ab7001454435)
-  - VLANS:
-      - [VLAN and Switch Planning (video)](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=abcfc06f-b904-4cfc-8de9-aa64000aa3a0)
-      - Planning: VLAN and switch planning worksheet
-  - **Your network plans must be documented before requesting implementation assistance from instruction team**
-
-Once you've completed all network planning and documentation you may move on to the following sections.
-
-- Build a “core router” that will function as the ISP for your other networks. In addition to providing connectivity between routers, you will provide public Internet access for the rest of your group. The router will eventually be connected to other groups to form a private in-class Internet.
-    - [Project Topology (video)](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=fc325b42-6bed-4542-8940-ab700140b0c3)
-    - [VLAN and Switch Planning (video)](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=abcfc06f-b904-4cfc-8de9-aa64000aa3a0)
-- Build two or more “edge routers” that will allow your partners to connect to the Internet as customers of the ISP. Each router should serve one or more LAN subnets. In your final configuration, you should rely on the ISP connection for public Internet access, i.e., you won't be connecting the edge routers to public wifi directly except for setup purposes.
-- Using Free Range Routing (FRR), configure BGP peering on the routing links between the ISP routers and customers’ edge routers.
-    - [Setup FRRouting](/resources/setup-frr)
-    - [Install FRR and Unifi Controller (video)](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=abd934e0-9a2b-4c4e-9e76-aa63017e78f0)
-    - [Configure BGP peering](/resources/configure-routing-links)
-    - [FRR and BGP routing configuration (video)](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=b55f0a5f-4dc4-4fee-b8ee-aa64001a1d50)
-- Configure public domains, authoritative servers, and (optionally) email for each of your networks. One router in your group should also host the .pi TLD at 10.10.10.10 (BGP Anycast) via a provided Docker image.
-- **\[ SKIP ME \]** Configure a Ubiquiti Unifi switch based on instructor instructions to support the system topology.
-    - [Setting up VLANs on a Unifi Switch (video)](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=daee7090-819a-4768-83dd-aa630185d228)
-
-### Renumbering IP Addresses
-- A block of IP addresses have been assigned to each group via the [PICANN Registry](https://docs.google.com/spreadsheets/d/1Bxp3wKK4W0cgG3RDtyWJg1VPGIyQEE0qn2TV0Y84Gx0/edit?usp=sharing)
-- Assign a range of addresses to each group member based on this block.
-- Each group member should further subnet their own range into 2 - 4 distinct subnets.
-    - A minimum of two subnets per LAN are needed to meet the base project requirements.
-    - If you would like to experiment with more complex firewall rules and/or setting up a wireless LAN, we recommend four subnets.
-- Use one of your subnets for your internal LAN (providing DHCP and other services to devices accessing through Ethernet). A second subnet should be dedicated to any public-facing services. 
-
-### Core Router Setup
-- Managing network interfaces
-    - Use wlan0 to provide access to the public Internet to your customers (NAT is required)
-    - **\[ORIGINAL\]** Set up tagged VLAN interfaces to connect with each edge router.
-    - **\[UPDATED\]** Set up at least one VLAN interace, as would be required to connect with one of the Edge routers included in your network plan.
-    - See [Setting up VLAN interfaces in Linux (video)](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=984e3939-da15-414a-9af4-aa640010989e).
-- Firewall rules
-    - Our network is private, so use connection state with your forwarding rules to make sure inbound packets (from wlan0) are dropped when they aren't related to established sessions
-    - Within our network, traffic should be routed rather freely. In other words, make sure you aren't dropping packets that are being forwarded from your LAN or one of your partners' routing links.
-- Private LAN
-    - Even though your router's primary role is infrastructure for your group, you should still set up a basic LAN that you'll connect to for management purposes. This should meet the base requirements described for LAN services.
-
-### Edge Network Setup
-- Managing network interfaces
-    - Create a tagged VLAN to connect with the core router. You must coordinate the VLAN ID with the core router and the switch.
-    - See [Setting up VLAN interfaces in Linux (video)](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=984e3939-da15-414a-9af4-aa640010989e).
-- Managing firewall rules
-    - You'll have no need for NAT as long as you set up your LAN inside your allocated IP range (see the previously linked registry)
-    - You may set the default FORWARD policy to ACCEPT to ensure that traffic can be routed between partners.
-
-!!! info "Extra Credit"
-    - Configure the default FORWARD policy to DROP traffic.
-    - You can allow traffic to be forwarded into your network (from wlan0) if it's related to a session your LAN client's initiated
-    - You can allow traffic into your device or network from the other routing links if it is destined to a public-facing service (i.e., Authoritative DNS, SMTP, or Webmail).
-    - Configure DROP policies for the INPUT and OUTPUT chains that manage traffic to/from the router.
-
-### Ubiquiti Switch
-
-#### **\[ SKIP THIS SECTION \]**
-
-See [VLAN and Switch Planning](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=abcfc06f-b904-4cfc-8de9-aa64000aa3a0), [Installing FRR and Ubiquiti Controller](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=abd934e0-9a2b-4c4e-9e76-aa63017e78f0), and [Configuring Unifi Switch](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=daee7090-819a-4768-83dd-aa630185d228).
-
-- Configure a VLAN that each group member shares with their own Pi. Set the VLAN up as native (untagged) for both the Pi and the PC connection to the switch.
-- Set up tagged VLANs for each routing link. Create a profile for the port associated with each of your Pi’s and add the VLANs to the profile according to which connections are available to that Pi.
-- Reserve one port for the connection to the “core network”. This port should be natively associated with the VLAN created for the core routing link.
-
-### LAN Services
-- Configure a DNS resolver (either caching or forwarding) to handle requests outside of your private zone. This was the outcome of Checkpoint &num;4.
-- Configure DHCP services to distribute addresses and configuration within your LAN to end-users ([use the pre-defined address allocations for your group]). This was the outcome of Checkpoint &num;2, though you will need to adjust your address range.
-- **(EXTRA CREDIT OPTION)** Configure a private DNS zone, e.g., corp.gradebook.pi, and use BIND views to restrict access to your private zone and the DNS resolver so that it is not available outside of your local LAN.
-
-### Public Services
-See [Configuring External IP and DNS](https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=65c5c73b-5d96-455b-8ee9-aa5e001e40c3).
-
-- Configure a public DNS zone for each network (ISP + customer networks) and set up records for each of your public services (you may choose to centralize authoritative DNS at the ISP, but each student must configure their own zone file).
-- **\[ SKIP ME \]** (ONE PER GROUP) Host an authoritative DNS slave for the .pi TLD. This server will be hosted publicly on 10.10.10.10 and routed via BGP Anycast. A dockerized container and instructions to deploy are included in the repo linked below.
-- **(EXTRA CREDIT OPTION)** Configure [email](https://github.com/i314-campbell-sp19/docker-mail) for each of your public domains using the provided docker containers.
-
-
-## **Extra Credit**
----
-
-If you're up for the challenge, there are several other ways to earn extra credit toward your final grade by completing the following tasks.
-
-- **(1 pt)** Install and configure the [Pi Mail](https://github.com/i314-campbell-sp19/docker-mail) Docker containers in order to host email on your domain/network.
-    - Extra credit will be given to each student who successfully completes this task.
-- **(1 pt)** Add a wireless access point to your Edge LANs. The wlan0 port is capable of operating as a software-based access point using the hostapd package in the Debian repositories.
-    - At least two group members must complete this configuration. Instructions will be provided.
-- **(2 pt)** Extend your Iptables rules to support a default DROP policy on the INPUT chain, making sure that you have full utility of all of your private and public services.
-    - Apply this configuration to each of your customer networks, adapting for any differences in configuration for that network.
-- **(1 pt)** Extend your IPTables rules to support a default DROP policy on the OUTPUT chain, making sure that you have full utility of all of your private and public services.
-    - Apply this configuration to each of your customer networks, adapting for any differences in configuration for that network.
-- **\[ SKIP ME \]** (1 pt) Perform TCP-based nmap scans of your networks from inside and outside. Summarize the major findings for each network.
-    - You should have 2 scans per Pi. One scanning IP addresses for that team member from inside their LAN and one scanning from a different LAN.
-
-
-## **Important Links**
----
-
-- [PICANN](https://docs.google.com/spreadsheets/d/1Bxp3wKK4W0cgG3RDtyWJg1VPGIyQEE0qn2TV0Y84Gx0/edit?usp=sharing): DNS Registry and IP Reservations
-- **\[ SKIP ME \]** dotPI TLD:  Instructions and docker components needed to load a dockerized BIND on 10.10.10.10 for the .pi TLD
-- [Pi Mail](https://github.com/i314-campbell-sp19/docker-mail): Instructions and docker components needed to configure SMTP, IMAP, and a webmail server on your Pi
--->
 
               
             </article>
@@ -2362,7 +1992,7 @@ If you're up for the challenge, there are several other ways to earn extra credi
         </div>
         
           <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
             Back to top
           </a>
         
@@ -2394,10 +2024,10 @@ If you're up for the challenge, there are several other ways to earn extra credi
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.sections", "content.code.annotate"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.5e67fbfe.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.sections", "content.code.annotate"], "search": "../../assets/javascripts/workers/search.2a1c317c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e87a5f81.min.js"></script>
+      <script src="../../assets/javascripts/bundle.a6c66575.min.js"></script>
       
     
   </body>
