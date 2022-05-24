@@ -2078,15 +2078,15 @@
 <h2 id="firewall-rules-for-edge-routers">Firewall Rules for Edge Routers<a class="headerlink" href="#firewall-rules-for-edge-routers" title="Permanent link">&para;</a></h2>
 <div class="admonition info">
 <p class="admonition-title">Information</p>
-</div>
 <p>Since we are on a lab network, you can simplify troubleshoting by setting the default forwarding policy to <code>accept</code>. Once you are confident that routing works, change the policy back to <code>drop</code> and troubleshoot your rules.</p>
+</div>
 <p>Ensure that outbound traffic from your internal subnets is permitted.<sup id="fnref:previous-step"><a class="footnote-ref" href="#fn:previous-step">1</a></sup> For simplicity, you may also open up your firewall to traffic arriving from your routing links. </p>
 <p>Since our entire class network is assigned to the 172.30.0.0/16 networks you won't need to make any changes to the current NAT configuration. Likewise, you should continue to use connection state to make sure inbound packets (from wlan0) are dropped when they aren't related to established sessions</p>
 <h3 id="firewall-rules-for-isp-routers">Firewall Rules for ISP routers<a class="headerlink" href="#firewall-rules-for-isp-routers" title="Permanent link">&para;</a></h3>
 <div class="admonition info">
 <p class="admonition-title">Information</p>
-</div>
 <p>Since we are on a lab network, you can simplify troubleshoting by setting the default forwarding policy to <code>accept</code>. Once you are confident that routing works, change the policy back to <code>drop</code> and troubleshoot your rules.</p>
+</div>
 <p>In addition to local traffic, your router is responsible for transit between your partners' networks and the rest of the class. To ensure that you don't interfere with this operation, add a rule to allow forwarded traffic originating from any of the routing links that you've configured.</p>
 <p>Since our entire class network is assigned to the 172.30.0.0/16 networks you won't need to make any changes to the current NAT configuration. Likewise, you should continue to use connection state to make sure inbound packets (from wlan0) are dropped when they aren't related to established sessions</p>
 <h2 id="configure-pi-dns-resolution-all-name-servers">Configure .Pi DNS Resolution (all name servers)<a class="headerlink" href="#configure-pi-dns-resolution-all-name-servers" title="Permanent link">&para;</a></h2>

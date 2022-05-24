@@ -2061,7 +2061,7 @@
 </ol>
 </li>
 <li>Use the <code>compute_verify_data()</code> of <em>TLSContext</em> to compute the client-generated <em>Verify Data</em> based on the current handshake transcript. This method is called without arguments and returns a Python bytes object.</li>
-<li>Construct a handshake <em>Finished</em> message using the the computed <em>Verify Data</em>, and return it to the server as an encrypted record. </li>
+<li>Construct a handshake <em>Finished</em> message using the the computed <em>Verify Data</em>, and return it to the server as an encrypted record. This message should not be included in the handshake transcript. </li>
 <li>Finally, use the <code>get_application_cipher()</code> method of <em>TLSContext</em> to generate traffic keys for application data.</li>
 </ol>
 
