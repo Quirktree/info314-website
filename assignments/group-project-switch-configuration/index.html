@@ -873,6 +873,20 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adopt-unifi-switches" class="md-nav__link">
+    Adopt UniFi Switches
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#create-vlans-and-port-profiles" class="md-nav__link">
     Create VLANs and Port Profiles
   </a>
@@ -887,22 +901,16 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#connect-the-switches" class="md-nav__link">
-    Connect the Switches
-  </a>
-  
-    <nav class="md-nav" aria-label="Connect the Switches">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#additional-modifications-for-unifi-flex-mini" class="md-nav__link">
-    Additional Modifications for Unifi Flex Mini
+  <a href="#configure-managment-vlan" class="md-nav__link">
+    Configure Managment VLAN
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#connect-the-switches" class="md-nav__link">
+    Connect the Switches
+  </a>
   
 </li>
       
@@ -1993,6 +2001,20 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adopt-unifi-switches" class="md-nav__link">
+    Adopt UniFi Switches
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#create-vlans-and-port-profiles" class="md-nav__link">
     Create VLANs and Port Profiles
   </a>
@@ -2007,22 +2029,16 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#connect-the-switches" class="md-nav__link">
-    Connect the Switches
-  </a>
-  
-    <nav class="md-nav" aria-label="Connect the Switches">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#additional-modifications-for-unifi-flex-mini" class="md-nav__link">
-    Additional Modifications for Unifi Flex Mini
+  <a href="#configure-managment-vlan" class="md-nav__link">
+    Configure Managment VLAN
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
+      
+        <li class="md-nav__item">
+  <a href="#connect-the-switches" class="md-nav__link">
+    Connect the Switches
+  </a>
   
 </li>
       
@@ -2043,49 +2059,67 @@
 <h1 id="ubiquiti-switch-management">Ubiquiti Switch Management<a class="headerlink" href="#ubiquiti-switch-management" title="Permanent link">&para;</a></h1>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
+<p>Before getting started, ensure that you have completed the VLAN and Switch Planning and addressed any comments provided by the instructor.</p>
 <p><strong>If you're using a Unifi Flex Mini (5-port switch), please ensure that you've adjusted your VLAN plan to avoid assigning any network to VLAN 1.</strong></p>
 </div>
-<p>Follow the instructions provided at <a href="/resources/unifi-installation/">Installing the UniFi Network Application</a><sup id="fnref:unifi-install-video"><a class="footnote-ref" href="#fn:unifi-install-video">1</a></sup> to install the web-based network controller used to manage the Unifi switches.</p>
+<p>Follow the instructions provided at <a href="/resources/unifi-installation/">Installing the UniFi Network Application</a><sup id="fnref:unifi-install-video"><a class="footnote-ref" href="#fn:unifi-install-video">1</a></sup> to install the web-based network controller used to manage the Unifi switches on your laptop.</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<p>Complete the configuration of the physical and tag-based LANs on your Raspberry Pi and then configure the physical network between your laptop, pi, and the two switches that is documented in your Switch and VLAN plan. You won't need your teammates devices at this stage, but it is important that:</p>
+<ul>
+<li>Your laptop and Pi are attached to their assigned switch / ports.</li>
+<li>The switches are connected via ethernet across the two trunk ports</li>
+</ul>
+<p>In this setup, your Pi will serve DHCP addresses to your laptop (running the Unifi controller) and to the pair of switches. All devices will be on the same subnet and the controller will be able to communicate with both switches.</p>
+<h2 id="adopt-unifi-switches">Adopt UniFi Switches<a class="headerlink" href="#adopt-unifi-switches" title="Permanent link">&para;</a></h2>
+<p>Launch the UniFi controller application and open a new browser window to manage the application. Navigate to the <em>UniFi Devices</em> view (represented in the far left colum by a circular icon). The right pane should list two devices labeled as <em>USW-Flex-Mini</em> with a <em>Click to Adopt</em> link in the <em>Status</em> column.</p>
+<p>Click on the first switch. In the configuration pane (appearing on the right side of the browser), verify that your switch has been given an IP address in your LAN and then click <em>Adopt Device</em>. Repeat this process on the second switch and wait for the status to change to <em>Online</em>. </p>
+<p>Once both switches are online, check the overview in the right configuration pane to see a list of attached clients. Use this list of connections to determine which switch is Switch #1 and which is Switch #2. We recommend opening the <em>Settings</em> tab in the device configuration pane and renaming each switch now to minimize confusion later.</p>
 <h2 id="create-vlans-and-port-profiles">Create VLANs and Port Profiles<a class="headerlink" href="#create-vlans-and-port-profiles" title="Permanent link">&para;</a></h2>
-<p>Before getting started, ensure that you have completed the VLAN and Switch Planning and addressed any comments provided by the instructor.</p>
-<ol>
-<li>Open the Unifi Network Application and navigate to Settings / Networks.</li>
-<li>Create one VLAN network for each team member's LAN.</li>
-<li>Create one VLAN network for each routing link identified in your planning documentation, including the links between your ISP/Edge networks and the upstream link reserved for the class.</li>
-<li>Create one VLAN network for your upstream connection to the class.</li>
-<li>Create port profiles associated with each team member's Pi. Set the native VLAN to the team member's LAN and add tagged VLANs to the profile according to which connections are available to that Pi.</li>
-<li>(For 2 or more switches) Create a port profile for the trunk links between your switches. </li>
-</ol>
+<p>Configuration for the switches is done on a port-by-port basis, but before you can do this, you need to define each of your VLANs in the UniFi console and create custom port profiles for ports that require one or more tagged VLANs.<sup id="fnref:flex-mini"><a class="footnote-ref" href="#fn:flex-mini">2</a></sup> To get started, open the UniFi Network Application and navigate to Settings / Networks. </p>
+<p>With the Networks panel open, click on the <em>Create New Network</em> link to begin creating your first VLAN. This will open up a new configuration panel titled <em>New Network</em>. Near the top of the panel, click in the check-box labled <em>VLAN-only Hetwork</em>. For each VLAN you wish to create, you will need to provide a network name and VLAN ID. Once you are done, click on the <em>Add Network</em> button at the bottom of the page. Repeat this process until you've defined the following VLANs:</p>
+<ul>
+<li>A VLAN network for each team member's LAN.</li>
+<li>A VLAN network for each routing link identified in your planning documentation, including the links between your ISP/Edge networks and the upstream link reserved for the class.</li>
+<li>A VLAN network for your upstream connection to the class.</li>
+</ul>
+<p>If you are using a switch that supports custom port profiles, click on the <em>Profiles</em> link in the left-hand side of the settings screen. And scroll to the bottom of the <em>Switch Ports</em> section to click on the <em>Create New Port Profile</em> link. Provide a meaningful name to each profile, and select the networks to associate with the port. For each profile, you may select one native network and any number of tagged networks. Once you are done, click <em>Apply Settings</em> at the bottom of the page. Repeat this process to define the following profiles based on your own planning documentation:</p>
+<ul>
+<li>A profile associated with each team member's Pi, with the native VLAN to the team member's LAN and tagged VLANs for each routing connection available to that Pi.</li>
+<li>If you are connecting 2 or more switches, create an additional port profile for the trunk links between your switches. This profile should included tagged networks for each of the routing links in your planning document and one tagged network associated with the switch management VLAN.</li>
+</ul>
 <h2 id="apply-port-configurations">Apply Port Configurations<a class="headerlink" href="#apply-port-configurations" title="Permanent link">&para;</a></h2>
 <div class="admonition attention">
 <p class="admonition-title">Unifi Flex Mini (5-port switch)</p>
 <p>The Unifi Flex Mini does not support custom port profiles. You may set either assign a native VLAN to a port or enable trunking by applying the <code>all</code> profile. </p>
 </div>
-<p>Open the switch settings and assign an appropriate profile for each switch port. You may want to disconnect from the switch while doing these steps. When configuring a switch online, each change will take effect immediately, possibly impacting your remaining changes.</p>
-<ol>
-<li>LAN access ports (connecting to PC/Macs) should be set to the native VLAN for the team member's LAN</li>
-<li>Router connections (connecting to the Pi's) should be configured to use a custom trunk profile (or the <code>all</code> profile if you are configuring a Flex Mini switch).</li>
-<li>Trunk connections between switches should be configured to use a custom trunk profile (or the <code>all</code> profile if you are configuring a Flex Mini switch).</li>
-<li>The upstream connection to the class network should be set to the native VLAN for the upstream connection.</li>
-</ol>
+<p>The UniFi console allows you to make changes one at a time, with each change taking effect immediately. Since it's possible to get the switch in the state where the controller cannot connect to the internal management interface, we recommend that you disconnect your computer from the switch temporarily while you configure the ports. To get started with the port configuration process, return to the <em>UniFi Devices</em> section of the controller and select one of the switches. Switch to the <em>Ports</em> tab of the configuration pane that opened on the righthand side of the screen and then click on the port number that you wish to configure. Select the appropriate Port Profile, and then click Apply Changes to save your progress. </p>
+<p>Refer to your planning documentation to identify the requirements for each port:</p>
+<ul>
+<li>LAN access ports, used to connect to your PC/Mac and to the uplink for the class, should be set to the native VLAN identified in your documentation. To do so, click on the Port Profile and identify the VLAN by name in the drop down list.</li>
+<li>The routing connections between your Pi's rely on tagged VLANs. If your switch supports custom port profiles, select an appropriate profile by each port. If you're configuring a Flex Mini switch, confirm that each of these ports is set to the <code>all</code> profile.</li>
+<li>Repeat this last step for any ports providing a trunk between switches, applying either a custom port profile or verifying that the ports are set to allow all VLAN tags.</li>
+</ul>
+<h2 id="configure-managment-vlan">Configure Managment VLAN<a class="headerlink" href="#configure-managment-vlan" title="Permanent link">&para;</a></h2>
+<p>By default the management interface for UniFi switches is attached to VLAN 1. Before you reconnect the controller to the switch, update this selection on each switch based on the managment network you selected during planning. Navigate to <em>Unifi Devices</em> and select a device to update. Within Settings/Services, change the management VLAN to the VLAN designated for your LAN. Repeat this step once for each switch.</p>
 <h2 id="connect-the-switches">Connect the Switches<a class="headerlink" href="#connect-the-switches" title="Permanent link">&para;</a></h2>
-<p>In order to apply the configuration changes to your switch(es), connect your trunk between the switches (if applicable) and attach your Pi and your computer (each on their designated ports). Power on the switches and provide a moment for the configuration process to complete. Once this process completes, your switches should appear online in the devices section of the Unifi controller.</p>
-<h3 id="additional-modifications-for-unifi-flex-mini">Additional Modifications for Unifi Flex Mini<a class="headerlink" href="#additional-modifications-for-unifi-flex-mini" title="Permanent link">&para;</a></h3>
-<p>The <code>all</code> profile used for trunking on the Flex Mini is hard-coded to use VLAN 1 as a native VLAN. This means that we won't get full separation of the broadcast domains for our routers, since each one will have a connection on VLAN 1. Of particular concern, the switch management interface defaults to VLAN 1 and is configured over DHCP. </p>
-<p>To resolve this problem, we can implement DHCP guarding on VLAN 1 and update the management network. We recommend that you remain disconnected from the switch before making these changes. </p>
-<ol>
-<li>Open the Unifi Network app and navigate to Settings / Networks. </li>
-<li>Locate the default network (this is VLAN 1), and edit the network settings to enable DHCP guarding:<ol>
-<li>Enter an address outside of your assigned network range (e.g., 192.168.0.1) so that the switch will filter out all DHCP traffic on the VLAN.</li>
-</ol>
-</li>
-<li>Navigate to Devices and select your switch. Within Settings/Services, change the management VLAN to the VLAN designated for your LAN. Repeat this step once for each switch.</li>
-</ol>
+<p>In order to apply the configuration changes to your switch(es), connect your trunk between the switches (if applicable) and attach your Pi and your computer (each on their designated ports). Power on the switches and provide a moment for the configuration process to complete. If your Pi has been set up on the correct VLAN, your switches should appear online again once the reconfiguration process is complete. </p>
+<p>If only one of the switches comes back online, temporarily reconnect your computer to the second switch and allow time for the configuration to apply. After a few moments, restore the connection to the designated port and wait for the switches to come online.</p>
+<!-- ## Additional Modification for Unifi Flex Mini
+
+The `all` profile used for trunking on the Flex Mini is hard-coded to use VLAN 1 as a native VLAN. This means that we won't get full separation of the broadcast domains for our routers, since each one will have a connection on VLAN 1. To prevent any issues related to this, we can implement DHCP guarding on the default network.
+
+Before you make this change, ensure that your device is connected back to the switches and that both switches are online. Settings / Networks and edit the network labeled _Default_. Under _Advanced Configuration_ switch from Auto to Manual and select the 
+
+Enter an address outside of your assigned network range (e.g., 192.168.0.1) so that the switch will filter out all DHCP traffic on the VLAN. -->
+
 <div class="footnote">
 <hr />
 <ol>
 <li id="fn:unifi-install-video">
 <p>See also <a href="https://uw.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=68fb478a-949a-4f7f-aa6a-ae9b00006c51">Installing Unifi Network Application (video)</a>&#160;<a class="footnote-backref" href="#fnref:unifi-install-video" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:flex-mini">
+<p>The 5-port UniFi Flex Mini switches do not support custom port profiles. You can still create the profiles in the UniFi controller, but you won't be able to apply them in the next step.&#160;<a class="footnote-backref" href="#fnref:flex-mini" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>
