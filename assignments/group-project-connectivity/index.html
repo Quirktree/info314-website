@@ -2067,12 +2067,14 @@
 <h2 id="configure-routing-links">Configure Routing Links<a class="headerlink" href="#configure-routing-links" title="Permanent link">&para;</a></h2>
 <ol>
 <li>Follow <a href="/resources/setup-frr/">Getting Started with Free Range Routing (FRR) on Raspberry Pi OS</a> to install FRR and perform the initial configuration. </li>
-<li>Using the instructions provided in <a href="/resources/configure-routing-links/">Configure a Routing Link for BGP Peers</a>, perform the following tasks needed to configure BGP:</li>
+<li>Using the instructions provided in <a href="/resources/configure-routing-links/">Configure a Routing Link for BGP Peers</a>, perform the following tasks needed to configure BGP:<ol>
 <li>Assign the router ID to the loopback interface</li>
 <li>Create and configure VLAN interfaces for "unnumbered" routing links</li>
 <li>Configure a BGP router using your router ID and ASN</li>
 <li>Use the <em>neighbor</em> directive to establish "unnumbered" ethernet peers over each routing link</li>
 <li>Use the <em>network</em> directive to advertise the full LAN/WAN address range you've been assigned.</li>
+</ol>
+</li>
 <li>Save your configuration.</li>
 </ol>
 <h2 id="firewall-rules-for-edge-routers">Firewall Rules for Edge Routers<a class="headerlink" href="#firewall-rules-for-edge-routers" title="Permanent link">&para;</a></h2>
