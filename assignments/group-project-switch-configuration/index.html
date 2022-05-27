@@ -884,7 +884,14 @@
     Apply Port Configurations
   </a>
   
-    <nav class="md-nav" aria-label="Apply Port Configurations">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connect-the-switches" class="md-nav__link">
+    Connect the Switches
+  </a>
+  
+    <nav class="md-nav" aria-label="Connect the Switches">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -896,13 +903,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#connect-the-switches" class="md-nav__link">
-    Connect the Switches
-  </a>
   
 </li>
       
@@ -2004,7 +2004,14 @@
     Apply Port Configurations
   </a>
   
-    <nav class="md-nav" aria-label="Apply Port Configurations">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connect-the-switches" class="md-nav__link">
+    Connect the Switches
+  </a>
+  
+    <nav class="md-nav" aria-label="Connect the Switches">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2016,13 +2023,6 @@
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#connect-the-switches" class="md-nav__link">
-    Connect the Switches
-  </a>
   
 </li>
       
@@ -2067,6 +2067,8 @@
 <li>Trunk connections between switches should be configured to use a custom trunk profile (or the <code>all</code> profile if you are configuring a Flex Mini switch).</li>
 <li>The upstream connection to the class network should be set to the native VLAN for the upstream connection.</li>
 </ol>
+<h2 id="connect-the-switches">Connect the Switches<a class="headerlink" href="#connect-the-switches" title="Permanent link">&para;</a></h2>
+<p>In order to apply the configuration changes to your switch(es), connect your trunk between the switches (if applicable) and attach your Pi and your computer (each on their designated ports). Power on the switches and provide a moment for the configuration process to complete. Once this process completes, your switches should appear online in the devices section of the Unifi controller.</p>
 <h3 id="additional-modifications-for-unifi-flex-mini">Additional Modifications for Unifi Flex Mini<a class="headerlink" href="#additional-modifications-for-unifi-flex-mini" title="Permanent link">&para;</a></h3>
 <p>The <code>all</code> profile used for trunking on the Flex Mini is hard-coded to use VLAN 1 as a native VLAN. This means that we won't get full separation of the broadcast domains for our routers, since each one will have a connection on VLAN 1. Of particular concern, the switch management interface defaults to VLAN 1 and is configured over DHCP. </p>
 <p>To resolve this problem, we can implement DHCP guarding on VLAN 1 and update the management network. We recommend that you remain disconnected from the switch before making these changes. </p>
@@ -2078,8 +2080,6 @@
 </li>
 <li>Navigate to Devices and select your switch. Within Settings/Services, change the management VLAN to the VLAN designated for your LAN. Repeat this step once for each switch.</li>
 </ol>
-<h2 id="connect-the-switches">Connect the Switches<a class="headerlink" href="#connect-the-switches" title="Permanent link">&para;</a></h2>
-<p>In order to apply the configuration changes to your switch(es), connect your trunk between the switches (if applicable) and attach your Pi and your computer (each on their designated ports). Power on the switches and provide a moment for the configuration process to complete. Once this process completes, your switches should appear online in the devices section of the Unifi controller.</p>
 <div class="footnote">
 <hr />
 <ol>
