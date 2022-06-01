@@ -2299,24 +2299,28 @@
 <li>Issue one or more <code>neighbor</code> statements, specifying either the interface (for unnumbered links) or the remote peer's address for other links.</li>
 <li>Issue one or more <code>network</code> statements, enabling FRR to advertise routes associated with the given prefix.</li>
 </ol>
-<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Standard peer configuration (works w/ Wireguard)</label><label for="__tabbed_2_2">Unnumbered peer configuration (Ethernet-only)</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Unnumbered peer configuration (Ethernet-only)</label><label for="__tabbed_2_2">Standard peer configuration (works w/ Wireguard)</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>configure terminal
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>router bgp 65009
 <a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>bgp router-id 172.27.2.128
-<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>neighbor 10.99.0.2 remote-as 65000
-<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>network 172.27.2.0/24
-<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>quit
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>no bgp ebgp-requires-policy
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>no bgp network import-check
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>neighbor vlan10 interface remote-as external
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>network 172.27.2.0/24
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>quit
 </code></pre></div>
 </div>
 <div class="tabbed-block">
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>configure terminal
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>router bgp 65009
 <a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>bgp router-id 172.27.2.128
-<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>neighbor vlan10 interface remote-as external
-<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>network 172.27.2.0/24
-<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>quit
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>no bgp ebgp-requires-policy
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>no bgp network import-check
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>neighbor 10.99.0.2 remote-as 65000
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>network 172.27.2.0/24
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>quit
 </code></pre></div>
 </div>
 </div>
