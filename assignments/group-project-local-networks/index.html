@@ -2205,10 +2205,10 @@
 <p><em>Drop-ins</em> are a systemd configuration pattern that is used to override default behavior. Each service has its own drop-in configuration directory. If the standard location for a service doesn't already exist, administrators can enable the feature by creating the directory and additional <em>.conf</em> files.</p>
 <p>Run <code>mkdir -p /etc/systemd/resolved.conf.d</code> to create the drop-in configuration directory for the systemd-resolved resolver. Add a new configuration to this location containing the following settings (adapted to your own network).</p>
 <div class="highlight"><span class="filename">/etc/systemd/resolved.conf.d/override_dns.conf</span><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">[Resolve]</span><span class="w"></span>
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="na">DNS</span><span class="o">=</span><span class="s">172.30.0.129 # resolver address</span><span class="w"></span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="na">DNS</span><span class="o">=</span><span class="s">127.0.0.1 # resolve via localhost</span><span class="w"></span>
 <a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="na">Domains</span><span class="o">=</span><span class="s">lan.gradebook.pi # private domain name</span><span class="w"></span>
 </code></pre></div>
-<p>Restart the <code>systemd-resolved</code> service and verify that the new settings appear in /etc/resolv.conf. You may notice other resolver addresses, but yours should appear first in the list. The file should end with a <code>Search</code> statement pointing to your private domain name.</p>
+<p>Restart the <code>systemd-resolved</code> service and verify that the new settings appear in /etc/resolv.conf. You may notice other resolver addresses, but the localhost address should appear first in the list. The file should end with a <code>Search</code> statement pointing to your private domain name.</p>
 <div class="footnote">
 <hr />
 <ol>
